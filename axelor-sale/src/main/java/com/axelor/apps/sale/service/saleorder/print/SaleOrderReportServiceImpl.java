@@ -17,6 +17,12 @@
  */
 package com.axelor.apps.sale.service.saleorder.print;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
 import com.axelor.apps.base.db.BankAddress;
 import com.axelor.apps.base.db.BankDetails;
 import com.axelor.apps.base.db.Company;
@@ -25,6 +31,7 @@ import com.axelor.apps.base.db.Partner;
 import com.axelor.apps.base.db.PrintingSettings;
 import com.axelor.apps.base.db.Product;
 import com.axelor.apps.base.db.repo.AppBaseRepository;
+import com.axelor.apps.base.service.print.ReportTool;
 import com.axelor.apps.sale.db.CustomerCatalog;
 import com.axelor.apps.sale.db.SaleConfig;
 import com.axelor.apps.sale.db.SaleOrder;
@@ -35,18 +42,9 @@ import com.axelor.apps.sale.db.repo.SaleOrderRepository;
 import com.axelor.apps.tool.date.DateTool;
 import com.axelor.auth.db.User;
 import com.axelor.common.ObjectUtils;
-import com.axelor.db.mapper.Mapper;
-import com.axelor.db.mapper.Property;
 import com.axelor.inject.Beans;
 import com.axelor.meta.db.MetaFile;
 import com.google.common.collect.Lists;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import org.apache.commons.collections.CollectionUtils;
 
 public class SaleOrderReportServiceImpl implements SaleOrderReportService {
 
@@ -110,7 +108,7 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
 
         Product product = saleOrderLine.getProduct();
         if (ObjectUtils.notEmpty(product)) {
-          saleOrderLineDataMap.putAll(getMap(product, productList));
+          saleOrderLineDataMap.putAll(ReportTool.getMap(product, productList));
           if (ObjectUtils.notEmpty(product.getPicture())) {
             saleOrderLineDataMap.put("productPicture", product.getPicture().getFilePath());
           }
@@ -149,7 +147,7 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
   protected Map<String, Object> setOrderLineSaleOrderDataMap(SaleOrder saleOrder) {
     List<String> fieldsList = new ArrayList<>();
     fieldsList.add("inAti");
-    return getMap(saleOrder, fieldsList);
+    return ReportTool.getMap(saleOrder, fieldsList);
   }
 
   protected Map<String, Object> setOrderLineSaleOrderLineDataMap(SaleOrderLine saleOrderLine) {
@@ -164,7 +162,7 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
     fieldsList.add("priceDiscounted");
     fieldsList.add("showTotal");
     fieldsList.add("hideUnitAmounts");
-    return getMap(saleOrderLine, fieldsList);
+    return ReportTool.getMap(saleOrderLine, fieldsList);
   }
 
   protected Map<String, Object> setOrderLineCustomerCatalogDataMap(
@@ -172,7 +170,7 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
     List<String> fieldsList = new ArrayList<>();
     fieldsList.add("productCustomerCode");
     fieldsList.add("productCustomerName");
-    return getMap(customerCatalog, fieldsList);
+    return ReportTool.getMap(customerCatalog, fieldsList);
   }
 
   @Override
@@ -197,7 +195,7 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
     List<String> fieldsList = new ArrayList<>();
     fieldsList.add("exTaxBase");
     fieldsList.add("taxTotal");
-    return getMap(saleOrderLineTax, fieldsList);
+    return ReportTool.getMap(saleOrderLineTax, fieldsList);
   }
 
   @Override
@@ -249,7 +247,7 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
       fieldsList.add("displayEstimDelivDateOnPrinting");
       fieldsList.add("displayCustomerCodeOnPrinting");
       fieldsList.add("displayProductPictureOnPrinting");
-      dataMap.putAll(getMap(saleConfig, fieldsList));
+      dataMap.putAll(ReportTool.getMap(saleConfig, fieldsList));
     }
 
     MetaFile companyLogo = company.getLogo();
@@ -334,25 +332,11 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
     fieldsList.add("subscriptionText");
     fieldsList.add("inAti");
     fieldsList.add("proformaComments");
-    return getMap(saleOrder, fieldsList);
+    return ReportTool.getMap(saleOrder, fieldsList);
   }
 
   @Override
   public int getAppBase() {
     return Beans.get(AppBaseRepository.class).all().fetchOne().getNbDecimalDigitForUnitPrice();
-  }
-
-  public static Map<String, Object> getMap(Object model, List<String> fieldsList) {
-    if (model == null) {
-      return null;
-    }
-    final Map<String, Object> map = new HashMap<>();
-    final Mapper mapper = Mapper.of(model.getClass());
-    for (Property p : mapper.getProperties()) {
-      if (fieldsList.contains(p.getName()) && ObjectUtils.notEmpty(p.get(model))) {
-        map.put(p.getName(), p.get(model));
-      }
-    }
-    return map;
   }
 }
