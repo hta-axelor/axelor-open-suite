@@ -42,7 +42,6 @@ import com.axelor.meta.db.MetaFile;
 import com.google.common.collect.Lists;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,6 +57,9 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
   @Override
   public List<Map<String, Object>> getSaleOrderLineData(Long saleOrderId) {
     SaleOrder saleOrder = Beans.get(SaleOrderRepository.class).find(saleOrderId);
+    List<String> productList = new ArrayList<>();
+    productList.add("productCode");
+    productList.add("productTypeSelect");
 
     List<Map<String, Object>> dataMapList = new ArrayList<>();
     Map<String, Object> saleOrderDataMap = setOrderLineSaleOrderDataMap(saleOrder);
@@ -108,7 +110,7 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
 
         Product product = saleOrderLine.getProduct();
         if (ObjectUtils.notEmpty(product)) {
-          saleOrderLineDataMap.putAll(getMap(product, "productCode", "productTypeSelect"));
+          saleOrderLineDataMap.putAll(getMap(product, productList));
           if (ObjectUtils.notEmpty(product.getPicture())) {
             saleOrderLineDataMap.put("productPicture", product.getPicture().getFilePath());
           }
@@ -145,27 +147,32 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
   }
 
   protected Map<String, Object> setOrderLineSaleOrderDataMap(SaleOrder saleOrder) {
-    return getMap(saleOrder, "inAti");
+    List<String> fieldsList = new ArrayList<>();
+    fieldsList.add("inAti");
+    return getMap(saleOrder, fieldsList);
   }
 
   protected Map<String, Object> setOrderLineSaleOrderLineDataMap(SaleOrderLine saleOrderLine) {
-    return getMap(
-        saleOrderLine,
-        "id",
-        "description",
-        "quantity",
-        "productName",
-        "exTaxTotal",
-        "inTaxTotal",
-        "sequence",
-        "priceDiscounted",
-        "showTotal",
-        "hideUnitAmounts");
+    List<String> fieldsList = new ArrayList<>();
+    fieldsList.add("id");
+    fieldsList.add("description");
+    fieldsList.add("quantity");
+    fieldsList.add("productName");
+    fieldsList.add("exTaxTotal");
+    fieldsList.add("inTaxTotal");
+    fieldsList.add("sequence");
+    fieldsList.add("priceDiscounted");
+    fieldsList.add("showTotal");
+    fieldsList.add("hideUnitAmounts");
+    return getMap(saleOrderLine, fieldsList);
   }
 
   protected Map<String, Object> setOrderLineCustomerCatalogDataMap(
       CustomerCatalog customerCatalog) {
-    return getMap(customerCatalog, "productCustomerCode", "productCustomerName");
+    List<String> fieldsList = new ArrayList<>();
+    fieldsList.add("productCustomerCode");
+    fieldsList.add("productCustomerName");
+    return getMap(customerCatalog, fieldsList);
   }
 
   @Override
@@ -187,7 +194,10 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
   }
 
   protected Map<String, Object> setSaleOrderLineTaxDataMap(SaleOrderLineTax saleOrderLineTax) {
-    return getMap(saleOrderLineTax, "exTaxBase", "taxTotal");
+    List<String> fieldsList = new ArrayList<>();
+    fieldsList.add("exTaxBase");
+    fieldsList.add("taxTotal");
+    return getMap(saleOrderLineTax, fieldsList);
   }
 
   @Override
@@ -229,18 +239,17 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
 
     SaleConfig saleConfig = company.getSaleConfig();
     if (ObjectUtils.notEmpty(saleConfig)) {
-      dataMap.putAll(
-          getMap(
-              saleConfig,
-              "displaySalemanOnPrinting",
-              "saleOrderClientBox",
-              "saleOrderLegalNote",
-              "displayDelCondOnPrinting",
-              "displayProductCodeOnPrinting",
-              "displayTaxDetailOnPrinting",
-              "displayEstimDelivDateOnPrinting",
-              "displayCustomerCodeOnPrinting",
-              "displayProductPictureOnPrinting"));
+      List<String> fieldsList = new ArrayList<>();
+      fieldsList.add("displaySalemanOnPrinting");
+      fieldsList.add("saleOrderClientBox");
+      fieldsList.add("saleOrderLegalNote");
+      fieldsList.add("displayDelCondOnPrinting");
+      fieldsList.add("displayProductCodeOnPrinting");
+      fieldsList.add("displayTaxDetailOnPrinting");
+      fieldsList.add("displayEstimDelivDateOnPrinting");
+      fieldsList.add("displayCustomerCodeOnPrinting");
+      fieldsList.add("displayProductPictureOnPrinting");
+      dataMap.putAll(getMap(saleConfig, fieldsList));
     }
 
     MetaFile companyLogo = company.getLogo();
@@ -306,27 +315,26 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
   }
 
   protected Map<String, Object> setSaleOrderDataMap(SaleOrder saleOrder) {
-    return getMap(
-        saleOrder,
-        "id",
-        "saleOrderSeq",
-        "invoicingAddress",
-        "deliveryAddress",
-        "exTaxTotal",
-        "taxTotal",
-        "inTaxTotal",
-        "externalReference",
-        "description",
-        "deliveryCondition",
-        "hideDiscount",
-        "statusSelect",
-        "specificNotes",
-        "versionNumber",
-        "periodicityTypeSelect",
-        "numberOfPeriods",
-        "subscriptionText",
-        "inAti",
-        "proformaComments");
+    List<String> fieldsList = new ArrayList<>();
+    fieldsList.add("id");
+    fieldsList.add("saleOrderSeq");
+    fieldsList.add("invoicingAddress");
+    fieldsList.add("deliveryAddress");
+    fieldsList.add("exTaxTotal");
+    fieldsList.add("taxTotal");
+    fieldsList.add("inTaxTotal");
+    fieldsList.add("externalReference");
+    fieldsList.add("description");
+    fieldsList.add("deliveryCondition");
+    fieldsList.add("hideDiscount");
+    fieldsList.add("statusSelect");
+    fieldsList.add("versionNumber");
+    fieldsList.add("periodicityTypeSelect");
+    fieldsList.add("numberOfPeriods");
+    fieldsList.add("subscriptionText");
+    fieldsList.add("inAti");
+    fieldsList.add("proformaComments");
+    return getMap(saleOrder, fieldsList);
   }
 
   @Override
@@ -334,13 +342,12 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
     return Beans.get(AppBaseRepository.class).all().fetchOne().getNbDecimalDigitForUnitPrice();
   }
 
-  public static Map<String, Object> getMap(Object model, String... fields) {
+  public static Map<String, Object> getMap(Object model, List<String> fieldsList) {
     if (model == null) {
       return null;
     }
     final Map<String, Object> map = new HashMap<>();
     final Mapper mapper = Mapper.of(model.getClass());
-    List<String> fieldsList = Arrays.asList(fields);
     for (Property p : mapper.getProperties()) {
       if (fieldsList.contains(p.getName()) && ObjectUtils.notEmpty(p.get(model))) {
         map.put(p.getName(), p.get(model));
