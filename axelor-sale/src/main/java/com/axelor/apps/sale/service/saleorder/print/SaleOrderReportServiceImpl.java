@@ -193,104 +193,86 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
   @Override
   public List<Map<String, Object>> getSaleOrderData(Long saleOrderId) {
     SaleOrder saleOrder = Beans.get(SaleOrderRepository.class).find(saleOrderId);
-    Map<String, Object> dataMap = new HashMap<>();
-
-    dataMap.put("id", saleOrderId);
-    dataMap.put("saleOrderSeq", saleOrder.getSaleOrderSeq());
-    dataMap.put("invoicingAddress", saleOrder.getMainInvoicingAddressStr());
-    dataMap.put("deliveryAddress", saleOrder.getDeliveryAddressStr());
-    dataMap.put("ex_tax_total", saleOrder.getExTaxTotal());
-    dataMap.put("tax_total", saleOrder.getTaxTotal());
-    dataMap.put("in_tax_total", saleOrder.getInTaxTotal());
-    dataMap.put("external_reference", saleOrder.getExternalReference());
-    dataMap.put("description", saleOrder.getDescription());
-    dataMap.put("deliveryCondition", saleOrder.getDeliveryCondition());
-    dataMap.put("hideDiscount", saleOrder.getHideDiscount());
-    dataMap.put("status_select", saleOrder.getStatusSelect());
-    dataMap.put("specific_notes", saleOrder.getSpecificNotes());
-    dataMap.put("versionNumber", saleOrder.getVersionNumber());
-    dataMap.put("periodicity_type_select", saleOrder.getPeriodicityTypeSelect());
-    dataMap.put("number_of_periods", saleOrder.getNumberOfPeriods());
-    dataMap.put("subscription_text", saleOrder.getSubscriptionText());
-    dataMap.put("in_ati", saleOrder.getInAti());
-    dataMap.put("proforma_comments", saleOrder.getProformaComments());
+    Map<String, Object> dataMap = setSaleOrderDataMap(saleOrder);
 
     if (ObjectUtils.notEmpty(saleOrder.getCreationDate())) {
-      dataMap.put("CreationDate", DateTool.toDate(saleOrder.getCreationDate()));
+      dataMap.put("creationDate", DateTool.toDate(saleOrder.getCreationDate()));
     }
     if (ObjectUtils.notEmpty(saleOrder.getDeliveryDate())) {
       dataMap.put("deliveryDate", DateTool.toDate(saleOrder.getDeliveryDate()));
     }
     if (ObjectUtils.notEmpty(saleOrder.getEndOfValidityDate())) {
-      dataMap.put("end_of_validity_date", DateTool.toDate(saleOrder.getEndOfValidityDate()));
+      dataMap.put("endOfValidityDate", DateTool.toDate(saleOrder.getEndOfValidityDate()));
     }
 
     User salespersonUser = saleOrder.getSalespersonUser();
     if (ObjectUtils.notEmpty(salespersonUser)) {
       if (ObjectUtils.notEmpty(salespersonUser.getElectronicSignature())) {
         dataMap.put(
-            "salesperson_signature_path", salespersonUser.getElectronicSignature().getFilePath());
+            "salespersonSignaturePath", salespersonUser.getElectronicSignature().getFilePath());
       }
       Partner salesmanPartner = salespersonUser.getPartner();
       if (ObjectUtils.notEmpty(salesmanPartner)) {
         dataMap.put(
-            "SalemanName", salesmanPartner.getName() + " " + salesmanPartner.getFirstName());
-        dataMap.put("SalemanPhone", salesmanPartner.getFixedPhone());
+            "salemanName", salesmanPartner.getName() + " " + salesmanPartner.getFirstName());
+        dataMap.put("salemanPhone", salesmanPartner.getFixedPhone());
         if (ObjectUtils.notEmpty(salesmanPartner.getEmailAddress())) {
-          dataMap.put("SalemanEmail", salesmanPartner.getEmailAddress().getAddress());
+          dataMap.put("salemanEmail", salesmanPartner.getEmailAddress().getAddress());
         }
       }
     }
 
     Company company = saleOrder.getCompany();
-    dataMap.put("CompanyName", company.getName());
-    dataMap.put("logo_height", company.getHeight());
-    dataMap.put("logo_width", company.getWidth());
+    dataMap.put("companyName", company.getName());
+    dataMap.put("logoHeight", company.getHeight());
+    dataMap.put("logoWidth", company.getWidth());
+
     SaleConfig saleConfig = company.getSaleConfig();
     if (ObjectUtils.notEmpty(saleConfig)) {
-      dataMap.put("DisplaySaleman", saleConfig.getDisplaySalemanOnPrinting());
-      dataMap.put("ClientBox", saleConfig.getSaleOrderClientBox());
-      dataMap.put("LegalNote", saleConfig.getSaleOrderLegalNote());
-      dataMap.put("DisplayDeliveryCondition", saleConfig.getDisplayDelCondOnPrinting());
-      dataMap.put("displayProductCodeOnPrinting", saleConfig.getDisplayProductCodeOnPrinting());
-      dataMap.put("displayTaxDetailOnPrinting", saleConfig.getDisplayTaxDetailOnPrinting());
-      dataMap.put(
-          "displayEstimDelivDateOnPrinting", saleConfig.getDisplayEstimDelivDateOnPrinting());
-      dataMap.put("displayCustomerCodeOnPrinting", saleConfig.getDisplayCustomerCodeOnPrinting());
-      dataMap.put(
-          "displayProductPictureOnPrinting", saleConfig.getDisplayProductPictureOnPrinting());
+      dataMap.putAll(
+          getMap(
+              saleConfig,
+              "displaySalemanOnPrinting",
+              "saleOrderClientBox",
+              "saleOrderLegalNote",
+              "displayDelCondOnPrinting",
+              "displayProductCodeOnPrinting",
+              "displayTaxDetailOnPrinting",
+              "displayEstimDelivDateOnPrinting",
+              "displayCustomerCodeOnPrinting",
+              "displayProductPictureOnPrinting"));
     }
 
     MetaFile companyLogo = company.getLogo();
     if (ObjectUtils.notEmpty(saleOrder.getTradingName())) {
       MetaFile tradingLogo = saleOrder.getTradingName().getLogo();
       if (ObjectUtils.notEmpty(tradingLogo)) {
-        dataMap.put("logo_path", tradingLogo.getFilePath());
+        dataMap.put("logoPath", tradingLogo.getFilePath());
       }
     } else if (ObjectUtils.notEmpty(companyLogo)) {
-      dataMap.put("logo_path", companyLogo.getFilePath());
+      dataMap.put("logoPath", companyLogo.getFilePath());
     }
 
     Partner clientPartner = saleOrder.getClientPartner();
-    dataMap.put("CustomerCode", clientPartner.getPartnerSeq());
-    dataMap.put("partner_type_select", clientPartner.getPartnerSeq());
-    dataMap.put("ClientPartName", clientPartner.getName());
-    dataMap.put("ClientPartFirstName", clientPartner.getFirstName());
-    dataMap.put("ClientTitle", clientPartner.getTitleSelect());
+    dataMap.put("customerCode", clientPartner.getPartnerSeq());
+    dataMap.put("partnerTypeSelect", clientPartner.getPartnerTypeSelect());
+    dataMap.put("clientPartName", clientPartner.getName());
+    dataMap.put("clientPartFirstName", clientPartner.getFirstName());
+    dataMap.put("clientTitle", clientPartner.getTitleSelect());
 
     Partner contactPartner = saleOrder.getContactPartner();
     if (ObjectUtils.notEmpty(contactPartner)) {
-      dataMap.put("ContactName", contactPartner.getName());
-      dataMap.put("ContactFirstName", contactPartner.getFirstName());
+      dataMap.put("contactName", contactPartner.getName());
+      dataMap.put("contactFirstName", contactPartner.getFirstName());
     }
 
     if (ObjectUtils.notEmpty(saleOrder.getMainInvoicingAddress())) {
       Country invoicingCountry = saleOrder.getMainInvoicingAddress().getAddressL7Country();
-      dataMap.put("invoicecountry", invoicingCountry.getName());
+      dataMap.put("invoiceCountry", invoicingCountry.getName());
     }
     if (ObjectUtils.notEmpty(saleOrder.getDeliveryAddress())) {
       Country deliveryCountry = saleOrder.getDeliveryAddress().getAddressL7Country();
-      dataMap.put("DeliveryCountry", deliveryCountry.getName());
+      dataMap.put("deliveryCountry", deliveryCountry.getName());
     }
 
     BankDetails bankDetails = saleOrder.getCompanyBankDetails();
@@ -299,13 +281,13 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
       BankAddress bankAddress = bankDetails.getBankAddress();
       if (ObjectUtils.notEmpty(bankAddress)) {
         if (ObjectUtils.notEmpty(bankAddress.getAddress())) {
-          dataMap.put("bank_address", bankAddress.getAddress());
+          dataMap.put("bankAddress", bankAddress.getAddress());
         }
       }
       dataMap.put("bic", bankDetails.getBank().getCode());
     }
 
-    dataMap.put("CurrencyCode", saleOrder.getCurrency().getCode());
+    dataMap.put("currencyCode", saleOrder.getCurrency().getCode());
 
     PrintingSettings printingSettings =
         ObjectUtils.notEmpty(saleOrder.getPrintingSettings())
@@ -321,6 +303,30 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
       dataMap.put("durationName", saleOrder.getDuration().getName());
     }
     return Lists.newArrayList(dataMap);
+  }
+
+  protected Map<String, Object> setSaleOrderDataMap(SaleOrder saleOrder) {
+    return getMap(
+        saleOrder,
+        "id",
+        "saleOrderSeq",
+        "invoicingAddress",
+        "deliveryAddress",
+        "exTaxTotal",
+        "taxTotal",
+        "inTaxTotal",
+        "externalReference",
+        "description",
+        "deliveryCondition",
+        "hideDiscount",
+        "statusSelect",
+        "specificNotes",
+        "versionNumber",
+        "periodicityTypeSelect",
+        "numberOfPeriods",
+        "subscriptionText",
+        "inAti",
+        "proformaComments");
   }
 
   @Override

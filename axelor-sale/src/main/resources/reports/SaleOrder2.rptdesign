@@ -623,7 +623,7 @@ return false;]]></method>
                 </structure>
                 <structure>
                     <property name="position">3</property>
-                    <property name="name">CreationDate</property>
+                    <property name="name">creationDate</property>
                     <property name="dataType">date</property>
                 </structure>
                 <structure>
@@ -638,22 +638,22 @@ return false;]]></method>
                 </structure>
                 <structure>
                     <property name="position">6</property>
-                    <property name="name">ex_tax_total</property>
+                    <property name="name">exTaxTotal</property>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
                     <property name="position">7</property>
-                    <property name="name">tax_total</property>
+                    <property name="name">taxTotal</property>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
                     <property name="position">8</property>
-                    <property name="name">in_tax_total</property>
+                    <property name="name">inTaxTotal</property>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
                     <property name="position">9</property>
-                    <property name="name">external_reference</property>
+                    <property name="name">externalReference</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -678,7 +678,7 @@ return false;]]></method>
                 </structure>
                 <structure>
                     <property name="position">14</property>
-                    <property name="name">status_select</property>
+                    <property name="name">statusSelect</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
@@ -693,32 +693,32 @@ return false;]]></method>
                 </structure>
                 <structure>
                     <property name="position">17</property>
-                    <property name="name">periodicity_type_select</property>
+                    <property name="name">periodicityTypeSelect</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">18</property>
-                    <property name="name">number_of_periods</property>
+                    <property name="name">numberOfPeriods</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">19</property>
-                    <property name="name">subscription_text</property>
+                    <property name="name">subscriptionText</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">20</property>
-                    <property name="name">end_of_validity_date</property>
+                    <property name="name">endOfValidityDate</property>
                     <property name="dataType">date</property>
                 </structure>
                 <structure>
                     <property name="position">21</property>
-                    <property name="name">in_ati</property>
+                    <property name="name">inAti</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">22</property>
-                    <property name="name">proforma_comments</property>
+                    <property name="name">proformaComments</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -728,32 +728,32 @@ return false;]]></method>
                 </structure>
                 <structure>
                     <property name="position">24</property>
-                    <property name="name">SalemanName</property>
+                    <property name="name">salemanName</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">25</property>
-                    <property name="name">SalemanPhone</property>
+                    <property name="name">salemanPhone</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">26</property>
-                    <property name="name">SalemanEmail</property>
+                    <property name="name">salemanEmail</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">27</property>
-                    <property name="name">CompanyName</property>
+                    <property name="name">companyName</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">28</property>
-                    <property name="name">logo_height</property>
+                    <property name="name">logoHeight</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">29</property>
-                    <property name="name">logo_width</property>
+                    <property name="name">logoWidth</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
@@ -763,17 +763,17 @@ return false;]]></method>
                 </structure>
                 <structure>
                     <property name="position">31</property>
-                    <property name="name">ClientBox</property>
+                    <property name="name">saleOrderClientBox</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">32</property>
-                    <property name="name">LegalNote</property>
+                    <property name="name">saleOrderLegalNote</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">33</property>
-                    <property name="name">DisplayDeliveryCondition</property>
+                    <property name="name">displayDelCondOnPrinting</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
@@ -803,42 +803,42 @@ return false;]]></method>
                 </structure>
                 <structure>
                     <property name="position">39</property>
-                    <property name="name">logo_path</property>
+                    <property name="name">logoPath</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">40</property>
-                    <property name="name">CustomerCode</property>
+                    <property name="name">customerCode</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">41</property>
-                    <property name="name">partner_type_select</property>
+                    <property name="name">partnerTypeSelect</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">42</property>
-                    <property name="name">ClientPartName</property>
+                    <property name="name">clientPartName</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">43</property>
-                    <property name="name">ClientPartFirstName</property>
+                    <property name="name">clientPartFirstName</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">44</property>
-                    <property name="name">ClientTitle</property>
+                    <property name="name">clientTitle</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">45</property>
-                    <property name="name">ContactName</property>
+                    <property name="name">contactName</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">46</property>
-                    <property name="name">ContactFirstName</property>
+                    <property name="name">contactFirstName</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -848,7 +848,7 @@ return false;]]></method>
                 </structure>
                 <structure>
                     <property name="position">48</property>
-                    <property name="name">DeliveryCountry</property>
+                    <property name="name">deliveryCountry</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -858,7 +858,7 @@ return false;]]></method>
                 </structure>
                 <structure>
                     <property name="position">50</property>
-                    <property name="name">bank_address</property>
+                    <property name="name">bankAddress</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -888,32 +888,32 @@ return false;]]></method>
                 </structure>
                 <structure>
                     <property name="position">56</property>
-                    <property name="name">CurrencyCode</property>
+                    <property name="name">currencyCode</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">57</property>
-                    <property name="name">ShipmentDate</property>
+                    <property name="name">shipmentDate</property>
                     <property name="dataType">date</property>
                 </structure>
                 <structure>
                     <property name="position">58</property>
-                    <property name="name">sale_order_type_select</property>
+                    <property name="name">saleOrderTypeSelect</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">59</property>
-                    <property name="name">is_ispm_required</property>
+                    <property name="name">isIspmRequired</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
                     <property name="position">60</property>
-                    <property name="name">PaymentCondName</property>
+                    <property name="name">paymentCondName</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
                     <property name="position">61</property>
-                    <property name="name">PaymentMode</property>
+                    <property name="name">paymentMode</property>
                     <property name="dataType">string</property>
                 </structure>
             </list-property>
@@ -925,7 +925,7 @@ return false;]]></method>
                     <property name="columnName">saleOrderSeq</property>
                 </structure>
                 <structure>
-                    <property name="columnName">CreationDate</property>
+                    <property name="columnName">creationDate</property>
                 </structure>
                 <structure>
                     <property name="columnName">invoicingAddress</property>
@@ -934,16 +934,16 @@ return false;]]></method>
                     <property name="columnName">deliveryAddress</property>
                 </structure>
                 <structure>
-                    <property name="columnName">ex_tax_total</property>
+                    <property name="columnName">exTaxTotal</property>
                 </structure>
                 <structure>
-                    <property name="columnName">tax_total</property>
+                    <property name="columnName">taxTotal</property>
                 </structure>
                 <structure>
-                    <property name="columnName">in_tax_total</property>
+                    <property name="columnName">inTaxTotal</property>
                 </structure>
                 <structure>
-                    <property name="columnName">external_reference</property>
+                    <property name="columnName">externalReference</property>
                 </structure>
                 <structure>
                     <property name="columnName">description</property>
@@ -958,7 +958,7 @@ return false;]]></method>
                     <property name="columnName">hideDiscount</property>
                 </structure>
                 <structure>
-                    <property name="columnName">status_select</property>
+                    <property name="columnName">statusSelect</property>
                 </structure>
                 <structure>
                     <property name="columnName">specific_notes</property>
@@ -967,55 +967,55 @@ return false;]]></method>
                     <property name="columnName">versionNumber</property>
                 </structure>
                 <structure>
-                    <property name="columnName">periodicity_type_select</property>
+                    <property name="columnName">periodicityTypeSelect</property>
                 </structure>
                 <structure>
-                    <property name="columnName">number_of_periods</property>
+                    <property name="columnName">numberOfPeriods</property>
                 </structure>
                 <structure>
-                    <property name="columnName">subscription_text</property>
+                    <property name="columnName">subscriptionText</property>
                 </structure>
                 <structure>
-                    <property name="columnName">end_of_validity_date</property>
+                    <property name="columnName">endOfValidityDate</property>
                 </structure>
                 <structure>
-                    <property name="columnName">in_ati</property>
+                    <property name="columnName">inAti</property>
                 </structure>
                 <structure>
-                    <property name="columnName">proforma_comments</property>
+                    <property name="columnName">proformaComments</property>
                 </structure>
                 <structure>
                     <property name="columnName">salesperson_signature_path</property>
                 </structure>
                 <structure>
-                    <property name="columnName">SalemanName</property>
+                    <property name="columnName">salemanName</property>
                 </structure>
                 <structure>
-                    <property name="columnName">SalemanPhone</property>
+                    <property name="columnName">salemanPhone</property>
                 </structure>
                 <structure>
-                    <property name="columnName">SalemanEmail</property>
+                    <property name="columnName">salemanEmail</property>
                 </structure>
                 <structure>
-                    <property name="columnName">CompanyName</property>
+                    <property name="columnName">companyName</property>
                 </structure>
                 <structure>
-                    <property name="columnName">logo_height</property>
+                    <property name="columnName">logoHeight</property>
                 </structure>
                 <structure>
-                    <property name="columnName">logo_width</property>
+                    <property name="columnName">logoWidth</property>
                 </structure>
                 <structure>
                     <property name="columnName">DisplaySaleman</property>
                 </structure>
                 <structure>
-                    <property name="columnName">ClientBox</property>
+                    <property name="columnName">saleOrderClientBox</property>
                 </structure>
                 <structure>
-                    <property name="columnName">LegalNote</property>
+                    <property name="columnName">saleOrderLegalNote</property>
                 </structure>
                 <structure>
-                    <property name="columnName">DisplayDeliveryCondition</property>
+                    <property name="columnName">displayDelCondOnPrinting</property>
                 </structure>
                 <structure>
                     <property name="columnName">displayProductCodeOnPrinting</property>
@@ -1033,40 +1033,40 @@ return false;]]></method>
                     <property name="columnName">displayProductPictureOnPrinting</property>
                 </structure>
                 <structure>
-                    <property name="columnName">logo_path</property>
+                    <property name="columnName">logoPath</property>
                 </structure>
                 <structure>
-                    <property name="columnName">CustomerCode</property>
+                    <property name="columnName">customerCode</property>
                 </structure>
                 <structure>
-                    <property name="columnName">partner_type_select</property>
+                    <property name="columnName">partnerTypeSelect</property>
                 </structure>
                 <structure>
-                    <property name="columnName">ClientPartName</property>
+                    <property name="columnName">clientPartName</property>
                 </structure>
                 <structure>
-                    <property name="columnName">ClientPartFirstName</property>
+                    <property name="columnName">clientPartFirstName</property>
                 </structure>
                 <structure>
-                    <property name="columnName">ClientTitle</property>
+                    <property name="columnName">clientTitle</property>
                 </structure>
                 <structure>
-                    <property name="columnName">ContactName</property>
+                    <property name="columnName">contactName</property>
                 </structure>
                 <structure>
-                    <property name="columnName">ContactFirstName</property>
+                    <property name="columnName">contactFirstName</property>
                 </structure>
                 <structure>
                     <property name="columnName">invoicecountry</property>
                 </structure>
                 <structure>
-                    <property name="columnName">DeliveryCountry</property>
+                    <property name="columnName">deliveryCountry</property>
                 </structure>
                 <structure>
                     <property name="columnName">iban</property>
                 </structure>
                 <structure>
-                    <property name="columnName">bank_address</property>
+                    <property name="columnName">bankAddress</property>
                 </structure>
                 <structure>
                     <property name="columnName">bic</property>
@@ -1084,22 +1084,22 @@ return false;]]></method>
                     <property name="columnName">durationName</property>
                 </structure>
                 <structure>
-                    <property name="columnName">CurrencyCode</property>
+                    <property name="columnName">currencyCode</property>
                 </structure>
                 <structure>
-                    <property name="columnName">ShipmentDate</property>
+                    <property name="columnName">shipmentDate</property>
                 </structure>
                 <structure>
-                    <property name="columnName">sale_order_type_select</property>
+                    <property name="columnName">saleOrderTypeSelect</property>
                 </structure>
                 <structure>
-                    <property name="columnName">is_ispm_required</property>
+                    <property name="columnName">isIspmRequired</property>
                 </structure>
                 <structure>
-                    <property name="columnName">PaymentCondName</property>
+                    <property name="columnName">paymentCondName</property>
                 </structure>
                 <structure>
-                    <property name="columnName">PaymentMode</property>
+                    <property name="columnName">paymentMode</property>
                 </structure>
             </list-property>
             <structure name="cachedMetaData">
@@ -1116,7 +1116,7 @@ return false;]]></method>
                     </structure>
                     <structure>
                         <property name="position">3</property>
-                        <property name="name">CreationDate</property>
+                        <property name="name">creationDate</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
@@ -1131,22 +1131,22 @@ return false;]]></method>
                     </structure>
                     <structure>
                         <property name="position">6</property>
-                        <property name="name">ex_tax_total</property>
+                        <property name="name">exTaxTotal</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
                         <property name="position">7</property>
-                        <property name="name">tax_total</property>
+                        <property name="name">taxTotal</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
                         <property name="position">8</property>
-                        <property name="name">in_tax_total</property>
+                        <property name="name">inTaxTotal</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
                         <property name="position">9</property>
-                        <property name="name">external_reference</property>
+                        <property name="name">externalReference</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -1171,7 +1171,7 @@ return false;]]></method>
                     </structure>
                     <structure>
                         <property name="position">14</property>
-                        <property name="name">status_select</property>
+                        <property name="name">statusSelect</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
@@ -1186,32 +1186,32 @@ return false;]]></method>
                     </structure>
                     <structure>
                         <property name="position">17</property>
-                        <property name="name">periodicity_type_select</property>
+                        <property name="name">periodicityTypeSelect</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">18</property>
-                        <property name="name">number_of_periods</property>
+                        <property name="name">numberOfPeriods</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">19</property>
-                        <property name="name">subscription_text</property>
+                        <property name="name">subscriptionText</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">20</property>
-                        <property name="name">end_of_validity_date</property>
+                        <property name="name">endOfValidityDate</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
                         <property name="position">21</property>
-                        <property name="name">in_ati</property>
+                        <property name="name">inAti</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">22</property>
-                        <property name="name">proforma_comments</property>
+                        <property name="name">proformaComments</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -1221,32 +1221,32 @@ return false;]]></method>
                     </structure>
                     <structure>
                         <property name="position">24</property>
-                        <property name="name">SalemanName</property>
+                        <property name="name">salemanName</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">25</property>
-                        <property name="name">SalemanPhone</property>
+                        <property name="name">salemanPhone</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">26</property>
-                        <property name="name">SalemanEmail</property>
+                        <property name="name">salemanEmail</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">27</property>
-                        <property name="name">CompanyName</property>
+                        <property name="name">companyName</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">28</property>
-                        <property name="name">logo_height</property>
+                        <property name="name">logoHeight</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">29</property>
-                        <property name="name">logo_width</property>
+                        <property name="name">logoWidth</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
@@ -1256,17 +1256,17 @@ return false;]]></method>
                     </structure>
                     <structure>
                         <property name="position">31</property>
-                        <property name="name">ClientBox</property>
+                        <property name="name">saleOrderClientBox</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">32</property>
-                        <property name="name">LegalNote</property>
+                        <property name="name">saleOrderLegalNote</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">33</property>
-                        <property name="name">DisplayDeliveryCondition</property>
+                        <property name="name">displayDelCondOnPrinting</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
@@ -1296,42 +1296,42 @@ return false;]]></method>
                     </structure>
                     <structure>
                         <property name="position">39</property>
-                        <property name="name">logo_path</property>
+                        <property name="name">logoPath</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">40</property>
-                        <property name="name">CustomerCode</property>
+                        <property name="name">customerCode</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">41</property>
-                        <property name="name">partner_type_select</property>
+                        <property name="name">partnerTypeSelect</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">42</property>
-                        <property name="name">ClientPartName</property>
+                        <property name="name">clientPartName</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">43</property>
-                        <property name="name">ClientPartFirstName</property>
+                        <property name="name">clientPartFirstName</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">44</property>
-                        <property name="name">ClientTitle</property>
+                        <property name="name">clientTitle</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">45</property>
-                        <property name="name">ContactName</property>
+                        <property name="name">contactName</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">46</property>
-                        <property name="name">ContactFirstName</property>
+                        <property name="name">contactFirstName</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -1341,7 +1341,7 @@ return false;]]></method>
                     </structure>
                     <structure>
                         <property name="position">48</property>
-                        <property name="name">DeliveryCountry</property>
+                        <property name="name">deliveryCountry</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -1351,7 +1351,7 @@ return false;]]></method>
                     </structure>
                     <structure>
                         <property name="position">50</property>
-                        <property name="name">bank_address</property>
+                        <property name="name">bankAddress</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -1381,32 +1381,32 @@ return false;]]></method>
                     </structure>
                     <structure>
                         <property name="position">56</property>
-                        <property name="name">CurrencyCode</property>
+                        <property name="name">currencyCode</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">57</property>
-                        <property name="name">ShipmentDate</property>
+                        <property name="name">shipmentDate</property>
                         <property name="dataType">date</property>
                     </structure>
                     <structure>
                         <property name="position">58</property>
-                        <property name="name">sale_order_type_select</property>
+                        <property name="name">saleOrderTypeSelect</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">59</property>
-                        <property name="name">is_ispm_required</property>
+                        <property name="name">isIspmRequired</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
                         <property name="position">60</property>
-                        <property name="name">PaymentCondName</property>
+                        <property name="name">paymentCondName</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
                         <property name="position">61</property>
-                        <property name="name">PaymentMode</property>
+                        <property name="name">paymentMode</property>
                         <property name="dataType">string</property>
                     </structure>
                 </list-property>
@@ -1417,66 +1417,66 @@ return false;]]></method>
 node = saleOrderList.next();
 	row["id"] = node.get("id");
 	row["saleOrderSeq"] = node.get("saleOrderSeq");
-	row["CreationDate"] = node.get("CreationDate");
+	row["creationDate"] = node.get("creationDate");
 	row["invoicingAddress"] = node.get("invoicingAddress");
 	row["deliveryAddress"] = node.get("deliveryAddress");
-	row["ex_tax_total"] = node.get("ex_tax_total");
-	row["tax_total"] = node.get("tax_total");
-	row["in_tax_total"] = node.get("in_tax_total");
-	row["external_reference"] = node.get("external_reference");
+	row["exTaxTotal"] = node.get("exTaxTotal");
+	row["taxTotal"] = node.get("taxTotal");
+	row["inTaxTotal"] = node.get("inTaxTotal");
+	row["externalReference"] = node.get("externalReference");
 	row["description"] = node.get("description");
 	row["deliveryDate"] = node.get("deliveryDate");
 	row["deliveryCondition"] = node.get("deliveryCondition");
-	row["ex_tax_base"] = node.get("ex_tax_base");
+	row["exTaxBase"] = node.get("exTaxBase");
 	row["hideDiscount"] = node.get("hideDiscount");
-	row["status_select"] = node.get("status_select");
-	row["specific_notes"] = node.get("specific_notes");
+	row["statusSelect"] = node.get("statusSelect");
+	row["specificNotes"] = node.get("specificNotes");
 	row["versionNumber"] = node.get("versionNumber");
-	row["periodicity_type_select"] = node.get("periodicity_type_select");
-	row["number_of_periods"] = node.get("number_of_periods");
-	row["subscription_text"] = node.get("subscription_text");
-	row["end_of_validity_date"] = node.get("end_of_validity_date");
+	row["periodicityTypeSelect"] = node.get("periodicityTypeSelect");
+	row["numberOfPeriods"] = node.get("numberOfPeriods");
+	row["subscriptionText"] = node.get("subscriptionText");
+	row["endOfValidityDate"] = node.get("endOfValidityDate");
 	row["ex_tax_base"] = node.get("ex_tax_base");
-	row["in_ati"] = node.get("in_ati");
-	row["proforma_comments"] = node.get("proforma_comments");
-	row["salesperson_signature_path"] = node.get("salesperson_signature_path");
-	row["SalemanName"] = node.get("SalemanName");
-	row["SalemanPhone"] = node.get("SalemanPhone");
-	row["SalemanEmail"] = node.get("SalemanEmail");
-	row["CompanyName"] = node.get("CompanyName");
-	row["logo_height"] = node.get("logo_height");
-	row["logo_width"] = node.get("logo_width");
-	row["DisplaySaleman"] = node.get("DisplaySaleman");
-	row["ClientBox"] = node.get("ClientBox");
-	row["LegalNote"] = node.get("LegalNote");
-	row["DisplayDeliveryCondition"] = node.get("DisplayDeliveryCondition");
+	row["inAti"] = node.get("inAti");
+	row["proformaComments"] = node.get("proformaComments");
+	row["salespersonSignaturePath"] = node.get("salespersonSignaturePath");
+	row["salemanName"] = node.get("salemanName");
+	row["salemanPhone"] = node.get("salemanPhone");
+	row["salemanEmail"] = node.get("salemanEmail");
+	row["companyName"] = node.get("companyName");
+	row["logoHeight"] = node.get("logoHeight");
+	row["logoWidth"] = node.get("logoWidth");
+	row["displaySalemanOnPrinting"] = node.get("displaySalemanOnPrinting");
+	row["saleOrderClientBox"] = node.get("saleOrderClientBox");
+	row["saleOrderLegalNote"] = node.get("saleOrderLegalNote");
+	row["displayDelCondOnPrinting"] = node.get("displayDelCondOnPrinting");
 	row["displayProductCodeOnPrinting"] = node.get("displayProductCodeOnPrinting");
 	row["displayTaxDetailOnPrinting"] = node.get("displayTaxDetailOnPrinting");
 	row["displayEstimDelivDateOnPrinting"] = node.get("displayEstimDelivDateOnPrinting");
 	row["displayCustomerCodeOnPrinting"] = node.get("displayCustomerCodeOnPrinting");
 	row["displayProductPictureOnPrinting"] = node.get("displayProductPictureOnPrinting");
-	row["logo_path"] = node.get("logo_path");
-	row["CustomerCode"] = node.get("CustomerCode");
-	row["partner_type_select"] = node.get("partner_type_select");
-	row["ClientPartName"] = node.get("ClientPartName");
-	row["ClientPartFirstName"] = node.get("ClientPartFirstName");
-	row["ClientTitle"] = node.get("ClientTitle");
-	row["ContactName"] = node.get("ContactName");
-	row["ContactFirstName"] = node.get("ContactFirstName");
+	row["logoPath"] = node.get("logoPath");
+	row["customerCode"] = node.get("customerCode");
+	row["partnerTypeSelect"] = node.get("partnerTypeSelect");
+	row["clientPartName"] = node.get("clientPartName");
+	row["clientPartFirstName"] = node.get("clientPartFirstName");
+	row["clientTitle"] = node.get("clientTitle");
+	row["contactName"] = node.get("contactName");
+	row["contactFirstName"] = node.get("contactFirstName");
 	row["invoicecountry"] = node.get("invoicecountry");
-	row["DeliveryCountry"] = node.get("DeliveryCountry");
+	row["deliveryCountry"] = node.get("deliveryCountry");
 	row["iban"] = node.get("iban");
-	row["bank_address"] = node.get("bank_address");
+	row["bankAddress"] = node.get("bankAddress");
 	row["bic"] = node.get("bic");
-	row["CurrencyCode"] = node.get("CurrencyCode");
+	row["currencyCode"] = node.get("currencyCode");
 	row["header"] = node.get("header");
 	row["footer"] = node.get("footer");
 	row["logoPosition"] = node.get("logoPosition");
-	row["ShipmentDate"] = node.get("ShipmentDate");
-	row["sale_order_type_select"] = node.get("sale_order_type_select");
-	row["is_ispm_required"] = node.get("is_ispm_required");
-	row["PaymentCondName"] = node.get("PaymentCondName");
-	row["PaymentMode"] = node.get("PaymentMode");
+	row["shipmentDate"] = node.get("shipmentDate");
+	row["saleOrderTypeSelect"] = node.get("saleOrderTypeSelect");
+	row["isIspmRequired"] = node.get("isIspmRequired");
+	row["paymentCondName"] = node.get("paymentCondName");
+	row["paymentMode"] = node.get("paymentMode");
 	return true;
 }
 return false;]]></method>
@@ -1509,52 +1509,6 @@ return false;]]></method>
   row["nbDecimalDigitForUnitPrice"] = packageClass.getAppBase();
   count++;
   return true;
-}
-return false;]]></method>
-        </script-data-set>
-        <script-data-set name="TranslateDS" id="5380">
-            <list-property name="resultSetHints">
-                <structure>
-                    <property name="position">1</property>
-                    <property name="name">message_key</property>
-                    <property name="dataType">string</property>
-                </structure>
-                <structure>
-                    <property name="position">2</property>
-                    <property name="name">translation</property>
-                    <property name="dataType">string</property>
-                </structure>
-            </list-property>
-            <list-property name="columnHints">
-                <structure>
-                    <property name="columnName">message_key</property>
-                </structure>
-                <structure>
-                    <property name="columnName">translation</property>
-                </structure>
-            </list-property>
-            <structure name="cachedMetaData">
-                <list-property name="resultSet">
-                    <structure>
-                        <property name="position">1</property>
-                        <property name="name">message_key</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                    <structure>
-                        <property name="position">2</property>
-                        <property name="name">translation</property>
-                        <property name="dataType">string</property>
-                    </structure>
-                </list-property>
-            </structure>
-            <property name="dataSource">Data Source</property>
-            <method name="open"><![CDATA[count = 0;
-len = 1;]]></method>
-            <method name="fetch"><![CDATA[if(count < len){
-row["message_key"] = "mk";
-row["translation"] = "trans";
-count++;
-return true;
 }
 return false;]]></method>
         </script-data-set>
