@@ -39,7 +39,6 @@ import com.axelor.apps.sale.db.SaleOrderLine;
 import com.axelor.apps.sale.db.SaleOrderLineTax;
 import com.axelor.apps.sale.db.repo.SaleOrderLineRepository;
 import com.axelor.apps.sale.db.repo.SaleOrderRepository;
-import com.axelor.apps.tool.date.DateTool;
 import com.axelor.auth.db.User;
 import com.axelor.common.ObjectUtils;
 import com.axelor.inject.Beans;
@@ -68,10 +67,8 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
       for (SaleOrderLine saleOrderLine : saleOrderLineList) {
         Map<String, Object> saleOrderLineDataMap = setOrderLineSaleOrderLineDataMap(saleOrderLine);
 
-        if (ObjectUtils.notEmpty(saleOrderLine.getEstimatedDelivDate())) {
-          saleOrderLineDataMap.put(
-              "estimatedDeliveryDate", DateTool.toDate(saleOrderLine.getEstimatedDelivDate()));
-        }
+        ReportTool.setDateMap(
+            "estimatedDeliveryDate", saleOrderLineDataMap, saleOrderLine.getEstimatedDelivDate());
 
         if (ObjectUtils.notEmpty(saleOrderLine.getUnit())) {
           saleOrderLineDataMap.put("unitCode", saleOrderLine.getUnit().getLabelToPrinting());
@@ -203,15 +200,9 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
     SaleOrder saleOrder = Beans.get(SaleOrderRepository.class).find(saleOrderId);
     Map<String, Object> dataMap = setSaleOrderDataMap(saleOrder);
 
-    if (ObjectUtils.notEmpty(saleOrder.getCreationDate())) {
-      dataMap.put("creationDate", DateTool.toDate(saleOrder.getCreationDate()));
-    }
-    if (ObjectUtils.notEmpty(saleOrder.getDeliveryDate())) {
-      dataMap.put("deliveryDate", DateTool.toDate(saleOrder.getDeliveryDate()));
-    }
-    if (ObjectUtils.notEmpty(saleOrder.getEndOfValidityDate())) {
-      dataMap.put("endOfValidityDate", DateTool.toDate(saleOrder.getEndOfValidityDate()));
-    }
+    ReportTool.setDateMap("creationDate", dataMap, saleOrder.getCreationDate());
+    ReportTool.setDateMap("deliveryDate", dataMap, saleOrder.getDeliveryDate());
+    ReportTool.setDateMap("endOfValidityDate", dataMap, saleOrder.getEndOfValidityDate());
 
     User salespersonUser = saleOrder.getSalespersonUser();
     if (ObjectUtils.notEmpty(salespersonUser)) {
