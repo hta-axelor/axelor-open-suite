@@ -112,6 +112,8 @@ import com.axelor.apps.base.service.imports.ImportDemoDataServiceImpl;
 import com.axelor.apps.base.service.message.MailAccountServiceBaseImpl;
 import com.axelor.apps.base.service.message.MessageServiceBaseImpl;
 import com.axelor.apps.base.service.message.TemplateMessageServiceBaseImpl;
+import com.axelor.apps.base.service.print.PartnerReportService;
+import com.axelor.apps.base.service.print.PartnerReportServiceImpl;
 import com.axelor.apps.base.service.tax.AccountManagementService;
 import com.axelor.apps.base.service.tax.AccountManagementServiceImpl;
 import com.axelor.apps.base.service.tax.FiscalPositionService;
@@ -189,5 +191,6 @@ public class BaseModule extends AxelorModule {
     bind(FileTabService.class).to(FileTabServiceImpl.class);
     bind(FileFieldService.class).to(FileFieldServiceImpl.class);
     bind(PartnerService.class).to(PartnerServiceImpl.class);
+    bind(PartnerReportService.class).to(PartnerReportServiceImpl.class);
   }
 }

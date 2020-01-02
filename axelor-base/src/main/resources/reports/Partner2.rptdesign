@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.7.0.v201706222054</property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="layoutPreference">fixed layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="PartnerId" id="41">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="dataType">decimal</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="SC Data Source" id="3820">
+            <method name="open"><![CDATA[importPackage(com.axelor.apps.base.service.print);
+packageClass = new com.axelor.apps.base.service.print.PartnerReportServiceImpl().getInstance();]]></method>
+        </script-data-source>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="Partner" id="3821">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">firstName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">addressL4</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">addressL6</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">name</property>
+                </structure>
+                <structure>
+                    <property name="columnName">firstName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">addressL4</property>
+                </structure>
+                <structure>
+                    <property name="columnName">addressL6</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">firstName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">addressL4</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">addressL6</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">SC Data Source</property>
+            <method name="open"><![CDATA[partnerList = packageClass.getPartnerData(params["PartnerId"]).iterator();]]></method>
+            <method name="fetch"><![CDATA[if(partnerList.hasNext()){
+ node = partnerList.next();
+	row["name"] = node.get("name");
+    row["firstName"] = node.get("firstName");
+    row["addressL4"] = node.get("addressL4");
+    row["addressL6"] = node.get("addressL6");
+	return true;
+}
+return false;]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">custom</property>
+            <property name="topMargin">1.375in</property>
+            <property name="leftMargin">2.7916666666666665in</property>
+            <property name="height">110mm</property>
+            <property name="width">220mm</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="86">
+            <property name="fontSize">12pt</property>
+            <column id="87"/>
+            <column id="88"/>
+            <row id="89">
+                <cell id="90">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <data id="98">
+                        <property name="dataSet">Partner</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">name</property>
+                                <text-property name="displayName">name</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["name"]+" "+(dataSetRow["firstName"]||"")</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">name</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="92">
+                <cell id="93">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <data id="3861">
+                        <property name="dataSet">Partner</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">addressL4</property>
+                                <text-property name="displayName">addressL4</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["addressL4"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">addressL4</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="95">
+                <cell id="96">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <data id="3862">
+                        <property name="dataSet">Partner</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">addressL6</property>
+                                <text-property name="displayName">addressL6</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["addressL6"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">addressL6</property>
+                    </data>
+                </cell>
+            </row>
+        </grid>
+    </body>
+</report>
