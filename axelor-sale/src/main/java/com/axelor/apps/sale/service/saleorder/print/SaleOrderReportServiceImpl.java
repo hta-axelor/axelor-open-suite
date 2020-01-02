@@ -17,12 +17,6 @@
  */
 package com.axelor.apps.sale.service.saleorder.print;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import org.apache.commons.collections.CollectionUtils;
 import com.axelor.apps.base.db.BankAddress;
 import com.axelor.apps.base.db.BankDetails;
 import com.axelor.apps.base.db.Company;
@@ -44,6 +38,12 @@ import com.axelor.common.ObjectUtils;
 import com.axelor.inject.Beans;
 import com.axelor.meta.db.MetaFile;
 import com.google.common.collect.Lists;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
 
 public class SaleOrderReportServiceImpl implements SaleOrderReportService {
 

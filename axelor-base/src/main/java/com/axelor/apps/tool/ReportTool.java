@@ -1,13 +1,13 @@
 package com.axelor.apps.tool;
 
-import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import com.axelor.apps.tool.date.DateTool;
 import com.axelor.common.ObjectUtils;
 import com.axelor.db.mapper.Mapper;
 import com.axelor.db.mapper.Property;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ReportTool {
 
