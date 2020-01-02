@@ -1,4 +1,4 @@
-package com.axelor.apps.base.service.print;
+package com.axelor.apps.tool;
 
 import java.time.LocalDate;
 import java.util.HashMap;
