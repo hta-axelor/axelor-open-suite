@@ -165,7 +165,8 @@ reportContext.getDesignHandle().findMasterPage("Simple MasterPage").setProperty(
     <data-sources>
         <script-data-source name="Data Source" id="5374">
             <method name="open"><![CDATA[importPackage(com.axelor.apps.sale.service.saleorder.print);
-packageClass = new com.axelor.apps.sale.service.saleorder.print.SaleOrderReportServiceImpl().getInstance();]]></method>
+packageClass = new com.axelor.apps.sale.service.saleorder.print.SaleOrderReportServiceImpl().getInstance();
+translation = com.axelor.i18n.I18n;]]></method>
         </script-data-source>
     </data-sources>
     <data-sets>
@@ -1940,6 +1941,9 @@ return false;]]></method>
             <column id="6087"/>
             <column id="6088"/>
             <row id="6089">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="height">1.5cm</property>
                 <cell id="6090">
                     <property name="colSpan">8</property>
                     <property name="rowSpan">1</property>
@@ -1976,7 +1980,17 @@ return false;]]></method>
                 <cell id="6106"/>
             </row>
             <row id="6107">
-                <cell id="6108"/>
+                <cell id="6108">
+                    <text id="6399">
+                        <property name="fontSize">12pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="marginLeft">5pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>params["ProformaInvoice"].value ? translation.get('SaleOrder.proforma') : (row["statusSelect"] < 3  ? translation.get('SaleOrder.quote')  :  translation.get('SaleOrder.order'))</VALUE-OF> <VALUE-OF format="^">" "</VALUE-OF> <VALUE-OF>row["saleOrderSeq"]</VALUE-OF> <VALUE-OF>if(row["versionNumber"] > 1) {
+	"-"+row["versionNumber"]
+}</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
                 <cell id="6109"/>
                 <cell id="6110"/>
                 <cell id="6111"/>
