@@ -2000,6 +2000,56 @@ return false;]]></method>
                 <cell id="6117">
                     <property name="colSpan">3</property>
                     <property name="rowSpan">1</property>
+                    <grid id="6400">
+                        <column id="6401"/>
+                        <row id="6402">
+                            <cell id="6403">
+                                <text id="6430">
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.get('SaleOrder.date')</VALUE-OF> : <VALUE-OF format="dd/MM/yyyy">row["creationDate"]</VALUE-OF>]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="6404">
+                            <cell id="6405"/>
+                        </row>
+                        <row id="6406">
+                            <cell id="6407"/>
+                        </row>
+                        <row id="6408">
+                            <cell id="6409"/>
+                        </row>
+                        <row id="6410">
+                            <cell id="6411"/>
+                        </row>
+                        <row id="6412">
+                            <cell id="6413"/>
+                        </row>
+                        <row id="6414">
+                            <cell id="6415"/>
+                        </row>
+                        <row id="6416">
+                            <cell id="6417"/>
+                        </row>
+                        <row id="6418">
+                            <cell id="6419"/>
+                        </row>
+                        <row id="6420">
+                            <cell id="6421"/>
+                        </row>
+                        <row id="6422">
+                            <cell id="6423"/>
+                        </row>
+                        <row id="6424">
+                            <cell id="6425"/>
+                        </row>
+                        <row id="6426">
+                            <cell id="6427"/>
+                        </row>
+                        <row id="6428">
+                            <cell id="6429"/>
+                        </row>
+                    </grid>
                 </cell>
                 <cell id="6120"/>
                 <cell id="6121">
