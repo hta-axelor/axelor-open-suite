@@ -1970,14 +1970,10 @@ return false;]]></method>
                 </cell>
             </row>
             <row id="6098">
-                <cell id="6099"/>
-                <cell id="6100"/>
-                <cell id="6101"/>
-                <cell id="6102"/>
-                <cell id="6103"/>
-                <cell id="6104"/>
-                <cell id="6105"/>
-                <cell id="6106"/>
+                <cell id="6099">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                </cell>
             </row>
             <row id="6107">
                 <cell id="6108">
