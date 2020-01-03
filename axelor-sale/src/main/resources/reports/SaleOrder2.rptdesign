@@ -1977,6 +1977,8 @@ return false;]]></method>
             </row>
             <row id="6107">
                 <cell id="6108">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
                     <text id="6399">
                         <property name="fontSize">12pt</property>
                         <property name="fontWeight">bold</property>
@@ -1987,23 +1989,23 @@ return false;]]></method>
 }</VALUE-OF>]]></text-property>
                     </text>
                 </cell>
-                <cell id="6109"/>
-                <cell id="6110"/>
                 <cell id="6111"/>
                 <cell id="6112"/>
-                <cell id="6113"/>
-                <cell id="6114"/>
-                <cell id="6115"/>
+                <cell id="6113">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                </cell>
             </row>
             <row id="6116">
-                <cell id="6117"/>
-                <cell id="6118"/>
-                <cell id="6119"/>
+                <cell id="6117">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                </cell>
                 <cell id="6120"/>
-                <cell id="6121"/>
-                <cell id="6122"/>
-                <cell id="6123"/>
-                <cell id="6124"/>
+                <cell id="6121">
+                    <property name="colSpan">4</property>
+                    <property name="rowSpan">1</property>
+                </cell>
             </row>
             <row id="6125">
                 <cell id="6126"/>
