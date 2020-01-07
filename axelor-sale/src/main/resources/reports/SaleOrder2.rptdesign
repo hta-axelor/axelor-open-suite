@@ -279,21 +279,16 @@ translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag
                 </structure>
                 <structure>
                     <property name="position">22</property>
-                    <property name="name">packHideUnitAmounts</property>
-                    <property name="dataType">integer</property>
-                </structure>
-                <structure>
-                    <property name="position">23</property>
                     <property name="name">currencyCode</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="position">24</property>
+                    <property name="position">23</property>
                     <property name="name">inAti</property>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
-                    <property name="position">25</property>
+                    <property name="position">24</property>
                     <property name="name">saleOrderTypeSelect</property>
                     <property name="dataType">integer</property>
                 </structure>
@@ -361,9 +356,6 @@ translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag
                 </structure>
                 <structure>
                     <property name="columnName">isTitleLine</property>
-                </structure>
-                <structure>
-                    <property name="columnName">packHideUnitAmounts</property>
                 </structure>
                 <structure>
                     <property name="columnName">currencyCode</property>
@@ -484,21 +476,16 @@ translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag
                     </structure>
                     <structure>
                         <property name="position">22</property>
-                        <property name="name">packHideUnitAmounts</property>
-                        <property name="dataType">integer</property>
-                    </structure>
-                    <structure>
-                        <property name="position">23</property>
                         <property name="name">currencyCode</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
-                        <property name="position">24</property>
+                        <property name="position">23</property>
                         <property name="name">inAti</property>
                         <property name="dataType">integer</property>
                     </structure>
                     <structure>
-                        <property name="position">25</property>
+                        <property name="position">24</property>
                         <property name="name">saleOrderTypeSelect</property>
                         <property name="dataType">integer</property>
                     </structure>
@@ -529,7 +516,6 @@ node = saleOrderLineList.next();
 	row["productCustomerName"] = node.get("productCustomerName");
 	row["totalDiscountAmount"] = node.get("totalDiscountAmount");
 	row["isTitleLine"] = node.get("isTitleLine");
-	row["packHideUnitAmounts"] = node.get("packHideUnitAmounts");
 	row["currencyCode"] = node.get("currencyCode");
 	row["inAti"] = node.get("inAti");
 	row["saleOrderTypeSelect"] = node.get("saleOrderTypeSelect");

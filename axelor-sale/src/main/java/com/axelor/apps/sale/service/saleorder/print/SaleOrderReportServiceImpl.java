@@ -89,19 +89,6 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
         Boolean isTitleLine =
             saleOrderLine.getTypeSelect().equals(SaleOrderLineRepository.TYPE_TITLE);
         saleOrderLineDataMap.put("isTitleLine", isTitleLine);
-        SaleOrderLine packHideUnitAmountsLine =
-            Beans.get(SaleOrderLineRepository.class)
-                .all()
-                .filter(
-                    "self.saleOrder = ?1 AND self.typeSelect = ?2 AND self.sequence > ?3 ORDER BY self.sequence",
-                    saleOrder,
-                    SaleOrderLineRepository.TYPE_TITLE,
-                    saleOrderLine.getSequence())
-                .fetchOne();
-        if (ObjectUtils.notEmpty(packHideUnitAmountsLine)) {
-          saleOrderLineDataMap.put(
-              "packHideUnitAmounts", packHideUnitAmountsLine.getIsHideUnitAmounts());
-        }
 
         Product product = saleOrderLine.getProduct();
         if (ObjectUtils.notEmpty(product)) {
