@@ -2344,14 +2344,18 @@ row["clientPartFirstName"]
                 </cell>
             </row>
             <row id="6125">
-                <cell id="6126"/>
-                <cell id="6127"/>
+                <property name="height">0.238cm</property>
+                <cell id="6126">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                </cell>
                 <cell id="6128"/>
                 <cell id="6129"/>
                 <cell id="6130"/>
-                <cell id="6131"/>
-                <cell id="6132"/>
-                <cell id="6133"/>
+                <cell id="6131">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                </cell>
             </row>
             <row id="6134">
                 <cell id="6135"/>
