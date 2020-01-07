@@ -2392,19 +2392,27 @@ row["clientPartFirstName"]
                 </cell>
             </row>
             <row id="6161">
-                <cell id="6162"/>
-                <cell id="6163"/>
-                <cell id="6164"/>
-                <cell id="6165"/>
-                <cell id="6166"/>
-                <cell id="6167"/>
-                <cell id="6168"/>
-                <cell id="6169"/>
+                <cell id="6162">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                </cell>
             </row>
             <row id="6170">
-                <cell id="6171"/>
-                <cell id="6172"/>
-                <cell id="6173"/>
+                <list-property name="visibility">
+                    <structure>
+                        <property name="format">all</property>
+                        <expression name="valueExpr" type="javascript">row["saleOrderTypeSelect"] != 2</expression>
+                    </structure>
+                </list-property>
+                <cell id="6171">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <text id="6510">
+                        <property name="fontSize">9pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.subscriptionContract')</VALUE-OF> :]]></text-property>
+                    </text>
+                </cell>
                 <cell id="6174"/>
                 <cell id="6175"/>
                 <cell id="6176"/>
@@ -2412,9 +2420,30 @@ row["clientPartFirstName"]
                 <cell id="6178"/>
             </row>
             <row id="6179">
-                <cell id="6180"/>
-                <cell id="6181"/>
-                <cell id="6182"/>
+                <list-property name="visibility">
+                    <structure>
+                        <property name="format">all</property>
+                        <expression name="valueExpr" type="javascript">row["saleOrderTypeSelect"] != 2</expression>
+                    </structure>
+                </list-property>
+                <cell id="6180">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <text id="6511">
+                        <property name="fontSize">9pt</property>
+                        <property name="display">inline</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.periodicity')</VALUE-OF> :]]></text-property>
+                    </text>
+                    <text id="6512">
+                        <property name="fontSize">9pt</property>
+                        <property name="display">inline</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["numberOfPeriods"]</VALUE-OF>&amp;nbsp;<VALUE-OF>dateFormat = row["periodicityTypeSelect"] == 1 ? "day(s)" : "month(s)"
+translatedDateFormat = translation.getString(dateFormat)
+translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedDateFormat : dateFormat</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
                 <cell id="6183"/>
                 <cell id="6184"/>
                 <cell id="6185"/>
@@ -2422,9 +2451,21 @@ row["clientPartFirstName"]
                 <cell id="6187"/>
             </row>
             <row id="6188">
-                <cell id="6189"/>
-                <cell id="6190"/>
-                <cell id="6191"/>
+                <list-property name="visibility">
+                    <structure>
+                        <property name="format">all</property>
+                        <expression name="valueExpr" type="javascript">row["saleOrderTypeSelect"] != 2</expression>
+                    </structure>
+                </list-property>
+                <cell id="6189">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">2</property>
+                    <text id="6513">
+                        <property name="fontSize">9pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["subscriptionText"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
                 <cell id="6192"/>
                 <cell id="6193"/>
                 <cell id="6194"/>
@@ -2432,9 +2473,6 @@ row["clientPartFirstName"]
                 <cell id="6196"/>
             </row>
             <row id="6197">
-                <cell id="6198"/>
-                <cell id="6199"/>
-                <cell id="6200"/>
                 <cell id="6201"/>
                 <cell id="6202"/>
                 <cell id="6203"/>
