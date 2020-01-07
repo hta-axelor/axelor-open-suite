@@ -307,8 +307,8 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
     List<String> fieldsList = new ArrayList<>();
     fieldsList.add("id");
     fieldsList.add("saleOrderSeq");
-    fieldsList.add("invoicingAddress");
-    fieldsList.add("deliveryAddress");
+    fieldsList.add("mainInvoicingAddressStr");
+    fieldsList.add("deliveryAddressStr");
     fieldsList.add("exTaxTotal");
     fieldsList.add("taxTotal");
     fieldsList.add("inTaxTotal");
