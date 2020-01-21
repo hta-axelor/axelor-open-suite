@@ -2490,14 +2490,10 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                 <cell id="6214"/>
             </row>
             <row id="6215">
-                <cell id="6216"/>
-                <cell id="6217"/>
-                <cell id="6218"/>
-                <cell id="6219"/>
-                <cell id="6220"/>
-                <cell id="6221"/>
-                <cell id="6222"/>
-                <cell id="6223"/>
+                <cell id="6216">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                </cell>
             </row>
             <row id="6224">
                 <cell id="6225"/>
@@ -2510,19 +2506,177 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                 <cell id="6232"/>
             </row>
             <row id="6233">
-                <cell id="6234"/>
-                <cell id="6235"/>
-                <cell id="6236"/>
+                <cell id="6234">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">5</property>
+                    <table id="6864">
+                        <property name="width">3in</property>
+                        <property name="dataSet">SaleOrderLineTaxDS</property>
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row._outer["displayTaxDetailOnPrinting"] != 1</expression>
+                            </structure>
+                        </list-property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">exTaxBase</property>
+                                <text-property name="displayName">exTaxBase</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["exTaxBase"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">taxTotal</property>
+                                <text-property name="displayName">taxTotal</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["taxTotal"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">value</property>
+                                <text-property name="displayName">value</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["value"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">saleOrderTypeSelect</property>
+                                <text-property name="displayName">saleOrderTypeSelect</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["saleOrderTypeSelect"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                        </list-property>
+                        <column id="6877"/>
+                        <column id="6878"/>
+                        <column id="6879"/>
+                        <header>
+                            <row id="6865">
+                                <property name="borderBottomStyle">solid</property>
+                                <property name="borderBottomWidth">thin</property>
+                                <property name="borderLeftStyle">solid</property>
+                                <property name="borderLeftWidth">thin</property>
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">thin</property>
+                                <property name="borderTopStyle">solid</property>
+                                <property name="borderTopWidth">thin</property>
+                                <cell id="6866">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <text id="6882">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.tax')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6867">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <text id="6884">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.base')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6868">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <text id="6885">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.taxAmount')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="6869">
+                                <cell id="6870">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <text id="6886">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF format="###0.00%{RoundingMode=HALF_UP}">row["value"]</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6871">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <text id="6887">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF format="#,##0.00">row["exTaxBase"]</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6872">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <text id="6888">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF format="#,##0.00">row["taxTotal"]</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="6873">
+                                <cell id="6874"/>
+                                <cell id="6875"/>
+                                <cell id="6876"/>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
                 <cell id="6237"/>
-                <cell id="6238"/>
-                <cell id="6239"/>
+                <cell id="6238">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                </cell>
                 <cell id="6240"/>
                 <cell id="6241"/>
             </row>
             <row id="6242">
-                <cell id="6243"/>
-                <cell id="6244"/>
-                <cell id="6245"/>
                 <cell id="6246"/>
                 <cell id="6247"/>
                 <cell id="6248"/>
@@ -2530,9 +2684,6 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                 <cell id="6250"/>
             </row>
             <row id="6251">
-                <cell id="6252"/>
-                <cell id="6253"/>
-                <cell id="6254"/>
                 <cell id="6255"/>
                 <cell id="6256"/>
                 <cell id="6257"/>
@@ -2540,9 +2691,6 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                 <cell id="6259"/>
             </row>
             <row id="6260">
-                <cell id="6261"/>
-                <cell id="6262"/>
-                <cell id="6263"/>
                 <cell id="6264"/>
                 <cell id="6265"/>
                 <cell id="6266"/>
@@ -2550,9 +2698,6 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                 <cell id="6268"/>
             </row>
             <row id="6269">
-                <cell id="6270"/>
-                <cell id="6271"/>
-                <cell id="6272"/>
                 <cell id="6273"/>
                 <cell id="6274"/>
                 <cell id="6275"/>
