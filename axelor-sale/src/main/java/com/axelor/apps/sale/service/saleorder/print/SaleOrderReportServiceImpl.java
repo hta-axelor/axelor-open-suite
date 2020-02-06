@@ -115,16 +115,16 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
                 customerCatalogMap.putAll(saleOrderDataMap);
                 dataMapList.add(customerCatalogMap);
               }
-            } else {
-              saleOrderLineDataMap.putAll(saleOrderDataMap);
-              dataMapList.add(saleOrderLineDataMap);
+              continue;
             }
           }
         }
+        saleOrderLineDataMap.putAll(saleOrderDataMap);
+        dataMapList.add(saleOrderLineDataMap);
       }
-    } else {
-      dataMapList.add(saleOrderDataMap);
+      return dataMapList;
     }
+    dataMapList.add(saleOrderDataMap);
     return dataMapList;
   }
 
@@ -229,11 +229,8 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
     }
 
     MetaFile companyLogo = company.getLogo();
-    if (ObjectUtils.notEmpty(saleOrder.getTradingName())) {
-      MetaFile tradingLogo = saleOrder.getTradingName().getLogo();
-      if (ObjectUtils.notEmpty(tradingLogo)) {
-        dataMap.put("logoPath", tradingLogo.getFilePath());
-      }
+    if (ObjectUtils.notEmpty(saleOrder.getTradingName()) && ObjectUtils.notEmpty(saleOrder.getTradingName().getLogo())) {
+        dataMap.put("logoPath", saleOrder.getTradingName().getLogo().getFilePath());
     } else if (ObjectUtils.notEmpty(companyLogo)) {
       dataMap.put("logoPath", companyLogo.getFilePath());
     }
