@@ -50,6 +50,8 @@ import com.axelor.apps.businessproject.service.PurchaseOrderLineServiceProjectIm
 import com.axelor.apps.businessproject.service.SaleOrderInvoiceProjectServiceImpl;
 import com.axelor.apps.businessproject.service.SaleOrderLineProjectService;
 import com.axelor.apps.businessproject.service.SaleOrderLineProjectServiceImpl;
+import com.axelor.apps.businessproject.service.TeamResidualReportService;
+import com.axelor.apps.businessproject.service.TeamResidualReportServiceImpl;
 import com.axelor.apps.businessproject.service.TeamTaskBusinessProjectService;
 import com.axelor.apps.businessproject.service.TeamTaskBusinessProjectServiceImpl;
 import com.axelor.apps.businessproject.service.TimesheetLineBusinessService;
@@ -125,5 +127,6 @@ public class BusinessProjectModule extends AxelorModule {
     bind(InvoicePaymentValidateServiceBankPayImpl.class)
         .to(InvoicePaymentValidateProjectServiceImpl.class);
     bind(ProjectFolderService.class).to(ProjectFolderServiceImpl.class);
+    bind(TeamResidualReportService.class).to(TeamResidualReportServiceImpl.class);
   }
 }
