@@ -71,17 +71,6 @@ reportContext.setPersistentGlobalVariable("UCFirst", UCFirst);]]></method>
                 <property name="category">Unformatted</property>
             </structure>
         </scalar-parameter>
-        <scalar-parameter name="planningLineTypeSelect" id="27">
-            <property name="valueType">static</property>
-            <property name="dataType">integer</property>
-            <property name="distinct">true</property>
-            <list-property name="selectionList"/>
-            <property name="paramType">simple</property>
-            <property name="controlType">text-box</property>
-            <structure name="format">
-                <property name="category">Unformatted</property>
-            </structure>
-        </scalar-parameter>
         <scalar-parameter name="startDate" id="28">
             <property name="valueType">static</property>
             <property name="dataType">string</property>
@@ -129,8 +118,8 @@ reportContext.setPersistentGlobalVariable("UCFirst", UCFirst);]]></method>
     </parameters>
     <data-sources>
         <script-data-source name="Data Source" id="4">
-            <method name="open"><![CDATA[importPackage(com.axelor.apps.businessproject.service);
-packageClass = new TeamResidualReportServiceImpl().getInstance();
+            <method name="open"><![CDATA[importPackage(com.axelor.apps.businessproject.service.report);
+packageClass = new AvailabilitiesReportServiceImpl().getInstance();
 translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag(params["Locale"]));
 ]]></method>
         </script-data-source>
@@ -211,9 +200,9 @@ translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag
                 </list-property>
             </structure>
             <property name="dataSource">Data Source</property>
-            <method name="open"><![CDATA[teamResidualDataList = packageClass.getTeamResidualData(params["startDate"],params["endDate"],params["granularitySelect"],params["planningLineTypeSelect"],params["companyId"]).iterator();]]></method>
-            <method name="fetch"><![CDATA[if(teamResidualDataList.hasNext()){
-    node = teamResidualDataList.next();
+            <method name="open"><![CDATA[availabilitiesDataList = packageClass.getAvailabilitiesData(params["startDate"],params["endDate"],params["granularitySelect"],params["companyId"]).iterator();]]></method>
+            <method name="fetch"><![CDATA[if(availabilitiesDataList.hasNext()){
+    node = availabilitiesDataList.next();
 
 	row["employeeName"] = node.get("employeeName");
 	row["value"]= node.get("value");
@@ -226,7 +215,7 @@ return false;]]></method>
         </script-data-set>
     </data-sets>
     <cubes>
-        <tabular-cube name="Team Residual" id="4887">
+        <tabular-cube name="Availabilities" id="4887">
             <property name="dimensions">
                 <tabular-dimension name="employee" id="4888">
                     <property name="defaultHierarchy">NewTabularHierarchy</property>
@@ -314,7 +303,7 @@ return false;]]></method>
                                 <property name="fontWeight">bold</property>
                                 <property name="marginLeft">10%</property>
                                 <property name="contentType">html</property>
-                                <text-property name="content"><![CDATA[<B><VALUE-OF>Packages.com.axelor.i18n.I18n.get('TeamResidual.title')</VALUE-OF></B>]]></text-property>
+                                <text-property name="content"><![CDATA[<B><VALUE-OF>Packages.com.axelor.i18n.I18n.get('Availabilities.title')</VALUE-OF></B>]]></text-property>
                             </text>
                         </cell>
                     </row>
@@ -373,7 +362,7 @@ return false;]]></method>
     </page-setup>
     <body>
         <extended-item extensionName="Crosstab" extensionVersion="3.7.0" id="4979">
-            <property name="cube">Team Residual</property>
+            <property name="cube">Availabilities</property>
             <property name="measures">
                 <extended-item extensionName="MeasureView" id="5004">
                     <property name="measure">value</property>
@@ -458,7 +447,7 @@ return false;]]></method>
                                     <property name="fontFamily">sans-serif</property>
                                     <property name="fontSize">8.5pt</property>
                                     <property name="contentType">html</property>
-                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('TeamResidual.total')</VALUE-OF>]]></text-property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('Availabilities.total')</VALUE-OF>]]></text-property>
                                 </text>
                             </property>
                             <property name="fontFamily">sans-serif</property>
@@ -502,7 +491,7 @@ return false;]]></method>
                                                     <property name="fontSize">8.5pt</property>
                                                     <property name="fontWeight">bold</property>
                                                     <property name="contentType">html</property>
-                                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('TeamResidual.departmentTotal')</VALUE-OF>]]></text-property>
+                                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('Availabilities.departmentTotal')</VALUE-OF>]]></text-property>
                                                 </text>
                                             </property>
                                             <property name="fontFamily">sans-serif</property>

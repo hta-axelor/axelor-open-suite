@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.axelor.apps.businessproject.service;
+package com.axelor.apps.businessproject.service.report;
 
 import com.axelor.apps.base.service.app.AppBaseService;
 import com.axelor.apps.hr.db.Employee;
@@ -36,13 +36,12 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import javax.persistence.Query;
 
-public class TeamResidualReportServiceImpl implements TeamResidualReportService {
+public class AvailabilitiesReportServiceImpl implements AvailabilitiesReportService {
 
   static final int GRANULARITY_SELECT_FORTNIGHT = 1;
   static final int GRANULARITY_SELECT_MONTH = 2;
@@ -55,48 +54,22 @@ public class TeamResidualReportServiceImpl implements TeamResidualReportService 
   @Inject protected EmployeeService employeeService;
   @Inject protected EmployeeRepository employeeRepository;
 
-  public static TeamResidualReportService getInstance() {
-    return Beans.get(TeamResidualReportService.class);
+  public static AvailabilitiesReportService getInstance() {
+    return Beans.get(AvailabilitiesReportService.class);
   }
 
   @Override
-  public List<Map<String, Object>> getTeamResidualData(
-      String startDateStr,
-      String endDateStr,
-      Integer granularitySelect,
-      Integer planningLineTypeSelect,
-      Long companyId)
+  public List<Map<String, Object>> getAvailabilitiesData(
+      String startDateStr, String endDateStr, Integer granularitySelect, Long companyId)
       throws AxelorException {
 
     LocalDate startDate = LocalDate.parse(startDateStr, DateTimeFormatter.ISO_DATE);
     LocalDate endDate = LocalDate.parse(endDateStr, DateTimeFormatter.ISO_DATE);
 
     Map<LocalDate, LocalDate> periodMap = getPeriods(granularitySelect, startDate, endDate);
-    List<Boolean> planningLineIsValidatedList =
-        getPlanningLineIsValidatedList(planningLineTypeSelect);
-    List<Map<String, Object>> dataMapList =
-        getEmployeeResidualTime(periodMap, planningLineIsValidatedList, companyId);
+    List<Map<String, Object>> dataMapList = getEmployeeResidualTime(periodMap, companyId);
 
     return dataMapList;
-  }
-
-  protected List<Boolean> getPlanningLineIsValidatedList(int planningLineTypeSelect) {
-    List<Boolean> isValidatedList = null;
-
-    switch (planningLineTypeSelect) {
-      case PLANNING_LINE_TYPE_SELECT_STAFFING:
-        isValidatedList = Arrays.asList(true);
-        break;
-      case PLANNING_LINE_TYPE_SELECT_PRE_STAFFING:
-        isValidatedList = Arrays.asList(false);
-        break;
-      case PLANNING_LINE_TYPE_SELECT_BOTH:
-        isValidatedList = Arrays.asList(true, false);
-        break;
-      default:
-        isValidatedList = Arrays.asList(true);
-    }
-    return isValidatedList;
   }
 
   protected Map<LocalDate, LocalDate> getPeriods(
@@ -144,17 +117,14 @@ public class TeamResidualReportServiceImpl implements TeamResidualReportService 
   }
 
   protected List<Map<String, Object>> getEmployeeResidualTime(
-      Map<LocalDate, LocalDate> periodMap,
-      List<Boolean> planningLineIsValidatedList,
-      Long companyId)
-      throws AxelorException {
+      Map<LocalDate, LocalDate> periodMap, Long companyId) throws AxelorException {
 
     List<Map<String, Object>> dataMapList = new ArrayList<>();
     List<Employee> employeeList = getEmployeeList(companyId);
 
     for (Employee employee : employeeList) {
       List<Map<String, Object>> perEmployeeResidualTimeMap =
-          getPerEmployeeResidualTime(employee, periodMap, planningLineIsValidatedList);
+          getPerEmployeeResidualTime(employee, periodMap);
       dataMapList.addAll(perEmployeeResidualTimeMap);
     }
 
@@ -162,10 +132,7 @@ public class TeamResidualReportServiceImpl implements TeamResidualReportService 
   }
 
   protected List<Map<String, Object>> getPerEmployeeResidualTime(
-      Employee employee,
-      Map<LocalDate, LocalDate> periodMap,
-      List<Boolean> planningLineIsValidatedList)
-      throws AxelorException {
+      Employee employee, Map<LocalDate, LocalDate> periodMap) throws AxelorException {
     List<Map<String, Object>> dataMapList = new ArrayList<>();
 
     if (employee.getUser() == null) {
@@ -175,10 +142,9 @@ public class TeamResidualReportServiceImpl implements TeamResidualReportService 
     Query planningLinesQuery =
         JPA.em()
             .createQuery(
-                "SELECT SUM(self.plannedHours) FROM ProjectPlanningTime self WHERE self.user = :user AND self.date BETWEEN :fromDate AND :toDate AND self.isValidated IN :isValidatedList");
+                "SELECT SUM(self.plannedHours) FROM ProjectPlanningTime self WHERE self.user = :user AND self.date BETWEEN :fromDate AND :toDate");
 
     planningLinesQuery.setParameter("user", employee.getUser());
-    planningLinesQuery.setParameter("isValidatedList", planningLineIsValidatedList);
 
     for (Map.Entry<LocalDate, LocalDate> period : periodMap.entrySet()) {
       Map<String, Object> dataMap = new HashMap<>();

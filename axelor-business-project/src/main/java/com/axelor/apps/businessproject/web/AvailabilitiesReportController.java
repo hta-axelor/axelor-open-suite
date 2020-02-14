@@ -43,31 +43,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Singleton
-public class TeamResidualReportController {
+public class AvailabilitiesReportController {
 
   private static final Logger LOG = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
-  public void printTeamResidualReport(ActionRequest request, ActionResponse response) {
+  public void printAvailabilitiesReport(ActionRequest request, ActionResponse response) {
     Context context = request.getContext();
 
     String startDate = context.get("startDate").toString();
     String endDate = context.get("endDate").toString();
     Integer granularitySelect = (Integer) context.get("granularitySelect");
-    Integer planningLineTypeSelect = (Integer) context.get("planningLineTypeSelect");
     Long companyId = getCompanyId(context);
 
-    String name = I18n.get(ITranslation.TEAM_RESIDUAL_TITLE);
+    String name = I18n.get(ITranslation.AVAILABILITIES_TITLE);
     String fileLink = null;
 
     try {
       fileLink =
-          ReportFactory.createReport(IReport.TEAM_RESIDUAL, name + " - " + LocalDate.now())
+          ReportFactory.createReport(IReport.AVAILABILITIES, name + " - " + LocalDate.now())
               .addParam("Locale", ReportSettings.getPrintingLocale())
               .addParam("logoPath", getLogoPath())
               .addParam("startDate", startDate)
               .addParam("endDate", endDate)
               .addParam("granularitySelect", granularitySelect)
-              .addParam("planningLineTypeSelect", planningLineTypeSelect)
               .addParam("companyId", companyId)
               .generate()
               .getFileLink();

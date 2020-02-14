@@ -65,11 +65,5 @@
       <option value="2">Month</option>
       <option value="3">Year</option>
     </selection>
-    
-    <selection name="staffing.planning.line.type.select">
-      <option value="1">Staffing</option>
-      <option value="2">Pre-staffing</option>
-      <option value="3">Both</option>
-    </selection>
 
 </object-views>

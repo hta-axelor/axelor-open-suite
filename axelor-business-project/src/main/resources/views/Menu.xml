@@ -29,10 +29,12 @@
 		<view type="form" name="invoicing-project-form"/>
 	</action-view>
 	
-	<menuitem name="business-project-root-team-residual-report" parent="business-project-root" title="Team residual" action="business.project.root.team.residual.report" order="20" />
+	<!-- Project -->
+		
+	<menuitem name="project-reporting-availabilities" parent="project-reporting" title="Availabilities" action="project.reporting.availabilities"/>
 
-    <action-view name="business.project.root.team.residual.report" title="Team residual" model="com.axelor.apps.base.db.Wizard">
-      <view type="form" name="team-residual-report-form" />
+    <action-view name="project.reporting.availabilities" title="Availabilities" model="com.axelor.apps.base.db.Wizard">
+      <view type="form" name="availabilities-report-form" />
     </action-view>
 	
 	<!-- ADMINISTRATION -->

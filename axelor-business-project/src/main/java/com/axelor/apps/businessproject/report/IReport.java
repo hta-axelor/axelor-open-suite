@@ -23,5 +23,5 @@ public interface IReport {
   public static final String INVOICE_ANNEX = "InvoiceAnnex.rptdesign";
   public static final String PLANNIF_AND_COST = "PlannificationAndCost.rptdesign";
   public static final String INVOICING_PROJECT_ANNEX = "InvoicingProjectAnnex.rptdesign";
-  public static final String TEAM_RESIDUAL = "TeamResidual.rptdesign";
+  public static final String AVAILABILITIES = "Availabilities.rptdesign";
 }

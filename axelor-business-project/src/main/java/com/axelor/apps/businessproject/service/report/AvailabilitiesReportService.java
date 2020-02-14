@@ -15,19 +15,15 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.axelor.apps.businessproject.service;
+package com.axelor.apps.businessproject.service.report;
 
 import com.axelor.exception.AxelorException;
 import java.util.List;
 import java.util.Map;
 
-public interface TeamResidualReportService {
+public interface AvailabilitiesReportService {
 
-  public List<Map<String, Object>> getTeamResidualData(
-      String startDate,
-      String endDate,
-      Integer granularitySelect,
-      Integer planningLineTypeSelect,
-      Long companyId)
+  public List<Map<String, Object>> getAvailabilitiesData(
+      String startDate, String endDate, Integer granularitySelect, Long companyId)
       throws AxelorException;
 }
