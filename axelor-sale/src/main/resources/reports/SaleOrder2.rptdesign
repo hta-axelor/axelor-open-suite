@@ -2738,7 +2738,11 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                             </row>
                         </header>
                         <group id="7052">
-                            <property name="groupName">TableGroup</property>
+                            <property name="groupName">SaleOrderLine</property>
+                            <expression name="keyExpr" type="javascript">row["id"]</expression>
+                            <structure name="toc">
+                                <expression name="expressionValue" type="javascript">row["id"]</expression>
+                            </structure>
                             <property name="hideDetail">false</property>
                             <header>
                                 <row id="7053">
