@@ -2737,20 +2737,38 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                 </cell>
                             </row>
                         </header>
-                        <detail>
-                            <row id="6905">
-                                <cell id="6906"/>
-                                <cell id="6907"/>
-                                <cell id="6908"/>
-                                <cell id="6909"/>
-                                <cell id="6910"/>
-                                <cell id="6911"/>
-                                <cell id="6912"/>
-                                <cell id="6913"/>
-                                <cell id="6914"/>
-                                <cell id="6915"/>
-                            </row>
-                        </detail>
+                        <group id="7052">
+                            <property name="groupName">TableGroup</property>
+                            <property name="hideDetail">false</property>
+                            <header>
+                                <row id="7053">
+                                    <cell id="7054"/>
+                                    <cell id="7055"/>
+                                    <cell id="7056"/>
+                                    <cell id="7057"/>
+                                    <cell id="7058"/>
+                                    <cell id="7059"/>
+                                    <cell id="7060"/>
+                                    <cell id="7061"/>
+                                    <cell id="7062"/>
+                                    <cell id="7063"/>
+                                </row>
+                            </header>
+                            <footer>
+                                <row id="7064">
+                                    <cell id="7065"/>
+                                    <cell id="7066"/>
+                                    <cell id="7067"/>
+                                    <cell id="7068"/>
+                                    <cell id="7069"/>
+                                    <cell id="7070"/>
+                                    <cell id="7071"/>
+                                    <cell id="7072"/>
+                                    <cell id="7073"/>
+                                    <cell id="7074"/>
+                                </row>
+                            </footer>
+                        </group>
                         <footer>
                             <row id="6916">
                                 <cell id="6917"/>

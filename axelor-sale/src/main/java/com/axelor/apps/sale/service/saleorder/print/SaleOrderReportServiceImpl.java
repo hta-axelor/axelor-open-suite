@@ -229,8 +229,9 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
     }
 
     MetaFile companyLogo = company.getLogo();
-    if (ObjectUtils.notEmpty(saleOrder.getTradingName()) && ObjectUtils.notEmpty(saleOrder.getTradingName().getLogo())) {
-        dataMap.put("logoPath", saleOrder.getTradingName().getLogo().getFilePath());
+    if (ObjectUtils.notEmpty(saleOrder.getTradingName())
+        && ObjectUtils.notEmpty(saleOrder.getTradingName().getLogo())) {
+      dataMap.put("logoPath", saleOrder.getTradingName().getLogo().getFilePath());
     } else if (ObjectUtils.notEmpty(companyLogo)) {
       dataMap.put("logoPath", companyLogo.getFilePath());
     }
