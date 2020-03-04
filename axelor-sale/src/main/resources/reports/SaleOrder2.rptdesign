@@ -2493,7 +2493,8 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                 <cell id="6216">
                     <property name="colSpan">8</property>
                     <property name="rowSpan">1</property>
-                    <table id="6893">
+                    <table name="SaleOrderLines1" id="6893">
+                        <property name="width">100%</property>
                         <property name="dataSet">OrderLineDS</property>
                         <list-property name="boundDataColumns">
                             <structure>
@@ -2641,7 +2642,9 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                 <property name="dataType">integer</property>
                             </structure>
                         </list-property>
-                        <column id="6927"/>
+                        <column id="6927">
+                            <property name="width">4%</property>
+                        </column>
                         <column id="6928"/>
                         <column id="6929"/>
                         <column id="6930"/>
@@ -2746,8 +2749,29 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                             <property name="hideDetail">false</property>
                             <header>
                                 <row id="7053">
-                                    <cell id="7054"/>
-                                    <cell id="7055"/>
+                                    <cell id="7054">
+                                        <text id="7077">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">left</property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF format="HTML">"<IMG src='" + params["AttachmentPath"].value + row["productPicture"] + "' width='100%'/>"</VALUE-OF>]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="7055">
+                                        <text id="7078">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">left</property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>if(!row["isTitleLine"]){row["productCode"];}</VALUE-OF>
+<B><VALUE-OF>if(row["isTitleLine"]){row["productCode"];}</VALUE-OF></B>]]></text-property>
+                                        </text>
+                                        <data id="7079">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="textAlign">right</property>
+                                            <property name="resultSetColumn">productCustomerCode</property>
+                                        </data>
+                                    </cell>
                                     <cell id="7056"/>
                                     <cell id="7057"/>
                                     <cell id="7058"/>
