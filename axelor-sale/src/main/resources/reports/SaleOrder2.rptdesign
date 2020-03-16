@@ -1,0 +1,3176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.7.0.v201706222054</property>
+    <list-property name="userProperties">
+        <structure>
+            <property name="name">test</property>
+            <property name="type">string</property>
+        </structure>
+    </list-property>
+    <property name="units">cm</property>
+    <method name="beforeFactory"><![CDATA[if(params["HeaderHeight"].value != 0 ) {
+reportContext.getDesignHandle().findMasterPage("Simple MasterPage").setProperty("headerHeight",params["HeaderHeight"].value+"cm");
+}
+if(params["FooterHeight"].value != 0) {
+reportContext.getDesignHandle().findMasterPage("Simple MasterPage").setProperty("footerHeight",params["FooterHeight"].value+"cm");
+}]]></method>
+    <property name="layoutPreference">auto layout</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <parameters>
+        <scalar-parameter name="SaleOrderId" id="3265">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">decimal</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">1</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="concealValue">false</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="UserName" id="3796">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">axelor</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="DBName" id="3797">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">jdbc:postgresql://localhost:5432/axelor-open-suite</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="Password" id="3798">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="Locale" id="3740">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">fr</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="AttachmentPath" id="3849">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant"></value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="DefaultDriver" id="3819">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">true</property>
+            <property name="dataType">string</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">org.postgresql.Driver</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="ProformaInvoice" id="4308">
+            <property name="hidden">true</property>
+            <property name="valueType">static</property>
+            <property name="isRequired">false</property>
+            <property name="dataType">boolean</property>
+            <property name="distinct">true</property>
+            <simple-property-list name="defaultValue">
+                <value type="constant">False</value>
+            </simple-property-list>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">check-box</property>
+            <structure name="format"/>
+        </scalar-parameter>
+        <scalar-parameter name="HeaderHeight" id="5372">
+            <property name="valueType">static</property>
+            <property name="dataType">decimal</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+        <scalar-parameter name="FooterHeight" id="5373">
+            <property name="valueType">static</property>
+            <property name="dataType">decimal</property>
+            <property name="distinct">true</property>
+            <list-property name="selectionList"/>
+            <property name="paramType">simple</property>
+            <property name="controlType">text-box</property>
+            <structure name="format">
+                <property name="category">Unformatted</property>
+            </structure>
+        </scalar-parameter>
+    </parameters>
+    <data-sources>
+        <script-data-source name="Data Source" id="5374">
+            <method name="open"><![CDATA[importPackage(com.axelor.apps.sale.service.saleorder.print);
+packageClass = new com.axelor.apps.sale.service.saleorder.print.SaleOrderReportServiceImpl().getInstance();
+translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag(params["Locale"]));]]></method>
+        </script-data-source>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="OrderLineDS" id="5376">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">quantity</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">productName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">exTaxTotal</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">inTaxTotal</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">sequence</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">estimatedDeliveryDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">priceDiscounted</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">showTotal</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">hideUnitAmounts</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">unitCode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">unitPrice</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">taxLine</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">productCode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">productTypeSelect</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">productPicture</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">productCustomerCode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">productCustomerName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">20</property>
+                    <property name="name">totalDiscountAmount</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">21</property>
+                    <property name="name">isTitleLine</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">22</property>
+                    <property name="name">currencyCode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">23</property>
+                    <property name="name">inAti</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">24</property>
+                    <property name="name">saleOrderTypeSelect</property>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">quantity</property>
+                </structure>
+                <structure>
+                    <property name="columnName">productName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">exTaxTotal</property>
+                </structure>
+                <structure>
+                    <property name="columnName">inTaxTotal</property>
+                </structure>
+                <structure>
+                    <property name="columnName">sequence</property>
+                </structure>
+                <structure>
+                    <property name="columnName">estimatedDeliveryDate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">priceDiscounted</property>
+                </structure>
+                <structure>
+                    <property name="columnName">showTotal</property>
+                </structure>
+                <structure>
+                    <property name="columnName">hideUnitAmounts</property>
+                </structure>
+                <structure>
+                    <property name="columnName">unitCode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">unitPrice</property>
+                </structure>
+                <structure>
+                    <property name="columnName">taxLine</property>
+                </structure>
+                <structure>
+                    <property name="columnName">productCode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">productTypeSelect</property>
+                </structure>
+                <structure>
+                    <property name="columnName">productPicture</property>
+                </structure>
+                <structure>
+                    <property name="columnName">productCustomerCode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">productCustomerName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">totalDiscountAmount</property>
+                </structure>
+                <structure>
+                    <property name="columnName">isTitleLine</property>
+                </structure>
+                <structure>
+                    <property name="columnName">currencyCode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">inAti</property>
+                </structure>
+                <structure>
+                    <property name="columnName">saleOrderTypeSelect</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">quantity</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">productName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">exTaxTotal</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">inTaxTotal</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">sequence</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">estimatedDeliveryDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">priceDiscounted</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">showTotal</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">hideUnitAmounts</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">unitCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">unitPrice</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">taxLine</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">productCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">productTypeSelect</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">productPicture</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">productCustomerCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">productCustomerName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">totalDiscountAmount</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">21</property>
+                        <property name="name">isTitleLine</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">22</property>
+                        <property name="name">currencyCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">23</property>
+                        <property name="name">inAti</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">24</property>
+                        <property name="name">saleOrderTypeSelect</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[saleOrderLineList = packageClass.getSaleOrderLineData(params["SaleOrderId"]).iterator();]]></method>
+            <method name="fetch"><![CDATA[if(saleOrderLineList.hasNext()){
+node = saleOrderLineList.next();
+	row["id"] = node.get("id");
+	row["description"] = node.get("description");
+	row["quantity"] = node.get("quantity");
+	row["productName"] = node.get("productName");
+	row["exTaxTotal"] = node.get("exTaxTotal");
+	row["inTaxTotal"] = node.get("inTaxTotal");
+	row["sequence"] = node.get("sequence");
+	row["estimatedDeliveryDate"] = node.get("estimatedDeliveryDate");
+	row["priceDiscounted"] = node.get("priceDiscounted");
+	row["showTotal"] = node.get("showTotal");
+	row["hideUnitAmounts"] = node.get("hideUnitAmounts");
+	row["unitCode"] = node.get("unitCode");
+	row["unitPrice"] = node.get("unitPrice");
+	row["taxLine"] = node.get("taxLine");
+	row["productCode"] = node.get("productCode");
+	row["productTypeSelect"] = node.get("productTypeSelect");
+	row["productPicture"] = node.get("productPicture");
+	row["productCustomerCode"] = node.get("productCustomerCode");
+	row["productCustomerName"] = node.get("productCustomerName");
+	row["totalDiscountAmount"] = node.get("totalDiscountAmount");
+	row["isTitleLine"] = node.get("isTitleLine");
+	row["currencyCode"] = node.get("currencyCode");
+	row["inAti"] = node.get("inAti");
+	row["saleOrderTypeSelect"] = node.get("saleOrderTypeSelect");
+	return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="SaleOrderLineTaxDS" id="5377">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">exTaxBase</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">taxTotal</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">value</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">saleOrderTypeSelect</property>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">exTaxBase</property>
+                </structure>
+                <structure>
+                    <property name="columnName">taxTotal</property>
+                </structure>
+                <structure>
+                    <property name="columnName">value</property>
+                </structure>
+                <structure>
+                    <property name="columnName">saleOrderTypeSelect</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">exTaxBase</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">taxTotal</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">value</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">saleOrderTypeSelect</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[saleOrderLineTaxList = packageClass.getSaleOrderLineTaxData(params["SaleOrderId"]).iterator();]]></method>
+            <method name="fetch"><![CDATA[if(saleOrderLineTaxList.hasNext()){
+node = saleOrderLineTaxList.next();
+	row["exTaxBase"] = node.get("exTaxBase");
+	row["taxTotal"] = node.get("taxTotal");
+	row["value"] = node.get("value");
+	row["saleOrderTypeSelect"] = node.get("saleOrderTypeSelect");
+	return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="SaleOrderDS" id="5378">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">id</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">saleOrderSeq</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">creationDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">4</property>
+                    <property name="name">mainInvoicingAddressStr</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">5</property>
+                    <property name="name">deliveryAddressStr</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">6</property>
+                    <property name="name">exTaxTotal</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">7</property>
+                    <property name="name">taxTotal</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">8</property>
+                    <property name="name">inTaxTotal</property>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="position">9</property>
+                    <property name="name">externalReference</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">10</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">11</property>
+                    <property name="name">deliveryDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">12</property>
+                    <property name="name">deliveryCondition</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">13</property>
+                    <property name="name">hideDiscount</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">14</property>
+                    <property name="name">statusSelect</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">15</property>
+                    <property name="name">specific_notes</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">16</property>
+                    <property name="name">versionNumber</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">17</property>
+                    <property name="name">periodicityTypeSelect</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">18</property>
+                    <property name="name">numberOfPeriods</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">19</property>
+                    <property name="name">subscriptionText</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">20</property>
+                    <property name="name">endOfValidityDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">21</property>
+                    <property name="name">inAti</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">22</property>
+                    <property name="name">proformaComments</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">23</property>
+                    <property name="name">salesperson_signature_path</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">24</property>
+                    <property name="name">salemanName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">25</property>
+                    <property name="name">salemanPhone</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">26</property>
+                    <property name="name">salemanEmail</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">27</property>
+                    <property name="name">companyName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">28</property>
+                    <property name="name">logoHeight</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">29</property>
+                    <property name="name">logoWidth</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">30</property>
+                    <property name="name">DisplaySaleman</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">31</property>
+                    <property name="name">saleOrderClientBox</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">32</property>
+                    <property name="name">saleOrderLegalNote</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">33</property>
+                    <property name="name">displayDelCondOnPrinting</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">34</property>
+                    <property name="name">displayProductCodeOnPrinting</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">35</property>
+                    <property name="name">displayTaxDetailOnPrinting</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">36</property>
+                    <property name="name">displayEstimDelivDateOnPrinting</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">37</property>
+                    <property name="name">displayCustomerCodeOnPrinting</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">38</property>
+                    <property name="name">displayProductPictureOnPrinting</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">39</property>
+                    <property name="name">logoPath</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">40</property>
+                    <property name="name">customerCode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">41</property>
+                    <property name="name">partnerTypeSelect</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">42</property>
+                    <property name="name">clientPartName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">43</property>
+                    <property name="name">clientPartFirstName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">44</property>
+                    <property name="name">clientTitle</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">45</property>
+                    <property name="name">contactName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">46</property>
+                    <property name="name">contactFirstName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">47</property>
+                    <property name="name">invoicecountry</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">48</property>
+                    <property name="name">deliveryCountry</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">49</property>
+                    <property name="name">iban</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">50</property>
+                    <property name="name">bankAddress</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">51</property>
+                    <property name="name">bic</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">52</property>
+                    <property name="name">header</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">53</property>
+                    <property name="name">footer</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">54</property>
+                    <property name="name">logoPosition</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">55</property>
+                    <property name="name">durationName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">56</property>
+                    <property name="name">currencyCode</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">57</property>
+                    <property name="name">shipmentDate</property>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="position">58</property>
+                    <property name="name">saleOrderTypeSelect</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">59</property>
+                    <property name="name">isIspmRequired</property>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="position">60</property>
+                    <property name="name">paymentCondName</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">61</property>
+                    <property name="name">paymentMode</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">id</property>
+                </structure>
+                <structure>
+                    <property name="columnName">saleOrderSeq</property>
+                </structure>
+                <structure>
+                    <property name="columnName">creationDate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">mainInvoicingAddressStr</property>
+                </structure>
+                <structure>
+                    <property name="columnName">deliveryAddressStr</property>
+                </structure>
+                <structure>
+                    <property name="columnName">exTaxTotal</property>
+                </structure>
+                <structure>
+                    <property name="columnName">taxTotal</property>
+                </structure>
+                <structure>
+                    <property name="columnName">inTaxTotal</property>
+                </structure>
+                <structure>
+                    <property name="columnName">externalReference</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+                <structure>
+                    <property name="columnName">deliveryDate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">deliveryCondition</property>
+                </structure>
+                <structure>
+                    <property name="columnName">hideDiscount</property>
+                </structure>
+                <structure>
+                    <property name="columnName">statusSelect</property>
+                </structure>
+                <structure>
+                    <property name="columnName">specific_notes</property>
+                </structure>
+                <structure>
+                    <property name="columnName">versionNumber</property>
+                </structure>
+                <structure>
+                    <property name="columnName">periodicityTypeSelect</property>
+                </structure>
+                <structure>
+                    <property name="columnName">numberOfPeriods</property>
+                </structure>
+                <structure>
+                    <property name="columnName">subscriptionText</property>
+                </structure>
+                <structure>
+                    <property name="columnName">endOfValidityDate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">inAti</property>
+                </structure>
+                <structure>
+                    <property name="columnName">proformaComments</property>
+                </structure>
+                <structure>
+                    <property name="columnName">salesperson_signature_path</property>
+                </structure>
+                <structure>
+                    <property name="columnName">salemanName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">salemanPhone</property>
+                </structure>
+                <structure>
+                    <property name="columnName">salemanEmail</property>
+                </structure>
+                <structure>
+                    <property name="columnName">companyName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">logoHeight</property>
+                </structure>
+                <structure>
+                    <property name="columnName">logoWidth</property>
+                </structure>
+                <structure>
+                    <property name="columnName">DisplaySaleman</property>
+                </structure>
+                <structure>
+                    <property name="columnName">saleOrderClientBox</property>
+                </structure>
+                <structure>
+                    <property name="columnName">saleOrderLegalNote</property>
+                </structure>
+                <structure>
+                    <property name="columnName">displayDelCondOnPrinting</property>
+                </structure>
+                <structure>
+                    <property name="columnName">displayProductCodeOnPrinting</property>
+                </structure>
+                <structure>
+                    <property name="columnName">displayTaxDetailOnPrinting</property>
+                </structure>
+                <structure>
+                    <property name="columnName">displayEstimDelivDateOnPrinting</property>
+                </structure>
+                <structure>
+                    <property name="columnName">displayCustomerCodeOnPrinting</property>
+                </structure>
+                <structure>
+                    <property name="columnName">displayProductPictureOnPrinting</property>
+                </structure>
+                <structure>
+                    <property name="columnName">logoPath</property>
+                </structure>
+                <structure>
+                    <property name="columnName">customerCode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">partnerTypeSelect</property>
+                </structure>
+                <structure>
+                    <property name="columnName">clientPartName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">clientPartFirstName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">clientTitle</property>
+                </structure>
+                <structure>
+                    <property name="columnName">contactName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">contactFirstName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">invoicecountry</property>
+                </structure>
+                <structure>
+                    <property name="columnName">deliveryCountry</property>
+                </structure>
+                <structure>
+                    <property name="columnName">iban</property>
+                </structure>
+                <structure>
+                    <property name="columnName">bankAddress</property>
+                </structure>
+                <structure>
+                    <property name="columnName">bic</property>
+                </structure>
+                <structure>
+                    <property name="columnName">header</property>
+                </structure>
+                <structure>
+                    <property name="columnName">footer</property>
+                </structure>
+                <structure>
+                    <property name="columnName">logoPosition</property>
+                </structure>
+                <structure>
+                    <property name="columnName">durationName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">currencyCode</property>
+                </structure>
+                <structure>
+                    <property name="columnName">shipmentDate</property>
+                </structure>
+                <structure>
+                    <property name="columnName">saleOrderTypeSelect</property>
+                </structure>
+                <structure>
+                    <property name="columnName">isIspmRequired</property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentCondName</property>
+                </structure>
+                <structure>
+                    <property name="columnName">paymentMode</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">id</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">saleOrderSeq</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">creationDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">4</property>
+                        <property name="name">mainInvoicingAddressStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">5</property>
+                        <property name="name">deliveryAddressStr</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">6</property>
+                        <property name="name">exTaxTotal</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">7</property>
+                        <property name="name">taxTotal</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">8</property>
+                        <property name="name">inTaxTotal</property>
+                        <property name="dataType">decimal</property>
+                    </structure>
+                    <structure>
+                        <property name="position">9</property>
+                        <property name="name">externalReference</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">10</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">11</property>
+                        <property name="name">deliveryDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">12</property>
+                        <property name="name">deliveryCondition</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">13</property>
+                        <property name="name">hideDiscount</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">14</property>
+                        <property name="name">statusSelect</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">15</property>
+                        <property name="name">specific_notes</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">16</property>
+                        <property name="name">versionNumber</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">17</property>
+                        <property name="name">periodicityTypeSelect</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">18</property>
+                        <property name="name">numberOfPeriods</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">19</property>
+                        <property name="name">subscriptionText</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">20</property>
+                        <property name="name">endOfValidityDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">21</property>
+                        <property name="name">inAti</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">22</property>
+                        <property name="name">proformaComments</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">23</property>
+                        <property name="name">salesperson_signature_path</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">24</property>
+                        <property name="name">salemanName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">25</property>
+                        <property name="name">salemanPhone</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">26</property>
+                        <property name="name">salemanEmail</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">27</property>
+                        <property name="name">companyName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">28</property>
+                        <property name="name">logoHeight</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">29</property>
+                        <property name="name">logoWidth</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">30</property>
+                        <property name="name">DisplaySaleman</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">31</property>
+                        <property name="name">saleOrderClientBox</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">32</property>
+                        <property name="name">saleOrderLegalNote</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">33</property>
+                        <property name="name">displayDelCondOnPrinting</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">34</property>
+                        <property name="name">displayProductCodeOnPrinting</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">35</property>
+                        <property name="name">displayTaxDetailOnPrinting</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">36</property>
+                        <property name="name">displayEstimDelivDateOnPrinting</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">37</property>
+                        <property name="name">displayCustomerCodeOnPrinting</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">38</property>
+                        <property name="name">displayProductPictureOnPrinting</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">39</property>
+                        <property name="name">logoPath</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">40</property>
+                        <property name="name">customerCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">41</property>
+                        <property name="name">partnerTypeSelect</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">42</property>
+                        <property name="name">clientPartName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">43</property>
+                        <property name="name">clientPartFirstName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">44</property>
+                        <property name="name">clientTitle</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">45</property>
+                        <property name="name">contactName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">46</property>
+                        <property name="name">contactFirstName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">47</property>
+                        <property name="name">invoicecountry</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">48</property>
+                        <property name="name">deliveryCountry</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">49</property>
+                        <property name="name">iban</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">50</property>
+                        <property name="name">bankAddress</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">51</property>
+                        <property name="name">bic</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">52</property>
+                        <property name="name">header</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">53</property>
+                        <property name="name">footer</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">54</property>
+                        <property name="name">logoPosition</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">55</property>
+                        <property name="name">durationName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">56</property>
+                        <property name="name">currencyCode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">57</property>
+                        <property name="name">shipmentDate</property>
+                        <property name="dataType">date</property>
+                    </structure>
+                    <structure>
+                        <property name="position">58</property>
+                        <property name="name">saleOrderTypeSelect</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">59</property>
+                        <property name="name">isIspmRequired</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                    <structure>
+                        <property name="position">60</property>
+                        <property name="name">paymentCondName</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">61</property>
+                        <property name="name">paymentMode</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[saleOrderList = packageClass.getSaleOrderData(params["SaleOrderId"]).iterator();]]></method>
+            <method name="fetch"><![CDATA[if(saleOrderList.hasNext()){
+node = saleOrderList.next();
+	row["id"] = node.get("id");
+	row["saleOrderSeq"] = node.get("saleOrderSeq");
+	row["creationDate"] = node.get("creationDate");
+	row["mainInvoicingAddressStr"] = node.get("mainInvoicingAddressStr");
+	row["deliveryAddressStr"] = node.get("deliveryAddressStr");
+	row["exTaxTotal"] = node.get("exTaxTotal");
+	row["taxTotal"] = node.get("taxTotal");
+	row["inTaxTotal"] = node.get("inTaxTotal");
+	row["externalReference"] = node.get("externalReference");
+	row["description"] = node.get("description");
+	row["deliveryDate"] = node.get("deliveryDate");
+	row["deliveryCondition"] = node.get("deliveryCondition");
+	row["exTaxBase"] = node.get("exTaxBase");
+	row["hideDiscount"] = node.get("hideDiscount");
+	row["statusSelect"] = node.get("statusSelect");
+	row["specificNotes"] = node.get("specificNotes");
+	row["versionNumber"] = node.get("versionNumber");
+	row["periodicityTypeSelect"] = node.get("periodicityTypeSelect");
+	row["numberOfPeriods"] = node.get("numberOfPeriods");
+	row["subscriptionText"] = node.get("subscriptionText");
+	row["endOfValidityDate"] = node.get("endOfValidityDate");
+	row["ex_tax_base"] = node.get("ex_tax_base");
+	row["inAti"] = node.get("inAti");
+	row["proformaComments"] = node.get("proformaComments");
+	row["salespersonSignaturePath"] = node.get("salespersonSignaturePath");
+	row["salemanName"] = node.get("salemanName");
+	row["salemanPhone"] = node.get("salemanPhone");
+	row["salemanEmail"] = node.get("salemanEmail");
+	row["companyName"] = node.get("companyName");
+	row["logoHeight"] = node.get("logoHeight");
+	row["logoWidth"] = node.get("logoWidth");
+	row["displaySalemanOnPrinting"] = node.get("displaySalemanOnPrinting");
+	row["saleOrderClientBox"] = node.get("saleOrderClientBox");
+	row["saleOrderLegalNote"] = node.get("saleOrderLegalNote");
+	row["displayDelCondOnPrinting"] = node.get("displayDelCondOnPrinting");
+	row["displayProductCodeOnPrinting"] = node.get("displayProductCodeOnPrinting");
+	row["displayTaxDetailOnPrinting"] = node.get("displayTaxDetailOnPrinting");
+	row["displayEstimDelivDateOnPrinting"] = node.get("displayEstimDelivDateOnPrinting");
+	row["displayCustomerCodeOnPrinting"] = node.get("displayCustomerCodeOnPrinting");
+	row["displayProductPictureOnPrinting"] = node.get("displayProductPictureOnPrinting");
+	row["logoPath"] = node.get("logoPath");
+	row["customerCode"] = node.get("customerCode");
+	row["partnerTypeSelect"] = node.get("partnerTypeSelect");
+	row["clientPartName"] = node.get("clientPartName");
+	row["clientPartFirstName"] = node.get("clientPartFirstName");
+	row["clientTitle"] = node.get("clientTitle");
+	row["contactName"] = node.get("contactName");
+	row["contactFirstName"] = node.get("contactFirstName");
+	row["invoicecountry"] = node.get("invoicecountry");
+	row["deliveryCountry"] = node.get("deliveryCountry");
+	row["iban"] = node.get("iban");
+	row["bankAddress"] = node.get("bankAddress");
+	row["bic"] = node.get("bic");
+	row["currencyCode"] = node.get("currencyCode");
+	row["header"] = node.get("header");
+	row["footer"] = node.get("footer");
+	row["logoPosition"] = node.get("logoPosition");
+	row["shipmentDate"] = node.get("shipmentDate");
+	row["saleOrderTypeSelect"] = node.get("saleOrderTypeSelect");
+	row["isIspmRequired"] = node.get("isIspmRequired");
+	row["paymentCondName"] = node.get("paymentCondName");
+	row["paymentMode"] = node.get("paymentMode");
+	return true;
+}
+return false;]]></method>
+        </script-data-set>
+        <script-data-set name="AppBaseDS" id="5379">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">nbDecimalDigitForUnitPrice</property>
+                    <property name="dataType">integer</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">nbDecimalDigitForUnitPrice</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">nbDecimalDigitForUnitPrice</property>
+                        <property name="dataType">integer</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[count = 1;]]></method>
+            <method name="fetch"><![CDATA[if(count == 1){
+  row["nbDecimalDigitForUnitPrice"] = packageClass.getAppBase();
+  count++;
+  return true;
+}
+return false;]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="report" id="4">
+            <property name="fontFamily">sans-serif</property>
+            <property name="fontSize">10pt</property>
+        </style>
+        <style name="crosstab-cell" id="5">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+        <style name="crosstab" id="6">
+            <property name="borderBottomColor">#CCCCCC</property>
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">1pt</property>
+            <property name="borderLeftColor">#CCCCCC</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">1pt</property>
+            <property name="borderRightColor">#CCCCCC</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">1pt</property>
+            <property name="borderTopColor">#CCCCCC</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">1pt</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="type">a4</property>
+            <property name="topMargin">0.47625cm</property>
+            <property name="leftMargin">0.4in</property>
+            <property name="bottomMargin">0in</property>
+            <property name="rightMargin">0.15625in</property>
+            <property name="headerHeight">0cm</property>
+            <property name="footerHeight">2.4cm</property>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <grid id="6080">
+            <property name="dataSet">SaleOrderDS</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">id</property>
+                    <text-property name="displayName">id</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["id"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">saleOrderSeq</property>
+                    <text-property name="displayName">saleOrderSeq</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["saleOrderSeq"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">creationDate</property>
+                    <text-property name="displayName">creationDate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["creationDate"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">mainInvoicingAddressStr</property>
+                    <text-property name="displayName">mainInvoicingAddressStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["mainInvoicingAddressStr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">deliveryAddressStr</property>
+                    <text-property name="displayName">deliveryAddressStr</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["deliveryAddressStr"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">exTaxTotal</property>
+                    <text-property name="displayName">exTaxTotal</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["exTaxTotal"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">taxTotal</property>
+                    <text-property name="displayName">taxTotal</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["taxTotal"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">inTaxTotal</property>
+                    <text-property name="displayName">inTaxTotal</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["inTaxTotal"]</expression>
+                    <property name="dataType">decimal</property>
+                </structure>
+                <structure>
+                    <property name="name">externalReference</property>
+                    <text-property name="displayName">externalReference</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["externalReference"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">description</property>
+                    <text-property name="displayName">description</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">deliveryDate</property>
+                    <text-property name="displayName">deliveryDate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["deliveryDate"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">deliveryCondition</property>
+                    <text-property name="displayName">deliveryCondition</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["deliveryCondition"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">hideDiscount</property>
+                    <text-property name="displayName">hideDiscount</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["hideDiscount"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">statusSelect</property>
+                    <text-property name="displayName">statusSelect</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["statusSelect"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">specific_notes</property>
+                    <text-property name="displayName">specific_notes</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["specific_notes"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">versionNumber</property>
+                    <text-property name="displayName">versionNumber</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["versionNumber"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">periodicityTypeSelect</property>
+                    <text-property name="displayName">periodicityTypeSelect</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["periodicityTypeSelect"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">numberOfPeriods</property>
+                    <text-property name="displayName">numberOfPeriods</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["numberOfPeriods"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">subscriptionText</property>
+                    <text-property name="displayName">subscriptionText</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["subscriptionText"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">endOfValidityDate</property>
+                    <text-property name="displayName">endOfValidityDate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["endOfValidityDate"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">inAti</property>
+                    <text-property name="displayName">inAti</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["inAti"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">proformaComments</property>
+                    <text-property name="displayName">proformaComments</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["proformaComments"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">salesperson_signature_path</property>
+                    <text-property name="displayName">salesperson_signature_path</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["salesperson_signature_path"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">salemanName</property>
+                    <text-property name="displayName">salemanName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["salemanName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">salemanPhone</property>
+                    <text-property name="displayName">salemanPhone</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["salemanPhone"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">salemanEmail</property>
+                    <text-property name="displayName">salemanEmail</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["salemanEmail"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">companyName</property>
+                    <text-property name="displayName">companyName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["companyName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">logoHeight</property>
+                    <text-property name="displayName">logoHeight</text-property>
+                    <expression name="expression" type="javascript">if(dataSetRow["logoHeight"]>0){dataSetRow["logoHeight"]+'px'}else{'60px'}</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">logoWidth</property>
+                    <text-property name="displayName">logoWidth</text-property>
+                    <expression name="expression" type="javascript">if(dataSetRow["logoWidth"]>0){dataSetRow["logoWidth"]+'px'}else{'154px'}</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">DisplaySaleman</property>
+                    <text-property name="displayName">DisplaySaleman</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["DisplaySaleman"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">saleOrderClientBox</property>
+                    <text-property name="displayName">saleOrderClientBox</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["saleOrderClientBox"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">saleOrderLegalNote</property>
+                    <text-property name="displayName">saleOrderLegalNote</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["saleOrderLegalNote"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">displayDelCondOnPrinting</property>
+                    <text-property name="displayName">displayDelCondOnPrinting</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["displayDelCondOnPrinting"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">displayProductCodeOnPrinting</property>
+                    <text-property name="displayName">displayProductCodeOnPrinting</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["displayProductCodeOnPrinting"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">displayTaxDetailOnPrinting</property>
+                    <text-property name="displayName">displayTaxDetailOnPrinting</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["displayTaxDetailOnPrinting"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">displayEstimDelivDateOnPrinting</property>
+                    <text-property name="displayName">displayEstimDelivDateOnPrinting</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["displayEstimDelivDateOnPrinting"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">displayCustomerCodeOnPrinting</property>
+                    <text-property name="displayName">displayCustomerCodeOnPrinting</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["displayCustomerCodeOnPrinting"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">displayProductPictureOnPrinting</property>
+                    <text-property name="displayName">displayProductPictureOnPrinting</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["displayProductPictureOnPrinting"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">logoPath</property>
+                    <text-property name="displayName">logoPath</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["logoPath"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">customerCode</property>
+                    <text-property name="displayName">customerCode</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["customerCode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">partnerTypeSelect</property>
+                    <text-property name="displayName">partnerTypeSelect</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["partnerTypeSelect"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">clientPartName</property>
+                    <text-property name="displayName">clientPartName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["clientPartName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">clientPartFirstName</property>
+                    <text-property name="displayName">clientPartFirstName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["clientPartFirstName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">clientTitle</property>
+                    <text-property name="displayName">clientTitle</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["clientTitle"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">contactName</property>
+                    <text-property name="displayName">contactName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["contactName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">contactFirstName</property>
+                    <text-property name="displayName">contactFirstName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["contactFirstName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">invoicecountry</property>
+                    <text-property name="displayName">invoicecountry</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["invoicecountry"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">deliveryCountry</property>
+                    <text-property name="displayName">deliveryCountry</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["deliveryCountry"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">iban</property>
+                    <text-property name="displayName">iban</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["iban"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">bankAddress</property>
+                    <text-property name="displayName">bankAddress</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["bankAddress"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">bic</property>
+                    <text-property name="displayName">bic</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["bic"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">header</property>
+                    <text-property name="displayName">header</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["header"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">footer</property>
+                    <text-property name="displayName">footer</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["footer"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">logoPosition</property>
+                    <text-property name="displayName">logoPosition</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["logoPosition"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">durationName</property>
+                    <text-property name="displayName">durationName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["durationName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">currencyCode</property>
+                    <text-property name="displayName">currencyCode</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["currencyCode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">shipmentDate</property>
+                    <text-property name="displayName">shipmentDate</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["shipmentDate"]</expression>
+                    <property name="dataType">date</property>
+                </structure>
+                <structure>
+                    <property name="name">saleOrderTypeSelect</property>
+                    <text-property name="displayName">saleOrderTypeSelect</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["saleOrderTypeSelect"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">isIspmRequired</property>
+                    <text-property name="displayName">isIspmRequired</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["isIspmRequired"]</expression>
+                    <property name="dataType">integer</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentCondName</property>
+                    <text-property name="displayName">paymentCondName</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentCondName"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">paymentMode</property>
+                    <text-property name="displayName">paymentMode</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["paymentMode"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="6081">
+                <property name="width">1.15in</property>
+            </column>
+            <column id="6082">
+                <property name="width">1.15in</property>
+            </column>
+            <column id="6083">
+                <property name="width">1.15in</property>
+            </column>
+            <column id="6084">
+                <property name="width">0.6in</property>
+            </column>
+            <column id="6085">
+                <property name="width">1.15in</property>
+            </column>
+            <column id="6086">
+                <property name="width">1in</property>
+            </column>
+            <column id="6087">
+                <property name="width">0.9in</property>
+            </column>
+            <column id="6088">
+                <property name="width">0.4in</property>
+            </column>
+            <row id="6089">
+                <property name="borderBottomStyle">solid</property>
+                <property name="borderBottomWidth">thin</property>
+                <property name="height">1.5cm</property>
+                <cell id="6090">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                    <text id="4412">
+                        <property name="fontSize">8pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<TABLE >
+	<TR>
+		<VALUE-OF format="HTML">if(row["logoPosition"] == 3) {
+		"<TD>"+row["header"]+"</TD><TD/><TD align='right' valign='middle'> <IMG src='"+params["AttachmentPath"].value+row["logoPath"]+"' alt='' width='"+row["logoWidth"]+"' height='"+row["logoHeight"]+"'/></td>"
+		} else if(row["logoPosition"] == 1) {
+		"<TD valign='middle'> <IMG src='"+params["AttachmentPath"].value+row["logoPath"]+"' alt='' width='"+row["logoWidth"]+"' height='"+row["logoHeight"]+"'/></TD><TD/><TD>"+row["header"]+"</TD>"
+		} else if(row["logoPosition"] == 2) {
+			"<TD/><TD align='center' valign='middle'><IMG src='"+params["AttachmentPath"].value+row["logoPath"]+"' alt='' width='"+row["logoWidth"]+"' height='"+row["logoHeight"]+"'/></TD><TD>"+row["header"]+"</TD>"
+		}else if(row["logoPosition"] == null) {
+			"<TD valign='middle'> <IMG src='"+params["AttachmentPath"].value+row["logoPath"]+"' alt='' width='"+row["logoWidth"]+"' height='"+row["logoHeight"]+"'/>"
+		}else {
+		"<TD/><TD/><TD>"+row["header"]+"</TD>"
+		}
+ 		</VALUE-OF>
+	</TR>
+</TABLE>]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="6098">
+                <property name="height">0.5cm</property>
+                <cell id="6099">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                </cell>
+            </row>
+            <row id="6107">
+                <cell id="6108">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <text id="6399">
+                        <property name="fontSize">12pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="marginLeft">5pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>params["ProformaInvoice"].value ? translation.getString('SaleOrder.proforma') : (row["statusSelect"] < 3  ? translation.getString('SaleOrder.quote')  :  translation.getString('SaleOrder.order'))</VALUE-OF> <VALUE-OF format="^">" "</VALUE-OF> <VALUE-OF>row["saleOrderSeq"]</VALUE-OF> <VALUE-OF>if(row["versionNumber"] > 1) {
+	"-"+row["versionNumber"]
+}</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6111"/>
+                <cell id="6112"/>
+                <cell id="6113">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                </cell>
+            </row>
+            <row id="6116">
+                <cell id="6117">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <grid id="6400">
+                        <column id="6401"/>
+                        <row id="6402">
+                            <cell id="6403">
+                                <text id="6430">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["creationDate"] == null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.date')</VALUE-OF> : <VALUE-OF format="dd/MM/yyyy">row["creationDate"]</VALUE-OF>]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="6404">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">row["statusSelect"] > 2</expression>
+                                </structure>
+                            </list-property>
+                            <cell id="6405">
+                                <text id="6431">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.duration')</VALUE-OF> : <VALUE-OF>row["durationName"]</VALUE-OF>]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="6406">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">row["statusSelect"] > 2</expression>
+                                </structure>
+                            </list-property>
+                            <cell id="6407">
+                                <text id="6432">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.validityDate')</VALUE-OF> : <VALUE-OF format="Short Date">row._outer["endOfValidityDate"]</VALUE-OF>]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="6408">
+                            <cell id="6409"/>
+                        </row>
+                        <row id="6410">
+                            <cell id="6411">
+                                <text id="6433">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["displaySaleman"] == 0</expression>
+                                        </structure>
+                                    </list-property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.salemanName')</VALUE-OF> : <VALUE-OF>row["salemanName"]</VALUE-OF>]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="6412">
+                            <cell id="6413">
+                                <text id="6434">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["displaySaleman"] == 0</expression>
+                                        </structure>
+                                    </list-property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.salemanEmail')</VALUE-OF> : <VALUE-OF>row["salemanEmail"]</VALUE-OF>]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="6414">
+                            <cell id="6415">
+                                <text id="6435">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["displaySaleman"] == 0</expression>
+                                        </structure>
+                                    </list-property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.salemanPhone')</VALUE-OF> : <VALUE-OF>row["salemanPhone"]</VALUE-OF>]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="6416">
+                            <cell id="6417"/>
+                        </row>
+                        <row id="6418">
+                            <cell id="6419">
+                                <text id="6436">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <property name="display">inline</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["paymentCondName"] == null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.paymentCondition')</VALUE-OF> : ]]></text-property>
+                                </text>
+                                <text id="6437">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <property name="display">inline</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["paymentCondName"] == null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translated = translation.getString('value:'+row["paymentCondName"]);
+if(!translated.equals('value:'+row["paymentCondName"])) {
+	translated
+} else {
+	row["paymentCondName"]
+}</VALUE-OF>]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="6420">
+                            <cell id="6421">
+                                <text id="6438">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <property name="display">inline</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["paymentMode"] == null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.paymentMode')</VALUE-OF> : ]]></text-property>
+                                </text>
+                                <text id="6439">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <property name="display">inline</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["paymentMode"] == null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translated = translation.getString('value:'+row["paymentMode"]);
+if(!translated.equals('value:'+row["paymentMode"])) {
+	translated
+} else {
+	row["paymentMode"]
+}</VALUE-OF>]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="6422">
+                            <cell id="6423">
+                                <text id="6440">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["externalReference"] == null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.customerRef')</VALUE-OF> : <VALUE-OF>row["externalReference"]</VALUE-OF>]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="6424">
+                            <cell id="6425">
+                                <text id="6441">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <list-property name="visibility">
+                                        <structure>
+                                            <property name="format">all</property>
+                                            <expression name="valueExpr" type="javascript">row["shipmentDate"] == null</expression>
+                                        </structure>
+                                    </list-property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.shipmentDate')</VALUE-OF> : <VALUE-OF>row["shipmentDate"]</VALUE-OF>]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="6426">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">row["displayCustomerCodeOnPrinting"] != 1</expression>
+                                </structure>
+                            </list-property>
+                            <cell id="6427">
+                                <text id="6442">
+                                    <property name="fontSize">9pt</property>
+                                    <property name="marginLeft">2pt</property>
+                                    <property name="contentType">html</property>
+                                    <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.customerCode')</VALUE-OF> : <VALUE-OF>row["customerCode"]</VALUE-OF>]]></text-property>
+                                </text>
+                            </cell>
+                        </row>
+                        <row id="6428">
+                            <cell id="6429"/>
+                        </row>
+                    </grid>
+                </cell>
+                <cell id="6120"/>
+                <cell id="6121">
+                    <property name="colSpan">4</property>
+                    <property name="rowSpan">1</property>
+                    <text id="3426">
+                        <property name="fontSize">12pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="marginLeft">0pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>if(row["partnerTypeSelect"] != "1"){
+	if(row["clientTitle"] == "1"){"M."}
+	else if(row["clientTitle"]=="2"){"Mme"}
+	else if(row["clientTitle"]=="3"){"Mlle"}
+	else if(row["clientTitle"]=="4"){"Dr"}
+	else if(row["clientTitle"]=="5"){"Prof."}
+}</VALUE-OF> 
+<VALUE-OF format="^">"  "</VALUE-OF><VALUE-OF>row["clientPartName"]</VALUE-OF>
+<VALUE-OF format="^">"  "</VALUE-OF><VALUE-OF>if(row["partnerTypeSelect"] != "1"){
+row["clientPartFirstName"]
+}</VALUE-OF>]]></text-property>
+                    </text>
+                    <text id="3662">
+                        <property name="fontSize">12pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="marginLeft">0pt</property>
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["contactName"] == null  &amp;&amp;  row["contactFirstName"] == null</expression>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["contactName"]</VALUE-OF><VALUE-OF format="^">"  "</VALUE-OF><VALUE-OF>row["contactFirstName"]</VALUE-OF>]]></text-property>
+                    </text>
+                    <text id="6443">
+                        <property name="textUnderline">underline</property>
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["mainInvoicingAddressStr"] == null || row["mainInvoicingAddressStr"] == ""</expression>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.invoicingAddrs')</VALUE-OF> :]]></text-property>
+                    </text>
+                    <text id="4309">
+                        <property name="paddingTop">1pt</property>
+                        <property name="paddingLeft">1pt</property>
+                        <property name="paddingBottom">1pt</property>
+                        <property name="paddingRight">1pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF format="HTML">row["mainInvoicingAddressStr"].replace(/\n/g, "<br>")</VALUE-OF>]]></text-property>
+                    </text>
+                    <label id="3644">
+                        <property name="fontSize">1pt</property>
+                    </label>
+                    <text id="6474">
+                        <property name="textUnderline">underline</property>
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["mainInvoicingAddressStr"] == row["deliveryAddressStr"] || row["deliveryAddressStr"] == "" || row["deliveryAddressStr"] == null</expression>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.deliveryAddress')</VALUE-OF> : ]]></text-property>
+                    </text>
+                    <text id="6505">
+                        <property name="paddingTop">1pt</property>
+                        <property name="paddingLeft">1pt</property>
+                        <property name="paddingBottom">1pt</property>
+                        <property name="paddingRight">1pt</property>
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["mainInvoicingAddressStr"] == row["deliveryAddressStr"]</expression>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF format="HTML">row["deliveryAddressStr"].replace(/\n/g, "<br>")</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="6125">
+                <property name="height">0.238cm</property>
+                <cell id="6126">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                </cell>
+                <cell id="6128"/>
+                <cell id="6129"/>
+                <cell id="6130"/>
+                <cell id="6131">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                </cell>
+            </row>
+            <row id="6134">
+                <property name="height">0.238cm</property>
+                <cell id="6135">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                    <text id="6506">
+                        <property name="fontSize">9pt</property>
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["deliveryDate"] == null</expression>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.deliveryDate')</VALUE-OF> : <VALUE-OF>row["deliveryDate"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="6143">
+                <property name="height">0.238cm</property>
+                <cell id="6144">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                    <text id="6507">
+                        <property name="fontSize">9pt</property>
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["displayDelCondOnPrinting"] == false || row["deliveryCondition"] == null</expression>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.deliveryCondition')</VALUE-OF> : <VALUE-OF format="HTML">row["deliveryCondition"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="6152">
+                <property name="height">0.238cm</property>
+                <cell id="6153">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                    <text id="6509">
+                        <property name="fontSize">9pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["isIspmRequired"] ? translation.getString('SaleOrder.isIspmRequired') : null</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+            </row>
+            <row id="6161">
+                <cell id="6162">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                </cell>
+            </row>
+            <row id="6170">
+                <list-property name="visibility">
+                    <structure>
+                        <property name="format">all</property>
+                        <expression name="valueExpr" type="javascript">row["saleOrderTypeSelect"] != 2</expression>
+                    </structure>
+                </list-property>
+                <cell id="6171">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <text id="6510">
+                        <property name="fontSize">9pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.subscriptionContract')</VALUE-OF> :]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6174"/>
+                <cell id="6175"/>
+                <cell id="6176"/>
+                <cell id="6177"/>
+                <cell id="6178"/>
+            </row>
+            <row id="6179">
+                <list-property name="visibility">
+                    <structure>
+                        <property name="format">all</property>
+                        <expression name="valueExpr" type="javascript">row["saleOrderTypeSelect"] != 2</expression>
+                    </structure>
+                </list-property>
+                <cell id="6180">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <text id="6511">
+                        <property name="fontSize">9pt</property>
+                        <property name="display">inline</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.periodicity')</VALUE-OF> :]]></text-property>
+                    </text>
+                    <text id="6512">
+                        <property name="fontSize">9pt</property>
+                        <property name="display">inline</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["numberOfPeriods"]</VALUE-OF>&amp;nbsp;<VALUE-OF>dateFormat = row["periodicityTypeSelect"] == 1 ? "day(s)" : "month(s)"
+translatedDateFormat = translation.getString(dateFormat)
+translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedDateFormat : dateFormat</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6183"/>
+                <cell id="6184"/>
+                <cell id="6185"/>
+                <cell id="6186"/>
+                <cell id="6187"/>
+            </row>
+            <row id="6188">
+                <list-property name="visibility">
+                    <structure>
+                        <property name="format">all</property>
+                        <expression name="valueExpr" type="javascript">row["saleOrderTypeSelect"] != 2</expression>
+                    </structure>
+                </list-property>
+                <cell id="6189">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">2</property>
+                    <text id="6513">
+                        <property name="fontSize">9pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["subscriptionText"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6192"/>
+                <cell id="6193"/>
+                <cell id="6194"/>
+                <cell id="6195"/>
+                <cell id="6196"/>
+            </row>
+            <row id="6197">
+                <cell id="6201"/>
+                <cell id="6202"/>
+                <cell id="6203"/>
+                <cell id="6204"/>
+                <cell id="6205"/>
+            </row>
+            <row id="6206">
+                <cell id="6207"/>
+                <cell id="6208"/>
+                <cell id="6209"/>
+                <cell id="6210"/>
+                <cell id="6211"/>
+                <cell id="6212"/>
+                <cell id="6213"/>
+                <cell id="6214"/>
+            </row>
+            <row id="6215">
+                <cell id="6216">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                    <table name="SaleOrderLines1" id="6893">
+                        <property name="width">100%</property>
+                        <property name="dataSet">OrderLineDS</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">id</property>
+                                <text-property name="displayName">id</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["id"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">description</property>
+                                <text-property name="displayName">description</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">quantity</property>
+                                <text-property name="displayName">quantity</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["quantity"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">productName</property>
+                                <text-property name="displayName">productName</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["productName"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">exTaxTotal</property>
+                                <text-property name="displayName">exTaxTotal</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["exTaxTotal"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">inTaxTotal</property>
+                                <text-property name="displayName">inTaxTotal</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["inTaxTotal"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">sequence</property>
+                                <text-property name="displayName">sequence</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["sequence"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">estimatedDeliveryDate</property>
+                                <text-property name="displayName">estimatedDeliveryDate</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["estimatedDeliveryDate"]</expression>
+                                <property name="dataType">date</property>
+                            </structure>
+                            <structure>
+                                <property name="name">priceDiscounted</property>
+                                <text-property name="displayName">priceDiscounted</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["priceDiscounted"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">showTotal</property>
+                                <text-property name="displayName">showTotal</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["showTotal"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">hideUnitAmounts</property>
+                                <text-property name="displayName">hideUnitAmounts</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["hideUnitAmounts"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">unitCode</property>
+                                <text-property name="displayName">unitCode</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["unitCode"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">unitPrice</property>
+                                <text-property name="displayName">unitPrice</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["unitPrice"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">taxLine</property>
+                                <text-property name="displayName">taxLine</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["taxLine"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">productCode</property>
+                                <text-property name="displayName">productCode</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["productCode"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">productTypeSelect</property>
+                                <text-property name="displayName">productTypeSelect</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["productTypeSelect"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">productPicture</property>
+                                <text-property name="displayName">productPicture</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["productPicture"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">productCustomerCode</property>
+                                <text-property name="displayName">productCustomerCode</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["productCustomerCode"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">productCustomerName</property>
+                                <text-property name="displayName">productCustomerName</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["productCustomerName"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">totalDiscountAmount</property>
+                                <text-property name="displayName">totalDiscountAmount</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["totalDiscountAmount"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">isTitleLine</property>
+                                <text-property name="displayName">isTitleLine</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["isTitleLine"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">currencyCode</property>
+                                <text-property name="displayName">currencyCode</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["currencyCode"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">inAti</property>
+                                <text-property name="displayName">inAti</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["inAti"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                            <structure>
+                                <property name="name">saleOrderTypeSelect</property>
+                                <text-property name="displayName">saleOrderTypeSelect</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["saleOrderTypeSelect"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                        </list-property>
+                        <column id="6927">
+                            <property name="width">4%</property>
+                        </column>
+                        <column id="6928"/>
+                        <column id="6929"/>
+                        <column id="6930"/>
+                        <column id="6931"/>
+                        <column id="6932"/>
+                        <column id="6933"/>
+                        <column id="6934"/>
+                        <column id="6935"/>
+                        <column id="6936"/>
+                        <header>
+                            <row id="6894">
+                                <cell id="6895"/>
+                                <cell id="6896">
+                                    <text id="6960">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.productCode')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6897">
+                                    <text id="6963">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.productDescription')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6898">
+                                    <text id="6965">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.tax')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6899">
+                                    <text id="6966">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.qtyUnit')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6900">
+                                    <text id="6967">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.unitPrice')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6901">
+                                    <text id="6968">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.discountAmount')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6902">
+                                    <text id="6969">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.priceExclTax')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6903">
+                                    <text id="6970">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.priceInclTax')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6904">
+                                    <text id="6971">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="textAlign">center</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.estimatedDeliveryDate')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </header>
+                        <group id="7052">
+                            <property name="groupName">SaleOrderLine</property>
+                            <expression name="keyExpr" type="javascript">row["id"]</expression>
+                            <structure name="toc">
+                                <expression name="expressionValue" type="javascript">row["id"]</expression>
+                            </structure>
+                            <property name="hideDetail">false</property>
+                            <header>
+                                <row id="7053">
+                                    <cell id="7054">
+                                        <text id="7077">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">left</property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF format="HTML">"<IMG src='" + params["AttachmentPath"].value + row["productPicture"] + "' width='100%'/>"</VALUE-OF>]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="7055">
+                                        <text id="7078">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">left</property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>if(!row["isTitleLine"]){row["productCode"];}</VALUE-OF>
+<B><VALUE-OF>if(row["isTitleLine"]){row["productCode"];}</VALUE-OF></B>]]></text-property>
+                                        </text>
+                                        <data id="7079">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="textAlign">right</property>
+                                            <property name="resultSetColumn">productCustomerCode</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="7056"/>
+                                    <cell id="7057"/>
+                                    <cell id="7058"/>
+                                    <cell id="7059"/>
+                                    <cell id="7060"/>
+                                    <cell id="7061"/>
+                                    <cell id="7062"/>
+                                    <cell id="7063"/>
+                                </row>
+                            </header>
+                            <footer>
+                                <row id="7064">
+                                    <cell id="7065"/>
+                                    <cell id="7066"/>
+                                    <cell id="7067"/>
+                                    <cell id="7068"/>
+                                    <cell id="7069"/>
+                                    <cell id="7070"/>
+                                    <cell id="7071"/>
+                                    <cell id="7072"/>
+                                    <cell id="7073"/>
+                                    <cell id="7074"/>
+                                </row>
+                            </footer>
+                        </group>
+                        <footer>
+                            <row id="6916">
+                                <cell id="6917"/>
+                                <cell id="6918"/>
+                                <cell id="6919"/>
+                                <cell id="6920"/>
+                                <cell id="6921"/>
+                                <cell id="6922"/>
+                                <cell id="6923"/>
+                                <cell id="6924"/>
+                                <cell id="6925"/>
+                                <cell id="6926"/>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+            </row>
+            <row id="6224">
+                <cell id="6225"/>
+                <cell id="6226"/>
+                <cell id="6227"/>
+                <cell id="6228"/>
+                <cell id="6229"/>
+                <cell id="6230"/>
+                <cell id="6231"/>
+                <cell id="6232"/>
+            </row>
+            <row id="6233">
+                <cell id="6234">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">5</property>
+                    <table id="6864">
+                        <property name="width">3in</property>
+                        <property name="dataSet">SaleOrderLineTaxDS</property>
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row._outer["displayTaxDetailOnPrinting"] != 1</expression>
+                            </structure>
+                        </list-property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">exTaxBase</property>
+                                <text-property name="displayName">exTaxBase</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["exTaxBase"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">taxTotal</property>
+                                <text-property name="displayName">taxTotal</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["taxTotal"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">value</property>
+                                <text-property name="displayName">value</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["value"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
+                            <structure>
+                                <property name="name">saleOrderTypeSelect</property>
+                                <text-property name="displayName">saleOrderTypeSelect</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["saleOrderTypeSelect"]</expression>
+                                <property name="dataType">integer</property>
+                            </structure>
+                        </list-property>
+                        <column id="6877"/>
+                        <column id="6878"/>
+                        <column id="6879"/>
+                        <header>
+                            <row id="6865">
+                                <property name="borderBottomStyle">solid</property>
+                                <property name="borderBottomWidth">thin</property>
+                                <property name="borderLeftStyle">solid</property>
+                                <property name="borderLeftWidth">thin</property>
+                                <property name="borderRightStyle">solid</property>
+                                <property name="borderRightWidth">thin</property>
+                                <property name="borderTopStyle">solid</property>
+                                <property name="borderTopWidth">thin</property>
+                                <cell id="6866">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <text id="6882">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.tax')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6867">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <text id="6884">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.base')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6868">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <text id="6885">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="fontWeight">bold</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.taxAmount')</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </header>
+                        <detail>
+                            <row id="6869">
+                                <cell id="6870">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <text id="6886">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF format="###0.00%{RoundingMode=HALF_UP}">row["value"]</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6871">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <text id="6887">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF format="#,##0.00">row["exTaxBase"]</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                                <cell id="6872">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <text id="6888">
+                                        <property name="fontSize">8pt</property>
+                                        <property name="textAlign">right</property>
+                                        <property name="contentType">html</property>
+                                        <text-property name="content"><![CDATA[<VALUE-OF format="#,##0.00">row["taxTotal"]</VALUE-OF>]]></text-property>
+                                    </text>
+                                </cell>
+                            </row>
+                        </detail>
+                        <footer>
+                            <row id="6873">
+                                <cell id="6874"/>
+                                <cell id="6875"/>
+                                <cell id="6876"/>
+                            </row>
+                        </footer>
+                    </table>
+                </cell>
+                <cell id="6237"/>
+                <cell id="6238">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                </cell>
+                <cell id="6240"/>
+                <cell id="6241"/>
+            </row>
+            <row id="6242">
+                <cell id="6246"/>
+                <cell id="6247"/>
+                <cell id="6248"/>
+                <cell id="6249"/>
+                <cell id="6250"/>
+            </row>
+            <row id="6251">
+                <cell id="6255"/>
+                <cell id="6256"/>
+                <cell id="6257"/>
+                <cell id="6258"/>
+                <cell id="6259"/>
+            </row>
+            <row id="6260">
+                <cell id="6264"/>
+                <cell id="6265"/>
+                <cell id="6266"/>
+                <cell id="6267"/>
+                <cell id="6268"/>
+            </row>
+            <row id="6269">
+                <cell id="6273"/>
+                <cell id="6274"/>
+                <cell id="6275"/>
+                <cell id="6276"/>
+                <cell id="6277"/>
+            </row>
+            <row id="6278">
+                <cell id="6279"/>
+                <cell id="6280"/>
+                <cell id="6281"/>
+                <cell id="6282"/>
+                <cell id="6283"/>
+                <cell id="6284"/>
+                <cell id="6285"/>
+                <cell id="6286"/>
+            </row>
+            <row id="6287">
+                <cell id="6288"/>
+                <cell id="6289"/>
+                <cell id="6290"/>
+                <cell id="6291"/>
+                <cell id="6292"/>
+                <cell id="6293"/>
+                <cell id="6294"/>
+                <cell id="6295"/>
+            </row>
+            <row id="6296">
+                <cell id="6297"/>
+                <cell id="6298"/>
+                <cell id="6299"/>
+                <cell id="6300"/>
+                <cell id="6301"/>
+                <cell id="6302"/>
+                <cell id="6303"/>
+                <cell id="6304"/>
+            </row>
+            <row id="6305">
+                <cell id="6306"/>
+                <cell id="6307"/>
+                <cell id="6308"/>
+                <cell id="6309"/>
+                <cell id="6310"/>
+                <cell id="6311"/>
+                <cell id="6312"/>
+                <cell id="6313"/>
+            </row>
+            <row id="6314">
+                <cell id="6315"/>
+                <cell id="6316"/>
+                <cell id="6317"/>
+                <cell id="6318"/>
+                <cell id="6319"/>
+                <cell id="6320"/>
+                <cell id="6321"/>
+                <cell id="6322"/>
+            </row>
+            <row id="6323">
+                <cell id="6324"/>
+                <cell id="6325"/>
+                <cell id="6326"/>
+                <cell id="6327"/>
+                <cell id="6328"/>
+                <cell id="6329"/>
+                <cell id="6330"/>
+                <cell id="6331"/>
+            </row>
+            <row id="6332">
+                <cell id="6333"/>
+                <cell id="6334"/>
+                <cell id="6335"/>
+                <cell id="6336"/>
+                <cell id="6337"/>
+                <cell id="6338"/>
+                <cell id="6339"/>
+                <cell id="6340"/>
+            </row>
+            <row id="6341">
+                <cell id="6342"/>
+                <cell id="6343"/>
+                <cell id="6344"/>
+                <cell id="6345"/>
+                <cell id="6346"/>
+                <cell id="6347"/>
+                <cell id="6348"/>
+                <cell id="6349"/>
+            </row>
+            <row id="6350">
+                <cell id="6351"/>
+                <cell id="6352"/>
+                <cell id="6353"/>
+                <cell id="6354"/>
+                <cell id="6355"/>
+                <cell id="6356"/>
+                <cell id="6357"/>
+                <cell id="6358"/>
+            </row>
+            <row id="6359">
+                <cell id="6360"/>
+                <cell id="6361"/>
+                <cell id="6362"/>
+                <cell id="6363"/>
+                <cell id="6364"/>
+                <cell id="6365"/>
+                <cell id="6366"/>
+                <cell id="6367"/>
+            </row>
+            <row id="6368">
+                <cell id="6369"/>
+                <cell id="6370"/>
+                <cell id="6371"/>
+                <cell id="6372"/>
+                <cell id="6373"/>
+                <cell id="6374"/>
+                <cell id="6375"/>
+                <cell id="6376"/>
+            </row>
+            <row id="6377">
+                <cell id="6378"/>
+                <cell id="6379"/>
+                <cell id="6380"/>
+                <cell id="6381"/>
+                <cell id="6382"/>
+                <cell id="6383"/>
+                <cell id="6384"/>
+                <cell id="6385"/>
+            </row>
+            <row id="6386">
+                <cell id="6387"/>
+                <cell id="6388"/>
+                <cell id="6389"/>
+                <cell id="6390"/>
+                <cell id="6391"/>
+                <cell id="6392"/>
+                <cell id="6393"/>
+                <cell id="6394"/>
+            </row>
+        </grid>
+    </body>
+    <property name="pageVariables">
+        <variable-element name="ex_total">
+            <expression name="value" type="javascript">0.00</expression>
+            <property name="type">report</property>
+        </variable-element>
+        <variable-element name="in_total">
+            <expression name="value" type="javascript">0.00</expression>
+            <property name="type">report</property>
+        </variable-element>
+        <variable-element name="temp_ex_total">
+            <expression name="value" type="javascript">0.00</expression>
+            <property name="type">report</property>
+        </variable-element>
+        <variable-element name="temp_in_total">
+            <expression name="value" type="javascript">0.00</expression>
+            <property name="type">report</property>
+        </variable-element>
+    </property>
+</report>
