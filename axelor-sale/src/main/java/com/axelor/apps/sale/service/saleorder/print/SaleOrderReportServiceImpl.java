@@ -55,7 +55,7 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
   public List<Map<String, Object>> getSaleOrderLineData(Long saleOrderId) {
     SaleOrder saleOrder = Beans.get(SaleOrderRepository.class).find(saleOrderId);
     List<String> productList = new ArrayList<>();
-    productList.add("productCode");
+    productList.add("code");
     productList.add("productTypeSelect");
 
     List<Map<String, Object>> dataMapList = new ArrayList<>();
@@ -136,7 +136,7 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
     List<String> fieldsList = new ArrayList<>();
     fieldsList.add("id");
     fieldsList.add("description");
-    fieldsList.add("quantity");
+    fieldsList.add("qty");
     fieldsList.add("productName");
     fieldsList.add("exTaxTotal");
     fieldsList.add("inTaxTotal");

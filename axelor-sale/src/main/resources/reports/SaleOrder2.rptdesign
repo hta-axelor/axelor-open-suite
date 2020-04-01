@@ -164,8 +164,7 @@ reportContext.getDesignHandle().findMasterPage("Simple MasterPage").setProperty(
     </parameters>
     <data-sources>
         <script-data-source name="Data Source" id="5374">
-            <method name="open"><![CDATA[importPackage(com.axelor.apps.sale.service.saleorder.print);
-packageClass = new com.axelor.apps.sale.service.saleorder.print.SaleOrderReportServiceImpl().getInstance();
+            <method name="open"><![CDATA[packageClass = new com.axelor.apps.sale.service.saleorder.print.SaleOrderReportServiceImpl().getInstance();
 translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag(params["Locale"]));]]></method>
         </script-data-source>
     </data-sources>
@@ -184,7 +183,7 @@ translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag
                 </structure>
                 <structure>
                     <property name="position">3</property>
-                    <property name="name">quantity</property>
+                    <property name="name">qty</property>
                     <property name="dataType">decimal</property>
                 </structure>
                 <structure>
@@ -244,7 +243,7 @@ translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag
                 </structure>
                 <structure>
                     <property name="position">15</property>
-                    <property name="name">productCode</property>
+                    <property name="name">code</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -301,7 +300,7 @@ translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag
                     <property name="columnName">description</property>
                 </structure>
                 <structure>
-                    <property name="columnName">quantity</property>
+                    <property name="columnName">qty</property>
                 </structure>
                 <structure>
                     <property name="columnName">productName</property>
@@ -337,7 +336,7 @@ translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag
                     <property name="columnName">taxLine</property>
                 </structure>
                 <structure>
-                    <property name="columnName">productCode</property>
+                    <property name="columnName">code</property>
                 </structure>
                 <structure>
                     <property name="columnName">productTypeSelect</property>
@@ -381,7 +380,7 @@ translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag
                     </structure>
                     <structure>
                         <property name="position">3</property>
-                        <property name="name">quantity</property>
+                        <property name="name">qty</property>
                         <property name="dataType">decimal</property>
                     </structure>
                     <structure>
@@ -441,7 +440,7 @@ translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag
                     </structure>
                     <structure>
                         <property name="position">15</property>
-                        <property name="name">productCode</property>
+                        <property name="name">code</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -497,7 +496,7 @@ translation = new com.axelor.i18n.I18n.getBundle(java.util.Locale.forLanguageTag
 node = saleOrderLineList.next();
 	row["id"] = node.get("id");
 	row["description"] = node.get("description");
-	row["quantity"] = node.get("quantity");
+	row["qty"] = node.get("qty");
 	row["productName"] = node.get("productName");
 	row["exTaxTotal"] = node.get("exTaxTotal");
 	row["inTaxTotal"] = node.get("inTaxTotal");
@@ -509,7 +508,7 @@ node = saleOrderLineList.next();
 	row["unitCode"] = node.get("unitCode");
 	row["unitPrice"] = node.get("unitPrice");
 	row["taxLine"] = node.get("taxLine");
-	row["productCode"] = node.get("productCode");
+	row["code"] = node.get("code");
 	row["productTypeSelect"] = node.get("productTypeSelect");
 	row["productPicture"] = node.get("productPicture");
 	row["productCustomerCode"] = node.get("productCustomerCode");
@@ -1547,6 +1546,8 @@ return false;]]></method>
     </page-setup>
     <body>
         <grid id="6080">
+            <property name="marginLeft">2pt</property>
+            <property name="width">7.5in</property>
             <property name="dataSet">SaleOrderDS</property>
             <list-property name="boundDataColumns">
                 <structure>
@@ -2149,9 +2150,9 @@ return false;]]></method>
                                         </structure>
                                     </list-property>
                                     <property name="contentType">html</property>
-                                    <text-property name="content"><![CDATA[<VALUE-OF>translated = translation.getString('value:'+row["paymentCondName"]);
-if(!translated.equals('value:'+row["paymentCondName"])) {
-	translated
+                                    <text-property name="content"><![CDATA[<VALUE-OF>key = 'value:'+row["paymentCondName"];
+if(translation.containsKey(key)) {
+	translation.getString(key)
 } else {
 	row["paymentCondName"]
 }</VALUE-OF>]]></text-property>
@@ -2184,9 +2185,9 @@ if(!translated.equals('value:'+row["paymentCondName"])) {
                                         </structure>
                                     </list-property>
                                     <property name="contentType">html</property>
-                                    <text-property name="content"><![CDATA[<VALUE-OF>translated = translation.getString('value:'+row["paymentMode"]);
-if(!translated.equals('value:'+row["paymentMode"])) {
-	translated
+                                    <text-property name="content"><![CDATA[<VALUE-OF>key = 'value:'+row["paymentMode"];
+if(translation.containsKey(key)) {
+	translation.getString(key)
 } else {
 	row["paymentMode"]
 }</VALUE-OF>]]></text-property>
@@ -2493,6 +2494,7 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                 <cell id="6216">
                     <property name="colSpan">8</property>
                     <property name="rowSpan">1</property>
+                    <property name="textAlign">left</property>
                     <table name="SaleOrderLines1" id="6893">
                         <property name="width">100%</property>
                         <property name="dataSet">OrderLineDS</property>
@@ -2508,12 +2510,6 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                 <text-property name="displayName">description</text-property>
                                 <expression name="expression" type="javascript">dataSetRow["description"]</expression>
                                 <property name="dataType">string</property>
-                            </structure>
-                            <structure>
-                                <property name="name">quantity</property>
-                                <text-property name="displayName">quantity</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["quantity"]</expression>
-                                <property name="dataType">decimal</property>
                             </structure>
                             <structure>
                                 <property name="name">productName</property>
@@ -2582,12 +2578,6 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                 <property name="dataType">decimal</property>
                             </structure>
                             <structure>
-                                <property name="name">productCode</property>
-                                <text-property name="displayName">productCode</text-property>
-                                <expression name="expression" type="javascript">dataSetRow["productCode"]</expression>
-                                <property name="dataType">string</property>
-                            </structure>
-                            <structure>
                                 <property name="name">productTypeSelect</property>
                                 <text-property name="displayName">productTypeSelect</text-property>
                                 <expression name="expression" type="javascript">dataSetRow["productTypeSelect"]</expression>
@@ -2641,23 +2631,148 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                 <expression name="expression" type="javascript">dataSetRow["saleOrderTypeSelect"]</expression>
                                 <property name="dataType">integer</property>
                             </structure>
+                            <structure>
+                                <property name="name">Aggregation</property>
+                                <text-property name="displayName">isProPicAvailable</text-property>
+                                <property name="dataType">integer</property>
+                                <property name="aggregateFunction">COUNT</property>
+                                <list-property name="arguments">
+                                    <structure>
+                                        <property name="name">Expression</property>
+                                    </structure>
+                                </list-property>
+                                <expression name="filterExpr" type="javascript">row["productPicture"]</expression>
+                                <property name="allowExport">true</property>
+                            </structure>
+                            <structure>
+                                <property name="name">code</property>
+                                <text-property name="displayName">code</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["code"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                            <structure>
+                                <property name="name">qty</property>
+                                <text-property name="displayName">qty</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["qty"]</expression>
+                                <property name="dataType">decimal</property>
+                            </structure>
                         </list-property>
                         <column id="6927">
                             <property name="width">4%</property>
                         </column>
-                        <column id="6928"/>
-                        <column id="6929"/>
-                        <column id="6930"/>
-                        <column id="6931"/>
-                        <column id="6932"/>
-                        <column id="6933"/>
-                        <column id="6934"/>
-                        <column id="6935"/>
-                        <column id="6936"/>
+                        <column id="6928">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">row._outer["displayProductCodeOnPrinting"] != 1</expression>
+                                </structure>
+                            </list-property>
+                            <property name="width">8%</property>
+                        </column>
+                        <column id="6929">
+                            <property name="textAlign">left</property>
+                            <property name="width">24%</property>
+                        </column>
+                        <column id="6930">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">row._outer["displayTaxDetailOnPrinting"] != 1</expression>
+                                </structure>
+                            </list-property>
+                            <property name="width">10%</property>
+                        </column>
+                        <column id="6931">
+                            <property name="width">10%</property>
+                        </column>
+                        <column id="6932">
+                            <property name="width">7%</property>
+                        </column>
+                        <column id="6933">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">row._outer["hideDiscount"] == 1</expression>
+                                </structure>
+                            </list-property>
+                            <property name="width">10%</property>
+                        </column>
+                        <column id="6934">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">row["inAti"]</expression>
+                                </structure>
+                            </list-property>
+                            <property name="width">7%</property>
+                        </column>
+                        <column id="7098">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">row["inAti"]</expression>
+                                </structure>
+                            </list-property>
+                            <property name="width">3%</property>
+                        </column>
+                        <column id="6935">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">!row["inAti"]</expression>
+                                </structure>
+                            </list-property>
+                            <property name="width">7%</property>
+                        </column>
+                        <column id="7108">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">!row["inAti"]</expression>
+                                </structure>
+                            </list-property>
+                            <property name="width">3%</property>
+                        </column>
+                        <column id="6936">
+                            <list-property name="visibility">
+                                <structure>
+                                    <property name="format">all</property>
+                                    <expression name="valueExpr" type="javascript">!row._outer["displayEstimDelivDateOnPrinting"]</expression>
+                                </structure>
+                            </list-property>
+                            <property name="width">8%</property>
+                        </column>
                         <header>
                             <row id="6894">
-                                <cell id="6895"/>
+                                <cell id="6895">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <data id="7110">
+                                        <list-property name="visibility">
+                                            <structure>
+                                                <property name="format">all</property>
+                                                <expression name="valueExpr" type="javascript">true</expression>
+                                            </structure>
+                                        </list-property>
+                                        <property name="resultSetColumn">Aggregation</property>
+                                    </data>
+                                </cell>
                                 <cell id="6896">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
+                                    <property name="textAlign">left</property>
                                     <text id="6960">
                                         <property name="fontSize">8pt</property>
                                         <property name="fontWeight">bold</property>
@@ -2667,6 +2782,14 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                     </text>
                                 </cell>
                                 <cell id="6897">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
                                     <text id="6963">
                                         <property name="fontSize">8pt</property>
                                         <property name="fontWeight">bold</property>
@@ -2676,6 +2799,14 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                     </text>
                                 </cell>
                                 <cell id="6898">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
                                     <text id="6965">
                                         <property name="fontSize">8pt</property>
                                         <property name="fontWeight">bold</property>
@@ -2685,6 +2816,14 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                     </text>
                                 </cell>
                                 <cell id="6899">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
                                     <text id="6966">
                                         <property name="fontSize">8pt</property>
                                         <property name="fontWeight">bold</property>
@@ -2694,6 +2833,14 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                     </text>
                                 </cell>
                                 <cell id="6900">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
                                     <text id="6967">
                                         <property name="fontSize">8pt</property>
                                         <property name="fontWeight">bold</property>
@@ -2703,6 +2850,14 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                     </text>
                                 </cell>
                                 <cell id="6901">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
                                     <text id="6968">
                                         <property name="fontSize">8pt</property>
                                         <property name="fontWeight">bold</property>
@@ -2712,6 +2867,16 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                     </text>
                                 </cell>
                                 <cell id="6902">
+                                    <property name="colSpan">2</property>
+                                    <property name="rowSpan">1</property>
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
                                     <text id="6969">
                                         <property name="fontSize">8pt</property>
                                         <property name="fontWeight">bold</property>
@@ -2721,6 +2886,16 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                     </text>
                                 </cell>
                                 <cell id="6903">
+                                    <property name="colSpan">2</property>
+                                    <property name="rowSpan">1</property>
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
                                     <text id="6970">
                                         <property name="fontSize">8pt</property>
                                         <property name="fontWeight">bold</property>
@@ -2730,6 +2905,14 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                     </text>
                                 </cell>
                                 <cell id="6904">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                    <property name="borderTopStyle">solid</property>
+                                    <property name="borderTopWidth">thin</property>
                                     <text id="6971">
                                         <property name="fontSize">8pt</property>
                                         <property name="fontWeight">bold</property>
@@ -2749,66 +2932,544 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                             <property name="hideDetail">false</property>
                             <header>
                                 <row id="7053">
+                                    <method name="onCreate"><![CDATA[vars["exTotal"] = vars["tempExTotal"];
+vars["inTotal"] = vars["tempInTotal"];
+if(this.getRowData().getColumnValue("isTitleLine") == true){
+	vars["tempExTotal"] = parseFloat(0.00);
+	vars["tempInTotal"] = parseFloat(0.00);
+}else{
+	vars["tempExTotal"] += parseFloat(this.getRowData().getColumnValue("exTaxTotal"));
+	vars["tempInTotal"] += parseFloat(this.getRowData().getColumnValue("inTaxTotal"));
+}
+]]></method>
                                     <cell id="7054">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
                                         <text id="7077">
                                             <property name="fontSize">8pt</property>
                                             <property name="textAlign">left</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">row["productPicture"]==null</expression>
+                                                </structure>
+                                            </list-property>
                                             <property name="contentType">html</property>
                                             <text-property name="content"><![CDATA[<VALUE-OF format="HTML">"<IMG src='" + params["AttachmentPath"].value + row["productPicture"] + "' width='100%'/>"</VALUE-OF>]]></text-property>
                                         </text>
                                     </cell>
                                     <cell id="7055">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                        <property name="textAlign">left</property>
                                         <text id="7078">
                                             <property name="fontSize">8pt</property>
                                             <property name="textAlign">left</property>
+                                            <property name="display">inline</property>
                                             <property name="contentType">html</property>
-                                            <text-property name="content"><![CDATA[<VALUE-OF>if(!row["isTitleLine"]){row["productCode"];}</VALUE-OF>
-<B><VALUE-OF>if(row["isTitleLine"]){row["productCode"];}</VALUE-OF></B>]]></text-property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>if(!row["isTitleLine"]){row["code"];}</VALUE-OF>
+<B><VALUE-OF>if(row["isTitleLine"]){row["code"];}</VALUE-OF></B>]]></text-property>
                                         </text>
                                         <data id="7079">
                                             <property name="fontSize">8pt</property>
                                             <property name="fontStyle">italic</property>
                                             <property name="textAlign">right</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">!row["productCustomerCode"]</expression>
+                                                </structure>
+                                            </list-property>
                                             <property name="resultSetColumn">productCustomerCode</property>
                                         </data>
                                     </cell>
-                                    <cell id="7056"/>
-                                    <cell id="7057"/>
-                                    <cell id="7058"/>
-                                    <cell id="7059"/>
-                                    <cell id="7060"/>
-                                    <cell id="7061"/>
-                                    <cell id="7062"/>
-                                    <cell id="7063"/>
+                                    <cell id="7056">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                        <text id="7080">
+                                            <property name="fontSize">8pt</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">row["isTitleLine"]</expression>
+                                                </structure>
+                                            </list-property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>key = 'value:'+row["productName"];
+if(translation.containsKey(key)) {
+	translation.getString(key)
+} else {
+	row["productName"]
+}</VALUE-OF>]]></text-property>
+                                        </text>
+                                        <data id="7081">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="textAlign">right</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">!row["productCustomerName"] || row["isTitleLine"]</expression>
+                                                </structure>
+                                            </list-property>
+                                            <property name="resultSetColumn">productCustomerName</property>
+                                        </data>
+                                        <text id="4562">
+                                            <property name="fontSize">8pt</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">row["is_title_line"]</expression>
+                                                </structure>
+                                            </list-property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<I><VALUE-OF format="HTML">if(row["description"] != null ) row["description"].replace(/\<p|\<P/g, '<p style="margin-top: 0; margin-bottom:0.1em;" ').replace(/<!--\w+-->/gi,"")</VALUE-OF></I>]]></text-property>
+                                        </text>
+                                        <text id="7085">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">!row["isTitleLine"]</expression>
+                                                </structure>
+                                            </list-property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>key = 'value:'+row["productName"];
+if(translation.containsKey(key)) {
+	translation.getString(key)
+} else {
+	row["productName"]
+}</VALUE-OF>]]></text-property>
+                                        </text>
+                                        <data id="7086">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="fontStyle">italic</property>
+                                            <property name="textAlign">right</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">!row["productCustomerName"] || !row["isTitleLine"]</expression>
+                                                </structure>
+                                            </list-property>
+                                            <property name="resultSetColumn">productCustomerName</property>
+                                        </data>
+                                        <text id="7087">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">!row["isTitleLine"]</expression>
+                                                </structure>
+                                            </list-property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<I><VALUE-OF format="HTML">if(row["description"] != null ) row["description"].replace(/\<p|\<P/g, '<p style="margin-top: 0; margin-bottom:0.1em;" ').replace(/<!--\w+-->/gi,"")</VALUE-OF></I>]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="7057">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                        <text id="7088">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">center</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">row["isTitleLine"]</expression>
+                                                </structure>
+                                            </list-property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF format="###0.00%{RoundingMode=HALF_UP}">row["taxLine"]</VALUE-OF>]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="7058">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                        <text id="4566">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">center</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">row["isTitleLine"]</expression>
+                                                </structure>
+                                            </list-property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF format="#,##0.00">row["qty"]</VALUE-OF> <VALUE-OF format="^">"  "</VALUE-OF><VALUE-OF>row["unitCode"]</VALUE-OF>]]></text-property>
+                                        </text>
+                                        <text id="7089">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">center</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">!row["is_title_line"] || row["qty"] == 0</expression>
+                                                </structure>
+                                            </list-property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF format="#,##0.00">row["qty"]</VALUE-OF> <VALUE-OF format="^">"  "</VALUE-OF><VALUE-OF>row["unitCode"]</VALUE-OF>]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="7059">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                        <text id="7091">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">right</property>
+                                            <property name="dataSet">AppBaseDS</property>
+                                            <list-property name="boundDataColumns">
+                                                <structure>
+                                                    <property name="name">nbDecimalDigitForUnitPrice</property>
+                                                    <text-property name="displayName">nbDecimalDigitForUnitPrice</text-property>
+                                                    <expression name="expression" type="javascript">dataSetRow["nbDecimalDigitForUnitPrice"]</expression>
+                                                    <property name="dataType">integer</property>
+                                                </structure>
+                                            </list-property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>Formatter.format(row._outer["unitPrice"], "#,##0." + "0".repeat(row["nbDecimalDigitForUnitPrice"]))</VALUE-OF>]]></text-property>
+                                        </text>
+                                        <text id="7093">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">right</property>
+                                            <property name="dataSet">AppBaseDS</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">!row._outer["isTitleLine"] || row._outer["unitPrice"] == 0</expression>
+                                                </structure>
+                                            </list-property>
+                                            <list-property name="boundDataColumns">
+                                                <structure>
+                                                    <property name="name">nbDecimalDigitForUnitPrice</property>
+                                                    <text-property name="displayName">nbDecimalDigitForUnitPrice</text-property>
+                                                    <expression name="expression" type="javascript">dataSetRow["nbDecimalDigitForUnitPrice"]</expression>
+                                                    <property name="dataType">integer</property>
+                                                </structure>
+                                            </list-property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>Formatter.format(row._outer["unitPrice"], "#,##0." + "0".repeat(row["nbDecimalDigitForUnitPrice"]))</VALUE-OF>]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="7060">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                        <text id="4570">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">right</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">row["totalDiscountAmount"] >= -0.1</expression>
+                                                </structure>
+                                            </list-property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF format="#,##0.00">row["totalDiscountAmount"]</VALUE-OF>]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="7061">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <text id="4572">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">right</property>
+                                            <structure name="toc"/>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF format="#,##0.00">row["exTaxTotal"]</VALUE-OF>]]></text-property>
+                                        </text>
+                                        <data id="5380">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <structure name="numberFormat">
+                                                <property name="category">Custom</property>
+                                                <property name="pattern">#,##0.00</property>
+                                            </structure>
+                                            <structure name="stringFormat">
+                                                <property name="category">Unformatted</property>
+                                            </structure>
+                                            <property name="textAlign">right</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">!row._outer["isTitleLine"] || !row._outer["showTotal"] || vars["exTotal"] == 0</expression>
+                                                </structure>
+                                            </list-property>
+                                            <list-property name="boundDataColumns">
+                                                <structure>
+                                                    <property name="name">ex_total</property>
+                                                    <text-property name="displayName">ex_total</text-property>
+                                                    <expression name="expression" type="javascript">vars["exTotal"]</expression>
+                                                    <property name="dataType">decimal</property>
+                                                    <property name="allowExport">true</property>
+                                                </structure>
+                                            </list-property>
+                                            <property name="resultSetColumn">ex_total</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="7095">
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                        <text id="4575">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">left</property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>row["currencyCode"]</VALUE-OF>]]></text-property>
+                                        </text>
+                                        <text id="5381">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">left</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">!row["showTotal"] || vars["exTotal"] == 0</expression>
+                                                </structure>
+                                            </list-property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>row["currencyCode"]</VALUE-OF>]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="7062">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <text id="4578">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">right</property>
+                                            <structure name="toc"/>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF format="#,##0.00">row["inTaxTotal"]</VALUE-OF>]]></text-property>
+                                        </text>
+                                        <data id="5382">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <structure name="numberFormat">
+                                                <property name="category">Custom</property>
+                                                <property name="pattern">#,##0.00</property>
+                                            </structure>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">vars["inTotal"] == 0 || !row._outer["showTotal"]</expression>
+                                                </structure>
+                                            </list-property>
+                                            <list-property name="boundDataColumns">
+                                                <structure>
+                                                    <property name="name">in_total</property>
+                                                    <text-property name="displayName">in_total</text-property>
+                                                    <expression name="expression" type="javascript">vars["inTotal"]</expression>
+                                                    <property name="dataType">decimal</property>
+                                                    <property name="allowExport">true</property>
+                                                </structure>
+                                            </list-property>
+                                            <property name="resultSetColumn">in_total</property>
+                                        </data>
+                                    </cell>
+                                    <cell id="7105">
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                        <text id="4581">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="textAlign">left</property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>row["currencyCode"]</VALUE-OF>]]></text-property>
+                                        </text>
+                                        <text id="5383">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontWeight">bold</property>
+                                            <property name="textAlign">left</property>
+                                            <list-property name="visibility">
+                                                <structure>
+                                                    <property name="format">all</property>
+                                                    <expression name="valueExpr" type="javascript">vars["inTotal"] == 0 || !row["showTotal"]</expression>
+                                                </structure>
+                                            </list-property>
+                                            <property name="contentType">html</property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>row["currencyCode"]</VALUE-OF>]]></text-property>
+                                        </text>
+                                    </cell>
+                                    <cell id="7063">
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                        <property name="textAlign">center</property>
+                                        <data id="7109">
+                                            <property name="fontSize">8pt</property>
+                                            <property name="fontStyle">normal</property>
+                                            <property name="textAlign">center</property>
+                                            <property name="resultSetColumn">estimatedDeliveryDate</property>
+                                        </data>
+                                    </cell>
                                 </row>
                             </header>
                             <footer>
                                 <row id="7064">
-                                    <cell id="7065"/>
-                                    <cell id="7066"/>
-                                    <cell id="7067"/>
-                                    <cell id="7068"/>
-                                    <cell id="7069"/>
-                                    <cell id="7070"/>
-                                    <cell id="7071"/>
-                                    <cell id="7072"/>
-                                    <cell id="7073"/>
-                                    <cell id="7074"/>
+                                    <cell id="7065">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                    </cell>
+                                    <cell id="7066">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                    </cell>
+                                    <cell id="7067">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                    </cell>
+                                    <cell id="7068">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                    </cell>
+                                    <cell id="7069">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                    </cell>
+                                    <cell id="7070">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                    </cell>
+                                    <cell id="7071">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                    </cell>
+                                    <cell id="7072">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                    </cell>
+                                    <cell id="7096">
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                    </cell>
+                                    <cell id="7073">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                    </cell>
+                                    <cell id="7106">
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                    </cell>
+                                    <cell id="7074">
+                                        <property name="borderLeftStyle">solid</property>
+                                        <property name="borderLeftWidth">thin</property>
+                                        <property name="borderRightStyle">solid</property>
+                                        <property name="borderRightWidth">thin</property>
+                                    </cell>
                                 </row>
                             </footer>
                         </group>
                         <footer>
                             <row id="6916">
-                                <cell id="6917"/>
-                                <cell id="6918"/>
-                                <cell id="6919"/>
-                                <cell id="6920"/>
-                                <cell id="6921"/>
-                                <cell id="6922"/>
-                                <cell id="6923"/>
-                                <cell id="6924"/>
-                                <cell id="6925"/>
-                                <cell id="6926"/>
+                                <cell id="6917">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                </cell>
+                                <cell id="6918">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                </cell>
+                                <cell id="6919">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                </cell>
+                                <cell id="6920">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                </cell>
+                                <cell id="6921">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                </cell>
+                                <cell id="6922">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                </cell>
+                                <cell id="6923">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                </cell>
+                                <cell id="6924">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                </cell>
+                                <cell id="7097">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                </cell>
+                                <cell id="6925">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderLeftStyle">solid</property>
+                                    <property name="borderLeftWidth">thin</property>
+                                </cell>
+                                <cell id="7107">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                </cell>
+                                <cell id="6926">
+                                    <property name="borderBottomStyle">solid</property>
+                                    <property name="borderBottomWidth">thin</property>
+                                    <property name="borderRightStyle">solid</property>
+                                    <property name="borderRightWidth">thin</property>
+                                </cell>
                             </row>
                         </footer>
                     </table>
@@ -2828,6 +3489,8 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                 <cell id="6234">
                     <property name="colSpan">3</property>
                     <property name="rowSpan">5</property>
+                    <property name="paddingLeft">0pt</property>
+                    <property name="paddingRight">0pt</property>
                     <table id="6864">
                         <property name="width">3in</property>
                         <property name="dataSet">SaleOrderLineTaxDS</property>
@@ -3017,6 +3680,7 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                 <cell id="6268"/>
             </row>
             <row id="6269">
+                <property name="height">0.25in</property>
                 <cell id="6273"/>
                 <cell id="6274"/>
                 <cell id="6275"/>
@@ -3156,19 +3820,19 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
         </grid>
     </body>
     <property name="pageVariables">
-        <variable-element name="ex_total">
+        <variable-element name="exTotal">
             <expression name="value" type="javascript">0.00</expression>
             <property name="type">report</property>
         </variable-element>
-        <variable-element name="in_total">
+        <variable-element name="inTotal">
             <expression name="value" type="javascript">0.00</expression>
             <property name="type">report</property>
         </variable-element>
-        <variable-element name="temp_ex_total">
+        <variable-element name="tempExTotal">
             <expression name="value" type="javascript">0.00</expression>
             <property name="type">report</property>
         </variable-element>
-        <variable-element name="temp_in_total">
+        <variable-element name="tempInTotal">
             <expression name="value" type="javascript">0.00</expression>
             <property name="type">report</property>
         </variable-element>
