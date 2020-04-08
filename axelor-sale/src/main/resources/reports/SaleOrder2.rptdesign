@@ -2656,6 +2656,12 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                 <expression name="expression" type="javascript">dataSetRow["qty"]</expression>
                                 <property name="dataType">decimal</property>
                             </structure>
+                            <structure>
+                                <property name="name">totalExTaxTotalBeforeDiscount</property>
+                                <expression name="expression" type="javascript">row._outer["exTaxTotal"] - row["totalDiscountAmount"]</expression>
+                                <property name="dataType">decimal</property>
+                                <property name="allowExport">true</property>
+                            </structure>
                         </list-property>
                         <column id="6927">
                             <property name="width">4%</property>
@@ -3654,48 +3660,267 @@ if(translation.containsKey(key)) {
                 <cell id="6238">
                     <property name="colSpan">2</property>
                     <property name="rowSpan">1</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <text id="7111">
+                        <property name="fontSize">9pt</property>
+                        <property name="textAlign">left</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.totalExclTaxWithoutDiscount')</VALUE-OF>]]></text-property>
+                    </text>
                 </cell>
-                <cell id="6240"/>
-                <cell id="6241"/>
+                <cell id="6240">
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                </cell>
+                <cell id="6241">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">thin</property>
+                    <text id="7121">
+                        <property name="fontSize">9pt</property>
+                        <property name="textAlign">left</property>
+                        <property name="dataSet">OrderLineDS</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">currencyCode</property>
+                                <text-property name="displayName">currencyCode</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["currencyCode"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["currencyCode"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
             </row>
             <row id="6242">
                 <cell id="6246"/>
-                <cell id="6247"/>
-                <cell id="6248"/>
-                <cell id="6249"/>
-                <cell id="6250"/>
+                <cell id="6247">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <text id="7112">
+                        <property name="fontSize">9pt</property>
+                        <property name="textAlign">left</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.totalDiscount')</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6249">
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                </cell>
+                <cell id="6250">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <text id="7122">
+                        <property name="fontSize">9pt</property>
+                        <property name="textAlign">left</property>
+                        <property name="dataSet">OrderLineDS</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">currencyCode</property>
+                                <text-property name="displayName">currencyCode</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["currencyCode"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["currencyCode"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
             </row>
             <row id="6251">
                 <cell id="6255"/>
-                <cell id="6256"/>
-                <cell id="6257"/>
-                <cell id="6258"/>
-                <cell id="6259"/>
+                <cell id="6256">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <text id="7113">
+                        <property name="fontSize">9pt</property>
+                        <property name="textAlign">left</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.totalExclTax')</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6258">
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <text id="3531">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontWeight">normal</property>
+                        <property name="textAlign">right</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF format="#,##0.00">row["exTaxTotal"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6259">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <text id="7123">
+                        <property name="fontSize">9pt</property>
+                        <property name="textAlign">left</property>
+                        <property name="dataSet">OrderLineDS</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">currencyCode</property>
+                                <text-property name="displayName">currencyCode</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["currencyCode"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["currencyCode"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
             </row>
             <row id="6260">
                 <cell id="6264"/>
-                <cell id="6265"/>
-                <cell id="6266"/>
-                <cell id="6267"/>
-                <cell id="6268"/>
+                <cell id="6265">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <text id="7114">
+                        <property name="fontSize">9pt</property>
+                        <property name="textAlign">left</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.totalTax')</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6267">
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <text id="7118">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontWeight">normal</property>
+                        <property name="textAlign">right</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF format="#,##0.00">row["taxTotal"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6268">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <text id="7124">
+                        <property name="fontSize">9pt</property>
+                        <property name="textAlign">left</property>
+                        <property name="dataSet">OrderLineDS</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">currencyCode</property>
+                                <text-property name="displayName">currencyCode</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["currencyCode"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["currencyCode"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
             </row>
             <row id="6269">
                 <property name="height">0.25in</property>
                 <cell id="6273"/>
-                <cell id="6274"/>
-                <cell id="6275"/>
-                <cell id="6276"/>
-                <cell id="6277"/>
+                <cell id="6274">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <text id="7115">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">left</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.totalInclTax')</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6276">
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <text id="3536">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">right</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF format="#,##0.00"><VALUE-OF>row["inTaxTotal"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6277">
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <text id="7125">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="textAlign">left</property>
+                        <property name="dataSet">OrderLineDS</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">currencyCode</property>
+                                <text-property name="displayName">currencyCode</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["currencyCode"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["currencyCode"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
             </row>
             <row id="6278">
                 <cell id="6279"/>
                 <cell id="6280"/>
                 <cell id="6281"/>
                 <cell id="6282"/>
-                <cell id="6283"/>
-                <cell id="6284"/>
-                <cell id="6285"/>
-                <cell id="6286"/>
+                <cell id="6283">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                    <text id="7116">
+                        <property name="fontSize">9pt</property>
+                        <property name="textAlign">left</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.afterDiscount')</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6285">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderLeftStyle">solid</property>
+                    <property name="borderLeftWidth">thin</property>
+                </cell>
+                <cell id="6286">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">thin</property>
+                    <property name="borderRightStyle">solid</property>
+                    <property name="borderRightWidth">thin</property>
+                    <text id="7126">
+                        <property name="fontSize">9pt</property>
+                        <property name="textAlign">left</property>
+                        <property name="dataSet">OrderLineDS</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">currencyCode</property>
+                                <text-property name="displayName">currencyCode</text-property>
+                                <expression name="expression" type="javascript">dataSetRow["currencyCode"]</expression>
+                                <property name="dataType">string</property>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["currencyCode"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
             </row>
             <row id="6287">
                 <cell id="6288"/>
