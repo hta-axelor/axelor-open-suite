@@ -3145,7 +3145,7 @@ if(translation.containsKey(key)) {
                                                 </structure>
                                             </list-property>
                                             <property name="contentType">html</property>
-                                            <text-property name="content"><![CDATA[<VALUE-OF>Formatter.format(row._outer["unitPrice"], "#,##0." + "0".repeat(row["nbDecimalDigitForUnitPrice"]))</VALUE-OF>]]></text-property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>Formatter.format(row._outer["unitPrice"], "#,##0." + Array(row["nbDecimalDigitForUnitPrice"]+1).join('0'))</VALUE-OF>]]></text-property>
                                         </text>
                                         <text id="7093">
                                             <property name="fontSize">8pt</property>
@@ -3167,7 +3167,7 @@ if(translation.containsKey(key)) {
                                                 </structure>
                                             </list-property>
                                             <property name="contentType">html</property>
-                                            <text-property name="content"><![CDATA[<VALUE-OF>Formatter.format(row._outer["unitPrice"], "#,##0." + "0".repeat(row["nbDecimalDigitForUnitPrice"]))</VALUE-OF>]]></text-property>
+                                            <text-property name="content"><![CDATA[<VALUE-OF>Formatter.format(row._outer["unitPrice"], "#,##0." + Array(row["nbDecimalDigitForUnitPrice"]+1).join('0'))</VALUE-OF>]]></text-property>
                                         </text>
                                     </cell>
                                     <cell id="7060">
