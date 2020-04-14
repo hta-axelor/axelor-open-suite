@@ -709,7 +709,7 @@ return false;]]></method>
                 </structure>
                 <structure>
                     <property name="position">23</property>
-                    <property name="name">salesperson_signature_path</property>
+                    <property name="name">salespersonSignaturePath</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -971,7 +971,7 @@ return false;]]></method>
                     <property name="columnName">proformaComments</property>
                 </structure>
                 <structure>
-                    <property name="columnName">salesperson_signature_path</property>
+                    <property name="columnName">salespersonSignaturePath</property>
                 </structure>
                 <structure>
                     <property name="columnName">salemanName</property>
@@ -1202,7 +1202,7 @@ return false;]]></method>
                     </structure>
                     <structure>
                         <property name="position">23</property>
-                        <property name="name">salesperson_signature_path</property>
+                        <property name="name">salespersonSignaturePath</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -1683,10 +1683,11 @@ return false;]]></method>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
-                    <property name="name">salesperson_signature_path</property>
-                    <text-property name="displayName">salesperson_signature_path</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["salesperson_signature_path"]</expression>
+                    <property name="name">salespersonSignaturePath</property>
+                    <text-property name="displayName">salespersonSignaturePath</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["salespersonSignaturePath"]</expression>
                     <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
                 </structure>
                 <structure>
                     <property name="name">salemanName</property>
@@ -4101,9 +4102,22 @@ if(translation.containsKey(key)) {
                 <cell id="6376"/>
             </row>
             <row id="6377">
-                <cell id="6378"/>
-                <cell id="6379"/>
-                <cell id="6380"/>
+                <cell id="6378">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <text id="3878">
+                        <property name="fontSize">10pt</property>
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["saleOrderClientBox"] == null</expression>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF format="HTML">row["saleOrderClientBox"]</VALUE-OF>
+]]></text-property>
+                    </text>
+                </cell>
                 <cell id="6381"/>
                 <cell id="6382"/>
                 <cell id="6383"/>
@@ -4111,14 +4125,22 @@ if(translation.containsKey(key)) {
                 <cell id="6385"/>
             </row>
             <row id="6386">
-                <cell id="6387"/>
-                <cell id="6388"/>
-                <cell id="6389"/>
-                <cell id="6390"/>
-                <cell id="6391"/>
-                <cell id="6392"/>
-                <cell id="6393"/>
-                <cell id="6394"/>
+                <cell id="6387">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                    <property name="paddingRight">20pt</property>
+                    <property name="textAlign">right</property>
+                    <image id="7152">
+                        <property name="height">50px</property>
+                        <expression name="altText">""</expression>
+                        <property name="source">file</property>
+                        <expression name="uri" type="javascript">params["AttachmentPath"].value+row["salespersonSignaturePath"]</expression>
+                    </image>
+                    <text-data id="4329">
+                        <expression name="valueExpr">row["salemanName"]</expression>
+                        <property name="contentType">html</property>
+                    </text-data>
+                </cell>
             </row>
         </grid>
     </body>
