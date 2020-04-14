@@ -4034,14 +4034,15 @@ if(translation.containsKey(key)) {
                 </cell>
             </row>
             <row id="6332">
-                <cell id="6333"/>
-                <cell id="6334"/>
-                <cell id="6335"/>
-                <cell id="6336"/>
-                <cell id="6337"/>
-                <cell id="6338"/>
-                <cell id="6339"/>
-                <cell id="6340"/>
+                <cell id="6333">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                    <text id="4380">
+                        <property name="fontSize">8pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF format="HTML">row["saleOrderLegalNote"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
             </row>
             <row id="6341">
                 <cell id="6342"/>
@@ -4054,8 +4055,17 @@ if(translation.containsKey(key)) {
                 <cell id="6349"/>
             </row>
             <row id="6350">
-                <cell id="6351"/>
-                <cell id="6352"/>
+                <cell id="6351">
+                    <property name="colSpan">2</property>
+                    <property name="rowSpan">1</property>
+                    <text id="7130">
+                        <property name="fontSize">11pt</property>
+                        <property name="fontWeight">bold</property>
+                        <property name="color">#606062</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.note')</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
                 <cell id="6353"/>
                 <cell id="6354"/>
                 <cell id="6355"/>
@@ -4064,14 +4074,21 @@ if(translation.containsKey(key)) {
                 <cell id="6358"/>
             </row>
             <row id="6359">
-                <cell id="6360"/>
-                <cell id="6361"/>
-                <cell id="6362"/>
-                <cell id="6363"/>
-                <cell id="6364"/>
-                <cell id="6365"/>
-                <cell id="6366"/>
-                <cell id="6367"/>
+                <cell id="6360">
+                    <property name="colSpan">8</property>
+                    <property name="rowSpan">1</property>
+                    <text id="3548">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontStyle">italic</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<I><VALUE-OF format="HTML">
+     if(row["description"] != null) row["description"].replace(/\<p|\<P/g, '<p style="margin-top: 0; margin-bottom:0.1em;" ').replace(/<!--\w+-->/gi,"") + "<br>"
+   </VALUE-OF>
+   <VALUE-OF format="HTML">
+     if(row["proformaComments"] != null &amp;&amp; params["ProformaInvoice"].value) row["proformaComments"].replace(/\<p|\<P/g, '<p style="margin-top: 0; margin-bottom:0.1em;" ').replace(/<!--\w+-->/gi,"")              
+   </VALUE-OF></I>]]></text-property>
+                    </text>
+                </cell>
             </row>
             <row id="6368">
                 <cell id="6369"/>
