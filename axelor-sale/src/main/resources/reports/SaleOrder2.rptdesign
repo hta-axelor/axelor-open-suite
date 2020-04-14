@@ -3933,6 +3933,7 @@ if(translation.containsKey(key)) {
                 </cell>
             </row>
             <row id="6287">
+                <property name="height">0.3in</property>
                 <cell id="6288"/>
                 <cell id="6289"/>
                 <cell id="6290"/>
@@ -3943,6 +3944,7 @@ if(translation.containsKey(key)) {
                 <cell id="6295"/>
             </row>
             <row id="6296">
+                <property name="height">0.3in</property>
                 <cell id="6297"/>
                 <cell id="6298"/>
                 <cell id="6299"/>
@@ -3957,30 +3959,79 @@ if(translation.containsKey(key)) {
                 <cell id="6307"/>
                 <cell id="6308"/>
                 <cell id="6309"/>
-                <cell id="6310"/>
-                <cell id="6311"/>
-                <cell id="6312"/>
-                <cell id="6313"/>
+                <cell id="6310">
+                    <text id="7129">
+                        <property name="fontSize">8pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>translation.getString('SaleOrder.bank')</VALUE-OF> :]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6311">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <text id="3598">
+                        <property name="fontSize">8pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["bankAddress"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
             </row>
             <row id="6314">
                 <cell id="6315"/>
                 <cell id="6316"/>
                 <cell id="6317"/>
                 <cell id="6318"/>
-                <cell id="6319"/>
-                <cell id="6320"/>
-                <cell id="6321"/>
-                <cell id="6322"/>
+                <cell id="6319">
+                    <text id="3582">
+                        <property name="fontSize">8pt</property>
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["iban"] == null</expression>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[IBAN :]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6320">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <text id="3596">
+                        <property name="fontSize">8pt</property>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["iban"].match(/(.{1,4})/g).join(" ")</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
             </row>
             <row id="6323">
                 <cell id="6324"/>
                 <cell id="6325"/>
                 <cell id="6326"/>
                 <cell id="6327"/>
-                <cell id="6328"/>
-                <cell id="6329"/>
-                <cell id="6330"/>
-                <cell id="6331"/>
+                <cell id="6328">
+                    <text id="3593">
+                        <property name="fontSize">8pt</property>
+                        <list-property name="visibility">
+                            <structure>
+                                <property name="format">all</property>
+                                <expression name="valueExpr" type="javascript">row["bic"] == null</expression>
+                            </structure>
+                        </list-property>
+                        <property name="contentType">auto</property>
+                        <text-property name="content"><![CDATA[BIC :]]></text-property>
+                    </text>
+                </cell>
+                <cell id="6329">
+                    <property name="colSpan">3</property>
+                    <property name="rowSpan">1</property>
+                    <text id="3597">
+                        <property name="fontSize">8pt</property>
+                        <structure name="toc"/>
+                        <property name="contentType">html</property>
+                        <text-property name="content"><![CDATA[<VALUE-OF>row["bic"]</VALUE-OF>]]></text-property>
+                    </text>
+                </cell>
             </row>
             <row id="6332">
                 <cell id="6333"/>
