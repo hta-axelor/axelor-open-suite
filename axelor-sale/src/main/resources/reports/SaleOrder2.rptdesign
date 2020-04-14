@@ -2641,7 +2641,7 @@ translatedDateFormat != null &amp;&amp; translatedDateFormat != "" ? translatedD
                                         <property name="name">Expression</property>
                                     </structure>
                                 </list-property>
-                                <expression name="filterExpr" type="javascript">row["productPicture"]</expression>
+                                <expression name="filterExpr" type="javascript">row["productPicture"]!=null</expression>
                                 <property name="allowExport">true</property>
                             </structure>
                             <structure>
