@@ -306,6 +306,7 @@ public class SaleOrderReportServiceImpl implements SaleOrderReportService {
     fieldsList.add("subscriptionText");
     fieldsList.add("inAti");
     fieldsList.add("proformaComments");
+    fieldsList.add("specificNotes");
     return ReportTool.getMap(saleOrder, fieldsList);
   }
 

@@ -669,7 +669,7 @@ return false;]]></method>
                 </structure>
                 <structure>
                     <property name="position">15</property>
-                    <property name="name">specific_notes</property>
+                    <property name="name">specificNotes</property>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
@@ -947,7 +947,7 @@ return false;]]></method>
                     <property name="columnName">statusSelect</property>
                 </structure>
                 <structure>
-                    <property name="columnName">specific_notes</property>
+                    <property name="columnName">specificNotes</property>
                 </structure>
                 <structure>
                     <property name="columnName">versionNumber</property>
@@ -1162,7 +1162,7 @@ return false;]]></method>
                     </structure>
                     <structure>
                         <property name="position">15</property>
-                        <property name="name">specific_notes</property>
+                        <property name="name">specificNotes</property>
                         <property name="dataType">string</property>
                     </structure>
                     <structure>
@@ -1635,9 +1635,9 @@ return false;]]></method>
                     <property name="dataType">integer</property>
                 </structure>
                 <structure>
-                    <property name="name">specific_notes</property>
-                    <text-property name="displayName">specific_notes</text-property>
-                    <expression name="expression" type="javascript">dataSetRow["specific_notes"]</expression>
+                    <property name="name">specificNotes</property>
+                    <text-property name="displayName">specificNotes</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["specificNotes"]</expression>
                     <property name="dataType">string</property>
                 </structure>
                 <structure>
