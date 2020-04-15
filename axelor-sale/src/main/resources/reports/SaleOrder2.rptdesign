@@ -4224,6 +4224,12 @@ if(translation.containsKey(key)) {
                 <cell id="6385"/>
             </row>
             <row id="6386">
+                <list-property name="visibility">
+                    <structure>
+                        <property name="format">all</property>
+                        <expression name="valueExpr" type="javascript">row["salespersonSignaturePath"] == null</expression>
+                    </structure>
+                </list-property>
                 <cell id="6387">
                     <property name="colSpan">8</property>
                     <property name="rowSpan">1</property>
