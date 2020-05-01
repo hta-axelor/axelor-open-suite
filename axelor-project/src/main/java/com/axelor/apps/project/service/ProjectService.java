@@ -33,8 +33,6 @@ public interface ProjectService {
       Company company,
       Partner clientPartner);
 
-  Partner getClientPartnerFromProject(Project project) throws AxelorException;
-
   BigDecimal computeDurationFromChildren(Long projectId);
 
   /**

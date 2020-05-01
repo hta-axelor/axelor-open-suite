@@ -19,10 +19,6 @@ package com.axelor.apps.supplychain.service;
 
 import com.axelor.apps.base.db.AppSupplychain;
 import com.axelor.apps.base.db.CancelReason;
-import com.axelor.apps.base.db.Partner;
-import com.axelor.apps.base.db.repo.PriceListRepository;
-import com.axelor.apps.base.service.PartnerPriceListService;
-import com.axelor.apps.base.service.PartnerService;
 import com.axelor.apps.sale.db.SaleOrder;
 import com.axelor.apps.sale.db.SaleOrderLine;
 import com.axelor.apps.sale.db.repo.SaleOrderLineRepository;
@@ -41,19 +37,14 @@ import com.axelor.inject.Beans;
 import com.google.common.base.MoreObjects;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
-import java.lang.invoke.MethodHandles;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class SaleOrderServiceSupplychainImpl extends SaleOrderServiceImpl
     implements SaleOrderSupplychainService {
-
-  private final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
   protected AppSupplychain appSupplychain;
   protected SaleOrderStockService saleOrderStockService;
@@ -68,22 +59,6 @@ public class SaleOrderServiceSupplychainImpl extends SaleOrderServiceImpl
     this.appSupplychain = appSupplychainService.getAppSupplychain();
     this.saleOrderStockService = saleOrderStockService;
     this.saleOrderRepository = saleOrderRepository;
-  }
-
-  public SaleOrder getClientInformations(SaleOrder saleOrder) {
-    Partner client = saleOrder.getClientPartner();
-    PartnerService partnerService = Beans.get(PartnerService.class);
-    if (client != null) {
-      saleOrder.setPaymentCondition(client.getPaymentCondition());
-      saleOrder.setPaymentMode(client.getInPaymentMode());
-      saleOrder.setMainInvoicingAddress(partnerService.getInvoicingAddress(client));
-      this.computeAddressStr(saleOrder);
-      saleOrder.setDeliveryAddress(partnerService.getDeliveryAddress(client));
-      saleOrder.setPriceList(
-          Beans.get(PartnerPriceListService.class)
-              .getDefaultPriceList(client, PriceListRepository.TYPE_SALE));
-    }
-    return saleOrder;
   }
 
   public void updateAmountToBeSpreadOverTheTimetable(SaleOrder saleOrder) {

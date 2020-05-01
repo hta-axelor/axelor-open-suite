@@ -13,7 +13,6 @@
 		      <item name="seeQuotationLinesItem" title="See quotation lines" action="action-view-open-quotation-lines"/>
 		    </menu>
 		</menubar>
-		<hilite background="warning" if="(endOfValidityDate != null) &amp;&amp; ($moment(endOfValidityDate) &lt; $moment(todayDate)) &amp;&amp; (statusSelect == 3)"/>
 		<hilite background="danger" if="(endOfValidityDate != null) &amp;&amp; ($moment(endOfValidityDate) &lt; $moment(todayDate)) &amp;&amp; (statusSelect == 2)"/>
 	  <field name="endOfValidityDate" hidden="true"/>
 	  <field name="saleOrderSeq" width="120"/>

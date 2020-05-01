@@ -25,7 +25,6 @@ import com.axelor.apps.project.db.TaskTemplate;
 import com.axelor.apps.project.db.Wiki;
 import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.apps.project.db.repo.WikiRepository;
-import com.axelor.apps.project.exception.IExceptionMessage;
 import com.axelor.apps.project.translation.ITranslation;
 import com.axelor.auth.AuthUtils;
 import com.axelor.auth.db.User;
@@ -47,8 +46,6 @@ import java.util.Set;
 import javax.persistence.TypedQuery;
 
 public class ProjectServiceImpl implements ProjectService {
-
-  public static final int MAX_LEVEL_OF_PROJECT = 10;
 
   private ProjectRepository projectRepository;
 
@@ -121,32 +118,6 @@ public class ProjectServiceImpl implements ProjectService {
     } while (projectRepository.findByName(name) != null);
 
     return name;
-  }
-
-  @Override
-  public Partner getClientPartnerFromProject(Project project) throws AxelorException {
-    return this.getClientPartnerFromProject(project, 0);
-  }
-
-  private Partner getClientPartnerFromProject(Project project, int counter) throws AxelorException {
-    if (project.getParentProject() == null) {
-      // it is a root project, can get the client partner
-      if (project.getClientPartner() == null) {
-        throw new AxelorException(
-            TraceBackRepository.CATEGORY_CONFIGURATION_ERROR,
-            I18n.get(IExceptionMessage.PROJECT_CUSTOMER_PARTNER));
-      } else {
-        return project.getClientPartner();
-      }
-    } else {
-      if (counter > MAX_LEVEL_OF_PROJECT) {
-        throw new AxelorException(
-            TraceBackRepository.CATEGORY_CONFIGURATION_ERROR,
-            I18n.get(IExceptionMessage.PROJECT_DEEP_LIMIT_REACH));
-      } else {
-        return this.getClientPartnerFromProject(project.getParentProject(), counter + 1);
-      }
-    }
   }
 
   @Override

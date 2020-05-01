@@ -543,11 +543,6 @@
 		<action name="action-project-attrs-project-planning-time-cancel-remove" />
 	</action-group>
 	
-	<action-attrs name="action-task-attrs-assigned-to-domain">
-	    <attribute name="domain" for="assignedTo" expr="eval:&quot;self.id in (${(project?.membersUserSet?.collect{it->it.id}+[0,0]).join(',')}) &quot;"
-				   if="(typeSelect == 'task')&amp;&amp;(project?.membersUserSet)&amp;&amp;(!project.membersUserSet.isEmpty())" />
-	</action-attrs>
-	
 	<action-attrs name="action-project-defaults" model="com.axelor.apps.project.db.Project">
 		<attribute name="value" for="fromDate" expr="eval: __datetime__"/>
 		<attribute name="value" for="company" expr="eval:__user__.activeCompany"/>
@@ -735,10 +730,6 @@
 	<action-record name="action-project-record-bind-customer-parent" model="com.axelor.apps.project.db.Project">
 		<field name="clientPartner" expr="eval: _parent?.clientPartner"/>
 	</action-record>
-
-	<action-method name="action-method-project-compute-progress">
-		<call class="com.axelor.apps.businessproject.web.ProjectController" method="computeProgress"/>
-	</action-method>
 	
 	<action-method name="action-project-method-count-to-invoice">
 	 	<call class="com.axelor.apps.businessproject.web.ProjectController" method="countToInvoice"/>
