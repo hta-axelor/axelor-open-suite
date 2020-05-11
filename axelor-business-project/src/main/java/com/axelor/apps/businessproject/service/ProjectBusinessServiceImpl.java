@@ -17,6 +17,7 @@
  */
 package com.axelor.apps.businessproject.service;
 
+import java.util.HashSet;
 import com.axelor.apps.account.service.AccountingSituationService;
 import com.axelor.apps.base.db.AppSupplychain;
 import com.axelor.apps.base.db.Company;
@@ -240,6 +241,7 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
       project.setInvoicingComment(projectTemplate.getInvoicingComment());
       project.setIsBusinessProject(projectTemplate.getIsBusinessProject());
     }
+    project.setProjectFolderSet(new HashSet<>(projectTemplate.getProjectFolderSet()));
 
     return project;
   }

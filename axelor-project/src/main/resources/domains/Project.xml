@@ -10,7 +10,6 @@
 		<string name="name"/>
 		<string name="description" multiline="true" large="true"/>
 		<many-to-one name="team" ref="com.axelor.team.db.Team"/>
-		<many-to-many name="projectFolderSet" ref="com.axelor.apps.project.db.ProjectFolder" title="Project Folders"/>
 		<one-to-many name="childProjectList" ref="com.axelor.apps.project.db.Project" title="Child Projects" mappedBy="parentProject"/>
 		<many-to-one name="assignedTo" ref="com.axelor.auth.db.User" title="Assigned to"/>
 		<integer name="statusSelect" selection="project.status.select" title="Status" default="1"/>

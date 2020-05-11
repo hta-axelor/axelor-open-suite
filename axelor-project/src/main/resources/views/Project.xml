@@ -329,7 +329,7 @@
 					domain="self.isActivity = true" form-view="product-activity-form"
 					grid-view="product-activity-grid" />
 				<field name="teamTaskCategorySet" colSpan="12" widget="TagSelect" />
-				<field name="projectFolderSet" colSpan="12" widget="TagSelect" />
+				<field name="projectFolderSet" colSpan="12" widget="TagSelect" if="__config__.app.isApp('business-project')" if-module="axelor-business-project"/>
 				<field name="excludeTimesheetEditor" if-module="axelor-human-resource"/>
 				<field name="childProjectList" hidden="true" />
 				<field name="sequence" hidden="true" />
