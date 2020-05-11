@@ -89,7 +89,6 @@ public class ProjectServiceImpl implements ProjectService {
     project.setCompany(company);
     project.setClientPartner(clientPartner);
     project.setAssignedTo(assignedTo);
-    project.setProgress(BigDecimal.ZERO);
     return project;
   }
 

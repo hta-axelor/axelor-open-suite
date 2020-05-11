@@ -21,7 +21,6 @@ import com.axelor.apps.base.db.AppProject;
 import com.axelor.apps.base.db.Company;
 import com.axelor.apps.base.db.repo.SequenceRepository;
 import com.axelor.apps.base.service.administration.SequenceService;
-import com.axelor.apps.base.service.app.AppBaseService;
 import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.exception.IExceptionMessage;
 import com.axelor.apps.project.service.app.AppProjectService;
@@ -31,7 +30,6 @@ import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
 import com.axelor.team.db.Team;
 import com.google.common.base.Strings;
-import java.math.BigDecimal;
 import javax.persistence.PersistenceException;
 
 public class ProjectManagementRepository extends ProjectRepository {
@@ -98,11 +96,6 @@ public class ProjectManagementRepository extends ProjectRepository {
     }
     setAllProjectFullName(project);
 
-    project.setEstimatedTimeHrs(
-        project
-            .getEstimatedTimeDays()
-            .multiply(Beans.get(AppBaseService.class).getAppBase().getDailyWorkHours()));
-
     return super.save(project);
   }
 
@@ -110,7 +103,6 @@ public class ProjectManagementRepository extends ProjectRepository {
   public Project copy(Project entity, boolean deep) {
     Project project = super.copy(entity, false);
     project.setStatusSelect(STATE_NEW);
-    project.setProgress(BigDecimal.ZERO);
     return project;
   }
 }

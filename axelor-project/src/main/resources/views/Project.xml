@@ -21,7 +21,6 @@
 		<field name="assignedTo"/>
 		<field name="fromDate" />
 		<field name="toDate" />
-		<field name="dueDate" />
 		<field name="imputable" width="90"/>
 		<button name="openGanttBtn" title="Gantt" icon="fa-tasks" onClick="action-project-open-gantt"/>
 		<field name="isProject" hidden="true"/>
@@ -109,11 +108,6 @@
 					if="__config__.app.isApp('business-project')" if-module="axelor-business-project"
           showIf="isBusinessProject" domain="self IN (SELECT address FROM PartnerAddress where partner = :clientPartner)"/>
 			</panel>
-			<field name="progress" showIf="isProject" widget="Progress" colSpan="12">
-				<editor>
-					<field name="progress" showTitle="false" colSpan="3" />
-				</editor>
-			</field>
 			<field name="description" colSpan="12" widget="html" />
 		</panel>
 
@@ -395,8 +389,6 @@
 			canCollapse="true">
 			<field name="fromDate" colSpan="6" />
 			<field name="toDate" colSpan="6" />
-			<field name="dueDate" showIf="isProject" colSpan="6" />
-            <field name="estimatedTimeDays" colSpan="6" />
 		</panel>
 		<panel-mail name="mailPanel">
 			<mail-messages limit="4" />
@@ -423,18 +415,12 @@
 	 name="project-kanban" title="Projects" model="com.axelor.apps.project.db.Project">
 		<field name="fullName"/>
 		<field name="description"/>
-		<field name="progress"/>
-		<field name="dueDate"/>
 		<field name="statusSelect"/>
 		<field name="sequence"/>
-		<hilite color="danger" if="dueDate.isAfter(__datetime__) &amp;&amp; statusSelect &lt; 3"/>
-		<hilite color="success" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; statusSelect &lt; 3"/>
-		<hilite color="warning" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; statusSelect &lt; 3"/>
 		<template>
 		&lt;h4&gt;{{fullName}}&lt;/h4&gt;
 		&lt;div class="card-body"&gt;{{description}}&lt;/div&gt;
 		&lt;div class="card-footer"&gt;
-		  &lt;i class='fa fa-clock-o'&gt;&lt;/i&gt; &lt;span&gt;{{dueDate|date:'dd/MM/yyyy'}}&lt;/span&gt;
 		&lt;/div&gt;
 		</template>
 	</kanban>
@@ -443,18 +429,12 @@
 	 name="task-kanban" title="Tasks" model="com.axelor.apps.project.db.Project">
 		<field name="fullName"/>
 		<field name="description"/>
-		<field name="progress"/>
-		<field name="dueDate"/>
 		<field name="statusSelect"/>
 		<field name="sequence"/>
-		<hilite color="danger" if="dueDate.isAfter(__datetime__) &amp;&amp; statusSelect &lt; 3"/>
-		<hilite color="success" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; statusSelect &lt; 3"/>
-		<hilite color="warning" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; statusSelect &lt; 3"/>
 		<template>
 		&lt;h4&gt;{{fullName}}&lt;/h4&gt;
 		&lt;div class="card-body"&gt;{{description}}&lt;/div&gt;
 		&lt;div class="card-footer"&gt;
-		  &lt;i class='fa fa-clock-o'&gt;&lt;/i&gt; &lt;span&gt;{{dueDate|date:'dd/MM/yyyy'}}&lt;/span&gt;
 		&lt;/div&gt;
 		</template>
 	</kanban>
@@ -485,7 +465,6 @@
     	<column name="name" type="string"/>
 			<column name="taskDate" type="date"/>
     	<column name="assignedTo" type="reference"/>
-    	<column name="progress" type="integer"/>
 		<column name="openTask" type="button"/>
 
 		<node model="com.axelor.team.db.TeamTask" domain="self.project.id = :_id" onClick="action-team-task-view-task" orderBy="taskDate">
@@ -510,13 +489,11 @@
     	
     	<column name="name" type="string"/>
     	<column name="assignedTo" type="reference"/>
-    	<column name="progress" type="integer"/>
 		<column name="openTask" type="button"/>
 
 		<node model="com.axelor.apps.project.db.Project" domain="self.parentProject.id = :id" onClick="action-project-view-phase">
 			<field name="name" as="name"/>
 			<field name="assignedTo" as="assignedTo"/>
-			<field name="progress" as="progress"/>
 			<button name="openTaskBtn" title="Open phase" onClick="action-project-view-phase"/>
 		</node>
 		
