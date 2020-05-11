@@ -75,8 +75,7 @@
 		<view-param name="popup" value="true"/>
 		<domain>self.project.id in (:_projectIds)</domain>
 		<context if="id == null" name="_projectIds" expr="eval:[0]" />
-  		<context if="id != null &amp;&amp; !isShowPhasesElements" name="_projectIds" expr="eval:[id]"/>
-  		<context if="id != null &amp;&amp; isShowPhasesElements" name="_projectIds" expr="eval:[id] + childProjectList.collect{it->it.id}"/>
+  		<context if="id != null" name="_projectIds" expr="eval:[id]"/>
 	</action-view>
 	
 	<action-view name="action-project-view-project-planning-time-add-new" title="Planned Time Planning" model="com.axelor.apps.project.db.ProjectPlanningTime">

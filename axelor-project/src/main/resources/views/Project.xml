@@ -114,7 +114,7 @@
 		<panel-tabs name="mainPanelTab">
 			<panel title="Task Tree" name="taskTreePanel" showIf="isProject">
 				<panel title="Phases" name="phasesPanel"
-					showIf="isProject &amp;&amp; childProjectList.length > 0" colSpan="12" showTitle="false">
+					showIf="isProject" colSpan="12" showTitle="false">
 					<button name="addPhaseBtn" title="New" colSpan="2"
 						css="btn-custom text-left" icon="fa-plus" onClick="save,action-project-view-phase-new" />
 					<button name="allPhasesBtn" title="All phases" colSpan="4"
@@ -331,7 +331,6 @@
 				<field name="teamTaskCategorySet" colSpan="12" widget="TagSelect" />
 				<field name="projectFolderSet" colSpan="12" widget="TagSelect" if="__config__.app.isApp('business-project')" if-module="axelor-business-project"/>
 				<field name="excludeTimesheetEditor" if-module="axelor-human-resource"/>
-				<field name="childProjectList" hidden="true" />
 				<field name="sequence" hidden="true" />
 				<field name="excludePlanning" if-module="axelor-business-project"
 					showIf="isProject" />

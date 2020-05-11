@@ -17,7 +17,6 @@
  */
 package com.axelor.apps.businessproject.service;
 
-import java.util.HashSet;
 import com.axelor.apps.account.service.AccountingSituationService;
 import com.axelor.apps.base.db.AppSupplychain;
 import com.axelor.apps.base.db.Company;
@@ -45,6 +44,7 @@ import com.axelor.inject.Beans;
 import com.axelor.team.db.TeamTask;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
+import java.util.HashSet;
 
 public class ProjectBusinessServiceImpl extends ProjectServiceImpl
     implements ProjectBusinessService {
