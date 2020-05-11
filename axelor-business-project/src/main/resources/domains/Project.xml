@@ -51,6 +51,7 @@
 		<boolean name="consolidatePhaseWhenInvoicing" title="Consolidate phase invoicing" default="true"/>
 
 		<many-to-one name="customerAddress" title="Address" ref="com.axelor.apps.base.db.Address"/>
+		<many-to-one name="company" ref="com.axelor.apps.base.db.Company" title="Company"/>
 	 	<extra-code><![CDATA[
 		
 		   	// TYPE SELECT

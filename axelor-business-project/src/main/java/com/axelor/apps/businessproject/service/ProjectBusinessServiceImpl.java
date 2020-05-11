@@ -193,6 +193,7 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
     }
 
     project.setImputable(true);
+    project.setCompany(company);
     if (parentProject != null && parentProject.getIsInvoicingTimesheet()) {
       project.setIsInvoicingTimesheet(true);
     }

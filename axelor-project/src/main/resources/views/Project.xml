@@ -89,7 +89,7 @@
 		<panel name="detailsPanel">
 			<panel name="generalInfoPanel" colSpan="12">
 				<field name="company" form-view="company-form" grid-view="company-grid"
-					colSpan="3"  canEdit="false"/>
+					colSpan="3"  canEdit="false" if="__config__.app.isApp('business-project')" if-module="axelor-business-project"/>
 				<field name="clientPartner" domain="self.isCustomer = true AND :company member of self.companySet" onChange="action-project-method-get-partner-data"
 					requiredIf="isBusinessProject" form-view="partner-form" grid-view="partner-grid"
 					colSpan="3" if="__config__.app.isApp('business-project')" if-module="axelor-business-project"
