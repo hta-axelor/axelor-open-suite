@@ -10,6 +10,21 @@
 		<field name="toDate" />
 	</grid>
 	
+	<grid id="business-project-team-task-grid" name="team-task-grid" title="Tasks" model="com.axelor.team.db.TeamTask" edit-icon="true" orderBy="taskDate, priority">
+		<hilite if="status == 'closed'" color="success"/>
+		<hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
+		<hilite if="priority == 'urgent'" color="warning"/>
+		<field name="name"/>
+		<field name="project"/>
+		<field name="taskDate"/>
+		<field name="taskEndDate" hidden="true"/>
+		<field name="status"/>
+		<field name="priority"/>
+		<field name="teamTaskCategory"/>
+		<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
+        <button name="timeSpentBtn" title="Enter Time spent" icon="fa-clock-o" onClick="action-team-task-view-time-spent" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
+	</grid>
+	
     <action-method name="action-project-method-generate-quotation">
         <call class="com.axelor.apps.businessproject.web.ProjectController" method="generateQuotation"/>
     </action-method>
