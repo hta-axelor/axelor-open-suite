@@ -242,6 +242,7 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
       project.setIsBusinessProject(projectTemplate.getIsBusinessProject());
     }
     project.setProjectFolderSet(new HashSet<>(projectTemplate.getProjectFolderSet()));
+    project.setCompany(projectTemplate.getCompany());
 
     return project;
   }

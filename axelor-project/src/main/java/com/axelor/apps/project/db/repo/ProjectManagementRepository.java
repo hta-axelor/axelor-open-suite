@@ -47,30 +47,6 @@ public class ProjectManagementRepository extends ProjectRepository {
         project.getMembersUserSet().forEach(team::addMember);
       }
     }
-
-    //    try {
-    //      AppProject appProject = Beans.get(AppProjectService.class).getAppProject();
-    //
-    //      if (Strings.isNullOrEmpty(project.getCode()) && appProject.getGenerateProjectSequence())
-    // {
-    //        Company company = project.getCompany();
-    //        String seq =
-    //            Beans.get(SequenceService.class)
-    //                .getSequenceNumber(SequenceRepository.PROJECT_SEQUENCE, company);
-    //
-    //        if (seq == null) {
-    //          throw new AxelorException(
-    //              company,
-    //              TraceBackRepository.CATEGORY_CONFIGURATION_ERROR,
-    //              I18n.get(IExceptionMessage.PROJECT_SEQUENCE_ERROR),
-    //              company.getName());
-    //        }
-    //
-    //        project.setCode(seq);
-    //      }
-    //    } catch (AxelorException e) {
-    //      throw new PersistenceException(e.getLocalizedMessage());
-    //    }
     setAllProjectFullName(project);
 
     return super.save(project);

@@ -79,7 +79,6 @@ public class ProjectServiceImpl implements ProjectService {
     }
     project.setName(fullName);
     project.setFullName(project.getName());
-    // project.setCompany(company);
     project.setClientPartner(clientPartner);
     project.setAssignedTo(assignedTo);
     return project;
@@ -179,7 +178,6 @@ public class ProjectServiceImpl implements ProjectService {
       project.setSynchronize(projectTemplate.getSynchronize());
       project.setMembersUserSet(new HashSet<>(projectTemplate.getMembersUserSet()));
       project.setImputable(projectTemplate.getImputable());
-      // project.setCompany(projectTemplate.getCompany());
       project.setProductSet(new HashSet<>(projectTemplate.getProductSet()));
       project.setExcludePlanning(projectTemplate.getExcludePlanning());
       project.setProjectTypeSelect(ProjectRepository.TYPE_PROJECT);
