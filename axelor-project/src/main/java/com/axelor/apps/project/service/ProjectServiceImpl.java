@@ -19,6 +19,7 @@ package com.axelor.apps.project.service;
 
 import com.axelor.apps.base.db.Company;
 import com.axelor.apps.base.db.Partner;
+import com.axelor.apps.base.db.Wizard;
 import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.ProjectTemplate;
 import com.axelor.apps.project.db.TaskTemplate;
@@ -34,6 +35,7 @@ import com.axelor.exception.AxelorException;
 import com.axelor.exception.db.repo.TraceBackRepository;
 import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
+import com.axelor.meta.schema.actions.ActionView;
 import com.axelor.team.db.TeamTask;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -43,6 +45,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.persistence.TypedQuery;
 
@@ -217,5 +220,21 @@ public class ProjectServiceImpl implements ProjectService {
     task.setDescription(taskTemplate.getDescription());
 
     return task;
+  }
+
+  @Override
+  public Map<String, Object> createProjectFromTemplateView(ProjectTemplate projectTemplate)
+      throws AxelorException {
+    return ActionView.define(I18n.get("Create project from this template"))
+        .model(Wizard.class.getName())
+        .add("form", "project-template-wizard-form")
+        .param("popup", "reload")
+        .param("show-toolbar", "false")
+        .param("show-confirm", "false")
+        .param("width", "large")
+        .param("popup-save", "false")
+        .context("_projectTemplate", projectTemplate)
+        .context("_businessProject", projectTemplate.getIsBusinessProject())
+        .map();
   }
 }

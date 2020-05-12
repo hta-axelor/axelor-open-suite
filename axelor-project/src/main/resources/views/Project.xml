@@ -75,10 +75,10 @@
 					css="label-bold bold large">
 					<editor x-show-titles="false">
 						<panel name="seq" colSpan="3">
-						<field name="code" showTitle="false" colSpan="12" readonly="true" if="__config__.app.getApp('project')?.generateProjectSequence"
-							css="label-bold bold large" x-bind="{{code|unaccent|uppercase}}" />
-						<field name="code" showTitle="false" colSpan="12" required="true" if="!__config__.app.getApp('project')?.generateProjectSequence"
-							css="label-bold bold large" x-bind="{{code|unaccent|uppercase}}" />
+						<field name="code" showTitle="false" colSpan="12" readonly="true" if="__config__.app.getApp('project')?.generateProjectSequence &amp;&amp; __config__.app.isApp('business-project')"
+							css="label-bold bold large" x-bind="{{code|unaccent|uppercase}}" if-module="axelor-business-project"/>
+						<field name="code" showTitle="false" colSpan="12" required="true" if="!(__config__.app.getApp('project')?.generateProjectSequence &amp;&amp; __config__.app.isApp('business-project'))"
+							css="label-bold bold large" x-bind="{{code|unaccent|uppercase}}" if-module="axelor-business-project"/>
 						</panel>
 						<field name="name" showTitle="false" colSpan="6" required="true"
 							css="label-bold bold large" />

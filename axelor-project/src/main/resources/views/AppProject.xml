@@ -8,7 +8,6 @@
 			<field name="projectLabel"/>
 			<field name="resourceManagement" widget="boolean-switch" />
 			<field name="isEnableSignature" widget="boolean-switch" />
-			<field name="generateProjectSequence" widget="boolean-switch"/>
 		</panel>
 				
 		<panel-mail name="mailPanel">

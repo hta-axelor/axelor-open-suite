@@ -1,18 +1,18 @@
 package com.axelor.apps.businessproject.db.repo;
 
-import com.axelor.apps.base.db.AppProject;
+import com.axelor.apps.base.db.AppBusinessProject;
 import com.axelor.apps.base.db.Company;
 import com.axelor.apps.base.db.repo.SequenceRepository;
 import com.axelor.apps.base.service.administration.SequenceService;
 import com.axelor.apps.businessproject.exception.IExceptionMessage;
+import com.axelor.apps.businessproject.service.app.AppBusinessProjectService;
 import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.repo.ProjectManagementRepository;
-import com.axelor.apps.project.service.app.AppProjectService;
+import com.axelor.common.StringUtils;
 import com.axelor.exception.AxelorException;
 import com.axelor.exception.db.repo.TraceBackRepository;
 import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
-import com.google.common.base.Strings;
 import javax.persistence.PersistenceException;
 
 public class ProjectBusinessProjectRepository extends ProjectManagementRepository {
@@ -20,9 +20,11 @@ public class ProjectBusinessProjectRepository extends ProjectManagementRepositor
   @Override
   public Project save(Project project) {
     try {
-      AppProject appProject = Beans.get(AppProjectService.class).getAppProject();
+      AppBusinessProject appBusinessProject =
+          Beans.get(AppBusinessProjectService.class).getAppBusinessProject();
 
-      if (Strings.isNullOrEmpty(project.getCode()) && appProject.getGenerateProjectSequence()) {
+      if (StringUtils.isBlank(project.getCode())
+          && appBusinessProject.getGenerateProjectSequence()) {
         Company company = project.getCompany();
         String seq =
             Beans.get(SequenceService.class)
