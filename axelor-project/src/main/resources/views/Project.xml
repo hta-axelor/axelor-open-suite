@@ -712,10 +712,6 @@
 		<field name="clientPartner" expr="eval: _parent?.clientPartner"/>
 	</action-record>
 
-	<action-method name="action-method-project-compute-progress">
-		<call class="com.axelor.apps.businessproject.web.ProjectController" method="computeProgress"/>
-	</action-method>
-	
 	<action-method name="action-project-method-count-to-invoice">
 	 	<call class="com.axelor.apps.businessproject.web.ProjectController" method="countToInvoice"/>
      </action-method>
