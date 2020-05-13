@@ -711,14 +711,6 @@
 	<action-record name="action-project-record-bind-customer-parent" model="com.axelor.apps.project.db.Project">
 		<field name="clientPartner" expr="eval: _parent?.clientPartner"/>
 	</action-record>
-
-	<action-method name="action-project-method-count-to-invoice">
-	 	<call class="com.axelor.apps.businessproject.web.ProjectController" method="countToInvoice"/>
-     </action-method>
-     
-     <action-method name="action-project-view-show-invoicing-projects">
-		<call class="com.axelor.apps.businessproject.web.ProjectController" method="showInvoicingProjects"/>
-	</action-method>
 		
   	<action-attrs name="action-project-attrs-scale-and-precision">
 		<attribute name="scale" for="price" expr="eval: __config__.app.getNbDecimalDigitForUnitPrice()"/>

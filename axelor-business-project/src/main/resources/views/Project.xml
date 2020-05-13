@@ -444,4 +444,13 @@
   		<context if="id != null" name="_projectIds" expr="eval:[id]"/>
     </action-view>
     
+    
+	<action-method name="action-project-method-count-to-invoice">
+	   <call class="com.axelor.apps.businessproject.web.ProjectController" method="countToInvoice"/>
+    </action-method>
+     
+    <action-method name="action-project-view-show-invoicing-projects">
+	   <call class="com.axelor.apps.businessproject.web.ProjectController" method="showInvoicingProjects"/>
+	</action-method>
+    
 </object-views>
