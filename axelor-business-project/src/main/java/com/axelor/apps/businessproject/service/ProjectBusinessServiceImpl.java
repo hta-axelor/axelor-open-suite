@@ -204,7 +204,6 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
             saleOrderLine.getSaleOrder().getSalespersonUser(),
             parent.getCompany(),
             parent.getClientPartner());
-    project.setProjectTypeSelect(ProjectRepository.TYPE_PHASE);
     saleOrderLine.setProject(project);
     return project;
   }

@@ -12,8 +12,6 @@
 				<item name="ganttWithProjectItem"  title="Gantt with project" action="action-project-open-popup-select-projects"/>
 			</menu>
 		</menubar>
-		<hilite background="primary" if="projectTypeSelect == 1"/>
-		<hilite background="info" if="projectTypeSelect == 2"/>
 		<field name="code"/>
 		<field name="name"/>
 		<field name="clientPartner"/>
@@ -22,7 +20,6 @@
 		<field name="toDate" />
 		<field name="imputable" width="90"/>
 		<button name="openGanttBtn" title="Gantt" icon="fa-tasks" onClick="action-project-open-gantt"/>
-		<field name="projectTypeSelect" hidden="true"/>
 	</grid>
 
 	<grid name="folder-project-grid" title="Projects" model="com.axelor.apps.project.db.Project">
@@ -55,12 +52,10 @@
 				<field name="$viewerProjectTags" showTitle="false" colSpan="4"
 					readonly="true">
 					<viewer
-						depends="isBusinessProject,projectTypeSelect,$toInvoiceCounter,id">
+						depends="isBusinessProject,$toInvoiceCounter,id">
 							<![CDATA[
 								<h4 style="text-align: right;">
 									<span class="label label-default" style="background-color: #FD6217; margin: 5px 0 !important; display: inline-table; line-height: initial; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.4em;" ng-show="record.isBusinessProject" x-translate>To Invoice</span><span class="label label-default" style="background-color: #FFAA00; margin: 5px 0 !important; display: inline-table; line-height: initial; border-top-left-radius: 0; border-bottom-left-radius: 0;" ng-show="record.isBusinessProject &amp;&amp; record.id">{{record.$toInvoiceCounter}}</span>
-									<span class="label label-default" style="background-color: #86BC25; margin: 5px 0 !important; display: inline-table; line-height: initial;" ng-show="record.projectTypeSelect == 1" x-translate>Project</span>
-									<span class="label label-default" style="background-color: #86BC25; margin: 5px 0 !important; display: inline-table; line-height: initial;" ng-show="record.projectTypeSelect == 2" x-translate>Project phase</span>
 									<span class="label label-default" style="background-color: #2185D0; margin: 5px 0 !important; display: inline-table; line-height: initial;" ng-show="record.isBusinessProject" x-translate>Business</span>
 								</h4>
 							]]>
@@ -128,8 +123,7 @@
 					canNew="false" canEdit="false" />
 				<field name="synchronize" readonlyIf="extendsMembersFromParent"
 					colSpan="2" widget="boolean-switch" />
-				<field name="extendsMembersFromParent" hidden="true"
-					showIf="projectTypeSelect == 2" colSpan="3" widget="boolean-switch" />
+				<field name="extendsMembersFromParent" hidden="true" colSpan="3" widget="boolean-switch" />
 				<field name="membersUserSet" colSpan="12"
 					widget="TagSelect" canNew="false" form-view="user-form" grid-view="user-grid" />
 				<button name="importMemberBtn" title="Import all members"
@@ -252,7 +246,7 @@
 				<field name="isInvoicingExpenses" colSpan="3" />
 				<field name="isInvoicingPurchases" colSpan="3" />
 				<field name="invoicingSequenceSelect" showIf="toInvoice" requiredIf="toInvoice" selection-in="[1,2]" colSpan="6"/>
-				<field name="consolidatePhaseWhenInvoicing" showIf="projectTypeSelect == 1" colSpan="4"/>
+				<field name="consolidatePhaseWhenInvoicing" colSpan="4"/>
 				<spacer name="invoicingSequenceSelectSpacer" colSpan="2"/>
 				<button name="showInvoicingProjectsBtn" title="Create invoicing project"
 						css="btn-custom" icon="fa-file-text-o"
@@ -352,9 +346,6 @@
 					name="isBusinessProject" colSpan="6" widget="boolean-switch" />
 				<field if="__config__.app.isApp('business-project')" if-module="axelor-business-project"
           name="$toInvoiceCounter" showTitle="false" hidden="true" colSpan="6" />
-			</panel>
-			<panel name="projectPanel" colSpan="12">
-				<field name="projectTypeSelect" />
 			</panel>
 		</panel>
 		<panel name="followUpPanel" colSpan="12" title="Follow-up" sidebar="true" canCollapse="true">
@@ -466,7 +457,6 @@
 		<action name="action-project-defaults"/>
 		<action name="action-project-attrs-scale-and-precision"/>
 		<action name="action-attrs-project-set-project-type" if="__config__.app.isApp('business-project')" />
-		<action name="action-project-record-init-type"/>
 	</action-group>
 	
 	<action-group name="action-project-on-load-group">
@@ -496,10 +486,6 @@
 	<action-attrs name="action-attrs-project-set-project-type" model="com.axelor.apps.project.db.Project">
 		<attribute name="readonly" for="isBusinessProject" expr="eval:_fromBusinessProject"/>
 	</action-attrs>
-
-	<action-record name="action-project-record-init-type" model="com.axelor.apps.project.db.Project">
-		<field name="projectTypeSelect" expr="eval: _xProjectTypeSelect"/>
-	</action-record>
 	
 	<action-view name="action-project-task-view" title="Tasks" model="com.axelor.team.db.TeamTask">
     	<view type="form" name="team-task-form"/>

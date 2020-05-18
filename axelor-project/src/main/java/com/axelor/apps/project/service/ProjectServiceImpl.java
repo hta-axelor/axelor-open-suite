@@ -151,7 +151,6 @@ public class ProjectServiceImpl implements ProjectService {
       project.setImputable(projectTemplate.getImputable());
       project.setProductSet(new HashSet<>(projectTemplate.getProductSet()));
       project.setExcludePlanning(projectTemplate.getExcludePlanning());
-      project.setProjectTypeSelect(ProjectRepository.TYPE_PROJECT);
 
       List<Wiki> wikiList = projectTemplate.getWikiList();
 

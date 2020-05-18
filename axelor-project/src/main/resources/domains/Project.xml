@@ -47,7 +47,6 @@
 		
 		<string name="fullName" namecolumn="true" title="Name"/>
 	 	
-        <integer name="projectTypeSelect" selection="project.project.project.type.select" default="1"/>
       	<enum name="genProjTypePerOrderLine" ref="GenProjTypePerOrderLine" default="BUSINESS_PROJECT"/>
       	
         <finder-method name="findByName" using="name"/>
