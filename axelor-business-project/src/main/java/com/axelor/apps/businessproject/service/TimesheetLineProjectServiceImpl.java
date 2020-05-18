@@ -76,10 +76,7 @@ public class TimesheetLineProjectServiceImpl extends TimesheetLineServiceImpl
 
     if (Beans.get(AppBusinessProjectService.class).isApp("business-project")
         && project != null
-        && (project.getIsInvoicingTimesheet()
-            || (project.getParentProject() != null
-                && project.getParentProject().getIsInvoicingTimesheet())))
-      timesheetLine.setToInvoice(true);
+        && (project.getIsInvoicingTimesheet())) timesheetLine.setToInvoice(true);
 
     return timesheetLine;
   }

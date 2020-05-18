@@ -169,7 +169,6 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
     project =
         project == null
             ? this.generateProject(
-                null,
                 saleOrder.getFullName() + "_project",
                 saleOrder.getSalespersonUser(),
                 saleOrder.getCompany(),
@@ -181,13 +180,8 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
 
   @Override
   public Project generateProject(
-      Project parentProject,
-      String fullName,
-      User assignedTo,
-      Company company,
-      Partner clientPartner) {
-    Project project =
-        super.generateProject(parentProject, fullName, assignedTo, company, clientPartner);
+      String fullName, User assignedTo, Company company, Partner clientPartner) {
+    Project project = super.generateProject(fullName, assignedTo, company, clientPartner);
 
     if (!Beans.get(AppBusinessProjectService.class).isApp("business-project")) {
       return project;
@@ -199,9 +193,6 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
 
     project.setImputable(true);
     project.setCompany(company);
-    if (parentProject != null && parentProject.getIsInvoicingTimesheet()) {
-      project.setIsInvoicingTimesheet(true);
-    }
     return project;
   }
 
@@ -209,7 +200,6 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
   public Project generatePhaseProject(SaleOrderLine saleOrderLine, Project parent) {
     Project project =
         generateProject(
-            parent,
             saleOrderLine.getFullName(),
             saleOrderLine.getSaleOrder().getSalespersonUser(),
             parent.getCompany(),

@@ -16,7 +16,6 @@
 		<one-to-many name="teamTaskList" ref="com.axelor.team.db.TeamTask" title="Tasks" mappedBy="project"/>
 		<boolean name="synchronize"/>
 	  	<boolean name="extendsMembersFromParent" default="false"/>
-		<many-to-one name="parentProject" ref="com.axelor.apps.project.db.Project" title="Parent project"/>
 		<one-to-many name="wikiList" ref="com.axelor.apps.project.db.Wiki" title="Wiki" mappedBy="project"/>
 		<one-to-many name="resourceBookingList" ref="com.axelor.apps.project.db.ResourceBooking" title="Resource booking" mappedBy="project"/>
 		

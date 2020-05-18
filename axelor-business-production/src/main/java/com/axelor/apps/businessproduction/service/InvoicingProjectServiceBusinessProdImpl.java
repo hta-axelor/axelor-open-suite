@@ -23,14 +23,12 @@ import com.axelor.apps.production.db.ManufOrder;
 import com.axelor.apps.production.db.repo.ManufOrderRepository;
 import com.axelor.apps.production.service.app.AppProductionService;
 import com.axelor.apps.project.db.Project;
-import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.apps.project.service.ProjectServiceImpl;
 import com.axelor.exception.AxelorException;
 import com.axelor.inject.Beans;
 import com.google.inject.persist.Transactional;
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import org.apache.commons.collections.CollectionUtils;
 
 public class InvoicingProjectServiceBusinessProdImpl extends InvoicingProjectService {
@@ -56,14 +54,6 @@ public class InvoicingProjectServiceBusinessProdImpl extends InvoicingProjectSer
     if (!invoicingProject.getConsolidatePhaseWhenInvoicing()) {
       return;
     }
-
-    List<Project> projectChildrenList =
-        Beans.get(ProjectRepository.class).all().filter("self.parentProject = ?1", project).fetch();
-
-    for (Project projectChild : projectChildrenList) {
-      this.setLines(invoicingProject, projectChild, counter);
-    }
-    return;
   }
 
   @Override

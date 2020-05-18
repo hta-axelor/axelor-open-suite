@@ -47,7 +47,6 @@ import com.axelor.apps.hr.db.repo.TimesheetLineRepository;
 import com.axelor.apps.hr.service.expense.ExpenseService;
 import com.axelor.apps.hr.service.timesheet.TimesheetService;
 import com.axelor.apps.project.db.Project;
-import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.apps.project.service.ProjectServiceImpl;
 import com.axelor.apps.purchase.db.PurchaseOrderLine;
 import com.axelor.apps.purchase.db.repo.PurchaseOrderLineRepository;
@@ -126,7 +125,7 @@ public class InvoicingProjectService {
     if (customerContact == null && customer.getContactPartnerSet().size() == 1) {
       customerContact = customer.getContactPartnerSet().iterator().next();
     }
-    Company company = this.getRootCompany(project);
+    Company company = project.getCompany();
     if (company == null) {
       throw new AxelorException(
           invoicingProject,
@@ -320,15 +319,6 @@ public class InvoicingProjectService {
     if (!invoicingProject.getConsolidatePhaseWhenInvoicing()) {
       return;
     }
-
-    List<Project> projectChildrenList =
-        Beans.get(ProjectRepository.class).all().filter("self.parentProject = ?1", project).fetch();
-
-    for (Project projectChild : projectChildrenList) {
-      this.setLines(invoicingProject, projectChild, counter);
-    }
-
-    return;
   }
 
   public void fillLines(InvoicingProject invoicingProject, Project project) {
@@ -442,23 +432,11 @@ public class InvoicingProjectService {
     invoicingProject.setTeamTaskSet(new HashSet<TeamTask>());
   }
 
-  public Company getRootCompany(Project project) {
-    if (project.getParentProject() == null) {
-      return project.getCompany();
-    } else {
-      return getRootCompany(project.getParentProject());
-    }
-  }
-
   public int countToInvoice(Project project) {
 
     int toInvoiceCount = 0;
 
     String query = "self.project = ?1";
-
-    if (project.getIsShowPhasesElements()) {
-      query = "(self.project = ?1 OR self.project.parentProject = ?1)";
-    }
 
     query += " AND self.toInvoice = true AND self.invoiced = false";
 

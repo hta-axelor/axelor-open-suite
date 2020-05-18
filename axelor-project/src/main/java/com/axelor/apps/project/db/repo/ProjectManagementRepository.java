@@ -29,17 +29,8 @@ public class ProjectManagementRepository extends ProjectRepository {
     project.setFullName(projectCode + project.getName());
   }
 
-  public static void setAllProjectMembersUserSet(Project project) {
-    if (project.getExtendsMembersFromParent() && !project.getSynchronize()) {
-      project.getParentProject().getMembersUserSet().forEach(project.getMembersUserSet()::add);
-    }
-  }
-
   @Override
   public Project save(Project project) {
-
-    ProjectManagementRepository.setAllProjectMembersUserSet(project);
-
     if (project.getSynchronize()) {
       Team team = project.getTeam();
       if (team != null) {

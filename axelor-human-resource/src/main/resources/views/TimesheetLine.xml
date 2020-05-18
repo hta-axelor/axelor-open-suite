@@ -236,8 +236,7 @@
 	
     <action-record name="action-timesheet-line-record-to-invoice-parent" model="com.axelor.apps.hr.db.TimesheetLine">
         <field name="toInvoice" 
-        	expr="eval: _parent?.project?.isInvoicingTimesheet || _parent?.parentProject?.parentProject?.isInvoicingTimesheet"
-            if="__config__.app.isApp('business-project')"/>
+        	expr="eval: _parent?.project?.isInvoicingTimesheet" if="__config__.app.isApp('business-project')"/>
     </action-record>
 	
 	<action-record name="action-hr-timesheet-line-record-empty-product" model="com.axelor.apps.hr.db.TimesheetLine">

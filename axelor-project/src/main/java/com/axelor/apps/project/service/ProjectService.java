@@ -27,14 +27,7 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 public interface ProjectService {
-  Project generateProject(
-      Project parentProject,
-      String fullName,
-      User assignedTo,
-      Company company,
-      Partner clientPartner);
-
-  Partner getClientPartnerFromProject(Project project) throws AxelorException;
+  Project generateProject(String fullName, User assignedTo, Company company, Partner clientPartner);
 
   BigDecimal computeDurationFromChildren(Long projectId);
 
