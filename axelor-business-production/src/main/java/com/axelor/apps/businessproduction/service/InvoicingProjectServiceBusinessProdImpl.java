@@ -50,10 +50,6 @@ public class InvoicingProjectServiceBusinessProdImpl extends InvoicingProjectSer
     counter++;
 
     this.fillLines(invoicingProject, project);
-
-    if (!invoicingProject.getConsolidatePhaseWhenInvoicing()) {
-      return;
-    }
   }
 
   @Override
