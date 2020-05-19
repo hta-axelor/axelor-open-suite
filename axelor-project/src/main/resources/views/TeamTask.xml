@@ -3,15 +3,16 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
-	<grid id="project-team-task-grid" name="team-task-grid" title="Tasks" model="com.axelor.team.db.TeamTask" edit-icon="true" orderBy="taskDate,priority">
+	<grid id="project-team-task-grid" name="team-task-grid" title="Tasks" model="com.axelor.team.db.TeamTask" edit-icon="true" orderBy="taskDate,taskPriority">
 		<hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
-		<hilite if="priority == 'urgent'" color="warning"/>
+		<!-- TODO : Have to change it --> 
+		<!-- <hilite if="priority == 'urgent'" color="warning"/> -->
 		<field name="name"/>
 		<field name="project"/>
 		<field name="taskDate"/>
 		<field name="taskEndDate" hidden="true"/>
 		<field name="taskStatus"/>
-		<field name="priority"/>
+		<field name="taskPriority"/>
 		<field name="teamTaskCategory"/>
 		<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
         <button name="timeSpentBtn" title="Enter Time spent" icon="fa-clock-o" onClick="action-team-task-view-time-spent" />
@@ -44,7 +45,6 @@
 								<span class="label label-important" ng-show="record.assignment == 1" x-translate>Task assigned to the client</span>
 								<span class="label label-success" ng-show="record.assignment == 2 && record.$provider == null" x-translate>Task assigned to the provider</span>
 								<span class="label label-success" style="background-color: #5cb85c; margin: 5px 0 !important; display: inline-table; line-height: initial; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.3em;" ng-show="record.assignment == 2 && record.$provider != null" x-translate>Task assigned to</span><span class="label label-success" style="background-color: #5cb85c; margin: 5px 0 !important; display: inline-table; line-height: initial; border-top-left-radius: 0; border-bottom-left-radius: 0; padding-left: 0.0em;" ng-show="record.assignment == 2 && record.$provider != null">{{record.$provider}}</span>
-
 								<span class="label label-important" ng-show="(!record.isOrderAccepted && record.invoicingType == 2 && record.exTaxTotal != 0) || (!record.isOrderAccepted && record.invoicingType == 1)" x-translate>Order Proposed</span>
 								<span class="label label-success" ng-show="record.isOrderAccepted" x-translate>Order Accepted</span>
 							</h4>
@@ -86,7 +86,7 @@
 			<panel name="characteristicsPanel" title="Characteristics" colSpan="12">
 				<field name="teamTaskCategory" colSpan="4" onSelect="action-task-attrs-team-task-category-configurations" onChange="action-team-task-group-project-category-onchange"/>
 				<field name="teamTaskSection" colSpan="4" form-view="team-task-section-form" grid-view="team-task-section-grid"/>
-				<field name="priority" colSpan="4" required="true"/>
+				<field name="taskPriority" colSpan="4" required="true"/>
 				<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" domain="self.project = :project OR self.project.parentProject = :project" colSpan="4" form-view="project-version-form" grid-view="project-version-grid"/>
 				<field name="assignment" hidden="true" showIf="typeSelect == 'ticket'" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" colSpan="4"/>
 				<field name="taskDate" title="Task date" colSpan="4" onChange="action-task-attrs-set-task-duration,action-team-task-record-set-date-or-frequency-changed" required="true"/>
@@ -261,6 +261,7 @@
 
 	</tree>
 	
+	<!-- TODO : Have to fix kanban for status and priority -->
 	<kanban name="team-task-kanban" columnBy="taskStatus" title="Tasks" limit="30" sequenceBy="sequence"  model="com.axelor.team.db.TeamTask">
 		<field name="name"/>
 		<field name="project"/>
@@ -373,10 +374,10 @@
         <field name="invoicingType" expr="eval: 2" if="project?.invoicingSequenceSelect == 1"/>
 	</action-record>
 	
+	<!-- TODO : Have to fix set default values of priority and status -->
 	<action-record name="action-task-defaults"  model="com.axelor.team.db.TeamTask">
 		<field name="name" expr="eval: _value" if="_value"/>
 		<field name="assignedTo" expr="eval:__user__" />
-		<field name="priority" expr="normal" />
     	<field name="taskDate" expr="#{__date__}" />
     	<field name="project" expr="eval:_project" />
     	<field name="customerReferral" expr="eval: __user__" if="__user__?.roles.contains(__repo__(Role).all().filter('self.name=?','role.customer').fetchOne())"/>

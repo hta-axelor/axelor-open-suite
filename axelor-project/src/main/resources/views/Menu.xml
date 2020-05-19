@@ -121,6 +121,12 @@
 		<view type="form" name="project-status-form"/>
 	</action-view>
 	
+	<menuitem name="team-task-project-priority" parent="project-configurations" title="Project Priority" action="team.task.project.priority"/>
+	<action-view name="team.task.project.priority" title="Project Priority" model="com.axelor.apps.project.db.ProjectPriority">
+		<view type="grid" name="project-priority-grid"/>
+		<view type="form" name="project-priority-form"/>
+	</action-view>
+	
 	<menuitem name="project-resource-type" parent="project-configurations" title="Resource types" action="project.resource.types" if="__config__.app.getApp('project').getResourceManagement()" />
 	<action-view name="project.resource.types" title="Resource types" model="com.axelor.apps.project.db.ResourceType">
 		<view type="grid" name="resource-type-grid"/>
