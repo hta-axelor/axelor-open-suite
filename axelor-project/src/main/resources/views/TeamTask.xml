@@ -4,14 +4,13 @@
               xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
 	<grid id="project-team-task-grid" name="team-task-grid" title="Tasks" model="com.axelor.team.db.TeamTask" edit-icon="true" orderBy="taskDate,priority">
-		<hilite if="status == 'closed'" color="success"/>
 		<hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
 		<hilite if="priority == 'urgent'" color="warning"/>
 		<field name="name"/>
 		<field name="project"/>
 		<field name="taskDate"/>
 		<field name="taskEndDate" hidden="true"/>
-		<field name="status"/>
+		<field name="taskStatus"/>
 		<field name="priority"/>
 		<field name="teamTaskCategory"/>
 		<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
@@ -23,9 +22,7 @@
 				onLoad="action-team-task-group-timer-process" width="large">
 		<toolbar>
 			<button name="grabEventBtn" icon="fa-suitcase" help="Take charge" onClick="action-team-task-record-assigned-yourself,save"/>
-			<button name="startBtn" icon="fa-play" onClick="action-team-task-record-status-in-progress,save"/>
-			<button name="acceptBtn" icon="fa-check" onClick="action-team-task-record-status-closed,save"/>
-			<button name="stopBtn" icon="fa-power-off" onClick="action-team-task-record-status-canceled,save"/>
+			<button name="doneBtn" icon="fa-check" onClick="action-team-task-record-change-status,save"/>
 		</toolbar>
 		<menubar>
 	        <menu name="teamTaskMenu" title="Tools">   
@@ -38,7 +35,7 @@
 		</panel>
 
 		<panel name="mainPanel" colSpan="12">
-			<field name="status" colSpan="6" required="true" widget="NavSelect" showTitle="false"/>
+			<field name="taskStatus" colSpan="6" widget="NavSelect" showTitle="false" x-limit="5" x-order="sequence" readonly="true"/>
 			<panel name="viewerTagsPanel" colSpan="4">
 				<field name="$viewerTags" showTitle="false" readonly="true" showIf="typeSelect == 'ticket' &amp;&amp; $readonly()" colSpan="12" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" hidden="true">
 					<viewer>
@@ -264,18 +261,15 @@
 
 	</tree>
 	
-	<kanban name="team-task-kanban" columnBy="status" title="Tasks" limit="30" sequenceBy="sequence"  model="com.axelor.team.db.TeamTask">
+	<kanban name="team-task-kanban" columnBy="taskStatus" title="Tasks" limit="30" sequenceBy="sequence"  model="com.axelor.team.db.TeamTask">
 		<field name="name"/>
 		<field name="project"/>
-		<field name="status"/>
+		<field name="taskStatus"/>
 		<field name="assignedTo"/>
 		<field name="taskDate"/>
 		<field name="taskDeadline"/>
 		<field name="priority"/>
 		<field name="progressSelect"/>
-		<hilite color="success" if="(taskDeadline == null || $moment(taskDeadline).diff(todayDate,'days') &gt;= 0) &amp;&amp; status != 'closed'"/>
-		<hilite color="danger" if="$moment(taskDeadline).diff(todayDate,'days') &lt; 0 &amp;&amp; status != 'closed'"/>
-		<hilite color="info" if="status == 'closed'"/>
 		<template>
 		<![CDATA[
 			<h4>{{name}}</h4>
@@ -383,7 +377,6 @@
 		<field name="name" expr="eval: _value" if="_value"/>
 		<field name="assignedTo" expr="eval:__user__" />
 		<field name="priority" expr="normal" />
-    	<field name="status" expr="new" />
     	<field name="taskDate" expr="#{__date__}" />
     	<field name="project" expr="eval:_project" />
     	<field name="customerReferral" expr="eval: __user__" if="__user__?.roles.contains(__repo__(Role).all().filter('self.name=?','role.customer').fetchOne())"/>
@@ -444,18 +437,6 @@
 		<field name="assignedTo" expr="eval: __user__"/>
 	</action-record>
 	
-	<action-record name="action-team-task-record-status-in-progress" model="com.axelor.team.db.TeamTask">
-		<field name="status" expr="in-progress"/>
-	</action-record>
-
-	<action-record name="action-team-task-record-status-closed" model="com.axelor.team.db.TeamTask">
-		<field name="status" expr="closed"/>
-	</action-record>
-
-	<action-record name="action-team-task-record-status-canceled" model="com.axelor.team.db.TeamTask">
-		<field name="status" expr="canceled"/>
-	</action-record>
-
 	<action-record name="action-team-task-record-product-selected" model="com.axelor.team.db.TeamTask">
 		<field name="quantity" expr="1"/>
 		<field name="unit" expr="eval: product?.salesUnit ?: product?.unit"/>
@@ -531,4 +512,8 @@
 		<attribute name="title" for="$projectPlanningTimeSet" expr="eval:com.axelor.i18n.I18n.get('Select lines to remove')"/>
 		<attribute name="domain" for="$projectPlanningTimeSet" expr="eval:&quot;self.task.id = :id&quot;"/>
 	</action-attrs>
+	
+	<action-record name="action-team-task-record-change-status" model="com.axelor.team.db.TeamTask">
+	   <field name="taskStatus" expr="eval:__repo__(ProjectStatus).all().filter('self.isDefaultCompleted = true AND self.isCompleted = true').fetchOne()"/>
+	</action-record>
 </object-views>

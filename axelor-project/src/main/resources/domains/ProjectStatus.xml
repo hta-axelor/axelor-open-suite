@@ -6,10 +6,10 @@
 	<module name="project" package="com.axelor.apps.project.db"/>
 	
 	<entity name="ProjectStatus">
+	    <integer name="sequence" title="Sequence"/>
   		<string name="name"/>
-  		<boolean name="defaultStatus"/>
-  		<boolean name="isOpen"/>
-  		<boolean name="isClose"/>
+  		<boolean name="isDefaultCompleted" title="Default Completed"/>
+  		<boolean name="isCompleted" title="Completed"/>
 	</entity>
  
  </domain-models>
