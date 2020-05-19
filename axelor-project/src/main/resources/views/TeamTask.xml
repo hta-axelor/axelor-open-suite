@@ -514,6 +514,6 @@
 	</action-attrs>
 	
 	<action-record name="action-team-task-record-change-status" model="com.axelor.team.db.TeamTask">
-	   <field name="taskStatus" expr="eval:__repo__(ProjectStatus).all().filter('self.isDefaultCompleted = true AND self.isCompleted = true').fetchOne()"/>
+	   <field name="taskStatus" expr="eval:__repo__(ProjectStatus).getDefaultCompletedStatus()"/>
 	</action-record>
 </object-views>

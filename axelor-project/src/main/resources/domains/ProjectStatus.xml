@@ -10,6 +10,14 @@
   		<string name="name"/>
   		<boolean name="isDefaultCompleted" title="Default Completed"/>
   		<boolean name="isCompleted" title="Completed"/>
+  		
+  		<extra-code>
+  		 <![CDATA[
+   			public ProjectStatus getDefaultCompletedStatus(){
+   			 return all().filter("self.isDefaultCompleted = true AND self.isCompleted = true").fetchOne();
+   			}
+   		]]>
+  		</extra-code>
 	</entity>
- 
+	
  </domain-models>
