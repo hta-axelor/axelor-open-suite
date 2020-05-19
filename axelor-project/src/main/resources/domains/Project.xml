@@ -14,7 +14,6 @@
 		<one-to-many name="childProjectList" ref="com.axelor.apps.project.db.Project" title="Child Projects" mappedBy="parentProject"/>
 		<many-to-one name="assignedTo" ref="com.axelor.auth.db.User" title="Assigned to"/>
 		<integer name="statusSelect" selection="project.status.select" title="Status" default="1"/>
-		<many-to-many name="teamTaskCategorySet" ref="com.axelor.apps.project.db.TeamTaskCategory" title="Type of authorized categories"/>
 		<one-to-many name="teamTaskList" ref="com.axelor.team.db.TeamTask" title="Tasks" mappedBy="project"/>
 		<boolean name="synchronize"/>
 	  	<boolean name="extendsMembersFromParent" default="false"/>
@@ -61,6 +60,26 @@
         <integer name="projectTypeSelect" selection="project.project.project.type.select" default="1"/>
       	<enum name="genProjTypePerOrderLine" ref="GenProjTypePerOrderLine" default="BUSINESS_PROJECT"/>
       	
+      	
+      	<!-- Configuration fields -->
+		<boolean name="isShowStatus" title="Status?" default="true"/>
+		<many-to-many name="teamTaskStatusSet" ref="com.axelor.apps.project.db.ProjectStatus" title="Type of authorized status"/>
+		<boolean name="isShowPriority" title="Priorities?" default="true"/>
+		//TODO to add m2m to new priority Object
+		<boolean name="isShowTaskCategory" title="Categories?" default="true"/>
+		<many-to-many name="teamTaskCategorySet" ref="com.axelor.apps.project.db.TeamTaskCategory" title="Type of authorized categories"/>
+		<boolean name="isShowProgress" title="Progress?" default="true"/>
+		<boolean name="isShowPlanning" title="Planning?" default="true"/>
+		<boolean name="isShowFrequency" title="Frequency?"/>
+		<boolean name="isShowTimeSpent" title="Time Spent?"/>
+		<boolean name="isShowSection" title="Section?" default="true"/>
+		<boolean name="isShowTopic" title="Topic?" default="true"/>
+		<boolean name="isShowGantt" title="Enable Gantt view"/>
+		<boolean name="isShowKanbanPerStatus" title="Enable Kanban view per status"/>
+		<boolean name="isShowKanbanPerSection" title="Enable Kanban view per section"/>
+		<boolean name="isShowCalendarPerStaus" title="Enable calendar view per status"/>
+		<boolean name="isShowCalendarPerUser" title="Enable calendar view per user"/>
+		      	
       	<finder-method name="findAllByParentProject" using="parentProject" all="true"/>
         <finder-method name="findByName" using="name"/>
 
