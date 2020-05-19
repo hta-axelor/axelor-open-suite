@@ -346,7 +346,7 @@
 					<field name="isShowStatus" colSpan="4" widget="inline-checkbox"/>
 					<field name="teamTaskStatusSet" widget="TagSelect" colSpan="12" showIf="isShowStatus"/>
 					<field name="isShowPriority" colSpan="4" widget="inline-checkbox"/>
-					<!-- TODO to add m2m to new priority Object instead of spacer -->
+					<field name="teamTaskPrioritySet" widget="TagSelect" colSpan="12" showIf="isShowPriority"></field>
 					<spacer colSpan="12" showIf="isShowPriority"/>
 					<field name="isShowTaskCategory" colSpan="4" widget="inline-checkbox"/>
 					<field name="teamTaskCategorySet" colSpan="12" widget="TagSelect" showIf="isShowTaskCategory"/>

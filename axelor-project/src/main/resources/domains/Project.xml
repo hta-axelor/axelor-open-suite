@@ -65,7 +65,7 @@
 		<boolean name="isShowStatus" title="Status?" default="true"/>
 		<many-to-many name="teamTaskStatusSet" ref="com.axelor.apps.project.db.ProjectStatus" title="Type of authorized status"/>
 		<boolean name="isShowPriority" title="Priorities?" default="true"/>
-		//TODO to add m2m to new priority Object
+		<many-to-many name="teamTaskPrioritySet" ref="com.axelor.apps.project.db.ProjectPriority" title="Type of authorized priorities"/>
 		<boolean name="isShowTaskCategory" title="Categories?" default="true"/>
 		<many-to-many name="teamTaskCategorySet" ref="com.axelor.apps.project.db.TeamTaskCategory" title="Type of authorized categories"/>
 		<boolean name="isShowProgress" title="Progress?" default="true"/>
