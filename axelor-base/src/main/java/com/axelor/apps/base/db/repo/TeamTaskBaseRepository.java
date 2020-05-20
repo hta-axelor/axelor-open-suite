@@ -17,13 +17,10 @@
  */
 package com.axelor.apps.base.db.repo;
 
-import com.axelor.apps.base.db.Frequency;
 import com.axelor.apps.base.service.TeamTaskService;
-import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
 import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
-import javax.persistence.PersistenceException;
 
 public class TeamTaskBaseRepository extends TeamTaskRepository {
 
@@ -41,20 +38,6 @@ public class TeamTaskBaseRepository extends TeamTaskRepository {
       teamTask.setIsFirst(true);
     }
 
-    Frequency frequency = teamTask.getFrequency();
-    if (frequency != null && teamTask.getIsFirst() && teamTask.getNextTeamTask() == null) {
-      if (teamTask.getTaskDate() != null) {
-        if (frequency.getEndDate().isBefore(teamTask.getTaskDate())) {
-          throw new PersistenceException(
-              I18n.get("Frequency end date cannot be before task date."));
-        }
-      } else {
-        throw new PersistenceException(I18n.get("Please fill in task date."));
-      }
-
-      teamTaskService.generateTasks(teamTask, frequency);
-    }
-
     if (teamTask.getDoApplyToAllNextTasks()) {
       teamTaskService.updateNextTask(teamTask);
     }
@@ -69,7 +52,6 @@ public class TeamTaskBaseRepository extends TeamTaskRepository {
   public TeamTask copy(TeamTask entity, boolean deep) {
     TeamTask task = super.copy(entity, deep);
     task.setAssignedTo(null);
-    task.setTaskDate(null);
     task.setPriority(null);
     return task;
   }

@@ -26,7 +26,6 @@ import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 public class TeamTaskBusinessSupportServiceImpl extends TeamTaskBusinessProjectServiceImpl {
 
@@ -36,14 +35,6 @@ public class TeamTaskBusinessSupportServiceImpl extends TeamTaskBusinessProjectS
       PriceListLineRepository priceListLineRepository,
       PriceListService priceListService) {
     super(teamTaskRepo, priceListLineRepository, priceListService);
-  }
-
-  @Override
-  protected void setModuleFields(TeamTask teamTask, LocalDate date, TeamTask newTeamTask) {
-    super.setModuleFields(teamTask, date, newTeamTask);
-
-    // Module 'business support' fields
-    newTeamTask.setAssignment(TeamTaskRepository.ASSIGNMENT_PROVIDER);
   }
 
   @Override
