@@ -51,7 +51,6 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
 
     // Module 'project' fields
     newTeamTask.setProgressSelect(0);
-    newTeamTask.setTaskEndDate(date);
   }
 
   @Override
@@ -66,13 +65,11 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
 
     teamTask.getMembersUserSet().forEach(nextTeamTask::addMembersUserSetItem);
 
-    nextTeamTask.setTeam(teamTask.getTeam());
     nextTeamTask.setParentTask(teamTask.getParentTask());
     nextTeamTask.setProduct(teamTask.getProduct());
     nextTeamTask.setUnit(teamTask.getUnit());
     nextTeamTask.setQuantity(teamTask.getQuantity());
     nextTeamTask.setUnitPrice(teamTask.getUnitPrice());
-    nextTeamTask.setTaskEndDate(teamTask.getTaskEndDate());
     nextTeamTask.setBudgetedTime(teamTask.getBudgetedTime());
     nextTeamTask.setCurrency(teamTask.getCurrency());
   }

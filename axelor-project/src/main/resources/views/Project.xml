@@ -143,18 +143,12 @@
 					action="action-dashlet-project-show-all-invoicing-task" if="__config__.app.isApp('business-project')" canSearch="true"/>
 			</panel>
 			<panel title="Members" name="membersPanel">
-				<field name="team" title="Team"
-					readonlyIf="synchronize || extendsMembersFromParent" colSpan="6"
-					canNew="false" canEdit="false" />
 				<field name="synchronize" readonlyIf="extendsMembersFromParent"
 					colSpan="2" widget="boolean-switch" />
 				<field name="extendsMembersFromParent" hidden="true"
 					showIf="projectTypeSelect == 2" colSpan="3" widget="boolean-switch" />
 				<field name="membersUserSet" colSpan="12"
 					widget="TagSelect" canNew="false" form-view="user-form" grid-view="user-grid" />
-				<button name="importMemberBtn" title="Import all members"
-					showIf="team != null" readonlyIf="extendsMembersFromParent" colSpan="3"
-					onClick="action-project-method-import-members" />
 				<panel title="Planning" name="planningPanel" colSpan="12"
 					 if="__config__.app.isApp('employee')" if-module="axelor-human-resource">
 					<field name="totalPlannedHrs" readonly="true">
@@ -503,22 +497,19 @@
 	<tree name="project-task-tree" title="Tasks">
     	
     	<column name="name" type="string"/>
-			<column name="taskDate" type="date"/>
     	<column name="assignedTo" type="reference"/>
     	<column name="progress" type="integer"/>
 		<column name="openTask" type="button"/>
 
-		<node model="com.axelor.team.db.TeamTask" domain="self.project.id = :_id" onClick="action-team-task-view-task" orderBy="taskDate">
+		<node model="com.axelor.team.db.TeamTask" domain="self.project.id = :_id" onClick="action-team-task-view-task">
 			<field name="name" as="name"/>
-			<field name="taskDate" as="taskDate"/>
 			<field name="assignedTo" as="assignedTo"/>
 			<field name="progressSelect" as="progress"/>
 			<button name="openTaskBtn" title="Open task" onClick="action-team-task-open-task"/>
 		</node>
 
-		<node model="com.axelor.team.db.TeamTask" parent="parentTask" draggable="true" onClick="action-team-task-view-task" orderBy="taskDate">
+		<node model="com.axelor.team.db.TeamTask" parent="parentTask" draggable="true" onClick="action-team-task-view-task">
 			<field name="name" as="name"/>
-			<field name="taskDate" as="taskDate"/>
 			<field name="assignedTo" as="assignedTo"/>
 			<field name="progressSelect" as="progress"/>
 			<button name="openTaskBtn" title="Open task" onClick="action-team-task-open-task"/>
@@ -777,10 +768,6 @@
  		<attribute for="contactPartner" if="clientPartner != null &amp;&amp; clientPartner.contactPartnerSet.empty" name="domain" expr="eval: &quot;self.id IN (0)&quot;"/>
  		<attribute for="contactPartner" if="clientPartner == null" name="domain" expr="eval: &quot;self.isContact = true AND :company member of self.companySet&quot;"/>
 	</action-attrs>
-	
-	<action-method name="action-project-method-import-members">
-		<call class="com.axelor.apps.project.web.ProjectController" method="importMembers"/>
-	</action-method>
 	
 	<action-record name="action-project-record-status-in-progress" model="com.axelor.apps.project.db.Project">
 		<field name="statusSelect" expr="eval: __repo__(Project).STATE_IN_PROGRESS"/>

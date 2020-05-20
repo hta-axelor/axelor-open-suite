@@ -26,7 +26,6 @@ import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,7 +48,6 @@ public class ProductTaskTemplateServiceImpl implements ProductTaskTemplateServic
       List<? extends TaskTemplate> templates,
       Project project,
       TeamTask parent,
-      LocalDateTime startDate,
       BigDecimal qty,
       SaleOrderLine saleOrderLine) {
     List<TeamTask> tasks = new ArrayList<>();
@@ -59,10 +57,7 @@ public class ProductTaskTemplateServiceImpl implements ProductTaskTemplateServic
       BigDecimal qtyTmp = (template.getIsUniqueTaskForMultipleQuantity() ? BigDecimal.ONE : qty);
 
       while (qtyTmp.signum() > 0) {
-        LocalDateTime dateWithDelay = startDate.plusHours(template.getDelayToStart().longValue());
-
-        TeamTask task =
-            teamTaskBusinessProjectService.create(template, project, dateWithDelay, qty);
+        TeamTask task = teamTaskBusinessProjectService.create(template, project, qty);
         task.setParentTask(parent);
         task.setProduct(product);
         task.setQuantity(!template.getIsUniqueTaskForMultipleQuantity() ? BigDecimal.ONE : qty);
@@ -77,13 +72,7 @@ public class ProductTaskTemplateServiceImpl implements ProductTaskTemplateServic
 
         // Only parent task can have multiple quantities
         List<TeamTask> children =
-            convert(
-                template.getTaskTemplateList(),
-                project,
-                task,
-                dateWithDelay,
-                BigDecimal.ONE,
-                saleOrderLine);
+            convert(template.getTaskTemplateList(), project, task, BigDecimal.ONE, saleOrderLine);
         tasks.addAll(children);
 
         qtyTmp = qtyTmp.subtract(BigDecimal.ONE);

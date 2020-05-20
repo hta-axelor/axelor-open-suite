@@ -670,7 +670,7 @@ public class ClientViewServiceImpl implements ClientViewService {
                 + user.getPartner().getId()
                 + " AND self.typeSelect = '"
                 + TeamTaskRepository.TYPE_TASK
-                + "' AND self.taskEndDate  < current_date() ");
+                + "'");
 
     if (user.getActiveCompany() != null) {
       filter =

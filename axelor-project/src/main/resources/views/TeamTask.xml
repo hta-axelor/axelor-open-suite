@@ -3,13 +3,12 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
-	<grid id="project-team-task-grid" name="team-task-grid" title="Tasks" model="com.axelor.team.db.TeamTask" edit-icon="true" orderBy="taskDate,taskPriority">
-		<hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
+	<grid id="project-team-task-grid" name="team-task-grid" title="Tasks" model="com.axelor.team.db.TeamTask" edit-icon="true" orderBy="taskPriority">
 		<!-- TODO : Have to change it --> 
 		<!-- <hilite if="priority == 'urgent'" color="warning"/> -->
 		<field name="name"/>
 		<field name="project"/>
-		<field name="taskDate"/>
+		<field name="taskDate" hidden="true"/>
 		<field name="taskEndDate" hidden="true"/>
 		<field name="taskStatus"/>
 		<field name="taskPriority"/>
@@ -89,8 +88,8 @@
 				<field name="taskPriority" colSpan="4" required="true"/>
 				<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" domain="self.project = :project OR self.project.parentProject = :project" colSpan="4" form-view="project-version-form" grid-view="project-version-grid"/>
 				<field name="assignment" hidden="true" showIf="typeSelect == 'ticket'" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" colSpan="4"/>
-				<field name="taskDate" title="Task date" colSpan="4" onChange="action-task-attrs-set-task-duration,action-team-task-record-set-date-or-frequency-changed" required="true"/>
-				<field name="taskEndDate" colSpan="4" onChange="action-task-attrs-set-task-duration"/>
+				<field name="taskDate" title="Task date" colSpan="4" onChange="action-task-attrs-set-task-duration,action-team-task-record-set-date-or-frequency-changed" required="true" hidden="true"/>
+				<field name="taskEndDate" colSpan="4" onChange="action-task-attrs-set-task-duration" hidden="true"/>
 				<field name="taskDeadline" title="Task deadline" colSpan="4" if="!__config__.app.isApp('business-support')"/>
 				<field name="categorySet"  widget="tagSelect" canNew="false" onSelect="action-task-attrs-team-task-category-configurations"/>
 				<field name="progressSelect" widget="SelectProgress" onChange="action-task-update-planned-progress"/>
@@ -209,6 +208,7 @@
 		</panel-mail>
 	</form>
 	
+	<!-- TODO: Have to fix below 3 gantt -->
 	<gantt name="task-gantt" title="Tasks" model="com.axelor.team.db.TeamTask" 
 		taskStart="taskDate" taskEnd="taskEndDate"  taskDuration="durationHours" taskParent="parentTask" taskSequence="sequence"
 		taskProgress="plannedProgress" x-start-to-start="startToStartSet" x-finish-to-start="finishToStartSet"
@@ -261,7 +261,7 @@
 
 	</tree>
 	
-	<!-- TODO : Have to fix kanban for status and priority -->
+	<!-- TODO : Have to fix kanban for status,priority,taskDate -->
 	<kanban name="team-task-kanban" columnBy="taskStatus" title="Tasks" limit="30" sequenceBy="sequence"  model="com.axelor.team.db.TeamTask">
 		<field name="name"/>
 		<field name="project"/>
@@ -378,7 +378,6 @@
 	<action-record name="action-task-defaults"  model="com.axelor.team.db.TeamTask">
 		<field name="name" expr="eval: _value" if="_value"/>
 		<field name="assignedTo" expr="eval:__user__" />
-    	<field name="taskDate" expr="#{__date__}" />
     	<field name="project" expr="eval:_project" />
     	<field name="customerReferral" expr="eval: __user__" if="__user__?.roles.contains(__repo__(Role).all().filter('self.name=?','role.customer').fetchOne())"/>
     	<field name="assignment" expr="eval:2"/>
@@ -406,14 +405,6 @@
 	
 	<action-attrs name="action-task-attrs-project-members-user-set-configurations" model="com.axelor.team.db.TeamTask">
 		<attribute name="domain" expr="eval: (project?.membersUserSet != null &amp;&amp; project?.membersUserSet?.size() &gt; 0) ? &quot;self.id IN (${project?.membersUserSet?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" for="membersUserSet"/>
-	</action-attrs>
-	
-	<action-attrs name="action-task-attrs-set-task-duration">
-		<attribute name="value" for="taskDuration" expr="eval:java.time.temporal.ChronoUnit.DAYS.between(taskDate, taskEndDate)*86400" if="taskDate != null &amp;&amp; taskEndDate != null"/>
-	</action-attrs>
-	
-	<action-attrs name="action-task-attrs-set-dates">
-		<attribute name="value" for="taskEndDate" expr="eval:taskDate.plus((taskDuration/86400).longValue(), java.time.temporal.ChronoUnit.DAYS)" if="taskDate != null"/>
 	</action-attrs>
 	
 	<action-attrs name="action-task-attrs-onclick-order-accepted">

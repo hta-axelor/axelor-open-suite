@@ -29,7 +29,6 @@ import com.axelor.exception.AxelorException;
 import com.axelor.exception.db.repo.TraceBackRepository;
 import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
-import com.axelor.team.db.Team;
 import com.google.common.base.Strings;
 import java.math.BigDecimal;
 import javax.persistence.PersistenceException;
@@ -52,8 +51,7 @@ public class ProjectManagementRepository extends ProjectRepository {
     if (project.getParentProject() == null && project.getChildProjectList() != null) {
       project.getChildProjectList().stream()
           .filter(Project::getExtendsMembersFromParent)
-          .peek(p -> project.getMembersUserSet().forEach(p::addMembersUserSetItem))
-          .forEach(p -> p.setTeam(project.getTeam()));
+          .peek(p -> project.getMembersUserSet().forEach(p::addMembersUserSetItem));
     } else if (project.getParentProject() != null
         && project.getExtendsMembersFromParent()
         && !project.getSynchronize()) {
@@ -65,14 +63,6 @@ public class ProjectManagementRepository extends ProjectRepository {
   public Project save(Project project) {
 
     ProjectManagementRepository.setAllProjectMembersUserSet(project);
-
-    if (project.getSynchronize()) {
-      Team team = project.getTeam();
-      if (team != null) {
-        team.clearMembers();
-        project.getMembersUserSet().forEach(team::addMember);
-      }
-    }
 
     try {
       AppProject appProject = Beans.get(AppProjectService.class).getAppProject();

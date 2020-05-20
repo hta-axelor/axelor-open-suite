@@ -21,7 +21,6 @@ import com.axelor.apps.base.db.repo.TeamTaskBaseRepository;
 import com.axelor.team.db.TeamTask;
 import java.lang.invoke.MethodHandles;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -49,11 +48,10 @@ public class TeamTaskProjectRepository extends TeamTaskBaseRepository {
     logger.debug("Validate team task:{}", json);
 
     logger.debug(
-        "Planned progress:{}, ProgressSelect: {}, DurationHours: {}, TaskDuration: {}",
+        "Planned progress:{}, ProgressSelect: {}, DurationHours: {}",
         json.get("plannedProgress"),
         json.get("progressSelect"),
-        json.get("durationHours"),
-        json.get("taskDuration"));
+        json.get("durationHours"));
 
     if (json.get("id") != null) {
 
@@ -71,30 +69,11 @@ public class TeamTaskProjectRepository extends TeamTaskBaseRepository {
         logger.debug("Updating plannedProgress: {}", progressSelect);
         json.put("plannedProgress", new BigDecimal(progressSelect));
       }
-      if (json.get("durationHours") != null) {
-        BigDecimal durationHours = new BigDecimal(json.get("durationHours").toString());
-        if (durationHours != null
-            && savedTask.getDurationHours().intValue() != durationHours.intValue()) {
-          logger.debug(
-              "Updating taskDuration: {}",
-              durationHours.divide(new BigDecimal(24), RoundingMode.HALF_EVEN).intValue());
-          json.put("taskDuration", durationHours.multiply(new BigDecimal(3600)).intValue());
-        }
-      } else if (json.get("taskDuration") != null) {
-        Integer taskDuration = new Integer(json.get("taskDuration").toString());
-        logger.debug("Updating durationHours: {}", taskDuration / 3600);
-        json.put("durationHours", new BigDecimal(taskDuration / 3600));
-      }
-
     } else {
 
       if (json.get("progressSelect") != null) {
         Integer progressSelect = new Integer(json.get("progressSelect").toString());
         json.put("plannedProgress", new BigDecimal(progressSelect));
-      }
-      if (json.get("taskDuration") != null) {
-        Integer taskDuration = new Integer(json.get("taskDuration").toString());
-        json.put("durationHours", new BigDecimal(taskDuration / 3600));
       }
     }
 
@@ -105,7 +84,6 @@ public class TeamTaskProjectRepository extends TeamTaskBaseRepository {
   public TeamTask copy(TeamTask entity, boolean deep) {
     TeamTask task = super.copy(entity, deep);
     task.setProgressSelect(null);
-    task.setTaskEndDate(null);
     task.setMetaFile(null);
     return task;
   }
