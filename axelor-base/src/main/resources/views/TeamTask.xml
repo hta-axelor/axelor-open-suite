@@ -47,7 +47,6 @@
   </form>
 
   <action-group name="action-team-task-group-onnew">
-    <action name="team.task.on-new"/>
     <action name="action-team-task-record-set-default"/>
   </action-group>
 
