@@ -88,7 +88,7 @@
 				<field name="taskPriority" colSpan="4" required="true"/>
 				<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" domain="self.project = :project OR self.project.parentProject = :project" colSpan="4" form-view="project-version-form" grid-view="project-version-grid"/>
 				<field name="assignment" hidden="true" showIf="typeSelect == 'ticket'" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" colSpan="4"/>
-				<field name="taskDate" title="Task date" colSpan="4" onChange="action-task-attrs-set-task-duration,action-team-task-record-set-date-or-frequency-changed" required="true" hidden="true"/>
+				<field name="taskDate" title="Task date" colSpan="4" onChange="action-task-attrs-set-task-duration,action-team-task-record-set-date-or-frequency-changed" hidden="true"/>
 				<field name="taskEndDate" colSpan="4" onChange="action-task-attrs-set-task-duration" hidden="true"/>
 				<field name="taskDeadline" title="Task deadline" colSpan="4" if="!__config__.app.isApp('business-support')"/>
 				<field name="categorySet"  widget="tagSelect" canNew="false" onSelect="action-task-attrs-team-task-category-configurations"/>
