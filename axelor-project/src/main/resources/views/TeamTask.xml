@@ -129,7 +129,7 @@
 				
 				<field name="plannedProgress" hidden="true" colSpan="12" widget="progress"/>
 			</panel>
-			<panel name="treeViewPanel" title="Tree view" colSpan="12">
+			<panel name="treeViewPanel" title="Tree view" colSpan="12" showIf="id">
 				<panel-dashlet name="taskTreePanel" title="Task Tree" colSpan="12" action="action-view-show-task-tree"/>
 				<panel-related name="finishToStartSetPanel" field="finishToStartSet" colSpan="12">
 					<field name="name"/>
