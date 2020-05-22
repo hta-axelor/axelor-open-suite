@@ -52,6 +52,7 @@
 				<item name="perStatusKanban" title="Per status kanban" action="action-project-view-per-status-kanban" showIf="isShowStatus &amp;&amp; isShowKanbanPerStatus"/>	
 				<item name="perStatusCalendar" title="Per status calendar" action="action-project-view-per-status-calendar" showIf="isShowCalendarPerStatus"/>		
 				<item name="perSectionKanban" title="Per section kanban" action="action-project-view-per-section-kanban" showIf="isShowSection &amp;&amp; isShowKanbanPerSection"/>
+				<item name="perUserCalendar" title="Per user calendar" action="action-project-view-per-user-calendar" showIf="isShowCalendarPerUser"/>		
 			</menu>
 		</menubar>
 		<panel name="mainPanel">
@@ -476,10 +477,6 @@
 		</template>
 	</kanban>
 	
-	<calendar name="task-per-status-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project" eventStart="fromDate" eventStop="toDate" eventLength="1" colorBy="statusSelect" mode="month">
- 	  <field name="fullName"/>
-	</calendar>
-	
 	<action-view name="action-view-show-project-task-tree" title="Project Task Tree" model="com.axelor.team.db.TeamTask">	
 		<view type="tree" name="project-task-tree"/>
     	<view type="form" name="team-task-form"/>
@@ -538,6 +535,10 @@
 	<calendar name="project-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project" mode="month" colorBy="statusSelect" eventStart="fromDate" eventStop="toDate" eventLength="1">
       <field name="fullName"/>
     </calendar>
+	
+	<calendar name="per-user-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project" eventStart="fromDate" eventStop="toDate" eventLength="1" colorBy="assignedTo" mode="month">
+ 	  <field name="fullName"/>
+	</calendar>
 	
 	<action-group name="action-project-group-on-new-project">
 		<action name="action-project-defaults"/>
@@ -840,9 +841,15 @@
     </action-view>
     
     <action-view name="action-project-view-per-status-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project">
-        <view type="calendar" name="task-per-status-calendar"/>
+        <view type="calendar" name="project-calendar"/>
         <view type="form" name="project-form"/>
         <domain>self.isShowCalendarPerStatus = true</domain>
+    </action-view>
+    
+     <action-view name="action-project-view-per-user-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project">
+        <view type="calendar" name="per-user-calendar"/>
+        <view type="form" name="project-form"/>
+        <domain>self.isShowCalendarPerUser = true</domain>
     </action-view>
 
 </object-views>
