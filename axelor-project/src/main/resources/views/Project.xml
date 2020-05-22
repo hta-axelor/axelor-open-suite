@@ -50,7 +50,8 @@
 				<item name="bookResourceItem" title="Book resource" showIf="isProject" if=" __config__.app.getApp('project')?.resourceManagement"
 					action="save,action-project-book-resource" />
 				<item name="perStatusKanban" title="Per status kanban" action="action-project-view-per-status-kanban" showIf="isShowStatus &amp;&amp; isShowKanbanPerStatus"/>	
-				<item name="perSectionKanban" title="Per section kanban" action="action-project-view-per-section-kanban" showIf="isShowSection &amp;&amp; isShowKanbanPerSection"/>	
+				<item name="perStatusCalendar" title="Per status calendar" action="action-project-view-per-status-calendar" showIf="isShowCalendarPerStatus"/>		
+				<item name="perSectionKanban" title="Per section kanban" action="action-project-view-per-section-kanban" showIf="isShowSection &amp;&amp; isShowKanbanPerSection"/>
 			</menu>
 		</menubar>
 		<panel name="mainPanel">
@@ -355,7 +356,7 @@
 					<field name="isShowGantt" colSpan="4" widget="inline-checkbox"/>
 					<field name="isShowKanbanPerStatus" colSpan="4" widget="inline-checkbox" showIf="isShowStatus"/>
 					<field name="isShowKanbanPerSection" colSpan="4" widget="inline-checkbox" showIf="isShowSection"/>
-					<field name="isShowCalendarPerStaus" colSpan="4" widget="inline-checkbox"/>
+					<field name="isShowCalendarPerStatus" colSpan="4" widget="inline-checkbox"/>
 					<field name="isShowCalendarPerUser" colSpan="4" widget="inline-checkbox"/>
 				</panel>	
 					
@@ -475,16 +476,8 @@
 		</template>
 	</kanban>
 	
-	<calendar name="project-calendar" 
-			  model="com.axelor.apps.project.db.Project" 
-			  title="Project Calendar"
-			  eventStart="fromDate"
-			  eventStop="toDate"
-			  eventLength="1"
-			  colorBy="statusSelect"
-			  mode="month"
-			  >
-			  <field name="fullName"/>
+	<calendar name="task-per-status-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project" eventStart="fromDate" eventStop="toDate" eventLength="1" colorBy="statusSelect" mode="month">
+ 	  <field name="fullName"/>
 	</calendar>
 	
 	<action-view name="action-view-show-project-task-tree" title="Project Task Tree" model="com.axelor.team.db.TeamTask">	
@@ -541,6 +534,10 @@
 		</node>
 		
 	</tree>
+	
+	<calendar name="project-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project" mode="month" colorBy="statusSelect" eventStart="fromDate" eventStop="toDate" eventLength="1">
+      <field name="fullName"/>
+    </calendar>
 	
 	<action-group name="action-project-group-on-new-project">
 		<action name="action-project-defaults"/>
@@ -840,6 +837,12 @@
     <action-view name="dashlet.task" title="Tasks" model="com.axelor.apps.project.db.Project">
         <view type="grid" name="task-grid" />
         <view type="form" name="task-form" />
+    </action-view>
+    
+    <action-view name="action-project-view-per-status-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project">
+        <view type="calendar" name="task-per-status-calendar"/>
+        <view type="form" name="project-form"/>
+        <domain>self.isShowCalendarPerStatus = true</domain>
     </action-view>
 
 </object-views>

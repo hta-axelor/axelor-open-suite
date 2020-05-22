@@ -76,7 +76,7 @@
 		<boolean name="isShowGantt" title="Enable Gantt view"/>
 		<boolean name="isShowKanbanPerStatus" title="Enable Kanban view per status"/>
 		<boolean name="isShowKanbanPerSection" title="Enable Kanban view per section"/>
-		<boolean name="isShowCalendarPerStaus" title="Enable calendar view per status"/>
+		<boolean name="isShowCalendarPerStatus" title="Enable calendar view per status"/>
 		<boolean name="isShowCalendarPerUser" title="Enable calendar view per user"/>
 		      	
       	<finder-method name="findAllByParentProject" using="parentProject" all="true"/>
