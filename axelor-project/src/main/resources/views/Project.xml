@@ -49,6 +49,8 @@
 				<item name="ganttItem" title="Gantt" showIf="isProject" action="action-project-open-gantt" />
 				<item name="bookResourceItem" title="Book resource" showIf="isProject" if=" __config__.app.getApp('project')?.resourceManagement"
 					action="save,action-project-book-resource" />
+				<item name="perStatusKanban" title="Per status kanban" action="action-project-view-per-status-kanban" showIf="isShowStatus &amp;&amp; isShowKanbanPerStatus"/>	
+				<item name="perSectionKanban" title="Per section kanban" action="action-project-view-per-section-kanban" showIf="isShowSection &amp;&amp; isShowKanbanPerSection"/>	
 			</menu>
 		</menubar>
 		<panel name="mainPanel">
