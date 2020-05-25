@@ -12,7 +12,7 @@
 		<many-to-many name="projectFolderSet" ref="com.axelor.apps.project.db.ProjectFolder" title="Project Folders"/>
 		<one-to-many name="childProjectList" ref="com.axelor.apps.project.db.Project" title="Child Projects" mappedBy="parentProject"/>
 		<many-to-one name="assignedTo" ref="com.axelor.auth.db.User" title="Assigned to"/>
-		<integer name="statusSelect" selection="project.status.select" title="Status" default="1"/>
+		<many-to-one name="projectStatus" title="Status" ref="com.axelor.apps.project.db.ProjectStatus"/>
 		<one-to-many name="teamTaskList" ref="com.axelor.team.db.TeamTask" title="Tasks" mappedBy="project"/>
 		<boolean name="synchronize"/>
 	  	<boolean name="extendsMembersFromParent" default="false"/>
@@ -86,11 +86,6 @@
    		<![CDATA[
    			public static final Integer TYPE_PROJECT = 1;
    			public static final Integer TYPE_PHASE = 2;
-
-   			public static final Integer STATE_NEW = 1;
-   			public static final Integer STATE_IN_PROGRESS = 2;
-   			public static final Integer STATE_FINISHED = 3;
-   			public static final Integer STATE_CANCELED = 4;
    		]]>
    	</extra-code>
   </entity>

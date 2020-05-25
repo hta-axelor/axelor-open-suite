@@ -24,7 +24,6 @@
     <date name="deadlineDate" title="Deadline"/>
     <string name="comments" title="Comments" large="true" />
     <boolean name="attachAnnexToInvoice" title="Attach the Annex to the invoice"/>
-    <integer name="statusSelect" title="Status" selection="business.project.invoicing.project.status.select" default="1"/>
     <boolean name="consolidatePhaseWhenInvoicing" title="Consolidate phase invoicing"/>
     
     <extra-code>

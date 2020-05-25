@@ -55,7 +55,6 @@ public class WorkflowCancelServiceProjectImpl extends WorkflowCancelServiceSuppl
         invoicingProjectRepo.all().filter("self.invoice = ?", invoice.getId()).fetchOne();
 
     if (invoicingProject != null) {
-      invoicingProject.setStatusSelect(InvoicingProjectRepository.STATUS_CANCELED);
       invoicingProjectRepo.save(invoicingProject);
     }
   }

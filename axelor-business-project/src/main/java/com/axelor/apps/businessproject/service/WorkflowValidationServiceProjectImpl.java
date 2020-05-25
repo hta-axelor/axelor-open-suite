@@ -44,7 +44,6 @@ public class WorkflowValidationServiceProjectImpl extends WorkflowValidationServ
         invoicingProjectRepo.all().filter("self.invoice = ?", invoice.getId()).fetchOne();
 
     if (invoicingProject != null) {
-      invoicingProject.setStatusSelect(InvoicingProjectRepository.STATUS_VALIDATED);
       invoicingProjectRepo.save(invoicingProject);
     }
   }

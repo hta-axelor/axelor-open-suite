@@ -598,10 +598,7 @@ public class ClientViewServiceImpl implements ClientViewService {
     Filter filterFromPermission = security.getFilter(JpaSecurity.CAN_READ, Project.class);
     Filter filter =
         new JPQLFilter(
-            "self.isProject = true AND self.clientPartner.id = "
-                + user.getPartner().getId()
-                + " AND self.statusSelect != "
-                + ProjectRepository.STATE_CANCELED);
+            "self.isProject = true AND self.clientPartner.id = " + user.getPartner().getId());
 
     if (user.getActiveCompany() != null) {
       filter =

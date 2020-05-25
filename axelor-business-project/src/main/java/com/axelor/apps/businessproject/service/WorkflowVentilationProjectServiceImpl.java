@@ -126,7 +126,6 @@ public class WorkflowVentilationProjectServiceImpl
         project.setInvoiced(true);
       }
 
-      invoicingProject.setStatusSelect(InvoicingProjectRepository.STATUS_VENTILATED);
       invoicingProjectRepo.save(invoicingProject);
     }
   }
