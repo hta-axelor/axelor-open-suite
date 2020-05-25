@@ -45,6 +45,12 @@
 				name="financialReportItem" title="Financial Report" showIf="isBusinessProject"
 					action="save,action-project-method-print-project" />
 			</menu>
+			<menu name="taskMenu" title="Tasks" showTitle="true" icon="fa-tasks">
+			  <item name="myOpenTasks" title="My open tasks" action="team.tasks.open"/>
+			  <item name="tasksCreatedByMe" title="Tasks created by me" action="team.tasks.assigned"/>
+			  <item name="allOpenTasks" title="All open tasks" action="team.tasks.all.open"/>
+			  <item name="allTasks" title="All tasks" action="team.tasks.all"/>
+			</menu>
 			<menu name="projectToolsMenu" title="Tools" showTitle="true" icon="fa-wrench">
 				<item name="ganttItem" title="Gantt" showIf="isProject" action="action-project-open-gantt" />
 				<item name="bookResourceItem" title="Book resource" showIf="isProject" if=" __config__.app.getApp('project')?.resourceManagement"
@@ -830,5 +836,14 @@
         <view type="form" name="project-form"/>
         <domain>self.isShowCalendarPerUser = true</domain>
     </action-view>
+    
+    <action-view name="team.tasks.all.open" model="com.axelor.team.db.TeamTask" title="All open tasks">
+      <view name="team-task-grid" type="grid"/>
+	  <view name="team-task-calendar" type="calendar"/>
+	  <view name="team-task-form" type="form"/>
+	  <view-param name="details-view" value="true"/>
+	  <domain>self.taskStatus.isCompleted = false</domain>
+    </action-view>
+    
 
 </object-views>

@@ -38,7 +38,7 @@
 		<view type="kanban" name="team-task-kanban"/>
 		<view type="grid" name="team-task-grid"/>
 		<view type="form" name="team-task-form"/>
-		<domain>self.project.statusSelect IN (1,2) and self.typeSelect = 'task'</domain>
+		<domain>self.project.projectStatus.isCompleted = false and self.typeSelect = 'task'</domain>
 		<context name="_typeSelect" expr="eval: com.axelor.team.db.repo.TeamTaskRepository.TYPE_TASK"/>
 	</action-view>
 
@@ -48,7 +48,7 @@
 		<view type="grid" name="team-task-grid"/>
 		<view type="form" name="team-task-form"/>
 		<view-param name="forceTitle" value="true"/>
-		<domain>self.project.statusSelect IN (1,2) and self.typeSelect = 'ticket'</domain>
+		<domain>self.project.projectStatus.isCompleted = false and self.typeSelect = 'ticket'</domain>
 		<context name="_typeSelect" expr="eval: com.axelor.team.db.repo.TeamTaskRepository.TYPE_TICKET"/>
 	</action-view>
 
