@@ -46,10 +46,10 @@
 					action="save,action-project-method-print-project" />
 			</menu>
 			<menu name="taskMenu" title="Tasks" showTitle="true" icon="fa-tasks">
-			  <item name="myOpenTasks" title="My open tasks" action="team.tasks.open"/>
-			  <item name="tasksCreatedByMe" title="Tasks created by me" action="team.tasks.assigned"/>
-			  <item name="allOpenTasks" title="All open tasks" action="team.tasks.all.open"/>
-			  <item name="allTasks" title="All tasks" action="team.tasks.all"/>
+			  <item name="myOpenTasks" title="My open tasks" action="project.team.tasks.open"/>
+			  <item name="tasksCreatedByMe" title="Tasks created by me" action="project.team.tasks.assigned"/>
+			  <item name="allOpenTasks" title="All open tasks" action="project.team.tasks.all.open"/>
+			  <item name="allTasks" title="All tasks" action="project.team.tasks.all"/>
 			</menu>
 			<menu name="projectToolsMenu" title="Tools" showTitle="true" icon="fa-wrench">
 				<item name="ganttItem" title="Gantt" showIf="isProject" action="action-project-open-gantt" />
@@ -836,14 +836,45 @@
         <view type="form" name="project-form"/>
         <domain>self.isShowCalendarPerUser = true</domain>
     </action-view>
+
+    <action-view name="project.team.tasks.open" model="com.axelor.team.db.TeamTask" title="My open tasks">
+	  <view name="team-task-grid" type="grid"/>
+	  <view name="team-task-calendar" type="calendar"/>
+	  <view name="team-task-form" type="form"/>
+	  <view-param name="details-view" value="true"/>
+	  <domain>self.assignedTo = :__user__ AND self.taskStatus.isCompleted = false</domain>
+	  <context name="_project" expr="eval: __self__"/>
+	</action-view>
+	
+	<action-view name="project.team.tasks.assigned" model="com.axelor.team.db.TeamTask" title="My tasks">
+	  <view name="team-task-grid" type="grid"/>
+	  <view name="team-task-calendar" type="calendar"/>
+	  <view name="team-task-form" type="form"/>
+	  <view-param name="search-filters" value="task-filters"/>
+	  <view-param name="details-view" value="true"/>
+      <domain>self.assignedTo = :__user__ AND self.typeSelect = :_typeSelect</domain>
+      <context name="_typeSelect" expr="eval: com.axelor.team.db.repo.TeamTaskRepository.TYPE_TASK"/>
+      <context name="_project" expr="eval: __self__"/>
+	</action-view>
     
-    <action-view name="team.tasks.all.open" model="com.axelor.team.db.TeamTask" title="All open tasks">
+    <action-view name="project.team.tasks.all.open" model="com.axelor.team.db.TeamTask" title="All open tasks">
       <view name="team-task-grid" type="grid"/>
 	  <view name="team-task-calendar" type="calendar"/>
 	  <view name="team-task-form" type="form"/>
 	  <view-param name="details-view" value="true"/>
 	  <domain>self.taskStatus.isCompleted = false</domain>
+	  <context name="_project" expr="eval: __self__"/>
     </action-view>
     
+    <action-view name="project.team.tasks.all" model="com.axelor.team.db.TeamTask" title="All tasks">
+     <view name="team-task-grid" type="grid"/>
+     <view name="team-task-calendar" type="calendar"/>
+     <view name="team-task-form" type="form"/>
+     <view-param name="search-filters" value="task-filters"/>
+     <view-param name="details-view" value="true"/>
+     <domain>self.typeSelect = :_typeSelect</domain>
+     <context name="_typeSelect" expr="eval: com.axelor.team.db.repo.TeamTaskRepository.TYPE_TASK"/>
+     <context name="_project" expr="eval: __self__"/>
+  </action-view>
 
 </object-views>
