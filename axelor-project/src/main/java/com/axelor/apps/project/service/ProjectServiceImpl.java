@@ -34,6 +34,7 @@ import com.axelor.exception.AxelorException;
 import com.axelor.exception.db.repo.TraceBackRepository;
 import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
+import com.axelor.meta.schema.actions.ActionView;
 import com.axelor.team.db.TeamTask;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -43,6 +44,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.persistence.TypedQuery;
 
@@ -226,5 +228,18 @@ public class ProjectServiceImpl implements ProjectService {
     task.setDescription(taskTemplate.getDescription());
 
     return task;
+  }
+
+  @Override
+  public Map<String, Object> getTaskView(String title, String domain, Project project) {
+    return ActionView.define(I18n.get(title))
+        .model(TeamTask.class.getName())
+        .add("grid", "team-task-grid")
+        .add("calendar", "team-task-calendar")
+        .add("form", "team-task-form")
+        .domain(domain)
+        .param("details-view", "true")
+        .context("_project", project)
+        .map();
   }
 }
