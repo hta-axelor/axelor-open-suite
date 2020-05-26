@@ -170,6 +170,7 @@ public class InvoicingProjectService {
     Beans.get(InvoiceRepository.class).save(invoice);
 
     invoicingProject.setInvoice(invoice);
+    invoicingProject.setStatusSelect(InvoicingProjectRepository.STATUS_GENERATED);
     invoicingProjectRepo.save(invoicingProject);
     return invoice;
   }

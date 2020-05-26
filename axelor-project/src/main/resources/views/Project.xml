@@ -64,7 +64,7 @@
 		</menubar>
 		<panel name="mainPanel">
 			<panel name="detailsPanel" colSpan="12">
-				<field name="projectStatus" showTitle="false" readonly="true"
+				<field name="statusSelect" showTitle="false" readonly="true"
 					colSpan="8" widget="NavSelect" />
 				<field name="$viewerProjectTags" showTitle="false" colSpan="4"
 					readonly="true">
@@ -322,7 +322,7 @@
 			<panel title="Roadmap" name="roadmapPanel" if-module="axelor-business-support" if="__config__.app.isApp('business-support')">
 				<panel-related name="roadmapListPanel" field="roadmapList" colSpan="12" form-view="project-version-form">
 					<field name="title"/>
-					<field name="projectStatus"/>
+					<field name="statusSelect"/>
 					<field name="testingServerDate"/>
 					<field name="productionServerDate"/>
 				</panel-related>
@@ -381,7 +381,16 @@
 			<field name="attrs" colSpan="12" hidden="true" />
 		</panel>
 		<panel name="actionsPanel"  colSpan="2" sidebar="true">
-			<button name="finishBtn" title="Finish"	colSpan="12" icon="fa-check" onClick="action-project-record-change-status,save" />
+			<button name="startBtn" title="Start" hidden="true" showIf="statusSelect == 1"
+				colSpan="12" icon="fa-play" onClick="action-project-record-status-in-progress,save" />
+			<button name="finishBtn" title="Finish" hidden="true" showIf="statusSelect == 2"
+				colSpan="12" icon="fa-check" onClick="action-project-record-status-finished,save" />
+			<button name="cancelBtn" title="Cancel" hidden="true"
+				showIf="statusSelect != 4" colSpan="12" css="btn-danger"
+				icon="fa-times-circle" onClick="action-project-record-status-canceled,save" />
+			<button name="newStatusBtn" title="Reset to New" hidden="true"
+				showIf="statusSelect == 4" colSpan="12" css="btn-danger"
+				icon="fa-file" onClick="action-project-record-status-new,save" />
 		</panel>
 		<panel name="characteristicsPanel" title="Characteristics" colSpan="12"
 			sidebar="true" canCollapse="true">
@@ -435,18 +444,17 @@
 		</panel>
 	</form>
 	
-	<!-- TODO: Have to fix kanban hilite for status -->
-	<kanban columnBy="projectStatus" sequenceBy="orderByState" limit="10"
+	<kanban columnBy="statusSelect" sequenceBy="orderByState" limit="10"
 	 name="project-kanban" title="Projects" model="com.axelor.apps.project.db.Project">
 		<field name="fullName"/>
 		<field name="description"/>
 		<field name="progress"/>
 		<field name="dueDate"/>
-		<field name="projectStatus"/>
+		<field name="statusSelect"/>
 		<field name="sequence"/>
-		<!-- <hilite color="danger" if="dueDate.isAfter(__datetime__) &amp;&amp; statusSelect &lt; 3"/>
+		<hilite color="danger" if="dueDate.isAfter(__datetime__) &amp;&amp; statusSelect &lt; 3"/>
 		<hilite color="success" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; statusSelect &lt; 3"/>
-		<hilite color="warning" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; statusSelect &lt; 3"/> -->
+		<hilite color="warning" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; statusSelect &lt; 3"/>
 		<template>
 		&lt;h4&gt;{{fullName}}&lt;/h4&gt;
 		&lt;div class="card-body"&gt;{{description}}&lt;/div&gt;
@@ -456,18 +464,17 @@
 		</template>
 	</kanban>
 	
-	<!-- TODO: Have to fix kanban hilite for status -->
-	<kanban columnBy="projectStatus" sequenceBy="projectStatus" limit="10"
+	<kanban columnBy="statusSelect" sequenceBy="statusSelect" limit="10"
 	 name="task-kanban" title="Tasks" model="com.axelor.apps.project.db.Project">
 		<field name="fullName"/>
 		<field name="description"/>
 		<field name="progress"/>
 		<field name="dueDate"/>
-		<field name="projectStatus"/>
+		<field name="statusSelect"/>
 		<field name="sequence"/>
-		<!-- <hilite color="danger" if="dueDate.isAfter(__datetime__) &amp;&amp; statusSelect &lt; 3"/>
+		<hilite color="danger" if="dueDate.isAfter(__datetime__) &amp;&amp; statusSelect &lt; 3"/>
 		<hilite color="success" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; statusSelect &lt; 3"/>
-		<hilite color="warning" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; statusSelect &lt; 3"/> -->
+		<hilite color="warning" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; statusSelect &lt; 3"/>
 		<template>
 		&lt;h4&gt;{{fullName}}&lt;/h4&gt;
 		&lt;div class="card-body"&gt;{{description}}&lt;/div&gt;
@@ -483,6 +490,8 @@
     	<domain>self.project.id = :_id AND self.parentTask = null</domain>
      	<context name="_id" expr="eval: id"/>
 	</action-view>
+	
+
 
 	<tree name="project-task-tree" title="Tasks">
     	
@@ -530,7 +539,7 @@
 		
 	</tree>
 	
-	<calendar name="project-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project" mode="month" colorBy="projectStatus" eventStart="fromDate" eventStop="toDate" eventLength="1">
+	<calendar name="project-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project" mode="month" colorBy="statusSelect" eventStart="fromDate" eventStop="toDate" eventLength="1">
       <field name="fullName"/>
     </calendar>
 	
@@ -766,9 +775,21 @@
  		<attribute for="contactPartner" if="clientPartner != null &amp;&amp; clientPartner.contactPartnerSet.empty" name="domain" expr="eval: &quot;self.id IN (0)&quot;"/>
  		<attribute for="contactPartner" if="clientPartner == null" name="domain" expr="eval: &quot;self.isContact = true AND :company member of self.companySet&quot;"/>
 	</action-attrs>
+	
+	<action-record name="action-project-record-status-in-progress" model="com.axelor.apps.project.db.Project">
+		<field name="statusSelect" expr="eval: __repo__(Project).STATE_IN_PROGRESS"/>
+	</action-record>
 
-	<action-record name="action-project-record-change-status" model="com.axelor.apps.project.db.Project">
-		<field name="projectStatus" expr="eval:__repo__(ProjectStatus).getDefaultCompletedStatus()"/>
+	<action-record name="action-project-record-status-finished" model="com.axelor.apps.project.db.Project">
+		<field name="statusSelect" expr="eval: __repo__(Project).STATE_FINISHED"/>
+	</action-record>
+
+	<action-record name="action-project-record-status-canceled" model="com.axelor.apps.project.db.Project">
+		<field name="statusSelect" expr="eval: __repo__(Project).STATE_CANCELED"/>
+	</action-record>
+	
+	<action-record name="action-project-record-status-new" model="com.axelor.apps.project.db.Project">
+		<field name="statusSelect" expr="eval: __repo__(Project).STATE_NEW"/>
 	</action-record>
 	
 	 <action-validate name="action-wizard-validate-user-select">

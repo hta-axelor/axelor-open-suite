@@ -99,6 +99,7 @@ public class ProjectManagementRepository extends ProjectRepository {
   @Override
   public Project copy(Project entity, boolean deep) {
     Project project = super.copy(entity, false);
+    project.setStatusSelect(STATE_NEW);
     project.setProgress(BigDecimal.ZERO);
     return project;
   }
