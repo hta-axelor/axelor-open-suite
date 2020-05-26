@@ -5,16 +5,16 @@
 	<grid name="project-status-grid" title="Status" model="com.axelor.apps.project.db.ProjectStatus" editable="true" orderBy="sequence">
 	    <field name="sequence"/>
 		<field name="name"/>
-		<field name="isDefaultCompleted"/>
 		<field name="isCompleted"/>
+		<field name="isDefaultCompleted"/>
 	</grid>
 	
 	<form name="project-status-form" title="Status" model="com.axelor.apps.project.db.ProjectStatus">
 		<panel name="mainPanel">
 		    <field name="sequence"/>
 			<field name="name"/>
-			<field name="isDefaultCompleted"/>
 			<field name="isCompleted"/>
+			<field name="isDefaultCompleted" showIf="isCompleted"/>
 		</panel>
 	</form>
 	
