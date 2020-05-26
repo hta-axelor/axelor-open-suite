@@ -19,10 +19,14 @@ package com.axelor.apps.project.service;
 
 import com.axelor.apps.base.service.TeamTaskServiceImpl;
 import com.axelor.apps.project.db.Project;
+import com.axelor.apps.project.db.ProjectStatus;
 import com.axelor.auth.db.User;
 import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
+import java.util.Optional;
+import java.util.Set;
+import org.hotswap.agent.util.spring.util.ObjectUtils;
 
 public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     implements TeamTaskProjectService {
@@ -62,5 +66,16 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     nextTeamTask.setUnitPrice(teamTask.getUnitPrice());
     nextTeamTask.setBudgetedTime(teamTask.getBudgetedTime());
     nextTeamTask.setCurrency(teamTask.getCurrency());
+  }
+
+  @Override
+  public ProjectStatus getProjectStatus(Project project) {
+    Set<ProjectStatus> teamTaskStatusSet = project.getTeamTaskStatusSet();
+    if (ObjectUtils.isEmpty(teamTaskStatusSet)) {
+      return null;
+    }
+    Optional<ProjectStatus> projectStatus =
+        teamTaskStatusSet.stream().filter(status -> status.getIsDefaultCompleted()).findFirst();
+    return projectStatus.isPresent() ? projectStatus.get() : null;
   }
 }
