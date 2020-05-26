@@ -212,7 +212,7 @@
 		</panel-mail>
 	</form>
 	
-	<!-- TODO: Have to fix below 3 gantt -->
+	<!-- TODO: Have to fix gantt taskDate,taskEndDate is hidden in below 3 gantt -->
 	<gantt name="task-gantt" title="Tasks" model="com.axelor.team.db.TeamTask" 
 		taskStart="taskDate" taskEnd="taskEndDate"  taskDuration="durationHours" taskParent="parentTask" taskSequence="sequence"
 		taskProgress="plannedProgress" x-start-to-start="startToStartSet" x-finish-to-start="finishToStartSet"
