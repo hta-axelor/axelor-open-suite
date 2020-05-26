@@ -35,7 +35,6 @@
 		</panel>
 
 		<panel name="mainPanel" colSpan="12">
-			<field name="taskStatus" colSpan="6" widget="NavSelect" showTitle="false" x-limit="5" x-order="sequence" readonly="true"/>
 			<panel name="viewerTagsPanel" colSpan="4">
 				<field name="$viewerTags" showTitle="false" readonly="true" showIf="typeSelect == 'ticket' &amp;&amp; $readonly()" colSpan="12" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" hidden="true">
 					<viewer>
@@ -68,6 +67,7 @@
 						</editor>
 					</field>
 					<field name="project" colSpan="6" onChange="action-team-task-group-project-onchange" required="true"/>
+					<field name="taskStatus" colSpan="6"/>
 					<field name="parentTask" readonlyIf="project == null" colSpan="6" onSelect="action-task-attrs-project-parent-task-configurations"/>
 					<field name="assignedTo" readonlyIf="project == null" colSpan="6" canNew="false" canView="false" canEdit="false" onSelect="action-task-attrs-project-assigned-to-configurations" required="true" form-view="user-form" grid-view="user-grid"/>
 					<field name="team" readonly="true" colSpan="6" form-view="team-form" grid-view="team-grid" if="!__config__.app.isApp('business-support')"/>
@@ -399,6 +399,7 @@
 	</action-group>
 	
 	<action-group name="action-team-task-group-project-onchange">
+	    <action name="action-projects-attrs-filter-by-project"/>
 		<action name="action-task-record-project-configurations"/>
 		<action name="action-team-task-method-update-discount" if="__config__.app.isApp('business-project')"/>
 		<action name="action-team-task-method-compute" if="__config__.app.isApp('business-project')"/>
@@ -592,7 +593,7 @@
 	</action-attrs>
 	
 	<action-record name="action-team-task-record-change-status" model="com.axelor.team.db.TeamTask">
-	   <field name="taskStatus" expr="eval:__repo__(ProjectStatus).getDefaultCompletedStatus()"/>
+	   <field name="taskStatus" expr="eval:__repo__(ProjectStatus).getDefaultCompleted()"/>
 	</action-record>
 	    
     <action-view name="action-project-view-per-status-kanban" title="Tasks" model="com.axelor.team.db.TeamTask">
@@ -608,5 +609,10 @@
       <domain>self.project.id = :projectId</domain>
       <context name="projectId" expr="eval: id"/>
     </action-view>
+        
+    <action-attrs name="action-projects-attrs-filter-by-project">
+      <attribute name="domain" expr="eval: &quot;self.id IN(${project?.teamTaskStatusSet?.collect{it.id}?.join(',')})&quot;" for="taskStatus"/>
+      <attribute name="domain" expr="eval: &quot;self.id IN(${project?.teamTaskPrioritySet?.collect{it.id}?.join(',')})&quot;" for="taskPriority"/>
+    </action-attrs>
     
 </object-views>
