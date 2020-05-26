@@ -13,8 +13,14 @@
   		
   		<extra-code>
   		 <![CDATA[
-   			public ProjectStatus getDefaultCompletedStatus(){
-   			 return all().filter("self.isDefaultCompleted = true AND self.isCompleted = true").fetchOne();
+   			public ProjectStatus getDefaultCompleted(){
+   			 return all().filter("self.isDefaultCompleted = true").fetchOne();
+   			}
+   			public ProjectStatus getCompleted(){
+   			 return all().filter("self.isCompleted = true").fetchOne();
+   			}
+   			public ProjectStatus getNotCompleted(){
+   			 return all().filter("self.isCompleted = false").fetchOne();
    			}
    		]]>
   		</extra-code>

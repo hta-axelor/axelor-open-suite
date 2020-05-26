@@ -600,8 +600,7 @@ public class ClientViewServiceImpl implements ClientViewService {
         new JPQLFilter(
             "self.isProject = true AND self.clientPartner.id = "
                 + user.getPartner().getId()
-                + " AND self.statusSelect != "
-                + ProjectRepository.STATE_CANCELED);
+                + " AND self.isCompleted = false");
 
     if (user.getActiveCompany() != null) {
       filter =

@@ -75,7 +75,6 @@ public class ProjectServiceImpl implements ProjectService {
       return project;
     }
     project = new Project();
-    project.setStatusSelect(ProjectRepository.STATE_NEW);
     project.setParentProject(parentProject);
     if (parentProject != null) {
       parentProject.addChildProjectListItem(project);
