@@ -15,7 +15,7 @@
 		 <field name="message"/>
 		 <field name="project" />
 		 <field name="isClosed"/>
-	   	 <button name="closeTopicBtn" title="Close topic"/>
+	   	 <!-- <button name="closeTopicBtn" title="Close topic"/> -->
 		</panel>
 		<panel-mail name="mailPanel">
 		  <mail-messages limit="4"/>
