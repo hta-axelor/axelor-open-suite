@@ -50,6 +50,7 @@
 				<item name="bookResourceItem" title="Book resource" showIf="isProject" if=" __config__.app.getApp('project')?.resourceManagement"
 					action="save,action-project-book-resource" />
 				<item name="wiki" title="Wiki" action="project.wiki.all" />
+				<item name="topic" title="Topic" action="project.topic.all" showIf="isShowTopic"/>
 				<item name="perStatusKanban" title="Per status kanban" action="action-project-view-per-status-kanban" showIf="isShowStatus &amp;&amp; isShowKanbanPerStatus"/>	
 				<item name="perStatusCalendar" title="Per status calendar" action="action-project-view-per-status-calendar" showIf="isShowCalendarPerStatus"/>		
 				<item name="perSectionKanban" title="Per section kanban" action="action-project-view-per-section-kanban" showIf="isShowSection &amp;&amp; isShowKanbanPerSection"/>
@@ -735,6 +736,24 @@
  	 <domain>self.project.id = :projectId</domain>
  	 <context name="projectId" expr="eval: id"/>
     </action-view>
+        
+    <action-view name="project.topic.all" title="Topics" model="com.axelor.apps.project.db.Topic">
+      <view type="grid" name="topic-grid"/>
+ 	  <view type="form" name="topic-form"/>
+ 	  <view-param name="search-filters" value="project-topic-filters"/>
+ 	  <domain>self.project.id = :projectId</domain>
+ 	  <context name="projectId" expr="eval: id"/>
+ 	  <context name="userId" expr="eval: __user__.id"/>
+    </action-view>
+    
+    <search-filters name="project-topic-filters" model="com.axelor.apps.project.db.Topic" title="Topics">
+      <filter title="My topics">
+         <domain>self.createdBy.id = :userId</domain>
+      </filter>
+      <filter title="New topics">
+         <domain>self.createdOn &gt; date(now())</domain>
+      </filter>
+    </search-filters>
     
     <action-method name="action-project-method-my-open-tasks">
       <call class="com.axelor.apps.project.web.ProjectController" method="getMyOpenTasks"/>
