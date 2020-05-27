@@ -6,7 +6,7 @@
 	
 	<menuitem name="business-project-folder" parent="business-project-root" title="Project Folder" action="business.project.folder" order="5"/>
 	
-	<action-view name="business.project.folder" title="Project Folder" model="com.axelor.apps.project.db.ProjectFolder">
+	<action-view name="business.project.folder" title="Project Folder" model="com.axelor.apps.businessproject.db.ProjectFolder">
 		<view type="grid" name="project-folder-grid"/>
 		<view type="form" name="project-folder-form"/>
 	</action-view>

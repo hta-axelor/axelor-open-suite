@@ -24,16 +24,10 @@ import com.axelor.apps.project.db.ProjectTemplate;
 import com.axelor.auth.db.User;
 import com.axelor.exception.AxelorException;
 import java.math.BigDecimal;
+import java.util.Map;
 
 public interface ProjectService {
-  Project generateProject(
-      Project parentProject,
-      String fullName,
-      User assignedTo,
-      Company company,
-      Partner clientPartner);
-
-  Partner getClientPartnerFromProject(Project project) throws AxelorException;
+  Project generateProject(String fullName, User assignedTo, Company company, Partner clientPartner);
 
   BigDecimal computeDurationFromChildren(Long projectId);
 
@@ -47,5 +41,8 @@ public interface ProjectService {
 
   public Project createProjectFromTemplate(
       ProjectTemplate projectTemplate, String projectCode, Partner clientPartner)
+      throws AxelorException;
+
+  public Map<String, Object> createProjectFromTemplateView(ProjectTemplate projectTemplate)
       throws AxelorException;
 }

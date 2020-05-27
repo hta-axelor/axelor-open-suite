@@ -32,6 +32,7 @@ import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.ProjectTemplate;
 import com.axelor.apps.project.db.TaskTemplate;
 import com.axelor.apps.project.db.repo.ProjectRepository;
+import com.axelor.apps.project.service.ProjectService;
 import com.axelor.apps.project.service.ProjectServiceImpl;
 import com.axelor.apps.sale.db.SaleOrder;
 import com.axelor.apps.sale.db.SaleOrderLine;
@@ -40,10 +41,14 @@ import com.axelor.apps.sale.service.saleorder.SaleOrderCreateService;
 import com.axelor.apps.supplychain.service.app.AppSupplychainService;
 import com.axelor.auth.db.User;
 import com.axelor.exception.AxelorException;
+import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
+import com.axelor.meta.schema.actions.ActionView;
 import com.axelor.team.db.TeamTask;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
+import java.util.HashSet;
+import java.util.Map;
 
 public class ProjectBusinessServiceImpl extends ProjectServiceImpl
     implements ProjectBusinessService {
@@ -164,7 +169,6 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
     project =
         project == null
             ? this.generateProject(
-                null,
                 saleOrder.getFullName() + "_project",
                 saleOrder.getSalespersonUser(),
                 saleOrder.getCompany(),
@@ -176,13 +180,8 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
 
   @Override
   public Project generateProject(
-      Project parentProject,
-      String fullName,
-      User assignedTo,
-      Company company,
-      Partner clientPartner) {
-    Project project =
-        super.generateProject(parentProject, fullName, assignedTo, company, clientPartner);
+      String fullName, User assignedTo, Company company, Partner clientPartner) {
+    Project project = super.generateProject(fullName, assignedTo, company, clientPartner);
 
     if (!Beans.get(AppBusinessProjectService.class).isApp("business-project")) {
       return project;
@@ -193,9 +192,7 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
     }
 
     project.setImputable(true);
-    if (parentProject != null && parentProject.getIsInvoicingTimesheet()) {
-      project.setIsInvoicingTimesheet(true);
-    }
+    project.setCompany(company);
     return project;
   }
 
@@ -203,12 +200,10 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
   public Project generatePhaseProject(SaleOrderLine saleOrderLine, Project parent) {
     Project project =
         generateProject(
-            parent,
             saleOrderLine.getFullName(),
             saleOrderLine.getSaleOrder().getSalespersonUser(),
             parent.getCompany(),
             parent.getClientPartner());
-    project.setProjectTypeSelect(ProjectRepository.TYPE_PHASE);
     saleOrderLine.setProject(project);
     return project;
   }
@@ -239,6 +234,8 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
       project.setInvoicingComment(projectTemplate.getInvoicingComment());
       project.setIsBusinessProject(projectTemplate.getIsBusinessProject());
     }
+    project.setProjectFolderSet(new HashSet<>(projectTemplate.getProjectFolderSet()));
+    project.setCompany(projectTemplate.getCompany());
 
     return project;
   }
@@ -247,5 +244,23 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
   public TeamTask createTask(TaskTemplate taskTemplate, Project project) {
     TeamTask task = super.createTask(taskTemplate, project);
     return task;
+  }
+
+  @Override
+  public Map<String, Object> createProjectFromTemplateView(ProjectTemplate projectTemplate)
+      throws AxelorException {
+    if (appBusinessProjectService.getAppBusinessProject().getGenerateProjectSequence()
+        && !projectTemplate.getIsBusinessProject()) {
+      Project project =
+          Beans.get(ProjectService.class).createProjectFromTemplate(projectTemplate, null, null);
+      return ActionView.define(I18n.get("Project"))
+          .model(Project.class.getName())
+          .add("form", "project-form")
+          .add("grid", "project-grid")
+          .context("_showRecord", project.getId())
+          .map();
+    } else {
+      return super.createProjectFromTemplateView(projectTemplate);
+    }
   }
 }

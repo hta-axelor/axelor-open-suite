@@ -19,13 +19,13 @@ package com.axelor.apps.project.service;
 
 import com.axelor.apps.base.db.Company;
 import com.axelor.apps.base.db.Partner;
+import com.axelor.apps.base.db.Wizard;
 import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.ProjectTemplate;
 import com.axelor.apps.project.db.TaskTemplate;
 import com.axelor.apps.project.db.Wiki;
 import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.apps.project.db.repo.WikiRepository;
-import com.axelor.apps.project.exception.IExceptionMessage;
 import com.axelor.apps.project.translation.ITranslation;
 import com.axelor.auth.AuthUtils;
 import com.axelor.auth.db.User;
@@ -34,6 +34,7 @@ import com.axelor.exception.AxelorException;
 import com.axelor.exception.db.repo.TraceBackRepository;
 import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
+import com.axelor.meta.schema.actions.ActionView;
 import com.axelor.team.db.TeamTask;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -43,6 +44,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.persistence.TypedQuery;
 
@@ -62,11 +64,7 @@ public class ProjectServiceImpl implements ProjectService {
 
   @Override
   public Project generateProject(
-      Project parentProject,
-      String fullName,
-      User assignedTo,
-      Company company,
-      Partner clientPartner) {
+      String fullName, User assignedTo, Company company, Partner clientPartner) {
     Project project;
     project = projectRepository.findByName(fullName);
     if (project != null) {
@@ -74,22 +72,13 @@ public class ProjectServiceImpl implements ProjectService {
     }
     project = new Project();
     project.setStatusSelect(ProjectRepository.STATE_NEW);
-    project.setParentProject(parentProject);
-    if (parentProject != null) {
-      parentProject.addChildProjectListItem(project);
-      project.setProjectTypeSelect(ProjectRepository.TYPE_PHASE);
-    } else {
-      project.setProjectTypeSelect(ProjectRepository.TYPE_PROJECT);
-    }
     if (Strings.isNullOrEmpty(fullName)) {
       fullName = "project";
     }
     project.setName(fullName);
     project.setFullName(project.getName());
-    project.setCompany(company);
     project.setClientPartner(clientPartner);
     project.setAssignedTo(assignedTo);
-    project.setProgress(BigDecimal.ZERO);
     return project;
   }
 
@@ -100,8 +89,7 @@ public class ProjectServiceImpl implements ProjectService {
     User user = AuthUtils.getUser();
     Project project =
         Beans.get(ProjectService.class)
-            .generateProject(
-                null, getUniqueProjectName(partner), user, user.getActiveCompany(), partner);
+            .generateProject(getUniqueProjectName(partner), user, user.getActiveCompany(), partner);
     return projectRepository.save(project);
   }
 
@@ -121,32 +109,6 @@ public class ProjectServiceImpl implements ProjectService {
     } while (projectRepository.findByName(name) != null);
 
     return name;
-  }
-
-  @Override
-  public Partner getClientPartnerFromProject(Project project) throws AxelorException {
-    return this.getClientPartnerFromProject(project, 0);
-  }
-
-  private Partner getClientPartnerFromProject(Project project, int counter) throws AxelorException {
-    if (project.getParentProject() == null) {
-      // it is a root project, can get the client partner
-      if (project.getClientPartner() == null) {
-        throw new AxelorException(
-            TraceBackRepository.CATEGORY_CONFIGURATION_ERROR,
-            I18n.get(IExceptionMessage.PROJECT_CUSTOMER_PARTNER));
-      } else {
-        return project.getClientPartner();
-      }
-    } else {
-      if (counter > MAX_LEVEL_OF_PROJECT) {
-        throw new AxelorException(
-            TraceBackRepository.CATEGORY_CONFIGURATION_ERROR,
-            I18n.get(IExceptionMessage.PROJECT_DEEP_LIMIT_REACH));
-      } else {
-        return this.getClientPartnerFromProject(project.getParentProject(), counter + 1);
-      }
-    }
   }
 
   @Override
@@ -182,16 +144,12 @@ public class ProjectServiceImpl implements ProjectService {
       }
       project.setDescription(projectTemplate.getDescription());
       project.setTeam(projectTemplate.getTeam());
-      project.setProjectFolderSet(new HashSet<>(projectTemplate.getProjectFolderSet()));
       project.setAssignedTo(projectTemplate.getAssignedTo());
-      project.setTeamTaskCategorySet(new HashSet<>(projectTemplate.getTeamTaskCategorySet()));
       project.setSynchronize(projectTemplate.getSynchronize());
       project.setMembersUserSet(new HashSet<>(projectTemplate.getMembersUserSet()));
       project.setImputable(projectTemplate.getImputable());
-      project.setCompany(projectTemplate.getCompany());
       project.setProductSet(new HashSet<>(projectTemplate.getProductSet()));
       project.setExcludePlanning(projectTemplate.getExcludePlanning());
-      project.setProjectTypeSelect(ProjectRepository.TYPE_PROJECT);
 
       List<Wiki> wikiList = projectTemplate.getWikiList();
 
@@ -228,5 +186,21 @@ public class ProjectServiceImpl implements ProjectService {
     task.setDescription(taskTemplate.getDescription());
 
     return task;
+  }
+
+  @Override
+  public Map<String, Object> createProjectFromTemplateView(ProjectTemplate projectTemplate)
+      throws AxelorException {
+    return ActionView.define(I18n.get("Create project from this template"))
+        .model(Wizard.class.getName())
+        .add("form", "project-template-wizard-form")
+        .param("popup", "reload")
+        .param("show-toolbar", "false")
+        .param("show-confirm", "false")
+        .param("width", "large")
+        .param("popup-save", "false")
+        .context("_projectTemplate", projectTemplate)
+        .context("_businessProject", projectTemplate.getIsBusinessProject())
+        .map();
   }
 }

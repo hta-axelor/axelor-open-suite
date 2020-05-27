@@ -2,21 +2,6 @@
 <object-views xmlns="http://axelor.com/xml/ns/object-views"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
-
-	<grid id="project-team-task-grid" name="team-task-grid" title="Tasks" model="com.axelor.team.db.TeamTask" edit-icon="true" orderBy="taskDate,priority">
-		<hilite if="status == 'closed'" color="success"/>
-		<hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
-		<hilite if="priority == 'urgent'" color="warning"/>
-		<field name="name"/>
-		<field name="project"/>
-		<field name="taskDate"/>
-		<field name="taskEndDate" hidden="true"/>
-		<field name="status"/>
-		<field name="priority"/>
-		<field name="teamTaskCategory"/>
-		<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
-        <button name="timeSpentBtn" title="Enter Time spent" icon="fa-clock-o" onClick="action-team-task-view-time-spent" />
-	</grid>
 	
 	<form name="team-task-form" id="project-team-task-form" title="Task" model="com.axelor.team.db.TeamTask"
 				onNew="action-team-task-group-onnew"
@@ -89,7 +74,7 @@
 			<panel name="characteristicsPanel" title="Characteristics" colSpan="12">
 				<field name="teamTaskCategory" colSpan="4" onSelect="action-task-attrs-team-task-category-configurations" onChange="action-team-task-group-project-category-onchange"/>
 				<field name="priority" colSpan="4" required="true"/>
-				<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" domain="self.project = :project OR self.project.parentProject = :project" colSpan="4" form-view="project-version-form" grid-view="project-version-grid"/>
+				<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" domain="self.project = :project" colSpan="4" form-view="project-version-form" grid-view="project-version-grid"/>
 				<field name="assignment" hidden="true" showIf="typeSelect == 'ticket'" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" colSpan="4"/>
 				<field name="taskDate" title="Task date" colSpan="4" onChange="action-task-attrs-set-task-duration,action-team-task-record-set-date-or-frequency-changed" required="true"/>
 				<field name="taskEndDate" colSpan="4" onChange="action-task-attrs-set-task-duration"/>
@@ -374,7 +359,6 @@
 		<field name="assignedTo" expr="eval:(project?.membersUserSet ? project?.membersUserSet?.collect{it.id}.contains(assignedTo.id) : __repo__(Project).find(project?.id).membersUserSet?.collect{it.id}.contains(assignedTo.id)) ? assignedTo : null" if="project != null &amp;&amp; assignedTo != null"/>
 		<field name="membersUserSet" expr="eval: null"/>
 		<field name="team" expr="eval: project?.team" if="project?.synchronize &amp;&amp; project.team != null"/>
-        <field name="team" expr="eval: __repo__(Project).find(project?.parentProject?.id)?.team" if="(!project?.synchronize || project.team == null) &amp;&amp; project?.extendsMembersFromParent &amp;&amp; __repo__(Project).find(project?.parentProject?.id)?.synchronize"/>
         <field name="invoicingType" expr="eval: 2" if="project?.invoicingSequenceSelect == 1"/>
 	</action-record>
 	
@@ -500,8 +484,8 @@
 	</action-method>
 	
 	<action-attrs name="action-team-task-attrs-invoice-type-on-change">
-		<attribute name="value" for="toInvoice" expr="eval: true" if="invoicingType == 1 || invoicingType == 2"/>
-		<attribute name="value" for="toInvoice" expr="eval: false" if="invoicingType == 3"/>
+		<attribute name="value" for="toInvoice" expr="eval: true" if="invoicingType == 1"/>
+		<attribute name="value" for="toInvoice" expr="eval: false" if="invoicingType != 1"/>
 		<attribute name="value" for="isOrderProposed" expr="eval: true" if="invoicingType == 1"/>
 		<attribute name="value" for="isOrderProposed" expr="eval: false" if="invoicingType != 1"/>
 	</action-attrs>

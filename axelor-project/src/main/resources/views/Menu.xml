@@ -6,7 +6,7 @@
 	     icon-background="#3f6bb9"/> 	
 
 	<menuitem name="project-folder" parent="menu-project-root" title="Project Folder" action="project.folder" order="5"/>
-	<action-view name="project.folder" title="Project Folder" model="com.axelor.apps.project.db.ProjectFolder">
+	<action-view name="project.folder" title="Project Folder" model="com.axelor.apps.businessproject.db.ProjectFolder">
 		<view type="grid" name="project-folder-grid"/>
 		<view type="form" name="project-folder-form"/>
 	</action-view>
@@ -18,9 +18,7 @@
 		<view type="grid" name="project-grid"/>
 		<view type="form" name="project-form"/>
 		<view type="kanban" name="project-kanban"/>
-		<domain>self.isProject = true and (self.projectTypeSelect = :_xProjectTypeSelect or self.projectTypeSelect = 0 or self.projectTypeSelect = null)</domain>
 		<context name="_fromProject" expr="eval:true"/>
-		<context name="_xProjectTypeSelect" expr="eval: __repo__(Project).TYPE_PROJECT"/>
 	</action-view>
 
 	<menuitem name="project-phases" parent="menu-project-root" title="Project phases" action="all.phases" order="15"/>
@@ -28,9 +26,7 @@
 		<view type="grid" name="project-grid"/>
 		<view type="form" name="project-form"/>
 		<view type="kanban" name="project-kanban"/>
-		<domain>self.isProject = true and self.projectTypeSelect = :_xProjectTypeSelect</domain>
 		<context name="_fromProject" expr="eval:true"/>
-		<context name="_xProjectTypeSelect" expr="eval: __repo__(Project).TYPE_PHASE"/>
 	</action-view>
 
 	<menuitem name="project-open-tasks" parent="menu-project-root" title="Tasks" order="20" action="all.open.project.tasks"/>
