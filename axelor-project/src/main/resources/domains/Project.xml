@@ -9,9 +9,8 @@
 
 		<string name="name"/>
 		<string name="description" multiline="true" large="true"/>
-		<many-to-one name="team" ref="com.axelor.team.db.Team"/>
 		<many-to-one name="assignedTo" ref="com.axelor.auth.db.User" title="Assigned to"/>
-		<integer name="statusSelect" selection="project.status.select" title="Status" default="1"/>
+		<many-to-one name="projectStatus" title="Status" ref="com.axelor.apps.project.db.ProjectStatus"/>
 		<one-to-many name="teamTaskList" ref="com.axelor.team.db.TeamTask" title="Tasks" mappedBy="project"/>
 		<boolean name="synchronize"/>
 	  	<boolean name="extendsMembersFromParent" default="false"/>
@@ -48,17 +47,30 @@
 	 	
       	<enum name="genProjTypePerOrderLine" ref="GenProjTypePerOrderLine" default="BUSINESS_PROJECT"/>
       	
+      	<!-- Configuration fields -->
+		<boolean name="isShowStatus" title="Status?" default="true"/>
+		<many-to-many name="teamTaskStatusSet" ref="com.axelor.apps.project.db.ProjectStatus" title="Type of authorized status"/>
+		<boolean name="isShowPriority" title="Priorities?" default="true"/>
+		<many-to-many name="teamTaskPrioritySet" ref="com.axelor.apps.project.db.ProjectPriority" title="Type of authorized priorities"/>
+		<boolean name="isShowTaskCategory" title="Categories?" default="true"/>
+		<many-to-many name="teamTaskCategorySet" ref="com.axelor.apps.project.db.TeamTaskCategory" title="Type of authorized categories"/>
+		<boolean name="isShowProgress" title="Progress?" default="true"/>
+		<boolean name="isShowPlanning" title="Planning?" default="true"/>
+		<boolean name="isShowFrequency" title="Frequency?"/>
+		<boolean name="isShowTimeSpent" title="Time Spent?"/>
+		<boolean name="isShowSection" title="Section?" default="true"/>
+		<boolean name="isShowTopic" title="Topic?" default="true"/>
+		<boolean name="isShowGantt" title="Enable Gantt view"/>
+		<boolean name="isShowKanbanPerStatus" title="Enable Kanban view per status"/>
+		<boolean name="isShowKanbanPerSection" title="Enable Kanban view per section"/>
+		<boolean name="isShowCalendarPerStatus" title="Enable calendar view per status"/>
+		<boolean name="isShowCalendarPerUser" title="Enable calendar view per user"/>
         <finder-method name="findByName" using="name"/>
 
 	   <extra-code>
    		<![CDATA[
    			public static final Integer TYPE_PROJECT = 1;
    			public static final Integer TYPE_PHASE = 2;
-
-   			public static final Integer STATE_NEW = 1;
-   			public static final Integer STATE_IN_PROGRESS = 2;
-   			public static final Integer STATE_FINISHED = 3;
-   			public static final Integer STATE_CANCELED = 4;
    		]]>
    	</extra-code>
   </entity>

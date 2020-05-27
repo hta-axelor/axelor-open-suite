@@ -34,7 +34,7 @@
 		<view type="kanban" name="team-task-kanban"/>
 		<view type="grid" name="team-task-grid"/>
 		<view type="form" name="team-task-form"/>
-		<domain>self.project.statusSelect IN (1,2) and self.typeSelect = 'task'</domain>
+		<domain>self.project.projectStatus.isCompleted = false and self.typeSelect = 'task'</domain>
 		<context name="_typeSelect" expr="eval: com.axelor.team.db.repo.TeamTaskRepository.TYPE_TASK"/>
 	</action-view>
 
@@ -44,7 +44,7 @@
 		<view type="grid" name="team-task-grid"/>
 		<view type="form" name="team-task-form"/>
 		<view-param name="forceTitle" value="true"/>
-		<domain>self.project.statusSelect IN (1,2) and self.typeSelect = 'ticket'</domain>
+		<domain>self.project.projectStatus.isCompleted = false and self.typeSelect = 'ticket'</domain>
 		<context name="_typeSelect" expr="eval: com.axelor.team.db.repo.TeamTaskRepository.TYPE_TICKET"/>
 	</action-view>
 
@@ -103,6 +103,24 @@
 	<action-view name="team.task.category" title="Team Task Category" model="com.axelor.apps.project.db.TeamTaskCategory">
 		<view type="grid" name="team-task-category-grid"/>
 		<view type="form" name="team-task-category-form"/>
+	</action-view>
+	
+	<menuitem name="team-task-section" parent="project-configurations" title="Section" action="team.task.section"/>
+	<action-view name="team.task.section" title="Team Task Section" model="com.axelor.apps.project.db.TeamTaskSection">
+		<view type="grid" name="team-task-section-grid"/>
+		<view type="form" name="team-task-section-form"/>
+	</action-view>
+	
+	<menuitem name="team-task-project-status" parent="project-configurations" title="Project Status" action="team.task.project.status"/>
+	<action-view name="team.task.project.status" title="Project Status" model="com.axelor.apps.project.db.ProjectStatus">
+		<view type="grid" name="project-status-grid"/>
+		<view type="form" name="project-status-form"/>
+	</action-view>
+	
+	<menuitem name="team-task-project-priority" parent="project-configurations" title="Project Priority" action="team.task.project.priority"/>
+	<action-view name="team.task.project.priority" title="Project Priority" model="com.axelor.apps.project.db.ProjectPriority">
+		<view type="grid" name="project-priority-grid"/>
+		<view type="form" name="project-priority-form"/>
 	</action-view>
 	
 	<menuitem name="project-resource-type" parent="project-configurations" title="Resource types" action="project.resource.types" if="__config__.app.getApp('project').getResourceManagement()" />

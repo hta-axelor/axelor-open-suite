@@ -18,18 +18,62 @@
 package com.axelor.apps.project.web;
 
 import com.axelor.apps.project.db.Project;
+import com.axelor.apps.project.service.ProjectService;
+import com.axelor.inject.Beans;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
+import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Singleton;
+import java.util.Map;
 
 @Singleton
 public class ProjectController {
 
-  public void importMembers(ActionRequest request, ActionResponse response) {
+  public void getMyOpenTasks(ActionRequest request, ActionResponse response) {
     Project project = request.getContext().asType(Project.class);
-    if (project.getTeam() != null) {
-      project.getTeam().getMembers().forEach(project::addMembersUserSetItem);
-      response.setValue("membersUserSet", project.getMembersUserSet());
-    }
+    Map<String, Object> view =
+        Beans.get(ProjectService.class)
+            .getTaskView(
+                "My open tasks",
+                "self.assignedTo = :__user__ AND self.taskStatus.isCompleted = false AND self.typeSelect = '"
+                    + TeamTaskRepository.TYPE_TASK
+                    + "'",
+                project);
+    response.setView(view);
+  }
+
+  public void getMyTasks(ActionRequest request, ActionResponse response) {
+    Project project = request.getContext().asType(Project.class);
+    Map<String, Object> view =
+        Beans.get(ProjectService.class)
+            .getTaskView(
+                "My tasks",
+                "self.assignedTo = :__user__ AND self.typeSelect = '"
+                    + TeamTaskRepository.TYPE_TASK
+                    + "'",
+                project);
+    response.setView(view);
+  }
+
+  public void getAllOpenTasks(ActionRequest request, ActionResponse response) {
+    Project project = request.getContext().asType(Project.class);
+    Map<String, Object> view =
+        Beans.get(ProjectService.class)
+            .getTaskView(
+                "All open tasks",
+                "self.taskStatus.isCompleted = false AND self.typeSelect = '"
+                    + TeamTaskRepository.TYPE_TASK
+                    + "'",
+                project);
+    response.setView(view);
+  }
+
+  public void getAllTasks(ActionRequest request, ActionResponse response) {
+    Project project = request.getContext().asType(Project.class);
+    Map<String, Object> view =
+        Beans.get(ProjectService.class)
+            .getTaskView(
+                "All tasks", "self.typeSelect = '" + TeamTaskRepository.TYPE_TASK + "'", project);
+    response.setView(view);
   }
 }

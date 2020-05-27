@@ -18,7 +18,6 @@
 package com.axelor.apps.project.db.repo;
 
 import com.axelor.apps.project.db.Project;
-import com.axelor.team.db.Team;
 import com.google.common.base.Strings;
 
 public class ProjectManagementRepository extends ProjectRepository {
@@ -31,22 +30,13 @@ public class ProjectManagementRepository extends ProjectRepository {
 
   @Override
   public Project save(Project project) {
-    if (project.getSynchronize()) {
-      Team team = project.getTeam();
-      if (team != null) {
-        team.clearMembers();
-        project.getMembersUserSet().forEach(team::addMember);
-      }
-    }
     setAllProjectFullName(project);
-
     return super.save(project);
   }
 
   @Override
   public Project copy(Project entity, boolean deep) {
     Project project = super.copy(entity, false);
-    project.setStatusSelect(STATE_NEW);
     return project;
   }
 }

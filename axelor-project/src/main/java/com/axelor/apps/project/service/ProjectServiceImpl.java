@@ -71,7 +71,6 @@ public class ProjectServiceImpl implements ProjectService {
       return project;
     }
     project = new Project();
-    project.setStatusSelect(ProjectRepository.STATE_NEW);
     if (Strings.isNullOrEmpty(fullName)) {
       fullName = "project";
     }
@@ -143,7 +142,6 @@ public class ProjectServiceImpl implements ProjectService {
         project.setContactPartner(clientPartner.getContactPartnerSet().iterator().next());
       }
       project.setDescription(projectTemplate.getDescription());
-      project.setTeam(projectTemplate.getTeam());
       project.setAssignedTo(projectTemplate.getAssignedTo());
       project.setSynchronize(projectTemplate.getSynchronize());
       project.setMembersUserSet(new HashSet<>(projectTemplate.getMembersUserSet()));
@@ -186,6 +184,19 @@ public class ProjectServiceImpl implements ProjectService {
     task.setDescription(taskTemplate.getDescription());
 
     return task;
+  }
+
+  @Override
+  public Map<String, Object> getTaskView(String title, String domain, Project project) {
+    return ActionView.define(I18n.get(title))
+        .model(TeamTask.class.getName())
+        .add("grid", "team-task-grid")
+        .add("calendar", "team-task-calendar")
+        .add("form", "team-task-form")
+        .domain(domain)
+        .param("details-view", "true")
+        .context("_project", project)
+        .map();
   }
 
   @Override

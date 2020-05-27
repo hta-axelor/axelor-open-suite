@@ -19,11 +19,14 @@ package com.axelor.apps.project.service;
 
 import com.axelor.apps.base.service.TeamTaskServiceImpl;
 import com.axelor.apps.project.db.Project;
+import com.axelor.apps.project.db.ProjectStatus;
 import com.axelor.auth.db.User;
+import com.axelor.common.ObjectUtils;
 import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
-import java.time.LocalDate;
+import java.util.Optional;
+import java.util.Set;
 
 public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     implements TeamTaskProjectService {
@@ -38,20 +41,10 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     TeamTask task = new TeamTask();
     task.setName(subject);
     task.setAssignedTo(assignedTo);
-    task.setTaskDate(LocalDate.now());
     task.setStatus("new");
     task.setPriority("normal");
     project.addTeamTaskListItem(task);
     return task;
-  }
-
-  @Override
-  protected void setModuleFields(TeamTask teamTask, LocalDate date, TeamTask newTeamTask) {
-    super.setModuleFields(teamTask, date, newTeamTask);
-
-    // Module 'project' fields
-    newTeamTask.setProgressSelect(0);
-    newTeamTask.setTaskEndDate(date);
   }
 
   @Override
@@ -66,14 +59,23 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
 
     teamTask.getMembersUserSet().forEach(nextTeamTask::addMembersUserSetItem);
 
-    nextTeamTask.setTeam(teamTask.getTeam());
     nextTeamTask.setParentTask(teamTask.getParentTask());
     nextTeamTask.setProduct(teamTask.getProduct());
     nextTeamTask.setUnit(teamTask.getUnit());
     nextTeamTask.setQuantity(teamTask.getQuantity());
     nextTeamTask.setUnitPrice(teamTask.getUnitPrice());
-    nextTeamTask.setTaskEndDate(teamTask.getTaskEndDate());
     nextTeamTask.setBudgetedTime(teamTask.getBudgetedTime());
     nextTeamTask.setCurrency(teamTask.getCurrency());
+  }
+
+  @Override
+  public ProjectStatus getProjectStatus(Project project) {
+    Set<ProjectStatus> teamTaskStatusSet = project.getTeamTaskStatusSet();
+    if (ObjectUtils.isEmpty(teamTaskStatusSet)) {
+      return null;
+    }
+    Optional<ProjectStatus> projectStatus =
+        teamTaskStatusSet.stream().filter(status -> status.getIsDefaultCompleted()).findFirst();
+    return projectStatus.isPresent() ? projectStatus.get() : null;
   }
 }

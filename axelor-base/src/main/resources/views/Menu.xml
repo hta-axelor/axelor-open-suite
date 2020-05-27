@@ -772,7 +772,7 @@
 	  <view-param name="details-view" value="true"/>
 	  <domain>
 	    (self.assignedTo = :__user__ AND self.status NOT IN :closed_status) AND
-	    (self.taskDeadline &lt;= current_date OR self.taskDate &lt;= current_date)
+	    self.taskDeadline &lt;= current_date
 	  </domain>
 	  <context name="closed_status" expr="#{['closed', 'canceled']}"/>
 	</action-view>
@@ -782,8 +782,7 @@
 	  <view name="team-task-calendar" type="calendar"/>
 	  <view name="team-task-form" type="form"/>
 	  <view-param name="details-view" value="true"/>
-	  <domain>self.assignedTo = :__user__ AND self.status NOT IN :closed_status</domain>
-	  <context name="closed_status" expr="#{['closed', 'canceled']}"/>
+	  <domain>self.assignedTo = :__user__ AND self.taskStatus.isCompleted = false</domain>
 	</action-view>
 	
 	<action-view id="base.team.tasks.assigned" name="team.tasks.assigned" model="com.axelor.team.db.TeamTask" title="My tasks">
@@ -801,8 +800,7 @@
 	  <view name="team-task-calendar" type="calendar"/>
 	  <view name="team-task-form" type="form"/>
 	  <view-param name="details-view" value="true"/>
-	  <domain>self.createdBy = :__user__ AND self.status NOT IN :closed_status</domain>
-	  <context name="closed_status" expr="#{['closed', 'canceled']}"/>
+	  <domain>self.createdBy = :__user__ AND self.taskStatus.isCompleted = true</domain>
 	</action-view>
 
   <action-view name="team.tasks.all" model="com.axelor.team.db.TeamTask" title="All tasks">

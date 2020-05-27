@@ -22,7 +22,6 @@ import com.axelor.apps.project.db.TaskTemplate;
 import com.axelor.apps.sale.db.SaleOrderLine;
 import com.axelor.team.db.TeamTask;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface ProductTaskTemplateService {
@@ -41,7 +40,6 @@ public interface ProductTaskTemplateService {
       List<? extends TaskTemplate> templates,
       Project project,
       TeamTask parent,
-      LocalDateTime startDate,
       BigDecimal qty,
       SaleOrderLine saleOrderLine);
 }
