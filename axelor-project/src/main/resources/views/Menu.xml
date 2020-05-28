@@ -118,6 +118,12 @@
 		<context name="userId" expr="eval: __user__.id"/>
 	</action-view>
 	
+	<menuitem name="project-activity" title="Project Activities" parent="project-configurations" action="project.activity"/>
+	<action-view name="project.activity" title="Project Activity" model="com.axelor.apps.project.db.ProjectActivity">
+		<view type="grid" name="project-activity-grid" />
+		<view type="form" name="project-activity-form" />
+	</action-view>
+	
 	<menuitem name="team-task-project-status" parent="project-configurations" title="Project Status" action="team.task.project.status"/>
 	<action-view name="team.task.project.status" title="Project Status" model="com.axelor.apps.project.db.ProjectStatus">
 		<view type="grid" name="project-status-grid"/>

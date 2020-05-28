@@ -27,6 +27,9 @@ import com.axelor.apps.project.db.repo.ProjectTemplateManagementRepository;
 import com.axelor.apps.project.db.repo.ProjectTemplateRepository;
 import com.axelor.apps.project.db.repo.ResourceBookingRepository;
 import com.axelor.apps.project.db.repo.TeamTaskProjectRepository;
+import com.axelor.apps.project.event.ProjectActivityEvent;
+import com.axelor.apps.project.service.ProjectActivityService;
+import com.axelor.apps.project.service.ProjectActivityServiceImpl;
 import com.axelor.apps.project.service.ProjectService;
 import com.axelor.apps.project.service.ProjectServiceImpl;
 import com.axelor.apps.project.service.TeamTaskProjectService;
@@ -49,5 +52,7 @@ public class ProjectModule extends AxelorModule {
     bind(TeamTaskServiceImpl.class).to(TeamTaskProjectServiceImpl.class);
     bind(TimerTeamTaskService.class).to(TimerTeamTaskServiceImpl.class);
     bind(AbstractResourceBookingRepository.class).to(ResourceBookingRepository.class);
+    bind(ProjectActivityService.class).to(ProjectActivityServiceImpl.class);
+    bind(ProjectActivityEvent.class);
   }
 }
