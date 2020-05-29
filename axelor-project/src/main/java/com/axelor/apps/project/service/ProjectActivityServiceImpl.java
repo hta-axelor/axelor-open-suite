@@ -19,8 +19,11 @@ package com.axelor.apps.project.service;
 
 import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.ProjectActivity;
+import com.axelor.apps.project.db.Topic;
+import com.axelor.apps.project.db.Wiki;
 import com.axelor.apps.project.db.repo.ProjectActivityRepository;
 import com.axelor.auth.AuthUtils;
+import com.axelor.team.db.TeamTask;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import java.time.LocalDateTime;
@@ -35,14 +38,46 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   }
 
   // TODO: Have to add activity
+  // Have to add functionality for create,delete
   @Transactional
   @Override
   public ProjectActivity getProjectActivity(Project project) {
+    ProjectActivity projectActivity = getDefaultActivity(project);
+    projectActivity.setObjectUpdated("Project");
+    projectActivity.setRecordTitle(project.getName());
+    return projectActivityRepo.save(projectActivity);
+  }
+
+  @Transactional
+  @Override
+  public ProjectActivity getProjectActivity(TeamTask task) {
+    ProjectActivity projectActivity = getDefaultActivity(task.getProject());
+    projectActivity.setObjectUpdated("Task");
+    projectActivity.setRecordTitle(task.getName());
+    return projectActivityRepo.save(projectActivity);
+  }
+
+  @Override
+  public ProjectActivity getProjectActivity(Wiki wiki) {
+    ProjectActivity projectActivity = getDefaultActivity(wiki.getProject());
+    projectActivity.setObjectUpdated("Wiki");
+    projectActivity.setRecordTitle(wiki.getTitle());
+    return projectActivityRepo.save(projectActivity);
+  }
+
+  @Override
+  public ProjectActivity getProjectActivity(Topic topic) {
+    ProjectActivity projectActivity = getDefaultActivity(topic.getProject());
+    projectActivity.setObjectUpdated("Topic");
+    projectActivity.setRecordTitle(topic.getTitle());
+    return projectActivityRepo.save(projectActivity);
+  }
+
+  private ProjectActivity getDefaultActivity(Project project) {
     ProjectActivity projectActivity = new ProjectActivity();
     projectActivity.setProject(project);
-    projectActivity.setObjectUpdated(project.getName());
     projectActivity.setUser(AuthUtils.getUser());
     projectActivity.setDoneOn(LocalDateTime.now());
-    return projectActivityRepo.save(projectActivity);
+    return projectActivity;
   }
 }

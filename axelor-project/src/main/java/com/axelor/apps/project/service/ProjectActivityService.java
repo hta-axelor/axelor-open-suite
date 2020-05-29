@@ -19,7 +19,16 @@ package com.axelor.apps.project.service;
 
 import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.ProjectActivity;
+import com.axelor.apps.project.db.Topic;
+import com.axelor.apps.project.db.Wiki;
+import com.axelor.team.db.TeamTask;
 
 public interface ProjectActivityService {
   public ProjectActivity getProjectActivity(Project project);
+
+  public ProjectActivity getProjectActivity(TeamTask task);
+
+  public ProjectActivity getProjectActivity(Wiki wiki);
+
+  public ProjectActivity getProjectActivity(Topic topic);
 }
