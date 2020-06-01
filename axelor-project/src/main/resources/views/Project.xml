@@ -339,7 +339,9 @@
 					<field name="isShowCalendarPerStatus" colSpan="4" widget="inline-checkbox"/>
 					<field name="isShowCalendarPerUser" colSpan="4" widget="inline-checkbox"/>
 				</panel>	
-					
+				<panel title="Custom fields" name="customFieldConfigPanel" colSpan="12">
+					<panel-related field="taskCustomFields" colSpan="12" showIf="id" form-view="project-task-meta-json-field-form" grid-view="project-meta-json-field-grid"/>
+				</panel>	
 			</panel>
 			<panel title="Contracts" name="contractPanel" if="__config__.app.isApp('business-project')" if-module="axelor-business-project">
 				<button name="createNewCustomerContract" title="Create new customer contract" colSpan="6" onClick="save,action-project-view-create-new-customer-contract"/>
@@ -350,7 +352,7 @@
 			</panel>
 		</panel-tabs>
 		<panel name="attrsPanel">
-			<field name="attrs" colSpan="12" hidden="true" />
+			<field name="attrs" colSpan="12"/>
 		</panel>
 		<panel name="actionsPanel"  colSpan="2" sidebar="true">
 			<button name="finishBtn" title="Finish"	colSpan="12" icon="fa-check" onClick="action-project-record-change-status,save" />
