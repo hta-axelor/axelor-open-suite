@@ -15,12 +15,11 @@
 		<field name="required"/>
 		<field name="isDisplayedInList"/>
 	    <field name="scale" showIf="$typeSelect == 'decimal'"/>
-	    <field name="selection" showIf="['select','multiselect'].includes($typeSelect)" onChange="action-record-project-json-field-set-selection-ref,save" widget="ref-text" x-target-name="name" x-target="com.axelor.meta.db.MetaSelect"/>
+	    <field name="selectionRef" showIf="['select','multiselect'].includes($typeSelect)" onChange="action-record-project-json-field-set-selection"/>
 		<panel-related readonly="false" field="selectionRef.items" showIf="['select','multiselect'].includes($typeSelect)" form-view="project-meta-select-item-form" colSpan="12">
 			<field name="title"/>
 			<field name="color"/>
 		</panel-related>			   
-	    <field name="selectionRef" hidden="true"/>
 	  </panel>		
 	</form>
 	
@@ -51,14 +50,13 @@
 		<field name="type" expr="eval:['select','multiselect'].contains(typeSelect)?'string':typeSelect"/>
 	</action-record>
 	
+	<action-record name="action-record-project-json-field-set-selection" model="com.axelor.meta.db.MetaJsonField">
+	    <field name="selection" expr="eval: selectionRef.name"/>
+	</action-record>
+	
 	<action-attrs name="action-attrs-project-json-field-set-type-select">
 		<attribute name="value" for="typeSelect" expr="eval:selection?(widget=='MultiSelect'?'multiselect':'select'):type"/>
 	</action-attrs>
-	
-	<action-record name="action-record-project-json-field-set-selection-ref" model="com.axelor.meta.db.MetaJsonField">
-		<field name="selectionRef" expr="eval:__repo__(MetaSelect).findByName(selection)"/>
-		<field name="selectionRef.items" expr="eval:selectionRef.items"/>
-	</action-record>
 				
 	<action-method name="action-method-project-json-field-on-new-task">
 		<call class="com.axelor.apps.project.web.MetaJsonFieldProjectController" method="onNew"/>
