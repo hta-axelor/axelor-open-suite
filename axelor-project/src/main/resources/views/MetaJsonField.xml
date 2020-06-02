@@ -18,6 +18,7 @@
 	    <field name="selection" showIf="['select','multiselect'].includes($typeSelect)" onChange="action-record-project-json-field-set-selection-ref,save" widget="ref-text" x-target-name="name" x-target="com.axelor.meta.db.MetaSelect"/>
 		<panel-related readonly="false" field="selectionRef.items" showIf="['select','multiselect'].includes($typeSelect)" form-view="project-meta-select-item-form" colSpan="12">
 			<field name="title"/>
+			<field name="color"/>
 		</panel-related>			   
 	    <field name="selectionRef" hidden="true"/>
 	  </panel>		
