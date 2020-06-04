@@ -45,7 +45,6 @@ import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -230,14 +229,6 @@ public class TeamTaskBusinessProjectServiceImpl extends TeamTaskProjectServiceIm
         };
 
     return invoiceLineGenerator.creates();
-  }
-
-  @Override
-  protected void setModuleFields(TeamTask teamTask, LocalDate date, TeamTask newTeamTask) {
-    super.setModuleFields(teamTask, date, newTeamTask);
-
-    // Module 'business project' fields
-    // none
   }
 
   @Override

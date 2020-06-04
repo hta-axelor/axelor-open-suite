@@ -94,6 +94,7 @@ public class TeamTaskServiceImpl implements TeamTaskService {
     nextTeamTask.setTeam(teamTask.getTeam());
     nextTeamTask.setPriority(teamTask.getPriority());
     nextTeamTask.setStatus(teamTask.getStatus());
+    nextTeamTask.setTaskDuration(teamTask.getTaskDuration());
     nextTeamTask.setAssignedTo(teamTask.getAssignedTo());
     nextTeamTask.setDescription(teamTask.getDescription());
   }

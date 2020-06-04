@@ -6,7 +6,7 @@
   <grid name="team-task-grid" id="base-team-task-grid" title="Tasks" model="com.axelor.team.db.TeamTask">
     <field name="name"/>
     <field name="team"/>
-    <field name="taskDate" hidden="true"/>
+    <field name="taskDate"/>
     <field name="status"/>
     <field name="priority"/>
   </grid>
@@ -21,9 +21,9 @@
       <field name="team"/>
       <field name="priority"/>
       <field name="status"/>
-      <field name="taskDate" onChange="action-team-task-record-set-date-or-frequency-changed" hidden="true"/>
+      <field name="taskDate" onChange="action-team-task-record-set-date-or-frequency-changed"/>
       <field name="taskDeadline"/>
-      <field name="taskDuration" hidden="true"/>
+      <field name="taskDuration"/>
       <field name="assignedTo"/>
       <field name="description" colSpan="12"/>
 
@@ -47,6 +47,7 @@
   </form>
 
   <action-group name="action-team-task-group-onnew">
+    <action name="team.task.on-new"/>
     <action name="action-team-task-record-set-default"/>
   </action-group>
 
