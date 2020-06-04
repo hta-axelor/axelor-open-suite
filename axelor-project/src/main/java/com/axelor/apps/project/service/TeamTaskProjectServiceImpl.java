@@ -27,6 +27,7 @@ import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
 import java.util.Optional;
 import java.util.Set;
+import java.time.LocalDate;
 
 public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     implements TeamTaskProjectService {
@@ -41,10 +42,19 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     TeamTask task = new TeamTask();
     task.setName(subject);
     task.setAssignedTo(assignedTo);
+    task.setTaskDate(LocalDate.now());
     task.setStatus("new");
     task.setPriority("normal");
     project.addTeamTaskListItem(task);
     return task;
+  }
+
+  @Override
+  protected void setModuleFields(TeamTask teamTask, LocalDate date, TeamTask newTeamTask) {
+    super.setModuleFields(teamTask, date, newTeamTask);
+
+    // Module 'project' fields
+    newTeamTask.setProgressSelect(0);
   }
 
   @Override

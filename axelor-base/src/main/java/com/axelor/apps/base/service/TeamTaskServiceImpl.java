@@ -17,10 +17,15 @@
  */
 package com.axelor.apps.base.service;
 
+import com.axelor.apps.base.db.Frequency;
+import com.axelor.apps.base.db.repo.FrequencyRepository;
+import com.axelor.apps.base.service.app.AppBaseService;
+import com.axelor.inject.Beans;
 import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +36,45 @@ public class TeamTaskServiceImpl implements TeamTaskService {
   @Inject
   public TeamTaskServiceImpl(TeamTaskRepository teamTaskRepo) {
     this.teamTaskRepo = teamTaskRepo;
+  }
+
+  @Override
+  @Transactional
+  public void generateTasks(TeamTask teamTask, Frequency frequency) {
+    List<LocalDate> taskDates =
+        Beans.get(FrequencyService.class)
+            .getDates(frequency, teamTask.getTaskDate(), frequency.getEndDate());
+
+    taskDates.removeIf(date -> date.equals(teamTask.getTaskDate()));
+
+    // limit how many TeamTask will be generated at once
+    Integer limitNumberTasksGenerated =
+        Beans.get(AppBaseService.class).getAppBase().getLimitNumberTasksGenerated();
+    if (taskDates.size() > limitNumberTasksGenerated) {
+      taskDates = taskDates.subList(0, limitNumberTasksGenerated);
+    }
+
+    TeamTask lastTask = teamTask;
+    for (LocalDate date : taskDates) {
+      TeamTask newTeamTask = teamTaskRepo.copy(teamTask, false);
+      setModuleFields(teamTask, date, newTeamTask);
+      teamTaskRepo.save(newTeamTask);
+
+      lastTask.setNextTeamTask(newTeamTask);
+      teamTaskRepo.save(lastTask);
+      lastTask = newTeamTask;
+    }
+  }
+
+  protected void setModuleFields(TeamTask teamTask, LocalDate date, TeamTask newTeamTask) {
+    newTeamTask.setIsFirst(false);
+    newTeamTask.setHasDateOrFrequencyChanged(false);
+    newTeamTask.setDoApplyToAllNextTasks(false);
+    newTeamTask.setFrequency(
+        Beans.get(FrequencyRepository.class).copy(teamTask.getFrequency(), false));
+    newTeamTask.setTaskDate(date);
+    newTeamTask.setTaskDeadline(date);
+    newTeamTask.setNextTeamTask(null);
   }
 
   @Override
