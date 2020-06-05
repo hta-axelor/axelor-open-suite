@@ -42,7 +42,6 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     TeamTask task = new TeamTask();
     task.setName(subject);
     task.setAssignedTo(assignedTo);
-    task.setTaskDate(LocalDate.now());
     task.setStatus("new");
     task.setPriority("normal");
     project.addTeamTaskListItem(task);
