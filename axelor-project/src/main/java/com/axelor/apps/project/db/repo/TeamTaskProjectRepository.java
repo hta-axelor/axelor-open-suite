@@ -17,8 +17,11 @@
  */
 package com.axelor.apps.project.db.repo;
 
+import com.axelor.apps.base.db.Frequency;
 import com.axelor.apps.base.db.repo.TeamTaskBaseRepository;
+import com.axelor.apps.base.service.TeamTaskService;
 import com.axelor.team.db.TeamTask;
+import com.google.inject.Inject;
 import java.lang.invoke.MethodHandles;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -31,6 +34,8 @@ public class TeamTaskProjectRepository extends TeamTaskBaseRepository {
 
   private final Logger logger = LoggerFactory.getLogger(MethodHandles.lookup().lookupClass());
 
+  @Inject protected TeamTaskService teamTaskService;
+
   @Override
   public TeamTask save(TeamTask teamTask) {
     List<String> composedNames = new ArrayList<>();
@@ -39,7 +44,29 @@ public class TeamTaskProjectRepository extends TeamTaskBaseRepository {
     }
     composedNames.add(teamTask.getName());
     teamTask.setFullName(String.join(" ", composedNames));
-    return super.save(teamTask);
+
+    if (teamTask.getDoApplyToAllNextTasks()
+        && teamTask.getNextTeamTask() != null
+        && teamTask.getHasDateOrFrequencyChanged()) {
+      // remove next tasks
+      teamTaskService.removeNextTasks(teamTask);
+
+      // regenerate new tasks
+      teamTask.setIsFirst(true);
+    }
+
+    Frequency frequency = teamTask.getFrequency();
+    if (frequency != null && teamTask.getIsFirst() && teamTask.getNextTeamTask() == null) {
+      teamTaskService.generateTasks(teamTask, frequency);
+    }
+
+    if (teamTask.getDoApplyToAllNextTasks()) {
+      teamTaskService.updateNextTask(teamTask);
+    }
+
+    teamTask.setDoApplyToAllNextTasks(false);
+    teamTask.setHasDateOrFrequencyChanged(false);
+    return teamTask;
   }
 
   @Override
