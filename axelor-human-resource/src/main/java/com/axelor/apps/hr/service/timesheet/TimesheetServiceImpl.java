@@ -720,10 +720,12 @@ public class TimesheetServiceImpl extends JpaSupport implements TimesheetService
                         BigDecimal timeSpent =
                             projectTimeSpentMap
                                 .get(updateProject)
-                                .add(this.computeTimeSpent(project));
+                                .add(this.computeSubTimeSpent(updateProject));
                         updateProject.setTimeSpent(timeSpent);
 
                         projectRepo.save(updateProject);
+
+                        this.computeParentTimeSpent(updateProject);
                       });
                   done = true;
                 } catch (PersistenceException e) {
@@ -761,6 +763,31 @@ public class TimesheetServiceImpl extends JpaSupport implements TimesheetService
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
+  }
+
+  @Override
+  public BigDecimal computeSubTimeSpent(Project project) {
+    BigDecimal sum = BigDecimal.ZERO;
+    List<Project> subProjectList =
+        projectRepo.all().filter("self.parentProject = ?1", project).fetch();
+    if (subProjectList == null || subProjectList.isEmpty()) {
+      return this.computeTimeSpent(project);
+    }
+    for (Project projectIt : subProjectList) {
+      sum = sum.add(this.computeSubTimeSpent(projectIt));
+    }
+    return sum;
+  }
+
+  @Override
+  public void computeParentTimeSpent(Project project) {
+    Project parentProject = project.getParentProject();
+    if (parentProject == null) {
+      return;
+    }
+    parentProject.setTimeSpent(project.getTimeSpent().add(this.computeTimeSpent(parentProject)));
+    projectRepo.save(parentProject);
+    this.computeParentTimeSpent(parentProject);
   }
 
   @Override

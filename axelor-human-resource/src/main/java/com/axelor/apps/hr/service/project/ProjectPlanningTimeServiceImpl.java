@@ -97,7 +97,7 @@ public class ProjectPlanningTimeServiceImpl implements ProjectPlanningTimeServic
     BigDecimal totalPlanned = BigDecimal.ZERO;
     if (project != null) {
       List<ProjectPlanningTime> plannings =
-          planningTimeRepo.all().filter("self.project = ?1", project, true).fetch();
+          planningTimeRepo.all().filter("self.project = ?1", project).fetch();
       if (plannings != null) {
         totalPlanned =
             plannings.stream()

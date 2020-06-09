@@ -46,6 +46,7 @@ import com.axelor.apps.hr.db.repo.TimesheetLineRepository;
 import com.axelor.apps.hr.service.expense.ExpenseService;
 import com.axelor.apps.hr.service.timesheet.TimesheetService;
 import com.axelor.apps.project.db.Project;
+import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.apps.project.service.ProjectServiceImpl;
 import com.axelor.apps.purchase.db.PurchaseOrderLine;
 import com.axelor.apps.purchase.db.repo.PurchaseOrderLineRepository;
@@ -124,7 +125,7 @@ public class InvoicingProjectService {
     if (customerContact == null && customer.getContactPartnerSet().size() == 1) {
       customerContact = customer.getContactPartnerSet().iterator().next();
     }
-    Company company = project.getCompany();
+    Company company = this.getRootCompany(project);
     if (company == null) {
       throw new AxelorException(
           invoicingProject,
@@ -314,6 +315,15 @@ public class InvoicingProjectService {
     counter++;
 
     this.fillLines(invoicingProject, project);
+
+    List<Project> projectChildrenList =
+        Beans.get(ProjectRepository.class).all().filter("self.parentProject = ?1", project).fetch();
+
+    for (Project projectChild : projectChildrenList) {
+      this.setLines(invoicingProject, projectChild, counter);
+    }
+
+    return;
   }
 
   public void fillLines(InvoicingProject invoicingProject, Project project) {
@@ -427,6 +437,14 @@ public class InvoicingProjectService {
     invoicingProject.setTeamTaskSet(new HashSet<TeamTask>());
   }
 
+  public Company getRootCompany(Project project) {
+    if (project.getParentProject() == null) {
+      return project.getCompany();
+    } else {
+      return getRootCompany(project.getParentProject());
+    }
+  }
+
   public int countToInvoice(Project project) {
 
     int toInvoiceCount = 0;
@@ -480,7 +498,7 @@ public class InvoicingProjectService {
   }
 
   @Transactional(rollbackOn = {AxelorException.class, Exception.class})
-  public InvoicingProject generateInvoicingProject(Project project, int consolidatePhaseSelect) {
+  public InvoicingProject generateInvoicingProject(Project project) {
     if (project == null) {
       return null;
     }

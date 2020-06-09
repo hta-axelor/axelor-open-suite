@@ -111,6 +111,7 @@ public class ProjectGeneratorFactoryTaskTemplate implements ProjectGeneratorFact
               > 0;
       if (root == null) {
         root = teamTaskService.create(saleOrder.getFullName(), project, project.getAssignedTo());
+        root.setTaskDate(startDate.toLocalDate());
         tasks.add(teamTaskRepository.save(root));
       }
       if (product != null && !isTaskGenerated) {
@@ -122,6 +123,7 @@ public class ProjectGeneratorFactoryTaskTemplate implements ProjectGeneratorFact
                       .collect(Collectors.toList()),
                   project,
                   root,
+                  startDate,
                   orderLine.getQty(),
                   orderLine);
           convertedTasks.stream().forEach(task -> task.setSaleOrderLine(orderLine));

@@ -26,15 +26,18 @@ import com.axelor.apps.project.db.TaskTemplate;
 import com.axelor.apps.project.db.Wiki;
 import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.apps.project.db.repo.WikiRepository;
+import com.axelor.apps.project.exception.IExceptionMessage;
 import com.axelor.apps.project.translation.ITranslation;
 import com.axelor.auth.AuthUtils;
 import com.axelor.auth.db.User;
+import com.axelor.common.ObjectUtils;
 import com.axelor.db.JPA;
 import com.axelor.exception.AxelorException;
 import com.axelor.exception.db.repo.TraceBackRepository;
 import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
 import com.axelor.meta.schema.actions.ActionView;
+import com.axelor.meta.schema.actions.ActionView.ActionViewBuilder;
 import com.axelor.team.db.TeamTask;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -64,13 +67,21 @@ public class ProjectServiceImpl implements ProjectService {
 
   @Override
   public Project generateProject(
-      String fullName, User assignedTo, Company company, Partner clientPartner) {
+      Project parentProject,
+      String fullName,
+      User assignedTo,
+      Company company,
+      Partner clientPartner) {
     Project project;
     project = projectRepository.findByName(fullName);
     if (project != null) {
       return project;
     }
     project = new Project();
+    project.setParentProject(parentProject);
+    if (parentProject != null) {
+      parentProject.addChildProjectListItem(project);
+    }
     if (Strings.isNullOrEmpty(fullName)) {
       fullName = "project";
     }
@@ -88,7 +99,8 @@ public class ProjectServiceImpl implements ProjectService {
     User user = AuthUtils.getUser();
     Project project =
         Beans.get(ProjectService.class)
-            .generateProject(getUniqueProjectName(partner), user, user.getActiveCompany(), partner);
+            .generateProject(
+                null, getUniqueProjectName(partner), user, user.getActiveCompany(), partner);
     return projectRepository.save(project);
   }
 
@@ -108,6 +120,32 @@ public class ProjectServiceImpl implements ProjectService {
     } while (projectRepository.findByName(name) != null);
 
     return name;
+  }
+
+  @Override
+  public Partner getClientPartnerFromProject(Project project) throws AxelorException {
+    return this.getClientPartnerFromProject(project, 0);
+  }
+
+  private Partner getClientPartnerFromProject(Project project, int counter) throws AxelorException {
+    if (project.getParentProject() == null) {
+      // it is a root project, can get the client partner
+      if (project.getClientPartner() == null) {
+        throw new AxelorException(
+            TraceBackRepository.CATEGORY_CONFIGURATION_ERROR,
+            I18n.get(IExceptionMessage.PROJECT_CUSTOMER_PARTNER));
+      } else {
+        return project.getClientPartner();
+      }
+    } else {
+      if (counter > MAX_LEVEL_OF_PROJECT) {
+        throw new AxelorException(
+            TraceBackRepository.CATEGORY_CONFIGURATION_ERROR,
+            I18n.get(IExceptionMessage.PROJECT_DEEP_LIMIT_REACH));
+      } else {
+        return this.getClientPartnerFromProject(project.getParentProject(), counter + 1);
+      }
+    }
   }
 
   @Override
@@ -187,16 +225,23 @@ public class ProjectServiceImpl implements ProjectService {
   }
 
   @Override
-  public Map<String, Object> getTaskView(String title, String domain, Project project) {
-    return ActionView.define(I18n.get(title))
-        .model(TeamTask.class.getName())
-        .add("grid", "team-task-grid")
-        .add("calendar", "team-task-calendar")
-        .add("form", "team-task-form")
-        .domain(domain)
-        .param("details-view", "true")
-        .context("_project", project)
-        .map();
+  public Map<String, Object> getTaskView(String title, String domain, Map<String, Object> context) {
+    ActionViewBuilder builder =
+        ActionView.define(I18n.get(title))
+            .model(TeamTask.class.getName())
+            .add("grid", "team-task-grid")
+            .add("calendar", "team-task-calendar")
+            .add("form", "team-task-form")
+            .domain(domain)
+            .param("details-view", "true");
+
+    if (ObjectUtils.notEmpty(context)) {
+      context.forEach(
+          (key, value) -> {
+            builder.context(key, value);
+          });
+    }
+    return builder.map();
   }
 
   @Override

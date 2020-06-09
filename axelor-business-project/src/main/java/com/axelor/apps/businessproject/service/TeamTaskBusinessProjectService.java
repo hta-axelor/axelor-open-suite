@@ -29,13 +29,14 @@ import com.axelor.exception.AxelorException;
 import com.axelor.team.db.TeamTask;
 import com.google.inject.persist.Transactional;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TeamTaskBusinessProjectService extends TeamTaskProjectService {
 
   TeamTask create(SaleOrderLine saleOrderLine, Project project, User assignedTo);
 
-  TeamTask create(TaskTemplate template, Project project, BigDecimal qty);
+  TeamTask create(TaskTemplate template, Project project, LocalDateTime date, BigDecimal qty);
 
   TeamTask updateDiscount(TeamTask teamTask);
 

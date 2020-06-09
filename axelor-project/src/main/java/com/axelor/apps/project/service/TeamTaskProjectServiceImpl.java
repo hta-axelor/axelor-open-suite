@@ -25,9 +25,9 @@ import com.axelor.common.ObjectUtils;
 import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
+import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
-import java.time.LocalDate;
 
 public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     implements TeamTaskProjectService {
@@ -55,6 +55,7 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
 
     // Module 'project' fields
     newTeamTask.setProgressSelect(0);
+    newTeamTask.setTaskEndDate(date);
   }
 
   @Override
@@ -74,6 +75,7 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     nextTeamTask.setUnit(teamTask.getUnit());
     nextTeamTask.setQuantity(teamTask.getQuantity());
     nextTeamTask.setUnitPrice(teamTask.getUnitPrice());
+    nextTeamTask.setTaskEndDate(teamTask.getTaskEndDate());
     nextTeamTask.setBudgetedTime(teamTask.getBudgetedTime());
     nextTeamTask.setCurrency(teamTask.getCurrency());
   }

@@ -3,10 +3,10 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
               
-    <grid model="com.axelor.team.db.TeamTask" title="Tasks" name="business-project-team-task-grid">
+    <grid model="com.axelor.team.db.TeamTask" title="Tasks" name="business-project-team-task-grid" orderBy="-taskDate">
     	<field name="project"/>
     	<field name="name"/>
-    	<field name="taskDate" hidden="true"/>
+    	<field name="taskDate"/>
     	<field name="status"/>
     	<field name="progressSelect" widget="SelectProgress"/>
     	<field name="exTaxTotal"/>

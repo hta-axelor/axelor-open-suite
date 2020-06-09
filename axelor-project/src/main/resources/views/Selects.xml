@@ -34,10 +34,6 @@
 		<option value="1">Project</option>
 		<option value="2">Project phase</option>
 	</selection>
-
-	<selection name="sequence.generic.code.select" id="project.sequence.generic.code.select">
-		<option value="project">Project</option>
-	</selection>
 	
 	<selection name="project.json.field.type">
 		<option value="string">String</option>
@@ -46,6 +42,13 @@
 		<option value="date">Date</option>
 		<option value="select">Select</option>
 		<option value="multiselect">MultiSelect</option>
+	</selection>
+	
+	<selection name="project.priority.technical.type.select">
+		<option value="low">Low</option>
+		<option value="normal">Normal</option>
+		<option value="high">High</option>
+		<option value="urgent">Urgent</option>
 	</selection>
 
 </object-views>

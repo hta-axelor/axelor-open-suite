@@ -27,7 +27,14 @@ import java.math.BigDecimal;
 import java.util.Map;
 
 public interface ProjectService {
-  Project generateProject(String fullName, User assignedTo, Company company, Partner clientPartner);
+  Project generateProject(
+      Project parentProject,
+      String fullName,
+      User assignedTo,
+      Company company,
+      Partner clientPartner);
+
+  Partner getClientPartnerFromProject(Project project) throws AxelorException;
 
   BigDecimal computeDurationFromChildren(Long projectId);
 
@@ -46,5 +53,5 @@ public interface ProjectService {
   public Map<String, Object> createProjectFromTemplateView(ProjectTemplate projectTemplate)
       throws AxelorException;
 
-  public Map<String, Object> getTaskView(String title, String domain, Project project);
+  public Map<String, Object> getTaskView(String title, String domain, Map<String, Object> context);
 }

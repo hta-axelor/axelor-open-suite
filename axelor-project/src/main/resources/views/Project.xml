@@ -14,6 +14,7 @@
 		</menubar>
 		<field name="code"/>
 		<field name="name"/>
+		<field name="parentProject"/>
 		<field name="clientPartner"/>
 		<field name="assignedTo"/>
 		<field name="fromDate" />
@@ -315,6 +316,7 @@
 					grid-view="product-activity-grid" />
 				<field name="projectFolderSet" colSpan="12" widget="TagSelect" if="__config__.app.isApp('business-project')" if-module="axelor-business-project"/>
 				<field name="excludeTimesheetEditor" if-module="axelor-human-resource"/>
+				<field name="childProjectList" hidden="true" />
 				<field name="sequence" hidden="true" />
 				<field name="excludePlanning" if-module="axelor-business-project"/>
 				<field name="imputable" colSpan="4" widget="boolean-switch"
@@ -365,6 +367,11 @@
 				<field if="__config__.app.isApp('business-project')" if-module="axelor-business-project"
           name="$toInvoiceCounter" showTitle="false" hidden="true" colSpan="6" />
 			</panel>
+			<panel name="projectPanel" colSpan="12">
+				<field name="parentProject" canEdit="false"
+					form-view="project-form" grid-view="project-grid"
+					onSelect="action-project-attrs-set-parent-project-domain"/>
+			</panel>
 		</panel>
 		<panel name="followUpPanel" colSpan="12" title="Follow-up" sidebar="true" canCollapse="true">
 			<field name="assignedTo" title="Person In Charge" canNew="false"
@@ -405,9 +412,6 @@
 		<field name="dueDate"/>
 		<field name="projectStatus"/>
 		<field name="sequence"/>
-		<hilite color="danger" if="dueDate.isAfter(__datetime__) &amp;&amp; project.isCompleted = false"/>
-		<hilite color="success" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; project.isCompleted = false"/>
-		<hilite color="warning" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; project.isCompleted = false"/>
 		<template>
 		&lt;h4&gt;{{fullName}}&lt;/h4&gt;
 		&lt;div class="card-body"&gt;{{description}}&lt;/div&gt;
@@ -424,9 +428,6 @@
 		<field name="dueDate"/>
 		<field name="projectStatus"/>
 		<field name="sequence"/>
-		<hilite color="danger" if="dueDate.isAfter(__datetime__) &amp;&amp; project.isCompleted = false"/>
-		<hilite color="success" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; project.isCompleted = false"/>
-		<hilite color="warning" if="(dueDate.isBefore(__datetime__) || dueDate.equals(__datetime__)) &amp;&amp; project.isCompleted = false"/>
 		<template>
 		&lt;h4&gt;{{fullName}}&lt;/h4&gt;
 		&lt;div class="card-body"&gt;{{description}}&lt;/div&gt;
@@ -447,18 +448,21 @@
 	<tree name="project-task-tree" title="Tasks">
     	
     	<column name="name" type="string"/>
+    	<column name="taskDate" type="date"/>
     	<column name="assignedTo" type="reference"/>
 		<column name="openTask" type="button"/>
 
-		<node model="com.axelor.team.db.TeamTask" domain="self.project.id = :_id" onClick="action-team-task-view-task">
+		<node model="com.axelor.team.db.TeamTask" domain="self.project.id = :_id" onClick="action-team-task-view-task" orderBy="taskDate">
 			<field name="name" as="name"/>
+			<field name="taskDate" as="taskDate"/>
 			<field name="assignedTo" as="assignedTo"/>
 			<field name="progressSelect" as="progress"/>
 			<button name="openTaskBtn" title="Open task" onClick="action-team-task-open-task"/>
 		</node>
 
-		<node model="com.axelor.team.db.TeamTask" parent="parentTask" draggable="true" onClick="action-team-task-view-task">
+		<node model="com.axelor.team.db.TeamTask" parent="parentTask" draggable="true" onClick="action-team-task-view-task" orderBy="taskDate">
 			<field name="name" as="name"/>
+			<field name="taskDate" as="taskDate"/>
 			<field name="assignedTo" as="assignedTo"/>
 			<field name="progressSelect" as="progress"/>
 			<button name="openTaskBtn" title="Open task" onClick="action-team-task-open-task"/>
@@ -520,6 +524,7 @@
 		<attribute name="value" for="assignedTo" expr="eval: __user__"/>
 		<attribute name="value:add" for="membersUserSet" expr="eval: __user__"/>
 		<attribute name="value" for="isBusinessProject" expr="eval:_fromBusinessProject"/>
+		<attribute name="value" for="parentProject" expr="eval:__repo__(Project).find(_parentProjectId)" if="_parentProjectId != null" />
 	</action-attrs>
 
 	<action-attrs name="action-attrs-project-add-member" model="com.axelor.apps.project.db.Project">
@@ -528,6 +533,10 @@
 	
 	<action-attrs name="action-attrs-project-set-project-type" model="com.axelor.apps.project.db.Project">
 		<attribute name="readonly" for="isBusinessProject" expr="eval:_fromBusinessProject"/>
+	</action-attrs>
+	
+	<action-attrs name="action-project-attrs-set-parent-project-domain" model="com.axelor.apps.project.db.Project">
+		<attribute name="domain" for="parentProject" expr="eval:&quot;self.id != :id&quot;" if="id != null"/>
 	</action-attrs>
 	
 	<action-view name="action-project-task-view" title="Tasks" model="com.axelor.team.db.TeamTask">
@@ -542,20 +551,20 @@
 	<action-view name="action-project-view-show-project" title="Related Projects" model="com.axelor.apps.project.db.Project">
 		<view type="grid" name="project-grid" />
 		<view type="form" name="project-form" />
-		<domain>self.typeSelect = 'project' AND self.project.id = :id</domain>
+		<domain>self.project.id = :id</domain>
 	</action-view>
 	
 	<action-view name="action-project-view-show-task" title="Tasks" model="com.axelor.apps.project.db.Project">
 		<view type="grid" name="team-task-grid" />
 		<view type="form" name="team-task-form" />
-		<domain>self.typeSelect = 'task' AND self.project.id = :id</domain>
+		<domain>self.project.id = :id</domain>
 	</action-view>
 	
 	<action-view name="action-project-view-show-related-tasks" title="Related tasks" model="com.axelor.team.db.TeamTask">
 		<view type="kanban" name="team-task-kanban"/>
 		<view type="grid" name="team-task-grid"/>
 		<view type="form" name="team-task-form"/>
-		<domain>self.project.id = :_id</domain>
+		<domain>(self.project.id = :_id OR self.project.parentProject.id = :_id)</domain>
 	</action-view>
 	
 	<action-view name="action-project-view-create-team" model="com.axelor.team.db.Team" title="Team">
@@ -573,7 +582,7 @@
 		<view type="gantt" name="task-gantt" />
 		<view type="grid" name="team-task-grid" />
 		<view type="form" name="team-task-form" />
-		<domain>self.project.id = :_id</domain>
+		<domain>self.project.id = :_id OR self.project.parentProject.id = :_id</domain>
 		<context name="_project" expr="eval:__this__"/>
 	</action-view>
 	
@@ -625,7 +634,7 @@
 		<view type="gantt" name="project-task-gantt" />
 		<view type="grid" name="team-task-grid" />
 		<view type="form" name="team-task-form" />
-		<domain>self.project.id IN (:_projectIds)</domain>
+		<domain>self.project.id IN (:_projectIds) OR self.project.parentProject.id IN (:_projectIds)</domain>
 		<context name="_projectIds" expr="eval: projectSet.collect{it.id}"/>
 	</action-view>
 	

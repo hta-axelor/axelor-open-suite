@@ -87,6 +87,7 @@ public class ProjectGeneratorFactoryPhase implements ProjectGeneratorFactory {
                   .collect(Collectors.toList()),
               phase,
               null,
+              startDate,
               saleOrderLine.getQty(),
               saleOrderLine);
         }

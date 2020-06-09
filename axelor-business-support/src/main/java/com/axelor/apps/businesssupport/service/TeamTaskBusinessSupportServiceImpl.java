@@ -27,6 +27,7 @@ import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class TeamTaskBusinessSupportServiceImpl extends TeamTaskBusinessProjectServiceImpl {
 
@@ -57,9 +58,10 @@ public class TeamTaskBusinessSupportServiceImpl extends TeamTaskBusinessProjectS
   }
 
   @Override
-  public TeamTask create(TaskTemplate template, Project project, BigDecimal qty) {
+  public TeamTask create(
+      TaskTemplate template, Project project, LocalDateTime date, BigDecimal qty) {
 
-    TeamTask task = super.create(template, project, qty);
+    TeamTask task = super.create(template, project, date, qty);
     task.setInternalDescription(template.getInternalDescription());
 
     return task;

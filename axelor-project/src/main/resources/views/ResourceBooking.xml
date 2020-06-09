@@ -50,7 +50,9 @@
 	</action-record>
 
 	<action-attrs name="action-resource-booking-attrs-update-period" model="com.axelor.apps.project.db.ResourceBooking">
+		<attribute name="value" expr="#{updateTaskFromPeriod ? task.taskDate.atStartOfDay() : null}" for="fromDate"/>
 		<attribute name="readonly" expr="#{updateTaskFromPeriod}" for="fromDate"/>
+		<attribute name="value" expr="#{updateTaskFromPeriod ? task.taskEndDate.atStartOfDay() : null}" for="toDate"/>
 		<attribute name="readonly" expr="#{updateTaskFromPeriod}" for="toDate"/>
 	</action-attrs>
 

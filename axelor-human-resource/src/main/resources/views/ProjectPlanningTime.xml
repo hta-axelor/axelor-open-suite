@@ -74,8 +74,7 @@
 		<view type="form" name="project-planning-time-form"/>
 		<view-param name="popup" value="true"/>
 		<domain>self.project.id in (:_projectIds)</domain>
-		<context if="id == null" name="_projectIds" expr="eval:[0]" />
-  		<context if="id != null" name="_projectIds" expr="eval:[id]"/>
+		<context name="_projectIds" expr="eval:[id?:0]"/>
 	</action-view>
 	
 	<action-view name="action-project-view-project-planning-time-add-new" title="Planned Time Planning" model="com.axelor.apps.project.db.ProjectPlanningTime">

@@ -130,6 +130,10 @@ public interface TimesheetService {
   @Transactional
   public void computeTimeSpent(Timesheet timesheet);
 
+  public BigDecimal computeSubTimeSpent(Project project);
+
+  public void computeParentTimeSpent(Project project);
+
   public BigDecimal computeTimeSpent(Project project);
 
   public String computeFullName(Timesheet timesheet);

@@ -24,6 +24,7 @@ import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Singleton;
+import java.util.HashMap;
 import java.util.Map;
 
 @Singleton
@@ -31,49 +32,55 @@ public class ProjectController {
 
   public void getMyOpenTasks(ActionRequest request, ActionResponse response) {
     Project project = request.getContext().asType(Project.class);
+    Map<String, Object> context = new HashMap<>();
+    context.put("_project", project);
+    context.put("typeSelect", TeamTaskRepository.TYPE_TASK);
     Map<String, Object> view =
         Beans.get(ProjectService.class)
             .getTaskView(
                 "My open tasks",
-                "self.assignedTo = :__user__ AND self.taskStatus.isCompleted = false AND self.typeSelect = '"
-                    + TeamTaskRepository.TYPE_TASK
-                    + "'",
-                project);
+                "self.assignedTo = :__user__ AND self.taskStatus.isCompleted = false AND self.typeSelect = :typeSelect AND self.project = :_project",
+                context);
     response.setView(view);
   }
 
   public void getMyTasks(ActionRequest request, ActionResponse response) {
     Project project = request.getContext().asType(Project.class);
+    Map<String, Object> context = new HashMap<>();
+    context.put("_project", project);
+    context.put("typeSelect", TeamTaskRepository.TYPE_TASK);
     Map<String, Object> view =
         Beans.get(ProjectService.class)
             .getTaskView(
                 "My tasks",
-                "self.assignedTo = :__user__ AND self.typeSelect = '"
-                    + TeamTaskRepository.TYPE_TASK
-                    + "'",
-                project);
+                "self.assignedTo = :__user__ AND self.typeSelect = :typeSelect AND self.project = :_project",
+                context);
     response.setView(view);
   }
 
   public void getAllOpenTasks(ActionRequest request, ActionResponse response) {
     Project project = request.getContext().asType(Project.class);
+    Map<String, Object> context = new HashMap<>();
+    context.put("_project", project);
+    context.put("typeSelect", TeamTaskRepository.TYPE_TASK);
     Map<String, Object> view =
         Beans.get(ProjectService.class)
             .getTaskView(
                 "All open tasks",
-                "self.taskStatus.isCompleted = false AND self.typeSelect = '"
-                    + TeamTaskRepository.TYPE_TASK
-                    + "'",
-                project);
+                "self.taskStatus.isCompleted = false AND self.typeSelect = :typeSelect AND self.project = :_project",
+                context);
     response.setView(view);
   }
 
   public void getAllTasks(ActionRequest request, ActionResponse response) {
     Project project = request.getContext().asType(Project.class);
+    Map<String, Object> context = new HashMap<>();
+    context.put("_project", project);
+    context.put("typeSelect", TeamTaskRepository.TYPE_TASK);
     Map<String, Object> view =
         Beans.get(ProjectService.class)
             .getTaskView(
-                "All tasks", "self.typeSelect = '" + TeamTaskRepository.TYPE_TASK + "'", project);
+                "All tasks", "self.typeSelect = :typeSelect AND self.project = :_project", context);
     response.setView(view);
   }
 }

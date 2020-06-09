@@ -61,18 +61,15 @@ public class BatchInvoicingProjectService extends AbstractBatch {
         projectRepo
             .all()
             .filter(
-                "self.isBusinessProject = :isBusinessProject "
-                    + "AND self.toInvoice = :toInvoice AND "
-                    + "self.isCompleted = false")
-            .bind("isBusinessProject", true)
-            .bind("toInvoice", true)
+                "self.isBusinessProject = true "
+                    + "AND self.toInvoice = true AND "
+                    + "self.projectStatus.isCompleted = false")
             .fetch();
 
     for (Project project : projectList) {
       try {
         InvoicingProject invoicingProject =
-            invoicingProjectService.generateInvoicingProject(
-                project, batch.getProjectInvoicingAssistantBatch().getConsolidatePhaseSelect());
+            invoicingProjectService.generateInvoicingProject(project);
 
         if (invoicingProject != null && invoicingProject.getId() != null) {
           incrementDone();

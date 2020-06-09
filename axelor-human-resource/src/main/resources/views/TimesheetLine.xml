@@ -238,7 +238,8 @@
 	
     <action-record name="action-timesheet-line-record-to-invoice-parent" model="com.axelor.apps.hr.db.TimesheetLine">
         <field name="toInvoice" 
-        	expr="eval: _parent?.project?.isInvoicingTimesheet" if="__config__.app.isApp('business-project')"/>
+        	expr="eval: _parent?.project?.isInvoicingTimesheet || _parent?.parentProject?.parentProject?.isInvoicingTimesheet"
+            if="__config__.app.isApp('business-project')"/>
     </action-record>
 	
 	<action-record name="action-hr-timesheet-line-record-empty-product" model="com.axelor.apps.hr.db.TimesheetLine">
@@ -250,7 +251,7 @@
 	</action-record>
 	
 	<action-validate name="action-timesheet-line-validate-date">
-		<error message="This date is invalid. It must be included in the timesheet's period." if="date != null &amp;&amp; ( __parent__.toDate != null &amp;&amp; date &gt; __parent__.toDate)" action="action-timesheet-line-null-date"/>
+		<error message="This date is invalid. It must be included in the timesheet's period." if="date != null &amp;&amp; (date &lt; __parent__.fromDate || ( __parent__.toDate != null &amp;&amp; date &gt; __parent__.toDate))" action="action-timesheet-line-null-date"/>
 	</action-validate>
 	
 	<action-validate name="action-team-task-validate-check-timesheet-line-date">
@@ -295,8 +296,7 @@
 		<view type="form" name="timesheet-line-timesheet-project-form"/>
 		<view-param name="popup" value="true"/>
 		<domain>self.timesheet.statusSelect = 3 and self.project.id in (:_projectIds)</domain>
-		<context if="id == null" name="_projectIds" expr="eval:[0]" />
-  		<context if="id != null" name="_projectIds" expr="eval:[id]"/>
+		<context name="_projectIds" expr="eval:[id?:0]"/>
 	</action-view>
 	
 	<action-view name="action-project-dashlet-project-waiting-timeshet-lines" model="com.axelor.apps.hr.db.TimesheetLine" title="Waiting Timesheet lines">
@@ -304,8 +304,7 @@
 		<view type="form" name="timesheet-line-timesheet-project-form"/>
 		<view-param name="popup" value="true"/>
 		<domain>self.timesheet.statusSelect &lt; 3 and self.project.id in (:_projectIds)</domain>
-		<context if="id == null" name="_projectIds" expr="eval:[0]" />
-  		<context if="id != null" name="_projectIds" expr="eval:[id]"/>
+		<context name="_projectIds" expr="eval:[id?:0]"/>
 	</action-view>
 	
 	<action-view name="action-teamtask-dashlet-validated-timeshet-lines" model="com.axelor.apps.hr.db.TimesheetLine" title="Validated Timesheet lines">

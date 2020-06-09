@@ -4,11 +4,13 @@
 
 	<grid name="project-priority-grid" title="Project Priority" model="com.axelor.apps.project.db.ProjectPriority">
 		<field name="name"/>
+		<field name="technicalTypeSelect"/>
 	</grid>
 	
 	<form name="project-priority-form" title="Project Priority" model="com.axelor.apps.project.db.ProjectPriority">
 		<panel name="mainPanel">
 			<field name="name"/>
+			<field name="technicalTypeSelect"/>
 		</panel>
 	</form>
 	

@@ -26,10 +26,30 @@ public class ProjectManagementRepository extends ProjectRepository {
     String projectCode =
         (Strings.isNullOrEmpty(project.getCode())) ? "" : project.getCode() + " - ";
     project.setFullName(projectCode + project.getName());
+    if (project.getChildProjectList() != null && !project.getChildProjectList().isEmpty()) {
+      for (Project child : project.getChildProjectList()) {
+        String code = (Strings.isNullOrEmpty(child.getCode())) ? "" : child.getCode() + " - ";
+        child.setFullName(code + child.getName());
+      }
+    }
+  }
+
+  public static void setAllProjectMembersUserSet(Project project) {
+    if (project.getParentProject() == null && project.getChildProjectList() != null) {
+      project.getChildProjectList().stream()
+          .filter(Project::getExtendsMembersFromParent)
+          .peek(p -> project.getMembersUserSet().forEach(p::addMembersUserSetItem));
+    } else if (project.getParentProject() != null
+        && project.getExtendsMembersFromParent()
+        && !project.getSynchronize()) {
+      project.getParentProject().getMembersUserSet().forEach(project.getMembersUserSet()::add);
+    }
   }
 
   @Override
   public Project save(Project project) {
+
+    ProjectManagementRepository.setAllProjectMembersUserSet(project);
     setAllProjectFullName(project);
     return super.save(project);
   }
