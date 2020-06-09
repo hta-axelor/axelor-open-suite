@@ -25,9 +25,9 @@ import com.axelor.common.ObjectUtils;
 import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
-import java.time.LocalDate;
 import java.util.Optional;
 import java.util.Set;
+import java.time.LocalDate;
 
 public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     implements TeamTaskProjectService {
