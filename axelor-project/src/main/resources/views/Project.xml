@@ -46,8 +46,8 @@
 			  <item name="allTasks" title="All tasks" action="action-project-method-all-tasks"/>
 			</menu>
 			<menu name="projectToolsMenu" title="Tools" showTitle="true" icon="fa-wrench">
-				<item name="ganttItem" title="Gantt" showIf="isProject &amp;&amp; isShowGantt" action="action-project-open-gantt" />
-				<item name="bookResourceItem" title="Book resource" showIf="isProject" if=" __config__.app.getApp('project')?.resourceManagement"
+				<item name="ganttItem" title="Gantt" showIf="isShowGantt" action="action-project-open-gantt" />
+				<item name="bookResourceItem" title="Book resource" if=" __config__.app.getApp('project')?.resourceManagement"
 					action="save,action-project-book-resource" />
 				<item name="wiki" title="Wiki" action="project.wiki.all" />
 				<item name="topic" title="Topic" action="project.topic.all" showIf="isShowTopic"/>
