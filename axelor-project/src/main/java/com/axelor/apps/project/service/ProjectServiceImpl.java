@@ -19,6 +19,7 @@ package com.axelor.apps.project.service;
 
 import com.axelor.apps.base.db.Company;
 import com.axelor.apps.base.db.Partner;
+import com.axelor.apps.base.db.Wizard;
 import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.ProjectTemplate;
 import com.axelor.apps.project.db.TaskTemplate;
@@ -29,11 +30,14 @@ import com.axelor.apps.project.exception.IExceptionMessage;
 import com.axelor.apps.project.translation.ITranslation;
 import com.axelor.auth.AuthUtils;
 import com.axelor.auth.db.User;
+import com.axelor.common.ObjectUtils;
 import com.axelor.db.JPA;
 import com.axelor.exception.AxelorException;
 import com.axelor.exception.db.repo.TraceBackRepository;
 import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
+import com.axelor.meta.schema.actions.ActionView;
+import com.axelor.meta.schema.actions.ActionView.ActionViewBuilder;
 import com.axelor.team.db.TeamTask;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
@@ -43,6 +47,7 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import javax.persistence.TypedQuery;
 
@@ -73,23 +78,17 @@ public class ProjectServiceImpl implements ProjectService {
       return project;
     }
     project = new Project();
-    project.setStatusSelect(ProjectRepository.STATE_NEW);
     project.setParentProject(parentProject);
     if (parentProject != null) {
       parentProject.addChildProjectListItem(project);
-      project.setProjectTypeSelect(ProjectRepository.TYPE_PHASE);
-    } else {
-      project.setProjectTypeSelect(ProjectRepository.TYPE_PROJECT);
     }
     if (Strings.isNullOrEmpty(fullName)) {
       fullName = "project";
     }
     project.setName(fullName);
     project.setFullName(project.getName());
-    project.setCompany(company);
     project.setClientPartner(clientPartner);
     project.setAssignedTo(assignedTo);
-    project.setProgress(BigDecimal.ZERO);
     return project;
   }
 
@@ -181,17 +180,12 @@ public class ProjectServiceImpl implements ProjectService {
         project.setContactPartner(clientPartner.getContactPartnerSet().iterator().next());
       }
       project.setDescription(projectTemplate.getDescription());
-      project.setTeam(projectTemplate.getTeam());
-      project.setProjectFolderSet(new HashSet<>(projectTemplate.getProjectFolderSet()));
       project.setAssignedTo(projectTemplate.getAssignedTo());
-      project.setTeamTaskCategorySet(new HashSet<>(projectTemplate.getTeamTaskCategorySet()));
       project.setSynchronize(projectTemplate.getSynchronize());
       project.setMembersUserSet(new HashSet<>(projectTemplate.getMembersUserSet()));
       project.setImputable(projectTemplate.getImputable());
-      project.setCompany(projectTemplate.getCompany());
       project.setProductSet(new HashSet<>(projectTemplate.getProductSet()));
       project.setExcludePlanning(projectTemplate.getExcludePlanning());
-      project.setProjectTypeSelect(ProjectRepository.TYPE_PROJECT);
 
       List<Wiki> wikiList = projectTemplate.getWikiList();
 
@@ -228,5 +222,41 @@ public class ProjectServiceImpl implements ProjectService {
     task.setDescription(taskTemplate.getDescription());
 
     return task;
+  }
+
+  @Override
+  public Map<String, Object> getTaskView(String title, String domain, Map<String, Object> context) {
+    ActionViewBuilder builder =
+        ActionView.define(I18n.get(title))
+            .model(TeamTask.class.getName())
+            .add("grid", "team-task-grid")
+            .add("calendar", "team-task-calendar")
+            .add("form", "team-task-form")
+            .domain(domain)
+            .param("details-view", "true");
+
+    if (ObjectUtils.notEmpty(context)) {
+      context.forEach(
+          (key, value) -> {
+            builder.context(key, value);
+          });
+    }
+    return builder.map();
+  }
+
+  @Override
+  public Map<String, Object> createProjectFromTemplateView(ProjectTemplate projectTemplate)
+      throws AxelorException {
+    return ActionView.define(I18n.get("Create project from this template"))
+        .model(Wizard.class.getName())
+        .add("form", "project-template-wizard-form")
+        .param("popup", "reload")
+        .param("show-toolbar", "false")
+        .param("show-confirm", "false")
+        .param("width", "large")
+        .param("popup-save", "false")
+        .context("_projectTemplate", projectTemplate)
+        .context("_businessProject", projectTemplate.getIsBusinessProject())
+        .map();
   }
 }
