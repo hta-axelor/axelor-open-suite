@@ -60,7 +60,7 @@
 		</menubar>
 		<panel name="mainPanel">
 			<panel name="detailsPanel" colSpan="12">
-				<field name="projectStatus" showTitle="false" readonly="true"
+				<field name="projectStatus" showTitle="false"
 					colSpan="8" widget="NavSelect" />
 				<field name="$viewerProjectTags" showTitle="false" colSpan="4"
 					readonly="true">
