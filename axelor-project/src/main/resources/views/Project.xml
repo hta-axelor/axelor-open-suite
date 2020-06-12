@@ -341,9 +341,6 @@
 					<field name="isShowCalendarPerStatus" colSpan="4" widget="inline-checkbox"/>
 					<field name="isShowCalendarPerUser" colSpan="4" widget="inline-checkbox"/>
 				</panel>	
-				<panel title="Custom fields" name="customFieldConfigPanel" colSpan="12">
-					<panel-related field="taskCustomFields" colSpan="12" showIf="id" form-view="project-task-meta-json-field-form" grid-view="project-meta-json-field-grid"/>
-				</panel>	
 			</panel>
 			<panel title="Contracts" name="contractPanel" if="__config__.app.isApp('business-project')" if-module="axelor-business-project">
 				<button name="createNewCustomerContract" title="Create new customer contract" colSpan="6" onClick="save,action-project-view-create-new-customer-contract"/>
@@ -351,6 +348,9 @@
 				<panel-dashlet name="customerContractPanel" title="Customer contracts" action="action-project-dashlet-customer-contracts" colSpan="12" canSearch="true"/>
 				<panel-dashlet name="supplierContractPanel" title="Supplier contracts" action="action-project-dashlet-supplier-contracts" colSpan="12" canSearch="true"/>
 				<panel-dashlet name="contractInvoicePanel" title="Invoices" action="action-project-dashlet-contract-invoices" colSpan="12"/>
+			</panel>
+		    <panel title="Custom fields" name="customFieldConfigPanel" colSpan="12">
+			    <panel-related field="taskCustomFields" colSpan="12" showIf="id" form-view="project-task-meta-json-field-form" grid-view="project-meta-json-field-grid"/>
 			</panel>
 		</panel-tabs>
 		<panel name="attrsPanel">
