@@ -15,7 +15,6 @@
 		<field name="taskPriority"/>
 		<field name="teamTaskCategory"/>
 		<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
-        <button name="timeSpentBtn" title="Enter Time spent" icon="fa-clock-o" onClick="action-team-task-view-time-spent" />
 	</grid>
 	
 	<form name="team-task-form" id="project-team-task-form" title="Task" model="com.axelor.team.db.TeamTask"
@@ -51,7 +50,8 @@
 					</viewer>
 				</field>
 			</panel>
-			<button name="timeSpentBtn" title="Enter Time spent" onClick="save,action-team-task-view-time-spent" colSpan="2"/>
+			<field name="project.isShowTimeSpent" hidden="true"/>
+			<button name="timeSpentBtn" title="Enter Time spent" onClick="save,action-team-task-view-time-spent" colSpan="2" showIf="project.isShowTimeSpent"/>
 			<field name="$provider" hidden="true" type="string"/>
 			<panel name="projectDetailsPanel" colSpan="12">
 				<panel name="detailsPanel" colSpan="8">
@@ -190,7 +190,6 @@
 				</field>
 				<panel-dashlet name="validatedTimesheetLinesPanel" action="action-teamtask-dashlet-validated-timeshet-lines" title="Validated Timesheet lines" colSpan="12" canSearch="true" if="__config__.app.getApp('timesheet').needValidation"/>
 				<panel-dashlet name="waitingTimesheetLinesPanel" action="action-teamtask-dashlet-waiting-timeshet-lines" title="Waiting Timesheet lines" colSpan="12" canSearch="true" if="__config__.app.getApp('timesheet').needValidation" />
-			    <field name="project.isShowTimeSpent" hidden="true"/>
 			</panel>
 
 			<panel name="timerPanel" title="Timer" showIf="id" hidden="true" if-module="axelor-helpdesk" if="__config__.app.isApp('helpdesk')">
