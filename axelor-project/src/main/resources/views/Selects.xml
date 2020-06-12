@@ -45,10 +45,10 @@
 	</selection>
 	
 	<selection name="project.priority.technical.type.select">
-		<option value="low">Low</option>
-		<option value="normal">Normal</option>
-		<option value="high">High</option>
-		<option value="urgent">Urgent</option>
+		<option value="1">Low</option>
+		<option value="2">Normal</option>
+		<option value="3">High</option>
+		<option value="4">Urgent</option>
 	</selection>
 
 </object-views>
