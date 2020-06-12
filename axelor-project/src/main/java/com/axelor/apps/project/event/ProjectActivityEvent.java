@@ -14,6 +14,7 @@ import com.axelor.events.qualifiers.EntityType;
 import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
+import java.util.Map;
 import javax.inject.Named;
 
 public class ProjectActivityEvent {
@@ -40,37 +41,49 @@ public class ProjectActivityEvent {
 
   public void onSaveProject(
       @Observes @Named(RequestEvent.SAVE) @EntityType(Project.class) PostRequest event) {
-    Object id = event.getRequest().getData().get("id");
-    if (id != null) {
-      Project project = projectRepo.find(Long.parseLong(id.toString()));
-      projectActivityService.getProjectActivity(project);
+    Map<String, Object> dataMap = event.getRequest().getData();
+    if (dataMap != null) {
+      Object id = dataMap.get("id");
+      if (id != null) {
+        Project project = projectRepo.find(Long.parseLong(id.toString()));
+        projectActivityService.getProjectActivity(project);
+      }
     }
   }
 
   public void onSaveTask(
       @Observes @Named(RequestEvent.SAVE) @EntityType(TeamTask.class) PostRequest event) {
-    Object id = event.getRequest().getData().get("id");
-    if (id != null) {
-      TeamTask task = teamTaskRepo.find(Long.parseLong(id.toString()));
-      projectActivityService.getProjectActivity(task);
+    Map<String, Object> dataMap = event.getRequest().getData();
+    if (dataMap != null) {
+      Object id = dataMap.get("id");
+      if (id != null) {
+        TeamTask task = teamTaskRepo.find(Long.parseLong(id.toString()));
+        projectActivityService.getProjectActivity(task);
+      }
     }
   }
 
   public void onSaveWiki(
       @Observes @Named(RequestEvent.SAVE) @EntityType(Wiki.class) PostRequest event) {
-    Object id = event.getRequest().getData().get("id");
-    if (id != null) {
-      Wiki wiki = wikiRepo.find(Long.parseLong(id.toString()));
-      projectActivityService.getProjectActivity(wiki);
+    Map<String, Object> dataMap = event.getRequest().getData();
+    if (dataMap != null) {
+      Object id = dataMap.get("id");
+      if (id != null) {
+        Wiki wiki = wikiRepo.find(Long.parseLong(id.toString()));
+        projectActivityService.getProjectActivity(wiki);
+      }
     }
   }
 
   public void onSaveTopic(
       @Observes @Named(RequestEvent.SAVE) @EntityType(Topic.class) PostRequest event) {
-    Object id = event.getRequest().getData().get("id");
-    if (id != null) {
-      Topic topic = topicRepo.find(Long.parseLong(id.toString()));
-      projectActivityService.getProjectActivity(topic);
+    Map<String, Object> dataMap = event.getRequest().getData();
+    if (dataMap != null) {
+      Object id = dataMap.get("id");
+      if (id != null) {
+        Topic topic = topicRepo.find(Long.parseLong(id.toString()));
+        projectActivityService.getProjectActivity(topic);
+      }
     }
   }
 }
