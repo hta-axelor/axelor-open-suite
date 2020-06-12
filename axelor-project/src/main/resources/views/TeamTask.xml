@@ -68,7 +68,7 @@
 						</editor>
 					</field>
 					<field name="project" colSpan="6" onChange="action-team-task-group-project-onchange" required="true"/>
-					<field name="taskStatus" colSpan="6"/>
+					<field name="taskStatus" colSpan="6" onSelect="action-team-task-atts-status-on-select"/>
 					<field name="parentTask" readonlyIf="project == null" colSpan="6" onSelect="action-task-attrs-project-parent-task-configurations"/>
 					<field name="assignedTo" readonlyIf="project == null" colSpan="6" canNew="false" canView="false" canEdit="false" onSelect="action-task-attrs-project-assigned-to-configurations" required="true" form-view="user-form" grid-view="user-grid"/>
 					<field name="team" readonly="true" colSpan="6" form-view="team-form" grid-view="team-grid" if="!__config__.app.isApp('business-support')"/>
@@ -86,7 +86,7 @@
 			<panel name="characteristicsPanel" title="Characteristics" colSpan="12">
 				<field name="teamTaskCategory" colSpan="4" onSelect="action-task-attrs-team-task-category-configurations" onChange="action-team-task-group-project-category-onchange"/>
 				<field name="teamTaskSection" colSpan="4" form-view="team-task-section-form" grid-view="team-task-section-grid" showIf="project.isShowSection"/>
-				<field name="taskPriority" colSpan="4" required="true"/>
+				<field name="taskPriority" onSelect="action-team-task-atts-priority-on-select" colSpan="4" required="true"/>
 				<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" domain="self.project = :project OR self.project.parentProject = :project" colSpan="4" form-view="project-version-form" grid-view="project-version-grid"/>
 				<field name="assignment" hidden="true" showIf="typeSelect == 'ticket'" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" colSpan="4"/>
 				<field name="taskDate" title="Task date" colSpan="4" onChange="action-task-attrs-set-task-duration,action-team-task-record-set-date-or-frequency-changed" required="true"/>
@@ -400,7 +400,6 @@
 	</action-group>
 	
 	<action-group name="action-team-task-group-project-onchange">
-	    <action name="action-projects-attrs-filter-by-project"/>
 		<action name="action-task-record-project-configurations"/>
 		<action name="action-team-task-method-update-discount" if="__config__.app.isApp('business-project')"/>
 		<action name="action-team-task-method-compute" if="__config__.app.isApp('business-project')"/>
@@ -478,6 +477,14 @@
 		<field name="plannedProgress" expr="eval: progressSelect"/>
 	</action-record>
 	
+	<action-attrs name="action-team-task-atts-status-on-select">
+      <attribute name="domain" expr="eval: (project?.teamTaskStatusSet !=  null &amp;&amp; project?.teamTaskStatusSet?.size() &gt; 0) ? &quot;self.id IN (${project?.teamTaskStatusSet?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" for="taskStatus"/>    
+    </action-attrs>
+    
+    <action-attrs name="action-team-task-atts-priority-on-select">
+      <attribute name="domain" expr="eval: (project?.teamTaskPrioritySet !=  null &amp;&amp; project?.teamTaskPrioritySet?.size() &gt; 0) ? &quot;self.id IN (${project?.teamTaskPrioritySet?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" for="taskPriority"/>
+    </action-attrs>
+    
 	<action-attrs name="action-task-attrs-team-task-category-configurations" model="com.axelor.team.db.TeamTask">
 		<attribute name="domain" for="teamTaskCategory" expr="eval: (project?.teamTaskCategorySet !=  null &amp;&amp; project?.teamTaskCategorySet?.size() &gt; 0) ? &quot;self.id IN (${project?.teamTaskCategorySet?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;"/>
 	</action-attrs>
@@ -614,9 +621,4 @@
       <context name="projectId" expr="eval: id"/>
     </action-view>
         
-    <action-attrs name="action-projects-attrs-filter-by-project">
-      <attribute name="domain" expr="eval: &quot;self.id IN(${project?.teamTaskStatusSet?.collect{it.id}?.join(',')})&quot;" for="taskStatus"/>
-      <attribute name="domain" expr="eval: &quot;self.id IN(${project?.teamTaskPrioritySet?.collect{it.id}?.join(',')})&quot;" for="taskPriority"/>
-    </action-attrs>
-    
 </object-views>
