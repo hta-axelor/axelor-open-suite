@@ -459,6 +459,8 @@
 		<field name="membersUserSet" expr="eval: null"/>
 		<field name="team" expr="eval: project?.team" if="project?.synchronize &amp;&amp; project.team != null"/>
         <field name="invoicingType" expr="eval: 2" if="project?.invoicingSequenceSelect == 1"/>
+        <field name="taskStatus" expr="eval: null"/> 
+        <field name="taskPriority" expr="eval: null"/> 
 	</action-record>
 	
 	<!-- TODO : Have to fix set default values of priority and status -->
