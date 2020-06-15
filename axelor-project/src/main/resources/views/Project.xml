@@ -413,10 +413,12 @@
 		<field name="projectStatus"/>
 		<field name="sequence"/>
 		<template>
-		&lt;h4&gt;{{fullName}}&lt;/h4&gt;
-		&lt;div class="card-body"&gt;{{description}}&lt;/div&gt;
-		&lt;div class="card-footer"&gt;
-		&lt;/div&gt;
+		<![CDATA[
+		<h4>{{fullName}}</h4>
+		<div class="card-body">
+		{{description}}
+	    </div>
+		]]>
 		</template>
 	</kanban>
 	
@@ -429,10 +431,12 @@
 		<field name="projectStatus"/>
 		<field name="sequence"/>
 		<template>
-		&lt;h4&gt;{{fullName}}&lt;/h4&gt;
-		&lt;div class="card-body"&gt;{{description}}&lt;/div&gt;
-		&lt;div class="card-footer"&gt;
-		&lt;/div&gt;
+		<![CDATA[
+		<h4>{{fullName}}</h4>
+		<div class="card-body">
+		{{description}}
+	    </div>
+		]]>
 		</template>
 	</kanban>
 	
