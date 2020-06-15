@@ -19,6 +19,7 @@ package com.axelor.apps.base.db.repo;
 
 import com.axelor.apps.base.db.Frequency;
 import com.axelor.apps.base.service.TeamTaskService;
+import com.axelor.apps.base.translation.ITranslation;
 import com.axelor.i18n.I18n;
 import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
@@ -67,11 +68,10 @@ public class TeamTaskBaseRepository extends TeamTaskRepository {
     if (frequency != null && teamTask.getIsFirst() && teamTask.getNextTeamTask() == null) {
       if (teamTask.getTaskDate() != null) {
         if (frequency.getEndDate().isBefore(teamTask.getTaskDate())) {
-          throw new PersistenceException(
-              I18n.get("Frequency end date cannot be before task date."));
+          throw new PersistenceException(I18n.get(ITranslation.FREQUENCY_END_DATE_EXCEEDS));
         }
       } else {
-        throw new PersistenceException(I18n.get("Please fill in task date."));
+        throw new PersistenceException(ITranslation.EMPTY_TASK_DATE);
       }
 
       teamTaskService.generateTasks(teamTask, frequency);
