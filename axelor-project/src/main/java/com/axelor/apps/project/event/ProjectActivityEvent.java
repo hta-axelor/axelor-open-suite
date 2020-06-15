@@ -3,9 +3,6 @@ package com.axelor.apps.project.event;
 import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.Topic;
 import com.axelor.apps.project.db.Wiki;
-import com.axelor.apps.project.db.repo.ProjectRepository;
-import com.axelor.apps.project.db.repo.TopicRepository;
-import com.axelor.apps.project.db.repo.WikiRepository;
 import com.axelor.apps.project.service.ProjectActivityService;
 import com.axelor.db.JPA;
 import com.axelor.db.Model;
@@ -14,7 +11,6 @@ import com.axelor.events.PostRequest;
 import com.axelor.events.RequestEvent;
 import com.axelor.events.qualifiers.EntityType;
 import com.axelor.team.db.TeamTask;
-import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
 import java.util.Map;
 import javax.inject.Named;
@@ -24,12 +20,7 @@ public class ProjectActivityEvent {
   private ProjectActivityService projectActivityService;
 
   @Inject
-  public ProjectActivityEvent(
-      ProjectActivityService projectActivityService,
-      ProjectRepository projectRepo,
-      TeamTaskRepository teamTaskRepo,
-      WikiRepository wikiRepo,
-      TopicRepository topicRepo) {
+  public ProjectActivityEvent(ProjectActivityService projectActivityService) {
     this.projectActivityService = projectActivityService;
   }
 
