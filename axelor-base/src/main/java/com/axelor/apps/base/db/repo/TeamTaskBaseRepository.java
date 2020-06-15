@@ -20,17 +20,17 @@ package com.axelor.apps.base.db.repo;
 import com.axelor.apps.base.db.Frequency;
 import com.axelor.apps.base.service.TeamTaskService;
 import com.axelor.i18n.I18n;
-import com.axelor.inject.Beans;
 import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
+import com.google.inject.Inject;
 import javax.persistence.PersistenceException;
 
 public class TeamTaskBaseRepository extends TeamTaskRepository {
 
+  @Inject protected TeamTaskService teamTaskService;
+
   @Override
   public TeamTask save(TeamTask teamTask) {
-    TeamTaskService teamTaskService = Beans.get(TeamTaskService.class);
-
     if (teamTask.getDoApplyToAllNextTasks()
         && teamTask.getNextTeamTask() != null
         && teamTask.getHasDateOrFrequencyChanged()) {
@@ -41,19 +41,7 @@ public class TeamTaskBaseRepository extends TeamTaskRepository {
       teamTask.setIsFirst(true);
     }
 
-    Frequency frequency = teamTask.getFrequency();
-    if (frequency != null && teamTask.getIsFirst() && teamTask.getNextTeamTask() == null) {
-      if (teamTask.getTaskDate() != null) {
-        if (frequency.getEndDate().isBefore(teamTask.getTaskDate())) {
-          throw new PersistenceException(
-              I18n.get("Frequency end date cannot be before task date."));
-        }
-      } else {
-        throw new PersistenceException(I18n.get("Please fill in task date."));
-      }
-
-      teamTaskService.generateTasks(teamTask, frequency);
-    }
+    generateRecurrentTasks(teamTask);
 
     if (teamTask.getDoApplyToAllNextTasks()) {
       teamTaskService.updateNextTask(teamTask);
@@ -72,5 +60,21 @@ public class TeamTaskBaseRepository extends TeamTaskRepository {
     task.setTaskDate(null);
     task.setPriority(null);
     return task;
+  }
+
+  protected void generateRecurrentTasks(TeamTask teamTask) throws PersistenceException {
+    Frequency frequency = teamTask.getFrequency();
+    if (frequency != null && teamTask.getIsFirst() && teamTask.getNextTeamTask() == null) {
+      if (teamTask.getTaskDate() != null) {
+        if (frequency.getEndDate().isBefore(teamTask.getTaskDate())) {
+          throw new PersistenceException(
+              I18n.get("Frequency end date cannot be before task date."));
+        }
+      } else {
+        throw new PersistenceException(I18n.get("Please fill in task date."));
+      }
+
+      teamTaskService.generateTasks(teamTask, frequency);
+    }
   }
 }
