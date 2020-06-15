@@ -50,6 +50,7 @@ import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.apps.project.service.ProjectServiceImpl;
 import com.axelor.apps.purchase.db.PurchaseOrderLine;
 import com.axelor.apps.purchase.db.repo.PurchaseOrderLineRepository;
+import com.axelor.apps.purchase.db.repo.PurchaseOrderRepository;
 import com.axelor.apps.report.engine.ReportSettings;
 import com.axelor.apps.sale.db.SaleOrderLine;
 import com.axelor.apps.sale.db.repo.SaleOrderLineRepository;
@@ -341,10 +342,12 @@ public class InvoicingProjectService {
 
     StringBuilder polQueryBuilder = new StringBuilder(commonQuery);
     polQueryBuilder.append(
-        " AND (self.purchaseOrder.statusSelect = 3 OR self.purchaseOrder.statusSelect = 4)");
+        " AND (self.purchaseOrder.statusSelect = :statusValidated OR self.purchaseOrder.statusSelect = :statusFinished)");
 
     Map<String, Object> polQueryMap = new HashMap<>();
     polQueryMap.put("project", project);
+    polQueryMap.put("statusValidated", PurchaseOrderRepository.STATUS_VALIDATED);
+    polQueryMap.put("statusFinished", PurchaseOrderRepository.STATUS_FINISHED);
 
     StringBuilder logTimesQueryBuilder = new StringBuilder(commonQuery);
 
