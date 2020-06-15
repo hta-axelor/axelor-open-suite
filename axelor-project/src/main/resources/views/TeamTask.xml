@@ -267,15 +267,13 @@
 
 	</tree>
 	
-	<!-- TODO : Have to fix kanban for status,priority,taskDate -->
 	<kanban name="team-task-kanban" columnBy="taskStatus" title="Tasks" limit="30" sequenceBy="sequence"  model="com.axelor.team.db.TeamTask">
 		<field name="name"/>
 		<field name="project"/>
-		<field name="taskStatus"/>
 		<field name="assignedTo"/>
 		<field name="taskDate"/>
 		<field name="taskDeadline"/>
-		<field name="priority"/>
+		<field name="taskPriority.technicalTypeSelect"/>
 		<field name="progressSelect"/>
 		<template>
 		<![CDATA[
@@ -292,51 +290,10 @@
 					<span ng-if="$moment(taskDeadline).isAfter($moment().add(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment().to($moment(taskDeadline), false) }}</span>
 					<span ng-if="$moment(taskDeadline).isBefore($moment().subtract(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment(taskDeadline).from($moment(), false)  }}</span>
 					
-					<span class="label label-success pull-right" ng-if="priority == 'low'" x-translate>Low</span>
-					<span class="label label-info pull-right" ng-if="priority == 'normal'" x-translate>Normal</span>
-					<span class="label label-warning pull-right" ng-if="priority == 'high'" x-translate>High</span>
-					<span class="label label-important pull-right" ng-if="priority == 'urgent'" x-translate>Urgent</span>
-					
-				</div>
-				<div class="progress kanban-progress">
-					<span ng-if="progressSelect == 0">{{ progressSelect }}%</span>
-				  <div class="bar" style="width: {{ progressSelect }}%;">{{ progressSelect }}%</div>
-				</div>
-			</div>
-			<div class="card-footer">
-				<i class='fa fa-clock-o'></i> <span ng-if="taskDate">{{taskDate | date:'dd/MM/yyyy'}}</span><span ng-if="!taskDate" x-translate>Not specified</span>
-			</div>
-		]]>
-		</template>
-	</kanban>
-	
-	<kanban name="task-per-status-kanban" columnBy="taskStatus" title="Tasks" limit="30" sequenceBy="sequence"  model="com.axelor.team.db.TeamTask">
-		<field name="name"/>
-		<field name="project"/>
-		<field name="assignedTo"/>
-		<field name="taskDate"/>
-		<field name="taskDeadline"/>
-		<field name="priority"/>
-		<field name="progressSelect"/>
-		<template>
-		<![CDATA[
-			<h4>{{name}}</h4>
-			<h4><span style="font-weight:normal;">{{project.fullName}}</span></h4>
-			<img ng-if="assignedTo" ng-src="{{$image('assignedTo', 'image')}}">
-			<div class="card-body">
-				<div>
-					<i class="fa fa-calendar" aria-hidden="true"></i>
-					<span ng-if="!taskDeadline"> <span x-translate>Not specified</span> </span>
-					<span ng-if="$moment(taskDeadline).isSame($moment().subtract(1, 'days'), 'day')"> <span x-translate>Deadline Yesterday</span> </span>
-					<span ng-if="$moment(taskDeadline).isSame($moment(), 'day')"> <span x-translate>Deadline Today</span> </span>
-					<span ng-if="$moment(taskDeadline).isSame($moment().add(1, 'days'), 'day')"> <span x-translate>Deadline Tomorrow</span> </span>
-					<span ng-if="$moment(taskDeadline).isAfter($moment().add(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment().to($moment(taskDeadline), false) }}</span>
-					<span ng-if="$moment(taskDeadline).isBefore($moment().subtract(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment(taskDeadline).from($moment(), false)  }}</span>
-					
-					<span class="label label-success pull-right" ng-if="priority == 'low'" x-translate>Low</span>
-					<span class="label label-info pull-right" ng-if="priority == 'normal'" x-translate>Normal</span>
-					<span class="label label-warning pull-right" ng-if="priority == 'high'" x-translate>High</span>
-					<span class="label label-important pull-right" ng-if="priority == 'urgent'" x-translate>Urgent</span>
+					<span class="label label-success pull-right" ng-if="taskPriority.technicalTypeSelect == 1" x-translate>Low</span>
+					<span class="label label-info pull-right" ng-if="taskPriority.technicalTypeSelect == 2" x-translate>Normal</span>
+					<span class="label label-warning pull-right" ng-if="taskPriority.technicalTypeSelect == 3" x-translate>High</span>
+					<span class="label label-important pull-right" ng-if="taskPriority.technicalTypeSelect == 4" x-translate>Urgent</span>
 					
 				</div>
 				<div class="progress kanban-progress">
@@ -357,7 +314,7 @@
 		<field name="assignedTo"/>
 		<field name="taskDate"/>
 		<field name="taskDeadline"/>
-		<field name="priority"/>
+		<field name="taskPriority.technicalTypeSelect"/>
 		<field name="progressSelect"/>
 		<template>
 		<![CDATA[
@@ -374,10 +331,10 @@
 					<span ng-if="$moment(taskDeadline).isAfter($moment().add(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment().to($moment(taskDeadline), false) }}</span>
 					<span ng-if="$moment(taskDeadline).isBefore($moment().subtract(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment(taskDeadline).from($moment(), false)  }}</span>
 					
-					<span class="label label-success pull-right" ng-if="priority == 'low'" x-translate>Low</span>
-					<span class="label label-info pull-right" ng-if="priority == 'normal'" x-translate>Normal</span>
-					<span class="label label-warning pull-right" ng-if="priority == 'high'" x-translate>High</span>
-					<span class="label label-important pull-right" ng-if="priority == 'urgent'" x-translate>Urgent</span>
+					<span class="label label-success pull-right" ng-if="taskPriority.technicalTypeSelect == 1" x-translate>Low</span>
+					<span class="label label-info pull-right" ng-if="taskPriority.technicalTypeSelect == 2" x-translate>Normal</span>
+					<span class="label label-warning pull-right" ng-if="taskPriority.technicalTypeSelect == 3" x-translate>High</span>
+					<span class="label label-important pull-right" ng-if="taskPriority.technicalTypeSelect == 4" x-translate>Urgent</span>
 					
 				</div>
 				<div class="progress kanban-progress">
@@ -611,7 +568,7 @@
 	</action-record>
 	    
     <action-view name="action-project-view-per-status-kanban" title="Tasks" model="com.axelor.team.db.TeamTask">
-      <view type="kanban" name="task-per-status-kanban"/>
+      <view type="kanban" name="team-task-kanban"/>
       <view type="form" name="team-task-form"/>
       <domain>self.project.id = :projectId</domain>
       <context name="projectId" expr="eval: id"/>
