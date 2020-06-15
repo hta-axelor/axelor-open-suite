@@ -53,6 +53,10 @@ public class InvoicingProjectServiceBusinessProdImpl extends InvoicingProjectSer
 
     this.fillLines(invoicingProject, project);
 
+    if (!invoicingProject.getConsolidatePhaseWhenInvoicing()) {
+      return;
+    }
+
     List<Project> projectChildrenList =
         Beans.get(ProjectRepository.class).all().filter("self.parentProject = ?1", project).fetch();
 
@@ -134,9 +138,10 @@ public class InvoicingProjectServiceBusinessProdImpl extends InvoicingProjectSer
 
   @Transactional(rollbackOn = {AxelorException.class, Exception.class})
   @Override
-  public InvoicingProject generateInvoicingProject(Project project) {
+  public InvoicingProject generateInvoicingProject(Project project, int consolidatePhaseSelect) {
 
-    InvoicingProject invoicingProject = super.generateInvoicingProject(project);
+    InvoicingProject invoicingProject =
+        super.generateInvoicingProject(project, consolidatePhaseSelect);
 
     if (invoicingProject != null
         && invoicingProject.getId() == null
