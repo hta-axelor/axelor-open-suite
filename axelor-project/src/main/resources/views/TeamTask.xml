@@ -68,7 +68,7 @@
 						</editor>
 					</field>
 					<field name="project" colSpan="6" onChange="action-team-task-group-project-onchange" required="true"/>
-					<field name="taskStatus" colSpan="6" onSelect="action-team-task-atts-status-on-select" showIf="project.isShowStatus"/>
+					<field name="taskStatus" colSpan="6" onSelect="action-team-task-atts-status-on-select" showIf="project.isShowStatus" canView="false"/>
 					<field name="parentTask" readonlyIf="project == null" colSpan="6" onSelect="action-task-attrs-project-parent-task-configurations"/>
 					<field name="assignedTo" readonlyIf="project == null" colSpan="6" canNew="false" canView="false" canEdit="false" onSelect="action-task-attrs-project-assigned-to-configurations" required="true" form-view="user-form" grid-view="user-grid"/>
 					<field name="team" readonly="true" colSpan="6" form-view="team-form" grid-view="team-grid" if="!__config__.app.isApp('business-support')"/>
@@ -86,7 +86,7 @@
 			<panel name="characteristicsPanel" title="Characteristics" colSpan="12">
 				<field name="teamTaskCategory" colSpan="4" onSelect="action-task-attrs-team-task-category-configurations" onChange="action-team-task-group-project-category-onchange"/>
 				<field name="teamTaskSection" colSpan="4" form-view="team-task-section-form" grid-view="team-task-section-grid" showIf="project.isShowSection"/>
-				<field name="taskPriority" onSelect="action-team-task-atts-priority-on-select" colSpan="4" required="true" showIf="project.isShowPriority"/>
+				<field name="taskPriority" onSelect="action-team-task-atts-priority-on-select" colSpan="4" required="true" showIf="project.isShowPriority" canView="false"/>
 				<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" domain="self.project = :project OR self.project.parentProject = :project" colSpan="4" form-view="project-version-form" grid-view="project-version-grid"/>
 				<field name="assignment" hidden="true" showIf="typeSelect == 'ticket'" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" colSpan="4"/>
 				<field name="taskDate" colSpan="4" onChange="action-task-attrs-set-task-duration,action-team-task-record-set-date-or-frequency-changed" required="true"/>

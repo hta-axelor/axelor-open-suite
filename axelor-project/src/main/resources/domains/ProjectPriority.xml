@@ -6,8 +6,8 @@
 	<module name="project" package="com.axelor.apps.project.db"/>
 	
 	<entity name="ProjectPriority">
-  		<string name="name"/>
-  		<integer name="technicalTypeSelect" title="Technical Type" selection="project.priority.technical.type.select"/>
+  		<string name="name"/> 
+  		<integer name="technicalTypeSelect" title="Technical Type" selection="project.priority.technical.type.select" default="2"/>
 	
 	<extra-code>
    		<![CDATA[
