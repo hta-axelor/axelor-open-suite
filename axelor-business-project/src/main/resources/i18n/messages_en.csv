@@ -146,7 +146,7 @@
 "InvoicingProjectAnnex.status","Status",,
 "InvoicingProjectAnnex.supplier","Supplier",,
 "InvoicingProjectAnnex.task","Task",,
-"InvoicingProjectAnnex.taskDate","Task date",,
+"InvoicingProjectAnnex.taskDate","Start date",,
 "InvoicingProjectAnnex.tasks","Tasks",,
 "InvoicingProjectAnnex.timeSpent","Time spent",,
 "InvoicingProjectAnnex.toDate","To date",,

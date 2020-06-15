@@ -33,7 +33,8 @@
 		<many-to-many name="startToStartSet" title="Tasks to start before start" ref="TeamTask"/>
 		<many-to-many name="finishToFinishSet" title="Tasks to finish before finish" ref="TeamTask"/>
 		<decimal name="durationHours" title="Duration hours" />
-		<date name="taskEndDate" title="Task end" />
+		<date name="taskDate" title="Start Date"/>
+		<date name="taskEndDate" title="Due Date" />
 
 		<one-to-many name="timerList" ref="com.axelor.apps.base.db.Timer"/>
 		
