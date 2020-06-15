@@ -500,10 +500,6 @@
       <field name="fullName"/>
     </calendar>
 	
-	<calendar name="per-user-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project" eventStart="fromDate" eventStop="toDate" eventLength="1" colorBy="assignedTo" mode="month">
- 	  <field name="fullName"/>
-	</calendar>
-	
 	<action-group name="action-project-group-on-new-project">
 		<action name="action-project-defaults"/>
 		<action name="action-project-attrs-scale-and-precision"/>
@@ -731,18 +727,6 @@
     <action-view name="dashlet.task" title="Tasks" model="com.axelor.apps.project.db.Project">
         <view type="grid" name="task-grid" />
         <view type="form" name="task-form" />
-    </action-view>
-    
-    <action-view name="action-project-view-per-status-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project">
-        <view type="calendar" name="project-calendar"/>
-        <view type="form" name="project-form"/>
-        <domain>self.isShowCalendarPerStatus = true</domain>
-    </action-view>
-    
-     <action-view name="action-project-view-per-user-calendar" title="Project Calendar" model="com.axelor.apps.project.db.Project">
-        <view type="calendar" name="per-user-calendar"/>
-        <view type="form" name="project-form"/>
-        <domain>self.isShowCalendarPerUser = true</domain>
     </action-view>
   
     <action-view name="project.wiki.all" title="Project Wiki" model="com.axelor.apps.project.db.Wiki">

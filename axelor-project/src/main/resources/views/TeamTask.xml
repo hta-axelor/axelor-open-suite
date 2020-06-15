@@ -349,6 +349,14 @@
 		</template>
 	</kanban>
 	
+	<calendar name="team-task-per-status-calendar" title="Task Calendar" model="com.axelor.team.db.TeamTask" eventStart="taskDate" eventStop="taskEndDate" eventLength="1" mode="month">
+ 	  <field name="fullName"/>
+	</calendar>
+		
+	<calendar name="team-task-per-user-calendar" title="Task Calendar" model="com.axelor.team.db.TeamTask" eventStart="taskDate" eventStop="taskEndDate" eventLength="1" mode="month">
+ 	  <field name="fullName"/>
+	</calendar>
+	
 	<action-group name="action-team-task-group-onnew" id="action-team-task-group-project-onnew">
 		<action name="action-task-defaults"/>
 		<action name="action-team-task-record-set-default"/>
@@ -579,6 +587,20 @@
       <view type="form" name="team-task-form"/>
       <domain>self.project.id = :projectId</domain>
       <context name="projectId" expr="eval: id"/>
+    </action-view>
+        
+    <action-view name="action-project-view-per-status-calendar" title="Task Calendar" model="com.axelor.team.db.TeamTask">
+        <view type="calendar" name="team-task-per-status-calendar"/>
+        <view type="form" name="team-task-form"/>
+        <domain>self.project.id = :projectId</domain>
+        <context name="projectId" expr="eval: id"/>
+    </action-view>
+    
+    <action-view name="action-project-view-per-user-calendar" title="Task Calendar" model="com.axelor.team.db.TeamTask">
+        <view type="calendar" name="team-task-per-user-calendar"/>
+        <view type="form" name="team-task-form"/>
+        <domain>self.project.id = :projectId</domain>
+        <context name="projectId" expr="eval: id"/>
     </action-view>
         
 </object-views>
