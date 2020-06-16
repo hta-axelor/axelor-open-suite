@@ -23,7 +23,6 @@ import com.axelor.apps.hr.db.Employee;
 import com.axelor.apps.hr.db.Timesheet;
 import com.axelor.apps.hr.db.TimesheetLine;
 import com.axelor.apps.hr.db.repo.EmployeeRepository;
-import com.axelor.apps.hr.db.repo.TimesheetHRRepository;
 import com.axelor.apps.hr.db.repo.TimesheetRepository;
 import com.axelor.apps.hr.exception.IExceptionMessage;
 import com.axelor.apps.project.db.Project;
@@ -48,19 +47,12 @@ import org.slf4j.LoggerFactory;
 public class TimesheetLineServiceImpl implements TimesheetLineService {
 
   protected TimesheetService timesheetService;
-  protected TimesheetHRRepository timesheetHRRepository;
-  protected TimesheetRepository timesheetRepository;
   protected EmployeeRepository employeeRepository;
 
   @Inject
   public TimesheetLineServiceImpl(
-      TimesheetService timesheetService,
-      TimesheetHRRepository timesheetHRRepository,
-      TimesheetRepository timesheetRepository,
-      EmployeeRepository employeeRepository) {
+      TimesheetService timesheetService, EmployeeRepository employeeRepository) {
     this.timesheetService = timesheetService;
-    this.timesheetHRRepository = timesheetHRRepository;
-    this.timesheetRepository = timesheetRepository;
     this.employeeRepository = employeeRepository;
   }
 
