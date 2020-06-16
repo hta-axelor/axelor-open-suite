@@ -49,6 +49,7 @@
 		
 		<string name="fullName" namecolumn="true" title="Name"/>
 	 	
+        <boolean name="isShowPhasesElements" title="Show phases elements" default="true" />
       	<enum name="genProjTypePerOrderLine" ref="GenProjTypePerOrderLine" default="BUSINESS_PROJECT"/>
       	
       	<!-- Configuration fields -->

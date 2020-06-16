@@ -365,6 +365,7 @@
 			<panel name="configPanel" colSpan="12">
 				<field if="__config__.app.isApp('business-project')" if-module="axelor-business-project"
 					name="isBusinessProject" colSpan="6" widget="boolean-switch" />
+				<field name="isShowPhasesElements" colSpan="12" widget="boolean-switch" />
 				<field if="__config__.app.isApp('business-project')" if-module="axelor-business-project"
           name="$toInvoiceCounter" showTitle="false" hidden="true" colSpan="6" />
 			</panel>

@@ -459,6 +459,10 @@ public class InvoicingProjectService {
 
     String query = "self.project = ?1";
 
+    if (project.getIsShowPhasesElements()) {
+      query = "(self.project = ?1 OR self.project.parentProject = ?1)";
+    }
+
     query += " AND self.toInvoice = true AND self.invoiced = false";
 
     toInvoiceCount += Beans.get(SaleOrderLineRepository.class).all().filter(query, project).count();
