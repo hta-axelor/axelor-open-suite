@@ -19,6 +19,7 @@ package com.axelor.apps.portal.service;
 
 import com.axelor.apps.account.db.Invoice;
 import com.axelor.apps.account.db.repo.InvoiceRepository;
+import com.axelor.apps.base.service.app.AppService;
 import com.axelor.apps.base.service.user.UserService;
 import com.axelor.apps.helpdesk.db.Ticket;
 import com.axelor.apps.helpdesk.db.repo.TicketRepository;
@@ -53,6 +54,7 @@ public class ClientViewServiceImpl implements ClientViewService {
   protected InvoiceRepository invoiceRepo;
   protected TeamTaskRepository teamTaskRepo;
   protected JpaSecurity security;
+  protected AppService appService;
 
   protected static final DateTimeFormatter DATE_FORMATTER =
       DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -67,7 +69,8 @@ public class ClientViewServiceImpl implements ClientViewService {
       TicketRepository ticketRepo,
       InvoiceRepository invoiceRepo,
       TeamTaskRepository teamTaskRepo,
-      JpaSecurity jpaSecurity) {
+      JpaSecurity jpaSecurity,
+      AppService appService) {
     this.saleOrderRepo = saleOrderRepo;
     this.stockMoveRepo = stockMoveRepo;
     this.projectRepo = projectRepo;
@@ -75,6 +78,7 @@ public class ClientViewServiceImpl implements ClientViewService {
     this.invoiceRepo = invoiceRepo;
     this.teamTaskRepo = teamTaskRepo;
     this.security = jpaSecurity;
+    this.appService = appService;
   }
 
   @Override
@@ -601,8 +605,7 @@ public class ClientViewServiceImpl implements ClientViewService {
             "self.clientPartner.id = "
                 + user.getPartner().getId()
                 + " AND self.projectStatus.isCompleted = false");
-
-    if (user.getActiveCompany() != null) {
+    if (user.getActiveCompany() != null && appService.isApp("business-project")) {
       filter =
           Filter.and(
               filter, new JPQLFilter(" self.company.id = " + user.getActiveCompany().getId()));
@@ -619,13 +622,12 @@ public class ClientViewServiceImpl implements ClientViewService {
     Filter filterFromPermission = security.getFilter(JpaSecurity.CAN_READ, TeamTask.class);
     Filter filter =
         new JPQLFilter(
-            "self.status = 'new' "
+            "self.taskStatus.isCompleted = false"
                 + " AND self.typeSelect = '"
                 + TeamTaskRepository.TYPE_TASK
                 + "' AND self.project.clientPartner.id = "
                 + user.getPartner().getId());
-
-    if (user.getActiveCompany() != null) {
+    if (user.getActiveCompany() != null && appService.isApp("business-project")) {
       filter =
           Filter.and(
               filter,
@@ -642,12 +644,12 @@ public class ClientViewServiceImpl implements ClientViewService {
     Filter filterFromPermission = security.getFilter(JpaSecurity.CAN_READ, TeamTask.class);
     Filter filter =
         new JPQLFilter(
-            "self.status = 'in-progress'"
+            "self.taskStatus.isCompleted = false"
                 + " AND self.typeSelect = '"
                 + TeamTaskRepository.TYPE_TASK
                 + "' AND self.project.clientPartner.id = "
                 + user.getPartner().getId());
-    if (user.getActiveCompany() != null) {
+    if (user.getActiveCompany() != null && appService.isApp("business-project")) {
       filter =
           Filter.and(
               filter,
@@ -664,14 +666,13 @@ public class ClientViewServiceImpl implements ClientViewService {
     Filter filterFromPermission = security.getFilter(JpaSecurity.CAN_READ, TeamTask.class);
     Filter filter =
         new JPQLFilter(
-            "self.status IN ('in-progress','new')"
+            "self.taskStatus.isCompleted = false"
                 + " AND self.project.clientPartner.id = "
                 + user.getPartner().getId()
                 + " AND self.typeSelect = '"
                 + TeamTaskRepository.TYPE_TASK
                 + "' AND self.taskEndDate  < current_date() ");
-
-    if (user.getActiveCompany() != null) {
+    if (user.getActiveCompany() != null && appService.isApp("business-project")) {
       filter =
           Filter.and(
               filter,
