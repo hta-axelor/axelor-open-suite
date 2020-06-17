@@ -44,7 +44,6 @@
 			<panel title="Invoicing" name="invoicingPanel" showIf="isBusinessProject" if="__config__.app.isApp('business-project')" if-module="axelor-business-project">				
 				<field name="isInvoicingExpenses" colSpan="4" />
 				<field name="isInvoicingPurchases" colSpan="4" />
-				<field name="invoicingTypeSelect"  colSpan="6"/>
 				<field name="invoicingComment" colSpan="12" />
 			</panel>
 
