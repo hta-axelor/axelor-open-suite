@@ -1,4 +1,4 @@
-package com.axelor.apps.project.event;
+package com.axelor.apps.project.observer;
 
 import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.Topic;
@@ -15,12 +15,12 @@ import com.google.inject.Inject;
 import java.util.Map;
 import javax.inject.Named;
 
-public class ProjectActivityEvent {
+public class ProjectActivityObserver {
 
   private ProjectActivityService projectActivityService;
 
   @Inject
-  public ProjectActivityEvent(ProjectActivityService projectActivityService) {
+  public ProjectActivityObserver(ProjectActivityService projectActivityService) {
     this.projectActivityService = projectActivityService;
   }
 
