@@ -10,6 +10,7 @@
 		<many-to-one name="project" ref="com.axelor.apps.project.db.Project" title="Project"/>
 
         <string name="fullName" namecolumn="true" title="Name" search="id,name"/>
+        <many-to-one name="statusBeforeComplete" title="Last Status" ref="com.axelor.apps.project.db.ProjectStatus"/>
         <many-to-one name="taskStatus" title="Status" ref="com.axelor.apps.project.db.ProjectStatus"/>
 	  	
 	  	<many-to-one name="parentTask" ref="com.axelor.team.db.TeamTask" title="Parent task"/>
