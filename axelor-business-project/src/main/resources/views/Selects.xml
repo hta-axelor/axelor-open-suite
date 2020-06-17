@@ -60,7 +60,7 @@
 		<option value="3">Default value</option>
 	</selection>
 	
-	<selection name="sequence.generic.code.select" id="project.sequence.generic.code.select">
+	<selection id="business.project.sequence.generic.code.select" name="sequence.generic.code.select">
 		<option value="project">Project</option>
 	</selection>
 
