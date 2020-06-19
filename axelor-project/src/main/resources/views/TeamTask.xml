@@ -84,7 +84,7 @@
 				</panel>
 			</panel>
 			<panel name="characteristicsPanel" title="Characteristics" colSpan="12">
-				<field name="teamTaskCategory" colSpan="4" onSelect="action-task-attrs-team-task-category-configurations" onChange="action-team-task-group-project-category-onchange"/>
+				<field name="teamTaskCategory" colSpan="4" onSelect="action-task-attrs-team-task-category-configurations" onChange="action-team-task-group-project-category-onchange" showIf="project.isShowTaskCategory"/>
 				<field name="teamTaskSection" colSpan="4" form-view="team-task-section-form" grid-view="team-task-section-grid" showIf="project.isShowSection"/>
 				<field name="taskPriority" onSelect="action-team-task-atts-priority-on-select" colSpan="4" required="true" showIf="project.isShowPriority" canView="false"/>
 				<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" domain="self.project = :project OR self.project.parentProject = :project" colSpan="4" form-view="project-version-form" grid-view="project-version-grid"/>
@@ -92,12 +92,13 @@
 				<field name="taskDate" colSpan="4" onChange="action-task-attrs-set-task-duration,action-team-task-record-set-date-or-frequency-changed" required="true"/>
 				<field name="taskEndDate" colSpan="4" onChange="action-task-attrs-set-task-duration"/>
 				<field name="taskDeadline" title="Task deadline" colSpan="4" if="!__config__.app.isApp('business-support')"/>
-				<field name="categorySet"  widget="tagSelect" canNew="false" onSelect="action-task-attrs-team-task-category-configurations"/>
+				<field name="categorySet"  widget="tagSelect" canNew="false" onSelect="action-task-attrs-team-task-category-configurations" showIf="project.isShowTaskCategory"/>
 				<field name="progressSelect" widget="SelectProgress" onChange="action-task-update-planned-progress" showIf="project.isShowProgress"/>
 				<field name="project.isShowProgress" hidden="true"/>
 				<field name="project.isShowSection" hidden="true"/>
 				<field name="project.isShowStatus" hidden="true"/>
 				<field name="project.isShowPriority" hidden="true"/>
+				<field name="project.isShowTaskCategory" hidden="true"/>
 			</panel>
 
 			<field name="typeSelect" hidden="true"/>
