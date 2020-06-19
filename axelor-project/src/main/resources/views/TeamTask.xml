@@ -3,7 +3,7 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
 
-	<grid id="project-team-task-grid" name="team-task-grid" title="Tasks" model="com.axelor.team.db.TeamTask" edit-icon="true" orderBy="taskDate,taskPriority">
+	<grid id="project-team-task-grid" name="team-task-grid" title="Tasks" model="com.axelor.team.db.TeamTask" edit-icon="true" orderBy="-taskPriority.technicalTypeSelect">
 		<hilite if="taskStatus.isCompleted" color="success"/>
 		<hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
 		<hilite if="taskPriority.technicalTypeSelect == '4'" color="warning"/>
