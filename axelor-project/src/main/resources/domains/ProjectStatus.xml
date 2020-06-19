@@ -10,20 +10,9 @@
   		<string name="name"/>
   		<boolean name="isDefaultCompleted" title="Default Completed"/>
   		<boolean name="isCompleted" title="Completed"/>
-  		
-  		<extra-code>
-  		 <![CDATA[
-   			public ProjectStatus getDefaultCompleted(){
-   			 return all().filter("self.isDefaultCompleted = true").fetchOne();
-   			}
-   			public ProjectStatus getCompleted(){
-   			 return all().filter("self.isCompleted = true").fetchOne();
-   			}
-   			public ProjectStatus getNotCompleted(){
-   			 return all().filter("self.isCompleted = false").fetchOne();
-   			}
-   		]]>
-  		</extra-code>
+  		<finder-method name="getDefaultCompleted" using="" filter="self.isDefaultCompleted = true"/>
+  		<finder-method name="getCompleted" using="" filter="self.isCompleted = true"/>
+  		<finder-method name="getNotCompleted" using="" filter="self.isCompleted = false"/>
 	</entity>
 	
  </domain-models>
