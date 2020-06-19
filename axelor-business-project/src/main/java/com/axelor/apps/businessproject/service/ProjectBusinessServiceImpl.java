@@ -271,8 +271,7 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
           .param("search-filters", "project-filters")
           .context("_showRecord", project.getId())
           .map();
-    } else {
-      return super.createProjectFromTemplateView(projectTemplate);
     }
+    return super.createProjectFromTemplateView(projectTemplate);
   }
 }
