@@ -36,7 +36,7 @@
 		<view type="kanban" name="team-task-kanban"/>
 		<view type="grid" name="team-task-grid"/>
 		<view type="form" name="team-task-form"/>
-        <view-param name="search-filters" value="project-filters"/>
+        <view-param name="search-filters" value="team-task-filters"/>
 		<domain>self.project.projectStatus.isCompleted = false and self.typeSelect = :_typeSelect</domain>
 		<context name="_typeSelect" expr="eval: com.axelor.team.db.repo.TeamTaskRepository.TYPE_TASK"/>
 	</action-view>
