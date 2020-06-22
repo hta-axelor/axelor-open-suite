@@ -48,7 +48,7 @@
 		<view type="form" name="team-task-form"/>
 		<view-param name="search-filters" value="team-task-filters"/>
 		<view-param name="forceTitle" value="true"/>
-		<domain>self.project.projectStatus.isCompleted = false and self.typeSelect = 'ticket'</domain>
+		<domain>self.project.projectStatus.isCompleted = false and self.typeSelect = :_typeSelect</domain>
 		<context name="_typeSelect" expr="eval: com.axelor.team.db.repo.TeamTaskRepository.TYPE_TICKET"/>
 	</action-view>
 
