@@ -12,7 +12,7 @@
 		<button name="updateToInvoiceBtn" title="Update to invoice" readonlyIf="invoiced" icon="fa-check-circle" onClick="action-team-task-method-update-to-invoice"/>
 	</grid>
 	
-	<grid name="team-task-client-grid" title="Tasks" model="com.axelor.team.db.TeamTask" edit-icon="true" orderBy="-taskPriority.technicalTypeSelect">
+	<grid name="team-task-client-grid" title="Tasks" model="com.axelor.team.db.TeamTask" edit-icon="true" orderBy="taskDate">
 		<hilite if="$get('taskStatus.isCompleted') == true" color="success"/>
         <hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
 		<hilite if="$get('taskPriority.technicalTypeSelect') == 4" color="warning"/>
