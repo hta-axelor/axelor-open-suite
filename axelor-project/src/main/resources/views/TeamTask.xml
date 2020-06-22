@@ -275,6 +275,7 @@
 		<field name="assignedTo"/>
 		<field name="taskDate"/>
 		<field name="taskDeadline"/>
+		<field name="taskPriority.name"/>
 		<field name="taskPriority.technicalTypeSelect"/>
 		<field name="progressSelect"/>
 		<template>
@@ -292,10 +293,7 @@
 					<span ng-if="$moment(taskDeadline).isAfter($moment().add(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment().to($moment(taskDeadline), false) }}</span>
 					<span ng-if="$moment(taskDeadline).isBefore($moment().subtract(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment(taskDeadline).from($moment(), false)  }}</span>
 					
-					<span class="label label-success pull-right" ng-if="taskPriority.technicalTypeSelect == 1" x-translate>Low</span>
-					<span class="label label-info pull-right" ng-if="taskPriority.technicalTypeSelect == 2" x-translate>Normal</span>
-					<span class="label label-warning pull-right" ng-if="taskPriority.technicalTypeSelect == 3" x-translate>High</span>
-					<span class="label label-important pull-right" ng-if="taskPriority.technicalTypeSelect == 4" x-translate>Urgent</span>
+					<span class="label pull-right" ng-class="{1:'label-success',2:'label-info',3:'label-warning',4:'label-important'}[taskPriority.technicalTypeSelect]">{{taskPriority.name}}</span>
 					
 				</div>
 				<div class="progress kanban-progress">
@@ -316,6 +314,7 @@
 		<field name="assignedTo"/>
 		<field name="taskDate"/>
 		<field name="taskDeadline"/>
+		<field name="taskPriority.name"/>
 		<field name="taskPriority.technicalTypeSelect"/>
 		<field name="progressSelect"/>
 		<template>
@@ -333,10 +332,7 @@
 					<span ng-if="$moment(taskDeadline).isAfter($moment().add(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment().to($moment(taskDeadline), false) }}</span>
 					<span ng-if="$moment(taskDeadline).isBefore($moment().subtract(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment(taskDeadline).from($moment(), false)  }}</span>
 					
-					<span class="label label-success pull-right" ng-if="taskPriority.technicalTypeSelect == 1" x-translate>Low</span>
-					<span class="label label-info pull-right" ng-if="taskPriority.technicalTypeSelect == 2" x-translate>Normal</span>
-					<span class="label label-warning pull-right" ng-if="taskPriority.technicalTypeSelect == 3" x-translate>High</span>
-					<span class="label label-important pull-right" ng-if="taskPriority.technicalTypeSelect == 4" x-translate>Urgent</span>
+					<span class="label pull-right" ng-class="{1:'label-success',2:'label-info',3:'label-warning',4:'label-important'}[taskPriority.technicalTypeSelect]">{{taskPriority.name}}</span>
 					
 				</div>
 				<div class="progress kanban-progress">
