@@ -53,10 +53,4 @@ public class ProjectManagementRepository extends ProjectRepository {
     setAllProjectFullName(project);
     return super.save(project);
   }
-
-  @Override
-  public Project copy(Project entity, boolean deep) {
-    Project project = super.copy(entity, false);
-    return project;
-  }
 }
