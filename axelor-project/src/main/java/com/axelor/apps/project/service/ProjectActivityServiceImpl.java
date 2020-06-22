@@ -43,7 +43,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   @Override
   public ProjectActivity getProjectActivity(Project project) {
     ProjectActivity projectActivity = getDefaultActivity(project);
-    projectActivity.setObjectUpdated("Project");
+    projectActivity.setObjectUpdated(project.getClass().getSimpleName());
     projectActivity.setRecordTitle(project.getName());
     return projectActivityRepo.save(projectActivity);
   }
@@ -52,7 +52,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   @Override
   public ProjectActivity getProjectActivity(TeamTask task) {
     ProjectActivity projectActivity = getDefaultActivity(task.getProject());
-    projectActivity.setObjectUpdated("Task");
+    projectActivity.setObjectUpdated(task.getClass().getSimpleName());
     projectActivity.setRecordTitle(task.getName());
     return projectActivityRepo.save(projectActivity);
   }
@@ -61,7 +61,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   @Override
   public ProjectActivity getProjectActivity(Wiki wiki) {
     ProjectActivity projectActivity = getDefaultActivity(wiki.getProject());
-    projectActivity.setObjectUpdated("Wiki");
+    projectActivity.setObjectUpdated(wiki.getClass().getSimpleName());
     projectActivity.setRecordTitle(wiki.getTitle());
     return projectActivityRepo.save(projectActivity);
   }
@@ -70,7 +70,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   @Override
   public ProjectActivity getProjectActivity(Topic topic) {
     ProjectActivity projectActivity = getDefaultActivity(topic.getProject());
-    projectActivity.setObjectUpdated("Topic");
+    projectActivity.setObjectUpdated(topic.getClass().getSimpleName());
     projectActivity.setRecordTitle(topic.getTitle());
     return projectActivityRepo.save(projectActivity);
   }
