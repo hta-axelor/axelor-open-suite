@@ -42,7 +42,6 @@
 		<decimal name="budgetedTime" title="Estimated time"/>
 		<many-to-one name="metaFile" title="Signature" ref="com.axelor.meta.db.MetaFile" />
 		
-		<many-to-many name="categorySet" ref="com.axelor.apps.project.db.TeamTaskCategory" title="Tags"/>
 		<many-to-one name="teamTaskSection" ref="com.axelor.apps.project.db.TeamTaskSection" title="Section"/>
 		<many-to-one name="taskPriority" title="Priority" ref="com.axelor.apps.project.db.ProjectPriority"/>
 
