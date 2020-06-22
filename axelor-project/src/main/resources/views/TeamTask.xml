@@ -4,17 +4,19 @@
               xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.3.xsd">
 
 	<grid id="project-team-task-grid" name="team-task-grid" title="Tasks" model="com.axelor.team.db.TeamTask" edit-icon="true" orderBy="-taskPriority.technicalTypeSelect">
-		<hilite if="taskStatus.isCompleted" color="success"/>
-		<hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
-		<hilite if="taskPriority.technicalTypeSelect == '4'" color="warning"/>
+		<hilite if="$get('taskStatus.isCompleted') == true" color="success"/>
+        <hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
+		<hilite if="$get('taskPriority.technicalTypeSelect') == 4" color="warning"/>
 		<field name="name"/>
 		<field name="project"/>
 		<field name="taskDate"/>
-		<field name="taskEndDate" hidden="true"/>
 		<field name="taskStatus"/>
 		<field name="taskPriority"/>
 		<field name="teamTaskCategory"/>
 		<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
+		<field name="taskEndDate" hidden="true"/>
+        <field name="taskPriority.technicalTypeSelect" hidden="true"/>
+        <field name="taskStatus.isCompleted" hidden="true"/>
 	</grid>
 	
 	<form name="team-task-form" id="project-team-task-form" title="Task" model="com.axelor.team.db.TeamTask"
