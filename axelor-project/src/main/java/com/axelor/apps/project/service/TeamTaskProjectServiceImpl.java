@@ -26,7 +26,6 @@ import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.Set;
 
 public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
@@ -86,8 +85,9 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     if (ObjectUtils.isEmpty(teamTaskStatusSet)) {
       return null;
     }
-    Optional<ProjectStatus> projectStatus =
-        teamTaskStatusSet.stream().filter(status -> status.getIsDefaultCompleted()).findFirst();
-    return projectStatus.isPresent() ? projectStatus.get() : null;
+    return teamTaskStatusSet.stream()
+        .filter(ProjectStatus::getIsDefaultCompleted)
+        .findFirst()
+        .orElse(null);
   }
 }

@@ -11,10 +11,10 @@
 	
 	<extra-code>
    		<![CDATA[
-   			public static final int LOW = 1;
-   			public static final int NORMAL = 2;
-   			public static final int HIGH = 3;
-   			public static final int URGENT = 4;
+   			public static final int PROJECT_PRIORITY_LOW = 1;
+   			public static final int PROJECT_PRIORITY_NORMAL = 2;
+   			public static final int PROJECT_PRIORITY_HIGH = 3;
+   			public static final int PROJECT_PRIORITY_URGENT = 4;
    		]]>
    	</extra-code>
 	</entity>
