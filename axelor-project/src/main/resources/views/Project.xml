@@ -136,6 +136,9 @@
 				<field name="extendsMembersFromParent" hidden="true" colSpan="3" widget="boolean-switch" />
 				<field name="membersUserSet" colSpan="12"
 					widget="TagSelect" canNew="false" form-view="user-form" grid-view="user-grid" />
+				<button name="importMemberBtn" title="Import all members"	
+					showIf="team != null" readonlyIf="extendsMembersFromParent" colSpan="3"	
+					onClick="action-project-method-import-members" />
 				<panel title="Planning" name="planningPanel" colSpan="12"
 					 if="__config__.app.isApp('employee')" if-module="axelor-human-resource">
 					<field name="totalPlannedHrs" readonly="true">
@@ -671,6 +674,10 @@
  		<attribute for="contactPartner" if="clientPartner != null &amp;&amp; clientPartner.contactPartnerSet.empty" name="domain" expr="eval: &quot;self.id IN (0)&quot;"/>
  		<attribute for="contactPartner" if="clientPartner == null" name="domain" expr="eval: &quot;self.isContact = true AND :company member of self.companySet&quot;"/>
 	</action-attrs>
+	
+	<action-method name="action-project-method-import-members">	
+		<call class="com.axelor.apps.project.web.ProjectController" method="importMembers"/>	
+	</action-method>
 	
 	<action-record name="action-project-record-change-status" model="com.axelor.apps.project.db.Project">
 		<field name="projectStatus" expr="eval:__repo__(ProjectStatus).getDefaultCompleted()"/>

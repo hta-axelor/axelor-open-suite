@@ -16,7 +16,6 @@
 	  	<many-to-one name="parentTask" ref="com.axelor.team.db.TeamTask" title="Parent task"/>
 	 	<many-to-one name="teamTaskCategory" ref="com.axelor.apps.project.db.TeamTaskCategory" title="Category"/>
     	<integer name="progressSelect" title="Progress" selection="project.task.progress.select"/>
-    	<many-to-one name="team" ref="com.axelor.team.db.Team" title="Team"/>
     	<one-to-many name="teamTaskList" ref="com.axelor.team.db.TeamTask" mappedBy="parentTask"/>
 	  
 		<many-to-many name="membersUserSet" ref="com.axelor.auth.db.User" title="Followers"/>

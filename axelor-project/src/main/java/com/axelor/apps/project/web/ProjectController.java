@@ -30,6 +30,14 @@ import java.util.Map;
 @Singleton
 public class ProjectController {
 
+  public void importMembers(ActionRequest request, ActionResponse response) {
+    Project project = request.getContext().asType(Project.class);
+    if (project.getTeam() != null) {
+      project.getTeam().getMembers().forEach(project::addMembersUserSetItem);
+      response.setValue("membersUserSet", project.getMembersUserSet());
+    }
+  }
+
   public void getMyOpenTasks(ActionRequest request, ActionResponse response) {
     Project project = request.getContext().asType(Project.class);
     Map<String, Object> context = new HashMap<>();

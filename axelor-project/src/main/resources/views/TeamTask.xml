@@ -73,7 +73,7 @@
 					<field name="taskStatus" colSpan="6" onSelect="action-team-task-atts-status-on-select" showIf="project.isShowStatus" canView="false"/>
 					<field name="parentTask" readonlyIf="project == null" colSpan="6" onSelect="action-task-attrs-project-parent-task-configurations"/>
 					<field name="assignedTo" readonlyIf="project == null" colSpan="6" canNew="false" canView="false" canEdit="false" onSelect="action-task-attrs-project-assigned-to-configurations" required="true" form-view="user-form" grid-view="user-grid"/>
-					<field name="team" readonly="true" colSpan="6" form-view="team-form" grid-view="team-grid" if="!__config__.app.isApp('business-support')"/>
+					<field name="team" readonly="true" colSpan="6" form-view="team-form" grid-view="team-grid" if="!__config__.app.isApp('business-support')" hidden="true"/>
 					<field name="customerReferral" onSelect="action-task-attrs-customer-referral-domain" hidden="true" showIf="typeSelect == 'ticket'" if="__config__.app.isApp('business-project')"/>
 					<field name="isPrivate" hidden="true" showIf="typeSelect == 'ticket'" colSpan="6"  if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
 					<field name="isOrderAccepted" colSpan="3" hidden="true" showIf="typeSelect == 'ticket'" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
@@ -420,7 +420,6 @@
 		<field name="teamTaskCategory" expr="eval: null"/>
 		<field name="assignedTo" expr="eval:(project?.membersUserSet ? project?.membersUserSet?.collect{it.id}.contains(assignedTo.id) : __repo__(Project).find(project?.id).membersUserSet?.collect{it.id}.contains(assignedTo.id)) ? assignedTo : null" if="project != null &amp;&amp; assignedTo != null"/>
 		<field name="membersUserSet" expr="eval: null"/>
-		<field name="team" expr="eval: project?.team" if="project?.synchronize &amp;&amp; project.team != null"/>
         <field name="invoicingType" expr="eval: 2" if="project?.invoicingSequenceSelect == 1"/>
         <field name="taskStatus" expr="eval: null"/> 
         <field name="taskPriority" expr="eval: null"/> 

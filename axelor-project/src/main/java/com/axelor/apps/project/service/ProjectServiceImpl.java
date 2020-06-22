@@ -180,6 +180,7 @@ public class ProjectServiceImpl implements ProjectService {
         project.setContactPartner(clientPartner.getContactPartnerSet().iterator().next());
       }
       project.setDescription(projectTemplate.getDescription());
+      project.setTeam(projectTemplate.getTeam());
       project.setAssignedTo(projectTemplate.getAssignedTo());
       project.setTeamTaskCategorySet(new HashSet<>(projectTemplate.getTeamTaskCategorySet()));
       project.setSynchronize(projectTemplate.getSynchronize());
