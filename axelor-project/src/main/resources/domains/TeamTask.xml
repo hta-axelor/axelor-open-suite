@@ -46,7 +46,7 @@
 		<many-to-one name="taskPriority" title="Priority" ref="com.axelor.apps.project.db.ProjectPriority"/>
 
 	 <track replace="true">
-	 	<field name="status"/>
+	 	<field name="taskStatus"/>
 	 	<field name="teamTaskCategory"/>
 	 	<field name="progressSelect"/>
 	 	<field name="assignedTo"/>
