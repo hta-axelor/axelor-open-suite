@@ -150,7 +150,7 @@
 		<view type="form" name="resource-type-form"/>
 	</action-view>
 
-	<menuitem name="project-resource" title="project-Resources" order="32" parent="project-configurations" action="project.resource" if="__config__.app.getApp('project').getResourceManagement()" />
+	<menuitem name="project-resource" title="Project.Resource" order="32" parent="project-configurations" action="project.resource" if="__config__.app.getApp('project').getResourceManagement()" />
 	<action-view name="project.resource" title="Resources" model="com.axelor.apps.project.db.Resource">
 		<view type="grid" name="resource-grid" />
 		<view type="form" name="resource-form" />
