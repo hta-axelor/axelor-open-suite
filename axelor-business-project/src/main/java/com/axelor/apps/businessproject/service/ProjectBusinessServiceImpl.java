@@ -30,7 +30,6 @@ import com.axelor.apps.base.service.PartnerService;
 import com.axelor.apps.businessproject.service.app.AppBusinessProjectService;
 import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.ProjectTemplate;
-import com.axelor.apps.project.db.TaskTemplate;
 import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.apps.project.service.ProjectService;
 import com.axelor.apps.project.service.ProjectServiceImpl;
@@ -44,7 +43,6 @@ import com.axelor.exception.AxelorException;
 import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
 import com.axelor.meta.schema.actions.ActionView;
-import com.axelor.team.db.TeamTask;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import java.util.HashSet;
@@ -220,12 +218,9 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
   }
 
   @Override
-  @Transactional
-  public Project createProjectFromTemplate(
-      ProjectTemplate projectTemplate, String projectCode, Partner clientPartner)
-      throws AxelorException {
-
-    Project project = super.createProjectFromTemplate(projectTemplate, projectCode, clientPartner);
+  public Project generateProject(
+      ProjectTemplate projectTemplate, String projectCode, Partner clientPartner) {
+    Project project = super.generateProject(projectTemplate, projectCode, clientPartner);
 
     if (projectTemplate.getIsBusinessProject()) {
       project.setCurrency(clientPartner.getCurrency());
@@ -249,12 +244,6 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
     project.setCompany(projectTemplate.getCompany());
 
     return project;
-  }
-
-  @Override
-  public TeamTask createTask(TaskTemplate taskTemplate, Project project) {
-    TeamTask task = super.createTask(taskTemplate, project);
-    return task;
   }
 
   @Override

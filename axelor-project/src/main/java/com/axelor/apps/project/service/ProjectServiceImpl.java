@@ -45,7 +45,6 @@ import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import java.math.BigDecimal;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -163,61 +162,23 @@ public class ProjectServiceImpl implements ProjectService {
   public Project createProjectFromTemplate(
       ProjectTemplate projectTemplate, String projectCode, Partner clientPartner)
       throws AxelorException {
-
-    Project project = new Project();
-    project.setName(projectTemplate.getName());
-
-    if (projectRepository.all().filter("self.code = ?", projectCode).count() > 0) {
+    if (projectRepository.findByCode(projectCode) != null) {
       throw new AxelorException(
           TraceBackRepository.CATEGORY_INCONSISTENCY, ITranslation.PROJECT_CODE_ERROR);
-    } else {
-
-      project.setCode(projectCode);
-      project.setClientPartner(clientPartner);
-      if (clientPartner != null
-          && clientPartner.getContactPartnerSet() != null
-          && !clientPartner.getContactPartnerSet().isEmpty()) {
-        project.setContactPartner(clientPartner.getContactPartnerSet().iterator().next());
-      }
-      project.setDescription(projectTemplate.getDescription());
-      project.setTeam(projectTemplate.getTeam());
-      project.setAssignedTo(projectTemplate.getAssignedTo());
-      project.setTeamTaskCategorySet(new HashSet<>(projectTemplate.getTeamTaskCategorySet()));
-      project.setSynchronize(projectTemplate.getSynchronize());
-      project.setMembersUserSet(new HashSet<>(projectTemplate.getMembersUserSet()));
-      project.setImputable(projectTemplate.getImputable());
-      project.setProductSet(new HashSet<>(projectTemplate.getProductSet()));
-      project.setExcludePlanning(projectTemplate.getExcludePlanning());
-
-      List<Wiki> wikiList = projectTemplate.getWikiList();
-
-      if (wikiList != null && !wikiList.isEmpty()) {
-
-        for (Wiki wiki : wikiList) {
-          wiki = wikiRepo.copy(wiki, false);
-          wiki.setProjectTemplate(null);
-          project.addWikiListItem(wiki);
-        }
-      }
-
-      projectRepository.save(project);
-
-      Set<TaskTemplate> taskTemplateSet = projectTemplate.getTaskTemplateSet();
-
-      if (taskTemplateSet != null) {
-        Iterator<TaskTemplate> taskTemplateItr = taskTemplateSet.iterator();
-
-        while (taskTemplateItr.hasNext()) {
-          createTask(taskTemplateItr.next(), project);
-        }
-      }
-
-      return project;
     }
+
+    Project project = generateProject(projectTemplate, projectCode, clientPartner);
+    setWikiItems(project, projectTemplate);
+    projectRepository.save(project);
+
+    Set<TaskTemplate> taskTemplateSet = projectTemplate.getTaskTemplateSet();
+    if (ObjectUtils.notEmpty(taskTemplateSet)) {
+      taskTemplateSet.forEach(template -> createTask(template, project));
+    }
+    return project;
   }
 
   public TeamTask createTask(TaskTemplate taskTemplate, Project project) {
-
     TeamTask task =
         teamTaskProjectService.create(
             taskTemplate.getName(), project, taskTemplate.getAssignedTo());
@@ -238,10 +199,7 @@ public class ProjectServiceImpl implements ProjectService {
             .param("details-view", "true");
 
     if (ObjectUtils.notEmpty(context)) {
-      context.forEach(
-          (key, value) -> {
-            builder.context(key, value);
-          });
+      context.forEach(builder::context);
     }
     return builder.map();
   }
@@ -260,5 +218,38 @@ public class ProjectServiceImpl implements ProjectService {
         .context("_projectTemplate", projectTemplate)
         .context("_businessProject", projectTemplate.getIsBusinessProject())
         .map();
+  }
+
+  protected void setWikiItems(Project project, ProjectTemplate projectTemplate) {
+    List<Wiki> wikiList = projectTemplate.getWikiList();
+    if (ObjectUtils.notEmpty(wikiList)) {
+      for (Wiki wiki : wikiList) {
+        wiki = wikiRepo.copy(wiki, false);
+        wiki.setProjectTemplate(null);
+        project.addWikiListItem(wiki);
+      }
+    }
+  }
+
+  @Override
+  public Project generateProject(
+      ProjectTemplate projectTemplate, String projectCode, Partner clientPartner) {
+    Project project = new Project();
+    project.setName(projectTemplate.getName());
+    project.setCode(projectCode);
+    project.setClientPartner(clientPartner);
+    project.setDescription(projectTemplate.getDescription());
+    project.setTeam(projectTemplate.getTeam());
+    project.setAssignedTo(projectTemplate.getAssignedTo());
+    project.setTeamTaskCategorySet(new HashSet<>(projectTemplate.getTeamTaskCategorySet()));
+    project.setSynchronize(projectTemplate.getSynchronize());
+    project.setMembersUserSet(new HashSet<>(projectTemplate.getMembersUserSet()));
+    project.setImputable(projectTemplate.getImputable());
+    project.setProductSet(new HashSet<>(projectTemplate.getProductSet()));
+    project.setExcludePlanning(projectTemplate.getExcludePlanning());
+    if (clientPartner != null && ObjectUtils.notEmpty(clientPartner.getContactPartnerSet())) {
+      project.setContactPartner(clientPartner.getContactPartnerSet().iterator().next());
+    }
+    return project;
   }
 }
