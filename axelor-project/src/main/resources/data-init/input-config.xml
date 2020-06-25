@@ -29,4 +29,5 @@
 	
 	<input file="meta_metaMenu.csv" separator=";" type="com.axelor.meta.db.MetaMenu" search="self.name = :name" update="true" />
 
+    <input file="project_status.csv" separator=";" type="com.axelor.apps.project.db.ProjectStatus" search="self.importId = :importId"/>
 </csv-inputs>
