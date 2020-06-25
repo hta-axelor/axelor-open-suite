@@ -414,7 +414,6 @@
 		<field name="fullName"/>
 		<field name="description"/>
 		<field name="progress"/>
-		<field name="dueDate"/>
 		<field name="projectStatus"/>
 		<field name="sequence"/>
 		<template>
@@ -432,7 +431,6 @@
 		<field name="fullName"/>
 		<field name="description"/>
 		<field name="progress"/>
-		<field name="dueDate"/>
 		<field name="projectStatus"/>
 		<field name="sequence"/>
 		<template>
