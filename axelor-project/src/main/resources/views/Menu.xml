@@ -22,15 +22,6 @@
 		<context name="_fromProject" expr="eval:true"/>
 	</action-view>
 
-	<menuitem name="project-phases" parent="menu-project-root" title="Project phases" action="all.phases" order="15"/>
-	<action-view name="all.phases" title="Project phases" model="com.axelor.apps.project.db.Project">
-		<view type="grid" name="project-grid"/>
-		<view type="form" name="project-form"/>
-		<view type="kanban" name="project-kanban"/>
-        <view-param name="search-filters" value="project-filters"/>
-		<context name="_fromProject" expr="eval:true"/>
-	</action-view>
-
 	<menuitem name="project-open-tasks" parent="menu-project-root" title="Tasks" order="20" action="all.open.project.tasks"/>
 	<action-view name="all.open.project.tasks" title="Project Tasks" model="com.axelor.team.db.TeamTask">
 		<view type="kanban" name="team-task-kanban"/>
