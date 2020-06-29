@@ -73,13 +73,6 @@
 		<boolean name="isShowCalendarPerUser" title="Enable calendar view per user"/>
 		<finder-method name="findAllByParentProject" using="parentProject" all="true"/>
         <finder-method name="findByName" using="name"/>
-
-	   <extra-code>
-   		<![CDATA[
-   			public static final Integer TYPE_PROJECT = 1;
-   			public static final Integer TYPE_PHASE = 2;
-   		]]>
-   	</extra-code>
   </entity>
 
 	<enum name="GenProjTypePerOrderLine">
