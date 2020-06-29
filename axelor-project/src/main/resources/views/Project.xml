@@ -131,6 +131,9 @@
 					action="action-dashlet-project-show-all-invoicing-task" if="__config__.app.isApp('business-project')" canSearch="true"/>
 			</panel>
 			<panel title="Members" name="membersPanel">
+		    	<field name="team" title="Team"
+					readonlyIf="synchronize || extendsMembersFromParent" colSpan="6"
+					canNew="false" canEdit="false" />
 				<field name="synchronize" readonlyIf="extendsMembersFromParent"
 					colSpan="2" widget="boolean-switch" />
 				<field name="extendsMembersFromParent" hidden="true" colSpan="3" widget="boolean-switch" />
