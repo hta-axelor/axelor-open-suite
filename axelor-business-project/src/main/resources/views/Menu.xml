@@ -20,7 +20,6 @@
 	    <view-param name="search-filters" value="project-filters"/>
 	    <domain>self.isBusinessProject = true</domain>
 	    <context name="_fromBusinessProject" expr="eval:true"/>
-	     <context name="_fromProject" expr="eval:false"/>
 	</action-view>
 	
 	<menuitem name="business-project-root-invoicing-project" order="-102" title="Invoicing project" action="business.project.root.invoicing.project"  icon="fa-tasks" icon-background="#3f6bb9" if="__config__.app.isApp('business-project')"/>

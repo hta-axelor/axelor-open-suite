@@ -19,7 +19,6 @@
 		<view type="form" name="project-form"/>
 		<view type="kanban" name="project-kanban"/>
 		<view-param name="search-filters" value="project-filters"/>
-		<context name="_fromProject" expr="eval:true"/>
 	</action-view>
 
 	<menuitem name="project-open-tasks" parent="menu-project-root" title="Tasks" order="20" action="all.open.project.tasks"/>
