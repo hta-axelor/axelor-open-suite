@@ -32,7 +32,6 @@
 
   <action-view name="project.task.customer.new" title="New tasks" model="com.axelor.team.db.TeamTask">
 	<view type="form" name="team-task-client-form"/>
-	<domain>self.typeSelect = :_typeSelect</domain>
 	<context name="_typeSelect" expr="eval: com.axelor.team.db.repo.TeamTaskRepository.TYPE_TICKET"/>
   </action-view>
 
