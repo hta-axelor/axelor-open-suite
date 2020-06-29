@@ -25,7 +25,7 @@
 
 	<grid name="folder-project-grid" title="Projects" model="com.axelor.apps.project.db.Project">
 		<field name="fullName"/>
-		<field name="company" if="__config__.app.getApp('base').getEnableMultiCompany()"/>
+		<field name="company" if="__config__.app.isApp('business-project') &amp;&amp; __config__.app.getApp('base').getEnableMultiCompany()"/>
 		<field name="clientPartner"/>
 	</grid>
 
@@ -523,7 +523,6 @@
 	
 	<action-attrs name="action-project-defaults" model="com.axelor.apps.project.db.Project">
 		<attribute name="value" for="fromDate" expr="eval: __datetime__"/>
-		<attribute name="value" for="company" expr="eval:__user__.activeCompany"/>
 		<attribute name="value" for="assignedTo" expr="eval: __user__"/>
 		<attribute name="value:add" for="membersUserSet" expr="eval: __user__"/>
 		<attribute name="value" for="isBusinessProject" expr="eval:_fromBusinessProject"/>
@@ -778,7 +777,7 @@
     </action-method>
 
 	<search-filters name="project-filters" model="com.axelor.apps.project.db.Project" title="Project filters">
-        <field name="company" hidden="true" if="!__config__.app.getApp('base').getEnableMultiCompany()"/>
+        <field name="company" hidden="true" if="!__config__.app.getApp('base').getEnableMultiCompany() || !__config__.app.isApp('business-project')"/>
         <field name="resourceBookingList" hidden="true" if="!__config__.app.getApp('project').resourceManagement"/>
         <field name="productionOrderList" hidden="true" if="!(__config__.app.isApp('business-project') &amp;&amp; __config__.app.getApp('business-project').getShowProductionOrderRelatedToProject())"/>
         <field name="clientPartner" hidden="true" if="!__config__.app.isApp('business-project')"/>
