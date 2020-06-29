@@ -216,7 +216,6 @@
 		</panel-mail>
 	</form>
 	
-	<!-- TODO: Have to fix gantt taskDate,taskEndDate is hidden in below 3 gantt -->
 	<gantt name="task-gantt" title="Tasks" model="com.axelor.team.db.TeamTask" 
 		taskStart="taskDate" taskEnd="taskEndDate"  taskDuration="durationHours" taskParent="parentTask" taskSequence="sequence"
 		taskProgress="plannedProgress" x-start-to-start="startToStartSet" x-finish-to-start="finishToStartSet"
@@ -425,7 +424,6 @@
         <field name="taskPriority" expr="eval: null"/> 
 	</action-record>
 	
-	<!-- TODO : Have to fix set default values of priority and status -->
 	<action-record name="action-task-defaults"  model="com.axelor.team.db.TeamTask">
 		<field name="name" expr="eval: _value" if="_value"/>
 		<field name="assignedTo" expr="eval:__user__" />
