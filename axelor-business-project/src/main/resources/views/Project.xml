@@ -39,7 +39,6 @@
 	</action-attrs>
 	
 	<action-record id="business-project-action-project-defaults" name="action-project-defaults" model="com.axelor.apps.project.db.Project">
-		<field name="typeSelect" expr="eval: com.axelor.team.db.repo.TeamTaskRepository.TYPE_TASK" />
 		<field name="company" expr="eval:__user__.activeCompany"/>
 		<field name="fromDate" expr="eval: __date__"/>
 		<field name="assignedTo" expr="eval: __user__"/>
