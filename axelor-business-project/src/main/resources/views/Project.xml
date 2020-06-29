@@ -38,7 +38,7 @@
 		<attribute name="value:add" for="membersUserSet" expr="eval: __user__"/>
 	</action-attrs>
 	
-	<action-record id="business-project-action-project-default" name="action-project-default" model="com.axelor.apps.project.db.Project">
+	<action-record id="business-project-action-project-defaults" name="action-project-defaults" model="com.axelor.apps.project.db.Project">
 		<field name="typeSelect" expr="eval: com.axelor.team.db.repo.TeamTaskRepository.TYPE_TASK" />
 		<field name="company" expr="eval:__user__.activeCompany"/>
 		<field name="fromDate" expr="eval: __date__"/>
