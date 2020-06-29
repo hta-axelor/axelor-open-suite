@@ -427,6 +427,7 @@
 	<action-record name="action-task-defaults"  model="com.axelor.team.db.TeamTask">
 		<field name="name" expr="eval: _value" if="_value"/>
 		<field name="assignedTo" expr="eval:__user__" />
+		<field name="taskDate" expr="#{__date__}" />
     	<field name="project" expr="eval:_project" />
     	<field name="customerReferral" expr="eval: __user__" if="__user__?.roles.contains(__repo__(Role).all().filter('self.name=?','role.customer').fetchOne())"/>
     	<field name="assignment" expr="eval:2"/>
