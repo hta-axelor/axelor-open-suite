@@ -346,11 +346,11 @@
 		</template>
 	</kanban>
 	
-	<calendar name="team-task-per-status-calendar" title="Task Calendar" model="com.axelor.team.db.TeamTask" eventStart="taskDate" eventStop="taskEndDate" eventLength="1" mode="month">
+	<calendar name="team-task-per-status-calendar" title="Task Calendar" model="com.axelor.team.db.TeamTask" eventStart="taskDate" eventStop="taskEndDate" eventLength="1" mode="month" colorBy="taskStatus">
  	  <field name="fullName"/>
 	</calendar>
 		
-	<calendar name="team-task-per-user-calendar" title="Task Calendar" model="com.axelor.team.db.TeamTask" eventStart="taskDate" eventStop="taskEndDate" eventLength="1" mode="month">
+	<calendar name="team-task-per-user-calendar" title="Task Calendar" model="com.axelor.team.db.TeamTask" eventStart="taskDate" eventStop="taskEndDate" eventLength="1" mode="month" colorBy="assignedTo">
  	  <field name="fullName"/>
 	</calendar>
 	
