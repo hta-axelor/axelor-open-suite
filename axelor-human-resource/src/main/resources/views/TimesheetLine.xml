@@ -251,7 +251,7 @@
 	</action-record>
 	
 	<action-validate name="action-timesheet-line-validate-date">
-		<error message="This date is invalid. It must be included in the timesheet's period." if="date != null &amp;&amp; (date &lt; __parent__.fromDate || ( __parent__.toDate != null &amp;&amp; date &gt; __parent__.toDate))" action="action-timesheet-line-null-date"/>
+		<error message="This date is invalid. It must be included in the timesheet's period." if="date != null &amp;&amp; (__parent__.toDate != null &amp;&amp; date &gt; __parent__.toDate)" action="action-timesheet-line-null-date"/>
 	</action-validate>
 	
 	<action-validate name="action-team-task-validate-check-timesheet-line-date">
