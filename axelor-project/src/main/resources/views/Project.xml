@@ -357,7 +357,7 @@
 				<panel-dashlet name="contractInvoicePanel" title="Invoices" action="action-project-dashlet-contract-invoices" colSpan="12"/>
 			</panel>
 		    <panel title="Custom fields" name="customFieldConfigPanel" colSpan="12">
-			    <panel-related field="taskCustomFields" colSpan="12" showIf="id" form-view="project-task-meta-json-field-form" grid-view="project-meta-json-field-grid"/>
+			    <panel-related field="taskCustomFieldsList" colSpan="12" showIf="id" form-view="project-task-meta-json-field-form" grid-view="project-meta-json-field-grid"/>
 			</panel>
 		</panel-tabs>
 		<panel name="attrsPanel">

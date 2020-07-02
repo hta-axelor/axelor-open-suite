@@ -9,8 +9,8 @@
 			<field name="resourceManagement" widget="boolean-switch" />
 			<field name="isEnableSignature" widget="boolean-switch" />
 			<panel title="Custom fields" name="customFieldConfigPanel" colSpan="12">
-				<panel-related field="taskCustomFields" colSpan="6" form-view="project-task-meta-json-field-form" grid-view="project-meta-json-field-grid"/>
-				<panel-related field="projectCustomFields" colSpan="6" form-view="project-project-meta-json-field-form" grid-view="project-meta-json-field-grid"/>
+				<panel-related field="taskCustomFieldsList" colSpan="6" form-view="project-task-meta-json-field-form" grid-view="project-meta-json-field-grid"/>
+				<panel-related field="projectCustomFieldsList" colSpan="6" form-view="project-project-meta-json-field-form" grid-view="project-meta-json-field-grid"/>
 			</panel>
 		</panel>
 				

@@ -20,7 +20,7 @@
 		<one-to-many name="wikiList" ref="com.axelor.apps.project.db.Wiki" title="Wiki" mappedBy="project"/>
 		<one-to-many name="resourceBookingList" ref="com.axelor.apps.project.db.ResourceBooking" title="Resource booking" mappedBy="project"/>
 		
-		<one-to-many name="taskCustomFields" ref="com.axelor.meta.db.MetaJsonField" title="Task fields" orphanRemoval="true"/>
+		<one-to-many name="taskCustomFieldsList" ref="com.axelor.meta.db.MetaJsonField" title="Task fields" orphanRemoval="true"/>
 		
 		<string name="code" title="Code" unique="true"/>
 		<many-to-many name="membersUserSet" ref="com.axelor.auth.db.User" title="Membres"/>
