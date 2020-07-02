@@ -105,7 +105,6 @@ public class InvoicingProjectService {
         && invoicingProject.getPurchaseOrderLineSet().isEmpty()
         && invoicingProject.getLogTimesSet().isEmpty()
         && invoicingProject.getExpenseLineSet().isEmpty()
-        && invoicingProject.getProjectSet().isEmpty()
         && invoicingProject.getTeamTaskSet().isEmpty()) {
       throw new AxelorException(
           invoicingProject,
@@ -441,7 +440,6 @@ public class InvoicingProjectService {
     invoicingProject.setPurchaseOrderLineSet(new HashSet<PurchaseOrderLine>());
     invoicingProject.setLogTimesSet(new HashSet<TimesheetLine>());
     invoicingProject.setExpenseLineSet(new HashSet<ExpenseLine>());
-    invoicingProject.setProjectSet(new HashSet<Project>());
     invoicingProject.setTeamTaskSet(new HashSet<TeamTask>());
   }
 
@@ -536,7 +534,6 @@ public class InvoicingProjectService {
         && invoicingProject.getPurchaseOrderLineSet().isEmpty()
         && invoicingProject.getLogTimesSet().isEmpty()
         && invoicingProject.getExpenseLineSet().isEmpty()
-        && invoicingProject.getProjectSet().isEmpty()
         && invoicingProject.getTeamTaskSet().isEmpty()) {
 
       return invoicingProject;

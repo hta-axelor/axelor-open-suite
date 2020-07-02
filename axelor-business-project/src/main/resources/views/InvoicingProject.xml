@@ -67,13 +67,6 @@
 							   readonlyIf="invoice"
 							   name="expenseLineSetPanel"/>
 
-				<panel-related field="projectSet" colSpan="12" canNew="false"
-							   canEdit="false" canSelect="false"
-							   form-view="project-form" grid-view="project-grid"
-							   showIf="projectSet &amp;&amp; projectSet.length &gt; 0"
-							   readonlyIf="invoice"
-							   name="projectSetPanel"/>
-
 				<panel-related title="Production" field="manufOrderSet"
 							   colSpan="12" canNew="false" canEdit="false"
 							   canSelect="false"
@@ -121,7 +114,6 @@
 
 	<action-attrs name="action-invoicing-project-attrs-title-project">
 		<attribute name="title" for="project" expr="eval: __config__.app.getApp('project').getProjectLabel()" if="!com.google.common.base.Strings.isNullOrEmpty(__config__.app.getApp('project').getProjectLabel())"/>
-		<attribute name="title" for="projectSet" expr="eval: __config__.app.getApp('project').getProjectLabel()" if="!com.google.common.base.Strings.isNullOrEmpty(__config__.app.getApp('project').getProjectLabel())"/>
 	</action-attrs>
 	
 	<action-record name="action-invoicing-project-record-default" model="com.axelor.apps.businessproject.db.InvoicingProject">
