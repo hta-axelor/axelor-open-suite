@@ -1,6 +1,5 @@
 package com.axelor.apps.project.observer;
 
-import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.Topic;
 import com.axelor.apps.project.db.Wiki;
 import com.axelor.apps.project.service.ProjectActivityService;
@@ -22,14 +21,6 @@ public class ProjectActivityObserver {
   @Inject
   public ProjectActivityObserver(ProjectActivityService projectActivityService) {
     this.projectActivityService = projectActivityService;
-  }
-
-  public void onSaveProject(
-      @Observes @Named(RequestEvent.SAVE) @EntityType(Project.class) PostRequest event) {
-    Project project = getRecord(event, Project.class);
-    if (project != null) {
-      projectActivityService.getProjectActivity(project);
-    }
   }
 
   public void onSaveTask(

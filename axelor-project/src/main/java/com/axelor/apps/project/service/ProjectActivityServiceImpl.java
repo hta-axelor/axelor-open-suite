@@ -41,15 +41,6 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   // Have to add functionality for create,delete
   @Transactional
   @Override
-  public ProjectActivity getProjectActivity(Project project) {
-    ProjectActivity projectActivity = getDefaultActivity(project);
-    projectActivity.setObjectUpdated(project.getClass().getSimpleName());
-    projectActivity.setRecordTitle(project.getName());
-    return projectActivityRepo.save(projectActivity);
-  }
-
-  @Transactional
-  @Override
   public ProjectActivity getProjectActivity(TeamTask task) {
     ProjectActivity projectActivity = getDefaultActivity(task.getProject());
     projectActivity.setObjectUpdated(task.getClass().getSimpleName());
