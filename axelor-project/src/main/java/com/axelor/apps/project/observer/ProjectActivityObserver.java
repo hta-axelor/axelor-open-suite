@@ -5,6 +5,7 @@ import com.axelor.apps.project.db.Wiki;
 import com.axelor.apps.project.service.ProjectActivityService;
 import com.axelor.db.JPA;
 import com.axelor.db.Model;
+import com.axelor.db.mapper.Mapper;
 import com.axelor.event.Observes;
 import com.axelor.events.PostRequest;
 import com.axelor.events.RequestEvent;
@@ -51,9 +52,9 @@ public class ProjectActivityObserver {
     Map<String, Object> dataMap = event.getRequest().getData();
     if (dataMap != null) {
       Object id = dataMap.get("id");
-      if (id != null) {
-        return JPA.find(klass, Long.parseLong(id.toString()));
-      }
+      return id != null
+          ? JPA.find(klass, Long.parseLong(id.toString()))
+          : Mapper.toBean(klass, dataMap);
     }
     return null;
   }

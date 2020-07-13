@@ -17,6 +17,8 @@
  */
 package com.axelor.apps.project.module;
 
+import com.axelor.admin.auth.GlobalAuditTracker;
+import com.axelor.admin.auth.ProjectAuditTracker;
 import com.axelor.app.AxelorModule;
 import com.axelor.apps.base.db.repo.TeamTaskBaseRepository;
 import com.axelor.apps.base.service.TeamTaskServiceImpl;
@@ -57,5 +59,6 @@ public class ProjectModule extends AxelorModule {
     bind(ProjectActivityService.class).to(ProjectActivityServiceImpl.class);
     bind(ProjectActivityObserver.class);
     bind(MetaJsonFieldProjectService.class).to(MetaJsonFieldProjectServiceImpl.class);
+    bind(GlobalAuditTracker.class).to(ProjectAuditTracker.class);
   }
 }
