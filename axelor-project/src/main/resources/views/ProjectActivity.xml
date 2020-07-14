@@ -6,9 +6,9 @@
 		<field name="project"/>
 		<field name="objectUpdated"/>
 		<field name="recordTitle"/>
-		<field name="activity"/>
 		<field name="user"/>
 		<field name="doneOn"/>
+		<field name="activity"/>
 	</grid>
 	
 	<form name="project-activity-form" title="Project Activity" model="com.axelor.apps.project.db.ProjectActivity" canNew="false" canEdit="false">
@@ -16,9 +16,9 @@
 		 <field name="project"/>
 		 <field name="objectUpdated"/>
 		 <field name="recordTitle"/>
-		 <field name="activity"/>
 		 <field name="user"/>
 		 <field name="doneOn"/>
+		 <field name="activity"/>
 		</panel>
 	</form>
 	
