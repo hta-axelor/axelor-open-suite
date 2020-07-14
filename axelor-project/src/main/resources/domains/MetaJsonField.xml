@@ -7,7 +7,7 @@
 	
 	<entity name="MetaJsonField" table="META_JSON_FIELD">
 		
-		<many-to-one name="selectionRef" title="Select" ref="com.axelor.meta.db.MetaSelect"/>
+		<many-to-one name="selectionRef" title="Select" ref="com.axelor.meta.db.MetaSelect" readonly="true"/>
 		<boolean name="isDisplayedInList" title="Displayed in list view?"/>
 		
 	</entity>

@@ -15,7 +15,7 @@
 		<field name="required"/>
 		<field name="isDisplayedInList"/>
 	    <field name="scale" showIf="$typeSelect == 'decimal'"/>
-	    <field name="selectionRef" showIf="['select','multiselect'].includes($typeSelect)" onChange="action-record-project-json-field-set-selection"/>
+	    <field name="selectionRef" showIf="['select','multiselect'].includes($typeSelect)"/>
 		<panel-related readonly="false" field="selectionRef.items" showIf="['select','multiselect'].includes($typeSelect)" form-view="project-meta-select-item-form" colSpan="12">
 			<field name="title"/>
 			<field name="color"/>
@@ -31,13 +31,6 @@
 		<panel-include view="project-meta-json-field-form"/>
 	</form>
 	
-	<form id="project-json-field-form" name="json-field-form" title="Custom field" model="com.axelor.meta.db.MetaJsonField" extension="true">		
-		<extend target="//field[@name='selection']">
-			<attribute name="onChange" value="action-record-project-json-field-set-selection-ref,save"/>
-		</extend>
-	</form>
-	
-	
 	<form name="project-meta-select-item-form" title="Select values" model="com.axelor.meta.db.MetaSelectItem" onNew="action-method-project-json-field-select-set-selection">
 	  <panel title="Overview">
 	    <field name="title"/>
@@ -48,10 +41,6 @@
 	
 	<action-record name="action-record-project-json-field-set-type" model="com.axelor.meta.db.MetaJsonField">
 		<field name="type" expr="eval:['select','multiselect'].contains(typeSelect)?'string':typeSelect"/>
-	</action-record>
-	
-	<action-record name="action-record-project-json-field-set-selection" model="com.axelor.meta.db.MetaJsonField">
-	    <field name="selection" expr="eval: selectionRef.name"/>
 	</action-record>
 	
 	<action-attrs name="action-attrs-project-json-field-set-type-select">
