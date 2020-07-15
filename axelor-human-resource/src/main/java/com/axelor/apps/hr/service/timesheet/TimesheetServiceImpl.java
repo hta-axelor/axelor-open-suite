@@ -949,7 +949,7 @@ public class TimesheetServiceImpl extends JpaSupport implements TimesheetService
             .filter(
                 "self.membersUserSet.id = ?1 and "
                     + "self.imputable = true "
-                    + "and self.statusSelect != 3",
+                    + "and self.projectStatus.isCompleted = false",
                 user.getId())
             .fetch();
 
