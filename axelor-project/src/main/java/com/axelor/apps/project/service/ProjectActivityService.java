@@ -21,11 +21,12 @@ import com.axelor.apps.project.db.ProjectActivity;
 import com.axelor.apps.project.db.Topic;
 import com.axelor.apps.project.db.Wiki;
 import com.axelor.team.db.TeamTask;
+import java.util.Map;
 
 public interface ProjectActivityService {
-  public ProjectActivity getProjectActivity(TeamTask task);
+  public ProjectActivity getProjectActivity(Map<String, Object> dataMap, TeamTask task);
 
-  public ProjectActivity getProjectActivity(Wiki wiki);
+  public ProjectActivity getProjectActivity(Map<String, Object> dataMap, Wiki wiki);
 
-  public ProjectActivity getProjectActivity(Topic topic);
+  public ProjectActivity getProjectActivity(Map<String, Object> dataMap, Topic topic);
 }

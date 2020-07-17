@@ -7,7 +7,7 @@ import com.axelor.db.JPA;
 import com.axelor.db.Model;
 import com.axelor.db.mapper.Mapper;
 import com.axelor.event.Observes;
-import com.axelor.events.PostRequest;
+import com.axelor.events.PreRequest;
 import com.axelor.events.RequestEvent;
 import com.axelor.events.qualifiers.EntityType;
 import com.axelor.team.db.TeamTask;
@@ -25,37 +25,36 @@ public class ProjectActivityObserver {
   }
 
   public void onSaveTask(
-      @Observes @Named(RequestEvent.SAVE) @EntityType(TeamTask.class) PostRequest event) {
-    TeamTask task = getRecord(event, TeamTask.class);
-    if (task != null) {
-      projectActivityService.getProjectActivity(task);
+      @Observes @Named(RequestEvent.SAVE) @EntityType(TeamTask.class) PreRequest event) {
+    Map<String, Object> dataMap = event.getRequest().getData();
+    if (dataMap != null) {
+      TeamTask task = getRecord(dataMap, TeamTask.class);
+      projectActivityService.getProjectActivity(dataMap, task);
     }
   }
 
   public void onSaveWiki(
-      @Observes @Named(RequestEvent.SAVE) @EntityType(Wiki.class) PostRequest event) {
-    Wiki wiki = getRecord(event, Wiki.class);
-    if (wiki != null) {
-      projectActivityService.getProjectActivity(wiki);
+      @Observes @Named(RequestEvent.SAVE) @EntityType(Wiki.class) PreRequest event) {
+    Map<String, Object> dataMap = event.getRequest().getData();
+    if (dataMap != null) {
+      Wiki wiki = getRecord(dataMap, Wiki.class);
+      projectActivityService.getProjectActivity(dataMap, wiki);
     }
   }
 
   public void onSaveTopic(
-      @Observes @Named(RequestEvent.SAVE) @EntityType(Topic.class) PostRequest event) {
-    Topic topic = getRecord(event, Topic.class);
-    if (topic != null) {
-      projectActivityService.getProjectActivity(topic);
+      @Observes @Named(RequestEvent.SAVE) @EntityType(Topic.class) PreRequest event) {
+    Map<String, Object> dataMap = event.getRequest().getData();
+    if (dataMap != null) {
+      Topic topic = getRecord(dataMap, Topic.class);
+      projectActivityService.getProjectActivity(dataMap, topic);
     }
   }
 
-  private <T extends Model> T getRecord(RequestEvent event, Class<T> klass) {
-    Map<String, Object> dataMap = event.getRequest().getData();
-    if (dataMap != null) {
-      Object id = dataMap.get("id");
-      return id != null
-          ? JPA.find(klass, Long.parseLong(id.toString()))
-          : Mapper.toBean(klass, dataMap);
-    }
-    return null;
+  private <T extends Model> T getRecord(Map<String, Object> dataMap, Class<T> klass) {
+    Object id = dataMap.get("id");
+    return dataMap.get("id") != null
+        ? JPA.find(klass, Long.parseLong(id.toString()))
+        : Mapper.toBean(klass, dataMap);
   }
 }
