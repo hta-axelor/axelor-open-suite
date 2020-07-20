@@ -115,10 +115,20 @@
 		<view type="form" name="project-activity-form" />
 	</action-view>
 	
-	<menuitem name="team-task-project-status" parent="project-configurations" title="Project Status" action="team.task.project.status"/>
-	<action-view name="team.task.project.status" title="Project Status" model="com.axelor.apps.project.db.ProjectStatus">
+	<menuitem name="project-configurations-project-status" parent="project-configurations" title="Project status" action="project.configurations.project.status"/>
+	<action-view name="project.configurations.project.status" title="Project status" model="com.axelor.apps.project.db.ProjectStatus">
 		<view type="grid" name="project-status-grid"/>
 		<view type="form" name="project-status-form"/>
+		<domain>self.relatedToSelect = :relatedToSelect</domain>
+		<context name="relatedToSelect" expr="eval: com.axelor.apps.project.db.repo.ProjectStatusRepository.PROJECT_STATUS_PROJECT"/>
+	</action-view>
+	
+	<menuitem name="project-configurations-task-status" parent="project-configurations" title="Task status" action="project.configurations.task.status"/>
+	<action-view name="project.configurations.task.status" title="Task status" model="com.axelor.apps.project.db.ProjectStatus">
+		<view type="grid" name="project-status-grid"/>
+		<view type="form" name="project-status-form"/>
+		<domain>self.relatedToSelect = :relatedToSelect</domain>
+		<context name="relatedToSelect" expr="eval: com.axelor.apps.project.db.repo.ProjectStatusRepository.PROJECT_STATUS_TASK"/>
 	</action-view>
 	
 	<menuitem name="team-task-project-priority" parent="project-configurations" title="Project Priority" action="team.task.project.priority"/>

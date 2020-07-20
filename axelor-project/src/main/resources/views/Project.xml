@@ -330,7 +330,7 @@
 					if="__config__.app.isApp('employee')" if-module="axelor-human-resource" />
 				<panel name="fieldsToDisplay" title="Fields to display" colSpan="12">
 					<field name="isShowStatus" colSpan="4" widget="inline-checkbox"/>
-					<field name="teamTaskStatusSet" widget="TagSelect" colSpan="12" showIf="isShowStatus"/>
+					<field name="teamTaskStatusSet" widget="TagSelect" colSpan="12" showIf="isShowStatus" domain="self.relatedToSelect = 2"/>
 					<field name="isShowPriority" colSpan="4" widget="inline-checkbox"/>
 					<field name="teamTaskPrioritySet" widget="TagSelect" colSpan="12" showIf="isShowPriority"></field>
 					<spacer colSpan="12" showIf="isShowPriority"/>
@@ -530,6 +530,7 @@
 		<attribute name="value:add" for="membersUserSet" expr="eval: __user__"/>
 		<attribute name="value" for="isBusinessProject" expr="eval:_fromBusinessProject"/>
 		<attribute name="value" for="parentProject" expr="eval:__repo__(Project).find(_parentProjectId)" if="_parentProjectId != null" />
+		<attribute name="value" for="projectStatus" expr="eval: __repo__(ProjectStatus).all().filter('self.relatedToSelect = ?1',__repo__(ProjectStatus).PROJECT_STATUS_PROJECT).order('sequence').fetchOne()"/>
 	</action-attrs>
 
 	<action-attrs name="action-attrs-project-add-member" model="com.axelor.apps.project.db.Project">

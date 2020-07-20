@@ -45,5 +45,10 @@
 		<option value="3">High</option>
 		<option value="4">Urgent</option>
 	</selection>
+	
+	<selection name="project.status.related.to.select">
+		<option value="1">Project</option>
+		<option value="2">Task</option>
+	</selection>
 
 </object-views>

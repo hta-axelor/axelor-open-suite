@@ -42,6 +42,7 @@
 		<field name="company" expr="eval:__user__.activeCompany"/>
 		<field name="fromDate" expr="eval: __date__"/>
 		<field name="assignedTo" expr="eval: __user__"/>
+		<field name="projectStatus" expr="eval: __repo__(ProjectStatus).all().filter('self.relatedToSelect = ?1',__repo__(ProjectStatus).PROJECT_STATUS_PROJECT).order('sequence').fetchOne()"/>
 	</action-record>
 	
 	<action-attrs name="action-project-attrs-set-invoicing-sequence">

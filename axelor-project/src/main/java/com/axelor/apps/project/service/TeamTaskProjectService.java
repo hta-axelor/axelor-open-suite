@@ -29,5 +29,8 @@ public interface TeamTaskProjectService extends TeamTaskService {
   TeamTask create(String subject, Project project, User assignedTo);
 
   @CallMethod
-  public ProjectStatus getProjectStatus(Project project);
+  public ProjectStatus getDefaultCompletedStatus(Project project);
+
+  @CallMethod
+  public ProjectStatus getStatus(Project project);
 }
