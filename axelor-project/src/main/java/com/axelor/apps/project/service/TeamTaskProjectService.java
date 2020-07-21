@@ -19,6 +19,7 @@ package com.axelor.apps.project.service;
 
 import com.axelor.apps.base.service.TeamTaskService;
 import com.axelor.apps.project.db.Project;
+import com.axelor.apps.project.db.ProjectPriority;
 import com.axelor.apps.project.db.ProjectStatus;
 import com.axelor.auth.db.User;
 import com.axelor.meta.CallMethod;
@@ -33,4 +34,7 @@ public interface TeamTaskProjectService extends TeamTaskService {
 
   @CallMethod
   public ProjectStatus getStatus(Project project);
+
+  @CallMethod
+  public ProjectPriority getPriority(Project project);
 }

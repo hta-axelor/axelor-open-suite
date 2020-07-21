@@ -19,7 +19,9 @@ package com.axelor.apps.project.service;
 
 import com.axelor.apps.base.service.TeamTaskServiceImpl;
 import com.axelor.apps.project.db.Project;
+import com.axelor.apps.project.db.ProjectPriority;
 import com.axelor.apps.project.db.ProjectStatus;
+import com.axelor.apps.project.db.repo.ProjectPriorityRepository;
 import com.axelor.auth.db.User;
 import com.axelor.common.ObjectUtils;
 import com.axelor.team.db.TeamTask;
@@ -100,6 +102,18 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     }
     return teamTaskStatusSet.stream()
         .min(Comparator.comparingInt(ProjectStatus::getSequence))
+        .orElse(null);
+  }
+
+  @Override
+  public ProjectPriority getPriority(Project project) {
+    return project.getTeamTaskPrioritySet().stream()
+        .filter(
+            priority ->
+                priority
+                    .getTechnicalTypeSelect()
+                    .equals(ProjectPriorityRepository.PROJECT_PRIORITY_NORMAL))
+        .findAny()
         .orElse(null);
   }
 }
