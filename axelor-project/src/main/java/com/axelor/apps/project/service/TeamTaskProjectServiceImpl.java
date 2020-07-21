@@ -90,7 +90,7 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     }
     return teamTaskStatusSet.stream()
         .filter(ProjectStatus::getIsDefaultCompleted)
-        .findFirst()
+        .findAny()
         .orElse(null);
   }
 
