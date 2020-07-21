@@ -364,7 +364,8 @@
 			<field name="attrs" colSpan="12"/>
 		</panel>
 		<panel name="actionsPanel"  colSpan="2" sidebar="true">
-			<button name="finishBtn" title="Finish"	colSpan="12" icon="fa-check" onClick="action-project-record-change-status,save" />
+			<button name="finishBtn" title="Finish"	colSpan="12" icon="fa-check" onClick="action-project-record-status-finish,save"/>
+			<button name="cancelBtn" title="Cancel" colSpan="12" css="btn-danger" icon="fa-times-circle" onClick="action-project-record-status-canceled,save" />	
 		</panel>
 		<panel name="characteristicsPanel" title="Characteristics" colSpan="12"
 			sidebar="true" canCollapse="true">
@@ -680,8 +681,12 @@
 		<call class="com.axelor.apps.project.web.ProjectController" method="importMembers"/>	
 	</action-method>
 	
-	<action-record name="action-project-record-change-status" model="com.axelor.apps.project.db.Project">
+	<action-record name="action-project-record-status-finish" model="com.axelor.apps.project.db.Project">
 		<field name="projectStatus" expr="eval:__repo__(ProjectStatus).getDefaultCompleted()"/>
+	</action-record>
+	
+	<action-record name="action-project-record-status-canceled" model="com.axelor.apps.project.db.Project">
+		<field name="projectStatus" expr="eval:__repo__(ProjectStatus).getCompleted()"/>
 	</action-record>
 	
 	 <action-validate name="action-wizard-validate-user-select">

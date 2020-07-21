@@ -12,7 +12,7 @@
   		<boolean name="isCompleted" title="Completed"/>
   		<integer name="relatedToSelect" title="Related to" selection="project.status.related.to.select"/>
   		<finder-method name="getDefaultCompleted" using="" filter="self.isDefaultCompleted = true"/>
-  		<finder-method name="getCompleted" using="" filter="self.isCompleted = true"/>
+  		<finder-method name="getCompleted" using="" filter="self.isCompleted = true AND self.isDefaultCompleted = false"/>
   		<finder-method name="getNotCompleted" using="" filter="self.isCompleted = false"/>
   		
   		<extra-code>
