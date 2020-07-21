@@ -330,9 +330,9 @@
 					if="__config__.app.isApp('employee')" if-module="axelor-human-resource" />
 				<panel name="fieldsToDisplay" title="Fields to display" colSpan="12">
 					<field name="isShowStatus" colSpan="4" widget="inline-checkbox"/>
-					<field name="teamTaskStatusSet" widget="TagSelect" colSpan="12" showIf="isShowStatus" domain="self.relatedToSelect = 2"/>
+					<field name="teamTaskStatusSet" widget="TagSelect" colSpan="12" showIf="isShowStatus" requiredIf="isShowStatus" domain="self.relatedToSelect = 2"/>
 					<field name="isShowPriority" colSpan="4" widget="inline-checkbox"/>
-					<field name="teamTaskPrioritySet" widget="TagSelect" colSpan="12" showIf="isShowPriority"></field>
+					<field name="teamTaskPrioritySet" widget="TagSelect" colSpan="12" showIf="isShowPriority" requiredIf="isShowPriority"/>
 					<spacer colSpan="12" showIf="isShowPriority"/>
 					<field name="isShowTaskCategory" colSpan="4" widget="inline-checkbox"/>
 					<field name="teamTaskCategorySet" colSpan="12" widget="TagSelect" showIf="isShowTaskCategory"/>
