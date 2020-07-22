@@ -5,6 +5,8 @@
 
  	<input file="project_project.csv" type="com.axelor.apps.project.db.Project" separator=";" search="self.importId = :importId">
  		<bind to="fromDate" column="fromDate" eval="call:com.axelor.csv.script.ImportDateTime:importDate(fromDate)" />
+ 		<bind to="teamTaskStatusSet" column="teamTaskStatusSet" search="self.importId in :teamTaskStatusSet" eval="teamTaskStatusSet.split('\\|') as List"/>
+ 		<bind to="teamTaskPrioritySet" column="teamTaskPrioritySet" search="self.importId in :teamTaskPrioritySet" eval="teamTaskPrioritySet.split('\\|') as List"/>
  	</input>
  	
  	<input file="business_project_project.csv" type="com.axelor.apps.project.db.Project" separator=";" search="self.importId = :importId"/>
