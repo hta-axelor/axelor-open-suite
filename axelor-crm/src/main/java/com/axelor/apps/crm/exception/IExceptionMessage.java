@@ -55,9 +55,6 @@ public interface IExceptionMessage {
   /** Event controller */
   static final String EVENT_1 = /*$$(*/ "Input location please" /*)*/;
 
-  static final String EVENT_SAVED = /*$$(*/
-      "Please save the event before setting the recurrence" /*)*/;
-
   /** Lead controller */
   static final String LEAD_1 = /*$$(*/ "Please select the Lead(s) to print." /*)*/;
 
