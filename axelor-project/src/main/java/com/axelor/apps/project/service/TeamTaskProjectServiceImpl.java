@@ -23,13 +23,11 @@ import com.axelor.apps.project.db.ProjectPriority;
 import com.axelor.apps.project.db.ProjectStatus;
 import com.axelor.apps.project.db.repo.ProjectPriorityRepository;
 import com.axelor.auth.db.User;
-import com.axelor.common.ObjectUtils;
 import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Inject;
 import java.time.LocalDate;
 import java.util.Comparator;
-import java.util.Set;
 
 public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     implements TeamTaskProjectService {
@@ -84,11 +82,7 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
 
   @Override
   public ProjectStatus getDefaultCompletedStatus(Project project) {
-    Set<ProjectStatus> teamTaskStatusSet = project.getTeamTaskStatusSet();
-    if (ObjectUtils.isEmpty(teamTaskStatusSet)) {
-      return null;
-    }
-    return teamTaskStatusSet.stream()
+    return project.getTeamTaskStatusSet().stream()
         .filter(ProjectStatus::getIsDefaultCompleted)
         .findAny()
         .orElse(null);
@@ -96,11 +90,7 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
 
   @Override
   public ProjectStatus getStatus(Project project) {
-    Set<ProjectStatus> teamTaskStatusSet = project.getTeamTaskStatusSet();
-    if (ObjectUtils.isEmpty(teamTaskStatusSet)) {
-      return null;
-    }
-    return teamTaskStatusSet.stream()
+    return project.getTeamTaskStatusSet().stream()
         .min(Comparator.comparingInt(ProjectStatus::getSequence))
         .orElse(null);
   }

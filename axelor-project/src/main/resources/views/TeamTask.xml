@@ -569,7 +569,7 @@
 
 	<action-record name="action-team-task-record-change-status" model="com.axelor.team.db.TeamTask">
 	   <field name="statusBeforeComplete" expr="eval: taskStatus"/>
-	   <field name="taskStatus" expr="call:com.axelor.apps.project.service.TeamTaskProjectService:getDefaultCompletedStatus(project)" if="project"/>
+	   <field name="taskStatus" expr="call:com.axelor.apps.project.service.TeamTaskProjectService:getDefaultCompletedStatus(project)" if="project.isShowStatus"/>
 	</action-record>
 	    
     <action-view name="action-project-view-per-status-kanban" title="Tasks" model="com.axelor.team.db.TeamTask">
