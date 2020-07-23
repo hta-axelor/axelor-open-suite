@@ -48,9 +48,7 @@ public class ProjectController {
 
   public void getMyOpenTasks(ActionRequest request, ActionResponse response) {
     Project project = request.getContext().asType(Project.class);
-    Map<String, Object> context = new HashMap<>();
-    context.put("_project", project);
-    context.put("typeSelect", TeamTaskRepository.TYPE_TASK);
+    Map<String, Object> context = getTaskContext(project);
     Map<String, Object> view =
         Beans.get(ProjectService.class)
             .getTaskView(
@@ -62,9 +60,7 @@ public class ProjectController {
 
   public void getMyTasks(ActionRequest request, ActionResponse response) {
     Project project = request.getContext().asType(Project.class);
-    Map<String, Object> context = new HashMap<>();
-    context.put("_project", project);
-    context.put("typeSelect", TeamTaskRepository.TYPE_TASK);
+    Map<String, Object> context = getTaskContext(project);
     Map<String, Object> view =
         Beans.get(ProjectService.class)
             .getTaskView(
@@ -76,9 +72,7 @@ public class ProjectController {
 
   public void getAllOpenTasks(ActionRequest request, ActionResponse response) {
     Project project = request.getContext().asType(Project.class);
-    Map<String, Object> context = new HashMap<>();
-    context.put("_project", project);
-    context.put("typeSelect", TeamTaskRepository.TYPE_TASK);
+    Map<String, Object> context = getTaskContext(project);
     Map<String, Object> view =
         Beans.get(ProjectService.class)
             .getTaskView(
@@ -90,9 +84,7 @@ public class ProjectController {
 
   public void getAllTasks(ActionRequest request, ActionResponse response) {
     Project project = request.getContext().asType(Project.class);
-    Map<String, Object> context = new HashMap<>();
-    context.put("_project", project);
-    context.put("typeSelect", TeamTaskRepository.TYPE_TASK);
+    Map<String, Object> context = getTaskContext(project);
     Map<String, Object> view =
         Beans.get(ProjectService.class)
             .getTaskView(
@@ -102,9 +94,7 @@ public class ProjectController {
 
   public void perStatusKanban(ActionRequest request, ActionResponse response) {
     Project project = request.getContext().asType(Project.class);
-    Map<String, Object> context = new HashMap<>();
-    context.put("_project", project);
-    context.put("typeSelect", TeamTaskRepository.TYPE_TASK);
+    Map<String, Object> context = getTaskContext(project);
 
     String statusColumnsTobeExcluded =
         Beans.get(ProjectStatusRepository.class)
@@ -129,5 +119,12 @@ public class ProjectController {
       context.forEach(builder::context);
     }
     response.setView(builder.map());
+  }
+
+  protected Map<String, Object> getTaskContext(Project project) {
+    Map<String, Object> context = new HashMap<>();
+    context.put("_project", project);
+    context.put("typeSelect", TeamTaskRepository.TYPE_TASK);
+    return context;
   }
 }
