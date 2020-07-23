@@ -53,7 +53,7 @@
 					action="save,action-project-book-resource" />
 				<item name="wiki" title="Wiki" action="project.wiki.all" />
 				<item name="topic" title="Topic" action="project.topic.all" showIf="isShowTopic"/>
-				<item name="perStatusKanban" title="Per status kanban" action="action-project-view-per-status-kanban" showIf="isShowStatus &amp;&amp; isShowKanbanPerStatus"/>	
+				<item name="perStatusKanban" title="Per status kanban" action="action-project-method-view-per-status-kanban" showIf="isShowStatus &amp;&amp; isShowKanbanPerStatus"/>	
 				<item name="perStatusCalendar" title="Per status calendar" action="action-project-view-per-status-calendar" showIf="isShowCalendarPerStatus"/>		
 				<item name="perSectionKanban" title="Per section kanban" action="action-project-view-per-section-kanban" showIf="isShowSection &amp;&amp; isShowKanbanPerSection"/>
 				<item name="perUserCalendar" title="Per user calendar" action="action-project-view-per-user-calendar" showIf="isShowCalendarPerUser"/>		
@@ -789,6 +789,10 @@
      <action-method name="action-project-method-all-tasks">
       <call class="com.axelor.apps.project.web.ProjectController" method="getAllTasks"/>
     </action-method>
+    
+   	<action-method name="action-project-method-view-per-status-kanban">
+		<call class="com.axelor.apps.project.web.ProjectController" method="perStatusKanban"/>
+	</action-method>
 
 	<search-filters name="project-filters" model="com.axelor.apps.project.db.Project" title="Project filters">
         <field name="company" hidden="true" if="!__config__.app.getApp('base').getEnableMultiCompany() || !__config__.app.isApp('business-project')"/>
