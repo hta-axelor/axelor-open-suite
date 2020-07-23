@@ -21,10 +21,12 @@ import com.axelor.apps.base.db.Company;
 import com.axelor.apps.base.db.Partner;
 import com.axelor.apps.base.db.Wizard;
 import com.axelor.apps.project.db.Project;
+import com.axelor.apps.project.db.ProjectStatus;
 import com.axelor.apps.project.db.ProjectTemplate;
 import com.axelor.apps.project.db.TaskTemplate;
 import com.axelor.apps.project.db.Wiki;
 import com.axelor.apps.project.db.repo.ProjectRepository;
+import com.axelor.apps.project.db.repo.ProjectStatusRepository;
 import com.axelor.apps.project.db.repo.WikiRepository;
 import com.axelor.apps.project.exception.IExceptionMessage;
 import com.axelor.apps.project.translation.ITranslation;
@@ -48,6 +50,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.TypedQuery;
 
 public class ProjectServiceImpl implements ProjectService {
@@ -251,5 +254,32 @@ public class ProjectServiceImpl implements ProjectService {
       project.setContactPartner(clientPartner.getContactPartnerSet().iterator().next());
     }
     return project;
+  }
+
+  @Override
+  public Map<String, Object> getPerStatusKanban(Project project, Map<String, Object> context) {
+    String statusColumnsTobeExcluded =
+        Beans.get(ProjectStatusRepository.class)
+            .all()
+            .filter("self not in :allowedTeamTaskStatus")
+            .bind("allowedTeamTaskStatus", project.getTeamTaskStatusSet())
+            .fetchStream()
+            .map(ProjectStatus::getId)
+            .map(String::valueOf)
+            .collect(Collectors.joining(","));
+
+    ActionViewBuilder builder =
+        ActionView.define(I18n.get("All tasks"))
+            .model(TeamTask.class.getName())
+            .add("kanban", "team-task-kanban")
+            .add("grid", "team-task-grid")
+            .add("form", "team-task-form")
+            .domain("self.typeSelect = :typeSelect AND self.project = :_project")
+            .param("kanban-hide-columns", statusColumnsTobeExcluded);
+
+    if (ObjectUtils.notEmpty(context)) {
+      context.forEach(builder::context);
+    }
+    return builder.map();
   }
 }

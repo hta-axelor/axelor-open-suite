@@ -57,4 +57,6 @@ public interface ProjectService {
 
   public Project generateProject(
       ProjectTemplate projectTemplate, String projectCode, Partner clientPartner);
+
+  public Map<String, Object> getPerStatusKanban(Project project, Map<String, Object> context);
 }

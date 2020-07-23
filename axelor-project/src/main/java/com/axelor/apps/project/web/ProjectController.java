@@ -18,22 +18,14 @@
 package com.axelor.apps.project.web;
 
 import com.axelor.apps.project.db.Project;
-import com.axelor.apps.project.db.ProjectStatus;
-import com.axelor.apps.project.db.repo.ProjectStatusRepository;
 import com.axelor.apps.project.service.ProjectService;
-import com.axelor.common.ObjectUtils;
-import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
-import com.axelor.meta.schema.actions.ActionView;
-import com.axelor.meta.schema.actions.ActionView.ActionViewBuilder;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
-import com.axelor.team.db.TeamTask;
 import com.axelor.team.db.repo.TeamTaskRepository;
 import com.google.inject.Singleton;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Singleton
 public class ProjectController {
@@ -95,30 +87,8 @@ public class ProjectController {
   public void perStatusKanban(ActionRequest request, ActionResponse response) {
     Project project = request.getContext().asType(Project.class);
     Map<String, Object> context = getTaskContext(project);
-
-    String statusColumnsTobeExcluded =
-        Beans.get(ProjectStatusRepository.class)
-            .all()
-            .filter("self not in :allowedTeamTaskStatus")
-            .bind("allowedTeamTaskStatus", project.getTeamTaskStatusSet())
-            .fetchStream()
-            .map(ProjectStatus::getId)
-            .map(String::valueOf)
-            .collect(Collectors.joining(","));
-
-    ActionViewBuilder builder =
-        ActionView.define(I18n.get("All tasks"))
-            .model(TeamTask.class.getName())
-            .add("kanban", "team-task-kanban")
-            .add("grid", "team-task-grid")
-            .add("form", "team-task-form")
-            .domain("self.typeSelect = :typeSelect AND self.project = :_project")
-            .param("kanban-hide-columns", statusColumnsTobeExcluded);
-
-    if (ObjectUtils.notEmpty(context)) {
-      context.forEach(builder::context);
-    }
-    response.setView(builder.map());
+    Map<String, Object> view = Beans.get(ProjectService.class).getPerStatusKanban(project, context);
+    response.setView(view);
   }
 
   protected Map<String, Object> getTaskContext(Project project) {
