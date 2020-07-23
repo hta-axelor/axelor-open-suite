@@ -5,7 +5,7 @@
 	
 	<grid name="wiki-grid" title="Wiki" model="com.axelor.apps.project.db.Wiki">
 		<field name="title"/>
-		<field name="content"/>
+		<field name="content" widget="html"/>
 		<field name="project"/>
 	</grid>
 
