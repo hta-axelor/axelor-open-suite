@@ -571,12 +571,6 @@
 	   <field name="statusBeforeComplete" expr="eval: taskStatus"/>
 	   <field name="taskStatus" expr="call:com.axelor.apps.project.service.TeamTaskProjectService:getDefaultCompletedStatus(project)" if="project.isShowStatus"/>
 	</action-record>
-	    
-    <action-view name="action-project-view-per-status-kanban" title="Tasks" model="com.axelor.team.db.TeamTask">
-      <view type="kanban" name="team-task-kanban"/>
-      <view type="form" name="team-task-form"/>
-      <domain>self.project.id = :_id</domain>
-    </action-view>
     
     <action-view name="action-project-view-per-section-kanban" title="Tasks" model="com.axelor.team.db.TeamTask">
       <view type="kanban" name="task-per-section-kanban"/>
