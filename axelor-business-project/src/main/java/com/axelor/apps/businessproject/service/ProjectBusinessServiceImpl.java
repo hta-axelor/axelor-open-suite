@@ -31,6 +31,7 @@ import com.axelor.apps.businessproject.service.app.AppBusinessProjectService;
 import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.ProjectTemplate;
 import com.axelor.apps.project.db.repo.ProjectRepository;
+import com.axelor.apps.project.db.repo.ProjectStatusRepository;
 import com.axelor.apps.project.service.ProjectService;
 import com.axelor.apps.project.service.ProjectServiceImpl;
 import com.axelor.apps.sale.db.SaleOrder;
@@ -51,17 +52,24 @@ import java.util.Map;
 public class ProjectBusinessServiceImpl extends ProjectServiceImpl
     implements ProjectBusinessService {
 
-  @Inject protected AppBusinessProjectService appBusinessProjectService;
-
-  @Inject protected ProjectRepository projectRepo;
-
-  @Inject protected PartnerService partnerService;
-
-  @Inject protected AddressService addressService;
+  protected ProjectRepository projectRepo;
+  protected PartnerService partnerService;
+  protected AddressService addressService;
+  protected AppBusinessProjectService appBusinessProjectService;
 
   @Inject
-  public ProjectBusinessServiceImpl(ProjectRepository projectRepository) {
-    super(projectRepository);
+  public ProjectBusinessServiceImpl(
+      ProjectRepository projectRepository,
+      ProjectStatusRepository projectStatusRepository,
+      ProjectRepository projectRepo,
+      PartnerService partnerService,
+      AddressService addressService,
+      AppBusinessProjectService appBusinessProjectService) {
+    super(projectRepository, projectStatusRepository);
+    this.projectRepo = projectRepo;
+    this.partnerService = partnerService;
+    this.addressService = addressService;
+    this.appBusinessProjectService = appBusinessProjectService;
   }
 
   @Override

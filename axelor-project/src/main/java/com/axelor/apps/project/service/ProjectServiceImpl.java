@@ -58,10 +58,13 @@ public class ProjectServiceImpl implements ProjectService {
   public static final int MAX_LEVEL_OF_PROJECT = 10;
 
   private ProjectRepository projectRepository;
+  private ProjectStatusRepository projectStatusRepository;
 
   @Inject
-  public ProjectServiceImpl(ProjectRepository projectRepository) {
+  public ProjectServiceImpl(
+      ProjectRepository projectRepository, ProjectStatusRepository projectStatusRepository) {
     this.projectRepository = projectRepository;
+    this.projectStatusRepository = projectStatusRepository;
   }
 
   @Inject WikiRepository wikiRepo;
@@ -259,7 +262,7 @@ public class ProjectServiceImpl implements ProjectService {
   @Override
   public Map<String, Object> getPerStatusKanban(Project project, Map<String, Object> context) {
     String statusColumnsTobeExcluded =
-        Beans.get(ProjectStatusRepository.class)
+        projectStatusRepository
             .all()
             .filter("self not in :allowedTeamTaskStatus")
             .bind("allowedTeamTaskStatus", project.getTeamTaskStatusSet())
