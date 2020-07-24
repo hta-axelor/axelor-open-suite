@@ -109,7 +109,7 @@
 		<view type="grid" name="project-status-grid"/>
 		<view type="form" name="project-status-form"/>
 		<domain>self.relatedToSelect = :relatedToSelect</domain>
-		<context name="relatedToSelect" expr="eval: com.axelor.apps.project.db.repo.ProjectStatusRepository.PROJECT_STATUS_PROJECT"/>
+		<context name="relatedToSelect" expr="eval: __repo__(ProjectStatus).PROJECT_STATUS_PROJECT"/>
 	</action-view>
 	
 	<menuitem name="project-configurations-task-status" parent="project-configurations" title="Task status" action="project.configurations.task.status"/>
@@ -117,7 +117,7 @@
 		<view type="grid" name="project-status-grid"/>
 		<view type="form" name="project-status-form"/>
 		<domain>self.relatedToSelect = :relatedToSelect</domain>
-		<context name="relatedToSelect" expr="eval: com.axelor.apps.project.db.repo.ProjectStatusRepository.PROJECT_STATUS_TASK"/>
+		<context name="relatedToSelect" expr="eval: __repo__(ProjectStatus).PROJECT_STATUS_TASK"/>
 	</action-view>
 	
 	<menuitem name="team-task-project-priority" parent="project-configurations" title="Project Priority" action="team.task.project.priority"/>
