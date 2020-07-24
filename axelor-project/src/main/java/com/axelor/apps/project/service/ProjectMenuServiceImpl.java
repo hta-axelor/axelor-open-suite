@@ -29,12 +29,12 @@ import com.google.inject.Inject;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class MenuServiceImpl implements MenuService {
+public class ProjectMenuServiceImpl implements ProjectMenuService {
 
   protected ProjectStatusRepository projectStatusRepo;
 
   @Inject
-  public MenuServiceImpl(ProjectStatusRepository projectStatusRepo) {
+  public ProjectMenuServiceImpl(ProjectStatusRepository projectStatusRepo) {
     this.projectStatusRepo = projectStatusRepo;
   }
 

@@ -19,7 +19,7 @@ package com.axelor.apps.project.service;
 
 import java.util.Map;
 
-public interface MenuService {
+public interface ProjectMenuService {
 
   public Map<String, Object> getAllOpenProjectTasks();
 

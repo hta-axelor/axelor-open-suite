@@ -15,17 +15,17 @@
 			  title="Projects"
 			  action="project.all"/>
     <action-method name="project.all">
-	  <call class="com.axelor.apps.project.web.MenuController" method="allProjects"/>
+	  <call class="com.axelor.apps.project.web.ProjectMenuController" method="allProjects"/>
 	</action-method>
 
 	<menuitem name="project-open-tasks" parent="menu-project-root" title="Tasks" order="20" action="all.open.project.tasks"/>
 	<action-method name="all.open.project.tasks">
-	  <call class="com.axelor.apps.project.web.MenuController" method="allOpenProjectTasks"/>
+	  <call class="com.axelor.apps.project.web.ProjectMenuController" method="allOpenProjectTasks"/>
 	</action-method>
 
 	<menuitem name="project-open-tickets" parent="menu-project-root" title="Tickets" order="21" action="all.open.project.tickets" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
 	<action-method name="all.open.project.tickets">
-	  <call class="com.axelor.apps.project.web.MenuController" method="allOpenProjectTickets"/>
+	  <call class="com.axelor.apps.project.web.ProjectMenuController" method="allOpenProjectTickets"/>
 	</action-method>
 
 	<menuitem name="project-wiki" parent="menu-project-root" title="Wiki" action="all.wiki" order="30"/>
