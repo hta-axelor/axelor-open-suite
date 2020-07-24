@@ -365,7 +365,11 @@
 		</panel>
 		<panel name="actionsPanel"  colSpan="2" sidebar="true">
 			<button name="finishBtn" title="Finish"	colSpan="12" icon="fa-check" onClick="action-project-record-status-finish,save"/>
-			<button name="cancelBtn" title="Cancel" colSpan="12" css="btn-danger" icon="fa-times-circle" onClick="action-project-record-status-canceled,save" />	
+			<button name="cancelBtn" title="Cancel" colSpan="12" css="btn-danger" icon="fa-times-circle" onClick="action-project-record-status-canceled,save"/>
+			<field name="projectStatus.isCompleted" hidden="true"/>
+			<button name="resetBtn" title="Reset" hidden="true"
+				showIf="projectStatus.isCompleted" colSpan="12" css="btn-danger"
+				icon="fa-file" onClick="action-project-record-status-new,save" />	
 		</panel>
 		<panel name="characteristicsPanel" title="Characteristics" colSpan="12"
 			sidebar="true" canCollapse="true">
@@ -509,6 +513,7 @@
 	
 	<action-group name="action-project-group-on-new-project">
 		<action name="action-project-defaults"/>
+		<action name="action-project-record-status-new"/>
 		<action name="action-project-attrs-scale-and-precision"/>
 		<action name="action-attrs-project-set-project-type" if="__config__.app.isApp('business-project')" />
 	</action-group>
@@ -531,7 +536,6 @@
 		<attribute name="value:add" for="membersUserSet" expr="eval: __user__"/>
 		<attribute name="value" for="isBusinessProject" expr="eval:_fromBusinessProject"/>
 		<attribute name="value" for="parentProject" expr="eval:__repo__(Project).find(_parentProjectId)" if="_parentProjectId != null" />
-		<attribute name="value" for="projectStatus" expr="eval: __repo__(ProjectStatus).all().filter('self.relatedToSelect = ?1',__repo__(ProjectStatus).PROJECT_STATUS_PROJECT).order('sequence').fetchOne()"/>
 	</action-attrs>
 
 	<action-attrs name="action-attrs-project-add-member" model="com.axelor.apps.project.db.Project">
@@ -689,7 +693,11 @@
 		<field name="projectStatus" expr="eval:__repo__(ProjectStatus).getCompleted()"/>
 	</action-record>
 	
-	 <action-validate name="action-wizard-validate-user-select">
+	<action-record name="action-project-record-status-new" model="com.axelor.apps.project.db.Project">
+		<field name="projectStatus" expr="eval: __repo__(ProjectStatus).all().filter('self.relatedToSelect = ?1',__repo__(ProjectStatus).PROJECT_STATUS_PROJECT).order('sequence').fetchOne()"/>
+	</action-record>
+	
+	<action-validate name="action-wizard-validate-user-select">
     	<error message="Please select user"  if="eval: userSet == null || userSet  == 0"/>
     </action-validate>
     
