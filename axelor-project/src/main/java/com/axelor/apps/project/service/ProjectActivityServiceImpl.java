@@ -24,6 +24,7 @@ import com.axelor.apps.project.db.Wiki;
 import com.axelor.apps.project.db.repo.ProjectActivityRepository;
 import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.auth.AuthUtils;
+import com.axelor.common.Inflector;
 import com.axelor.common.StringUtils;
 import com.axelor.db.EntityHelper;
 import com.axelor.db.Model;
@@ -187,9 +188,10 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   }
 
   protected String getTitle(Property property) {
-    if (property.getTitle() != null) {
-      return I18n.get(property.getTitle());
+    String title = property.getTitle();
+    if (title == null) {
+      title = Inflector.getInstance().humanize(property.getName());
     }
-    return I18n.get(property.getName());
+    return I18n.get(title);
   }
 }
