@@ -47,6 +47,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   protected ProjectActivityRepository projectActivityRepo;
   protected ProjectRepository ProjectRepo;
 
+  protected final List<PropertyType> allowedTypes;
   protected final List<PropertyType> ignoreTypes;
 
   @Inject
@@ -54,34 +55,35 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       ProjectActivityRepository projectActivityRepo, ProjectRepository ProjectRepo) {
     this.projectActivityRepo = projectActivityRepo;
     this.ProjectRepo = ProjectRepo;
+    allowedTypes = ImmutableList.of(PropertyType.ONE_TO_ONE, PropertyType.MANY_TO_ONE);
     ignoreTypes = ImmutableList.of(PropertyType.ONE_TO_MANY, PropertyType.MANY_TO_MANY);
   }
 
   @Transactional
   @Override
-  public ProjectActivity getProjectActivity(Map<String, Object> dataMap, TeamTask task) {
+  public void createProjectActivity(Map<String, Object> dataMap, TeamTask task) {
     ProjectActivity projectActivity = getDefaultActivity(dataMap, task.getProject(), task);
     projectActivity.setObjectUpdated(task.getClass().getSimpleName());
     projectActivity.setRecordTitle(task.getName());
-    return projectActivityRepo.save(projectActivity);
+    projectActivityRepo.save(projectActivity);
   }
 
   @Transactional
   @Override
-  public ProjectActivity getProjectActivity(Map<String, Object> dataMap, Wiki wiki) {
+  public void createProjectActivity(Map<String, Object> dataMap, Wiki wiki) {
     ProjectActivity projectActivity = getDefaultActivity(dataMap, wiki.getProject(), wiki);
     projectActivity.setObjectUpdated(wiki.getClass().getSimpleName());
     projectActivity.setRecordTitle(wiki.getTitle());
-    return projectActivityRepo.save(projectActivity);
+    projectActivityRepo.save(projectActivity);
   }
 
   @Transactional
   @Override
-  public ProjectActivity getProjectActivity(Map<String, Object> dataMap, Topic topic) {
+  public void createProjectActivity(Map<String, Object> dataMap, Topic topic) {
     ProjectActivity projectActivity = getDefaultActivity(dataMap, topic.getProject(), topic);
     projectActivity.setObjectUpdated(topic.getClass().getSimpleName());
     projectActivity.setRecordTitle(topic.getTitle());
-    return projectActivityRepo.save(projectActivity);
+    projectActivityRepo.save(projectActivity);
   }
 
   protected ProjectActivity getDefaultActivity(
@@ -110,7 +112,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       if (map.containsKey(key)
           && !ignoreTypes.contains(property.getType())
           && !"id".equals(property.getName())) {
-        Object oldValue = map.get(me.getKey());
+        Object oldValue = map.get(key);
         Object newValue = toProxy(property, me.getValue());
         if (!isEqual(oldValue, newValue)) {
           activity += getTitle(property) + " : ";
@@ -132,12 +134,8 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
     if (value == Boolean.FALSE) {
       return "False";
     }
-    switch (property.getType()) {
-      case MANY_TO_ONE:
-      case ONE_TO_ONE:
-        return Mapper.of(property.getTarget()).get(value, property.getTargetName()).toString();
-      default:
-        break;
+    if (allowedTypes.contains(property.getType())) {
+      return Mapper.of(property.getTarget()).get(value, property.getTargetName()).toString();
     }
     if (value instanceof BigDecimal) {
       return ((BigDecimal) value).toPlainString();

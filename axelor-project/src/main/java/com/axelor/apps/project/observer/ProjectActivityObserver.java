@@ -29,7 +29,7 @@ public class ProjectActivityObserver {
     Map<String, Object> dataMap = event.getRequest().getData();
     if (dataMap != null) {
       TeamTask task = getRecord(dataMap, TeamTask.class);
-      projectActivityService.getProjectActivity(dataMap, task);
+      projectActivityService.createProjectActivity(dataMap, task);
     }
   }
 
@@ -38,7 +38,7 @@ public class ProjectActivityObserver {
     Map<String, Object> dataMap = event.getRequest().getData();
     if (dataMap != null) {
       Wiki wiki = getRecord(dataMap, Wiki.class);
-      projectActivityService.getProjectActivity(dataMap, wiki);
+      projectActivityService.createProjectActivity(dataMap, wiki);
     }
   }
 
@@ -47,7 +47,7 @@ public class ProjectActivityObserver {
     Map<String, Object> dataMap = event.getRequest().getData();
     if (dataMap != null) {
       Topic topic = getRecord(dataMap, Topic.class);
-      projectActivityService.getProjectActivity(dataMap, topic);
+      projectActivityService.createProjectActivity(dataMap, topic);
     }
   }
 
