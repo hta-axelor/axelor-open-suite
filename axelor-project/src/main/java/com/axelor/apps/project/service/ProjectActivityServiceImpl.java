@@ -33,12 +33,13 @@ import com.axelor.i18n.I18n;
 import com.axelor.rpc.ContextHandlerFactory;
 import com.axelor.rpc.Resource;
 import com.axelor.team.db.TeamTask;
+import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 public class ProjectActivityServiceImpl implements ProjectActivityService {
@@ -46,11 +47,14 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   protected ProjectActivityRepository projectActivityRepo;
   protected ProjectRepository ProjectRepo;
 
+  protected final List<PropertyType> ignoreTypes;
+
   @Inject
   public ProjectActivityServiceImpl(
       ProjectActivityRepository projectActivityRepo, ProjectRepository ProjectRepo) {
     this.projectActivityRepo = projectActivityRepo;
     this.ProjectRepo = ProjectRepo;
+    ignoreTypes = ImmutableList.of(PropertyType.ONE_TO_MANY, PropertyType.MANY_TO_MANY);
   }
 
   @Transactional
@@ -102,11 +106,10 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
     Map<String, Object> map = Mapper.toMap(model);
     for (Map.Entry<String, Object> me : dataMap.entrySet()) {
       String key = me.getKey();
-      if (map.containsKey(key)) {
-        Property property = mapper.getProperty(key);
-        if ("id".equals(property.getName())) {
-          continue;
-        }
+      Property property = mapper.getProperty(key);
+      if (map.containsKey(key)
+          && !ignoreTypes.contains(property.getType())
+          && !"id".equals(property.getName())) {
         Object oldValue = map.get(me.getKey());
         Object newValue = toProxy(property, me.getValue());
         if (!isEqual(oldValue, newValue)) {
@@ -133,8 +136,6 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       case MANY_TO_ONE:
       case ONE_TO_ONE:
         return Mapper.of(property.getTarget()).get(value, property.getTargetName()).toString();
-      case ONE_TO_MANY:
-      case MANY_TO_MANY:
       default:
         break;
     }
@@ -159,9 +160,6 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
                   Resource.toMapCompact(
                       Mapper.toBean(property.getTarget(), (HashMap<String, Object>) context)))
               .getProxy());
-    }
-    if (property.getType() == PropertyType.MANY_TO_MANY) {
-      return new HashSet<>();
     }
     return context;
   }
