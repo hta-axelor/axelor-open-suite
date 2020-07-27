@@ -24,6 +24,7 @@ import com.axelor.apps.project.db.Wiki;
 import com.axelor.apps.project.db.repo.ProjectActivityRepository;
 import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.auth.AuthUtils;
+import com.axelor.common.StringUtils;
 import com.axelor.db.EntityHelper;
 import com.axelor.db.Model;
 import com.axelor.db.mapper.Mapper;
@@ -63,33 +64,43 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   @Override
   public void createProjectActivity(Map<String, Object> dataMap, TeamTask task) {
     ProjectActivity projectActivity = getDefaultActivity(dataMap, task.getProject(), task);
-    projectActivity.setObjectUpdated(task.getClass().getSimpleName());
-    projectActivity.setRecordTitle(task.getName());
-    projectActivityRepo.save(projectActivity);
+    if (projectActivity != null) {
+      projectActivity.setObjectUpdated(task.getClass().getSimpleName());
+      projectActivity.setRecordTitle(task.getName());
+      projectActivityRepo.save(projectActivity);
+    }
   }
 
   @Transactional
   @Override
   public void createProjectActivity(Map<String, Object> dataMap, Wiki wiki) {
     ProjectActivity projectActivity = getDefaultActivity(dataMap, wiki.getProject(), wiki);
-    projectActivity.setObjectUpdated(wiki.getClass().getSimpleName());
-    projectActivity.setRecordTitle(wiki.getTitle());
-    projectActivityRepo.save(projectActivity);
+    if (projectActivity != null) {
+      projectActivity.setObjectUpdated(wiki.getClass().getSimpleName());
+      projectActivity.setRecordTitle(wiki.getTitle());
+      projectActivityRepo.save(projectActivity);
+    }
   }
 
   @Transactional
   @Override
   public void createProjectActivity(Map<String, Object> dataMap, Topic topic) {
     ProjectActivity projectActivity = getDefaultActivity(dataMap, topic.getProject(), topic);
-    projectActivity.setObjectUpdated(topic.getClass().getSimpleName());
-    projectActivity.setRecordTitle(topic.getTitle());
-    projectActivityRepo.save(projectActivity);
+    if (projectActivity != null) {
+      projectActivity.setObjectUpdated(topic.getClass().getSimpleName());
+      projectActivity.setRecordTitle(topic.getTitle());
+      projectActivityRepo.save(projectActivity);
+    }
   }
 
   protected ProjectActivity getDefaultActivity(
       Map<String, Object> dataMap, Project project, Model model) {
+    String activity = getActivity(dataMap, model);
+    if (StringUtils.isBlank(activity)) {
+      return null;
+    }
     ProjectActivity projectActivity = new ProjectActivity();
-    projectActivity.setActivity(getActivity(dataMap, model));
+    projectActivity.setActivity(activity);
     if (model.getId() == null && project != null) {
       project = ProjectRepo.find(project.getId());
     }
