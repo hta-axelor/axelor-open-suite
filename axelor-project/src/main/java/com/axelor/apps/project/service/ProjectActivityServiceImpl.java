@@ -29,6 +29,7 @@ import com.axelor.db.Model;
 import com.axelor.db.mapper.Mapper;
 import com.axelor.db.mapper.Property;
 import com.axelor.db.mapper.PropertyType;
+import com.axelor.i18n.I18n;
 import com.axelor.rpc.ContextHandlerFactory;
 import com.axelor.rpc.Resource;
 import com.axelor.team.db.TeamTask;
@@ -183,8 +184,8 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
 
   protected String getTitle(Property property) {
     if (property.getTitle() != null) {
-      return property.getTitle();
+      return I18n.get(property.getTitle());
     }
-    return property.getName();
+    return I18n.get(property.getName());
   }
 }
