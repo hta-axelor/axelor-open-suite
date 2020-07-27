@@ -128,7 +128,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
         if (!isEqual(oldValue, newValue)) {
           activity += getTitle(property) + " : ";
           activity += format(property, oldValue) + ">>";
-          activity += format(property, newValue) + " ";
+          activity += format(property, newValue) + "\n";
         }
       }
     }
