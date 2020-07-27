@@ -3,11 +3,11 @@
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.2.xsd">
 
 	<grid name="project-activity-grid" title="Project Activities" model="com.axelor.apps.project.db.ProjectActivity" orderBy="-doneOn" canNew="false" canEdit="false">
-		<field name="project"/>
-		<field name="objectUpdated"/>
-		<field name="recordTitle"/>
-		<field name="user"/>
-		<field name="doneOn"/>
+		<field name="project" width="180"/>
+		<field name="objectUpdated" width="78"/>
+		<field name="recordTitle" width="158"/>
+		<field name="user" width="80"/>
+		<field name="doneOn" width="123"/>
 		<field name="activity"/>
 	</grid>
 	
