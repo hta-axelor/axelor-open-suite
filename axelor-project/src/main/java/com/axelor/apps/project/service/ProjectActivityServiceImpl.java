@@ -37,7 +37,6 @@ import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -46,8 +45,6 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
 
   protected ProjectActivityRepository projectActivityRepo;
   protected ProjectRepository ProjectRepo;
-
-  private static final String[] ignoreFields = {"id", "version"};
 
   @Inject
   public ProjectActivityServiceImpl(
@@ -107,7 +104,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       String key = me.getKey();
       if (map.containsKey(key)) {
         Property property = mapper.getProperty(key);
-        if (Arrays.asList(ignoreFields).contains(property.getName())) {
+        if ("id".equals(property.getName())) {
           continue;
         }
         Object oldValue = map.get(me.getKey());
