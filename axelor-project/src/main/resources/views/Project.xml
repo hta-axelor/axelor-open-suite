@@ -53,9 +53,9 @@
 					action="save,action-project-book-resource"/>
 				<item name="wiki" title="Wiki" action="project.wiki.all" showIf="id"/>
 				<item name="topic" title="Topic" action="project.topic.all" showIf="id &amp;&amp; isShowTopic"/>
-				<item name="perStatusKanban" title="Per status kanban" action="save,action-project-method-view-per-status-kanban" showIf="id &amp;&amp; isShowStatus &amp;&amp; isShowKanbanPerStatus"/>	
+				<item name="perStatusKanban" title="Per status kanban" action="save,action-project-method-view-per-status-kanban" showIf="id &amp;&amp; isShowKanbanPerStatus"/>	
 				<item name="perStatusCalendar" title="Per status calendar" action="action-project-view-per-status-calendar" showIf="id &amp;&amp; isShowCalendarPerStatus"/>		
-				<item name="perSectionKanban" title="Per section kanban" action="save,action-project-view-per-section-kanban" showIf="id &amp;&amp; isShowSection &amp;&amp; isShowKanbanPerSection"/>
+				<item name="perSectionKanban" title="Per section kanban" action="save,action-project-view-per-section-kanban" showIf="id &amp;&amp; isShowKanbanPerSection"/>
 				<item name="perUserCalendar" title="Per user calendar" action="action-project-view-per-user-calendar" showIf="id &amp;&amp; isShowCalendarPerUser"/>		
 			</menu>
 		</menubar>
@@ -329,18 +329,18 @@
 				<field name="imputable" colSpan="4" widget="boolean-switch"
 					if="__config__.app.isApp('employee')" if-module="axelor-human-resource" />
 				<panel name="fieldsToDisplay" title="Fields to display" colSpan="12">
-					<field name="isShowStatus" colSpan="4" widget="inline-checkbox"/>
+					<field name="isShowStatus" colSpan="4" widget="inline-checkbox" onChange="action-project-record-status-reset-values"/>
 					<field name="teamTaskStatusSet" widget="TagSelect" colSpan="12" showIf="isShowStatus" requiredIf="isShowStatus" domain="self.relatedToSelect = 2"/>
-					<field name="isShowPriority" colSpan="4" widget="inline-checkbox"/>
+					<field name="isShowPriority" colSpan="4" widget="inline-checkbox" onChange="action-project-record-priority-reset-values"/>
 					<field name="teamTaskPrioritySet" widget="TagSelect" colSpan="12" showIf="isShowPriority" requiredIf="isShowPriority"/>
 					<spacer colSpan="12" showIf="isShowPriority"/>
-					<field name="isShowTaskCategory" colSpan="4" widget="inline-checkbox"/>
+					<field name="isShowTaskCategory" colSpan="4" widget="inline-checkbox" onChange="action-project-record-category-reset-values"/>
 					<field name="teamTaskCategorySet" colSpan="12" widget="TagSelect" showIf="isShowTaskCategory"/>
 					<field name="isShowProgress" colSpan="4" widget="inline-checkbox"/>
 					<field name="isShowPlanning" colSpan="4" widget="inline-checkbox"/>
 					<field name="isShowFrequency" colSpan="4" widget="inline-checkbox"/>
 					<field name="isShowTimeSpent" colSpan="4" widget="inline-checkbox"/>
-					<field name="isShowSection" colSpan="4" widget="inline-checkbox"/>
+					<field name="isShowSection" colSpan="4" widget="inline-checkbox" onChange="action-project-record-section-reset-values"/>
 					<field name="isShowTopic" colSpan="4" widget="inline-checkbox"/>
 					<field name="isShowGantt" colSpan="4" widget="inline-checkbox"/>
 					<field name="isShowKanbanPerStatus" colSpan="4" widget="inline-checkbox" showIf="isShowStatus"/>
@@ -801,6 +801,23 @@
    	<action-method name="action-project-method-view-per-status-kanban">
 		<call class="com.axelor.apps.project.web.ProjectController" method="perStatusKanban"/>
 	</action-method>
+	
+	<action-record name="action-project-record-status-reset-values" model="com.axelor.apps.project.db.Project">
+	  <field name="isShowKanbanPerStatus,isShowCalendarPerStatus" expr="eval: false" if="!isShowStatus"/>
+	  <field name="teamTaskStatusSet" expr="eval: null" if="!isShowStatus"/>
+	</action-record>
+	
+	<action-record name="action-project-record-priority-reset-values" model="com.axelor.apps.project.db.Project">
+	  <field name="teamTaskPrioritySet" expr="eval: null" if="!isShowPriority"/>
+	</action-record>
+	
+	<action-record name="action-project-record-category-reset-values" model="com.axelor.apps.project.db.Project">
+	  <field name="teamTaskCategorySet" expr="eval: null" if="!isShowTaskCategory"/>
+	</action-record>
+	
+	<action-record name="action-project-record-section-reset-values" model="com.axelor.apps.project.db.Project">
+	  <field name="isShowKanbanPerSection" expr="eval: false" if="!isShowSection"/>
+	</action-record>
 
 	<search-filters name="project-filters" model="com.axelor.apps.project.db.Project" title="Project filters">
         <field name="company" hidden="true" if="!__config__.app.getApp('base').getEnableMultiCompany() || !__config__.app.isApp('business-project')"/>
