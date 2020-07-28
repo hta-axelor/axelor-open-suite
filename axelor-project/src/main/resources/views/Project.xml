@@ -41,22 +41,22 @@
 					action="save,action-project-method-print-project" />		
 			</menu>
 			<menu name="taskMenu" title="Tasks" showTitle="true" icon="fa-tasks">
-			  <item name="myOpenTasks" title="My open tasks" action="action-project-method-my-open-tasks"/>
-			  <item name="tasksCreatedByMe" title="Tasks created by me" action="action-project-method-my-tasks"/>
-			  <item name="allOpenTasks" title="All open tasks" action="action-project-method-all-open-tasks"/>
-			  <item name="allTasks" title="All tasks" action="action-project-method-all-tasks"/>
+			  <item name="myOpenTasks" title="My open tasks" action="save,action-project-method-my-open-tasks" showIf="id &amp;&amp; isShowStatus"/>
+			  <item name="tasksCreatedByMe" title="Tasks created by me" action="save,action-project-method-my-tasks" showIf="id &amp;&amp; isShowStatus"/>
+			  <item name="allOpenTasks" title="All open tasks" action="action-project-method-all-open-tasks" showIf="id"/>
+			  <item name="allTasks" title="All tasks" action="action-project-method-all-tasks" showIf="id"/>
 			</menu>
 			<menu name="projectToolsMenu" title="Tools" showTitle="true" icon="fa-wrench">
-				<item name="editorItem" showIf="id" title="Task editor" action="action-project-open-task-editor"/>	
-				<item name="ganttItem" title="Gantt" showIf="isShowGantt" action="action-project-open-gantt" />
+				<item name="editorItem" showIf="id" title="Task editor" action="save,action-project-open-task-editor"/>	
+				<item name="ganttItem" title="Gantt" showIf="id &amp;&amp; isShowGantt" action="action-project-open-gantt"/>
 				<item name="bookResourceItem" title="Book resource" if=" __config__.app.getApp('project')?.resourceManagement"
-					action="save,action-project-book-resource" />
-				<item name="wiki" title="Wiki" action="project.wiki.all" />
-				<item name="topic" title="Topic" action="project.topic.all" showIf="isShowTopic"/>
-				<item name="perStatusKanban" title="Per status kanban" action="action-project-method-view-per-status-kanban" showIf="isShowStatus &amp;&amp; isShowKanbanPerStatus"/>	
-				<item name="perStatusCalendar" title="Per status calendar" action="action-project-view-per-status-calendar" showIf="isShowCalendarPerStatus"/>		
-				<item name="perSectionKanban" title="Per section kanban" action="action-project-view-per-section-kanban" showIf="isShowSection &amp;&amp; isShowKanbanPerSection"/>
-				<item name="perUserCalendar" title="Per user calendar" action="action-project-view-per-user-calendar" showIf="isShowCalendarPerUser"/>		
+					action="save,action-project-book-resource"/>
+				<item name="wiki" title="Wiki" action="project.wiki.all" showIf="id"/>
+				<item name="topic" title="Topic" action="project.topic.all" showIf="id &amp;&amp; isShowTopic"/>
+				<item name="perStatusKanban" title="Per status kanban" action="save,action-project-method-view-per-status-kanban" showIf="id &amp;&amp; isShowStatus &amp;&amp; isShowKanbanPerStatus"/>	
+				<item name="perStatusCalendar" title="Per status calendar" action="action-project-view-per-status-calendar" showIf="id &amp;&amp; isShowCalendarPerStatus"/>		
+				<item name="perSectionKanban" title="Per section kanban" action="save,action-project-view-per-section-kanban" showIf="id &amp;&amp; isShowSection &amp;&amp; isShowKanbanPerSection"/>
+				<item name="perUserCalendar" title="Per user calendar" action="action-project-view-per-user-calendar" showIf="id &amp;&amp; isShowCalendarPerUser"/>		
 			</menu>
 		</menubar>
 		<panel name="mainPanel">
