@@ -60,7 +60,6 @@ public class MetaJsonFieldProjectController {
 
     response.setValue("modelField", "attrs");
     response.setValue("model", modelName);
-    // TODO to make this dynamic via map to JSON string if more widgetAttrs required to add
     response.setValue("widgetAttrs", "{\"colSpan\":\"6\"}");
 
     final Context context = request.getContext();
