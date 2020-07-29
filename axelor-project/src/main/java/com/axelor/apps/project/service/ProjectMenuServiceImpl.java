@@ -49,7 +49,9 @@ public class ProjectMenuServiceImpl implements ProjectMenuService {
             .domain(
                 "self.project.projectStatus.isCompleted = false and self.typeSelect = :_typeSelect")
             .context("_typeSelect", TeamTaskRepository.TYPE_TASK)
-            .param("kanban-hide-columns", getStatusColumnsToBeExcluded("self.relatedToSelect = 1"));
+            .param(
+                "kanban-hide-columns",
+                getProjectStatusIds(ProjectStatusRepository.PROJECT_STATUS_PROJECT));
 
     return builder.map();
   }
@@ -66,7 +68,9 @@ public class ProjectMenuServiceImpl implements ProjectMenuService {
                 "self.project.projectStatus.isCompleted = false and self.typeSelect = :_typeSelect")
             .context("_typeSelect", TeamTaskRepository.TYPE_TICKET)
             .param("forceTitle", "true")
-            .param("kanban-hide-columns", getStatusColumnsToBeExcluded("self.relatedToSelect = 1"));
+            .param(
+                "kanban-hide-columns",
+                getProjectStatusIds(ProjectStatusRepository.PROJECT_STATUS_PROJECT));
 
     return builder.map();
   }
@@ -79,15 +83,17 @@ public class ProjectMenuServiceImpl implements ProjectMenuService {
             .add("grid", "project-grid")
             .add("form", "project-form")
             .add("kanban", "project-kanban")
-            .param("kanban-hide-columns", getStatusColumnsToBeExcluded("self.relatedToSelect = 2"));
+            .param(
+                "kanban-hide-columns",
+                getProjectStatusIds(ProjectStatusRepository.PROJECT_STATUS_TASK));
 
     return builder.map();
   }
 
-  private String getStatusColumnsToBeExcluded(String filter) {
+  protected String getProjectStatusIds(int relatedToSelect) {
     return projectStatusRepo
         .all()
-        .filter(filter)
+        .filter("self.relatedToSelect = ?1", relatedToSelect)
         .fetchStream()
         .map(ProjectStatus::getId)
         .map(String::valueOf)

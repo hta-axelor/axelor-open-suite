@@ -38,6 +38,9 @@
 
 		<panel name="mainPanel" colSpan="12">
 			<panel name="viewerTagsPanel" colSpan="4">
+			 <panel name="statusPanel" showIf="project.isShowStatus" stacked="true" colSpan="12">
+				<field name="taskStatus" widget="NavSelect" showTitle="false" x-order="sequence"/>
+			 </panel>
 				<field name="$viewerTags" showTitle="false" readonly="true" showIf="typeSelect == 'ticket' &amp;&amp; $readonly()" colSpan="12" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" hidden="true">
 					<viewer>
 						<![CDATA[
@@ -70,7 +73,6 @@
 						</editor>
 					</field>
 					<field name="project" colSpan="6" onChange="action-team-task-group-project-onchange" required="true"/>
-					<field name="taskStatus" colSpan="6" onSelect="action-team-task-atts-status-on-select" showIf="project.isShowStatus" canView="false"/>
 					<field name="parentTask" readonlyIf="project == null" colSpan="6" onSelect="action-task-attrs-project-parent-task-configurations"/>
 					<field name="assignedTo" readonlyIf="project == null" colSpan="6" canNew="false" canView="false" canEdit="false" onSelect="action-task-attrs-project-assigned-to-configurations" required="true" form-view="user-form" grid-view="user-grid"/>
 					<field name="team" readonly="true" colSpan="6" form-view="team-form" grid-view="team-grid" if="!__config__.app.isApp('business-support')" hidden="true"/>
@@ -369,6 +371,7 @@
 	</action-group>
 	
 	<action-group name="action-team-task-group-project-onchange">
+	    <action name="action-task-attrs-project-filter-status" if="project.isShowStatus"/>
 		<action name="action-task-record-project-configurations"/>
 		<action name="action-team-task-method-update-discount" if="__config__.app.isApp('business-project')"/>
 		<action name="action-team-task-method-compute" if="__config__.app.isApp('business-project')"/>
@@ -446,10 +449,6 @@
 	<action-record name="action-task-update-planned-progress" model="com.axelor.team.db.TeamTask">
 		<field name="plannedProgress" expr="eval: progressSelect"/>
 	</action-record>
-	
-	<action-attrs name="action-team-task-atts-status-on-select">
-      <attribute name="domain" expr="eval: (project?.teamTaskStatusSet !=  null &amp;&amp; project?.teamTaskStatusSet?.size() &gt; 0) ? &quot;self.id IN (${project?.teamTaskStatusSet?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" for="taskStatus"/>    
-    </action-attrs>
     
     <action-attrs name="action-team-task-atts-priority-on-select">
       <attribute name="domain" expr="eval: (project?.teamTaskPrioritySet !=  null &amp;&amp; project?.teamTaskPrioritySet?.size() &gt; 0) ? &quot;self.id IN (${project?.teamTaskPrioritySet?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" for="taskPriority"/>
@@ -514,6 +513,7 @@
 	</action-method>
 
 	<action-group name="action-team-task-group-timer-process">
+		<action name="action-task-attrs-project-filter-status" if="project.isShowStatus"/>
 		<action name="action-team-task-method-manage-timer-buttons" if="timerList != null &amp;&amp; !timerList.isEmpty()"/>
 		<action name="action-team-task-method-compute-total-timer-duration" if="timerList != null &amp;&amp; !timerList.isEmpty()"/>
 		<action name="action-team-task-attrs-scale-and-precision" if="__config__.app.isApp('business-project')"/>
@@ -595,5 +595,9 @@
         <view type="form" name="team-task-form"/>
         <domain>self.project.id = :_id</domain>
     </action-view>
+    
+    <action-attrs name="action-task-attrs-project-filter-status">
+       <attribute name="selection-in" for="taskStatus" expr="eval: project?.teamTaskStatusSet?.collect{it.id}?.join(',')"/>    
+    </action-attrs>
         
 </object-views>
