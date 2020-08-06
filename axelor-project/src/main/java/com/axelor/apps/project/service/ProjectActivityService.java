@@ -17,15 +17,12 @@
  */
 package com.axelor.apps.project.service;
 
-import com.axelor.apps.project.db.Topic;
-import com.axelor.apps.project.db.Wiki;
-import com.axelor.team.db.TeamTask;
 import java.util.Map;
 
 public interface ProjectActivityService {
-  public void createProjectActivity(Map<String, Object> dataMap, TeamTask task);
+  public void createTaskProjectActivity(Map<String, Object> dataMap);
 
-  public void createProjectActivity(Map<String, Object> dataMap, Wiki wiki);
+  public void createWikiProjectActivity(Map<String, Object> dataMap);
 
-  public void createProjectActivity(Map<String, Object> dataMap, Topic topic);
+  public void createTopicProjectActivity(Map<String, Object> dataMap);
 }

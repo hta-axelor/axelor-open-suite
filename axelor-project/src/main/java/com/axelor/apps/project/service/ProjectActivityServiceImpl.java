@@ -27,6 +27,7 @@ import com.axelor.auth.AuthUtils;
 import com.axelor.common.Inflector;
 import com.axelor.common.StringUtils;
 import com.axelor.db.EntityHelper;
+import com.axelor.db.JPA;
 import com.axelor.db.Model;
 import com.axelor.db.mapper.Mapper;
 import com.axelor.db.mapper.Property;
@@ -47,26 +48,26 @@ import java.util.Map;
 public class ProjectActivityServiceImpl implements ProjectActivityService {
 
   protected ProjectActivityRepository projectActivityRepo;
-  protected ProjectRepository ProjectRepo;
+  protected ProjectRepository projectRepo;
 
-  protected final List<PropertyType> allowedTypes;
-  protected final List<PropertyType> ignoreTypes;
+  protected final List<PropertyType> allowedTypes =
+      ImmutableList.of(PropertyType.ONE_TO_ONE, PropertyType.MANY_TO_ONE);;
+  protected final List<PropertyType> ignoreTypes =
+      ImmutableList.of(PropertyType.ONE_TO_MANY, PropertyType.MANY_TO_MANY);
 
   @Inject
   public ProjectActivityServiceImpl(
-      ProjectActivityRepository projectActivityRepo, ProjectRepository ProjectRepo) {
+      ProjectActivityRepository projectActivityRepo, ProjectRepository projectRepo) {
     this.projectActivityRepo = projectActivityRepo;
-    this.ProjectRepo = ProjectRepo;
-    allowedTypes = ImmutableList.of(PropertyType.ONE_TO_ONE, PropertyType.MANY_TO_ONE);
-    ignoreTypes = ImmutableList.of(PropertyType.ONE_TO_MANY, PropertyType.MANY_TO_MANY);
+    this.projectRepo = projectRepo;
   }
 
   @Transactional
   @Override
-  public void createProjectActivity(Map<String, Object> dataMap, TeamTask task) {
+  public void createTaskProjectActivity(Map<String, Object> dataMap) {
+    TeamTask task = getBean(dataMap, TeamTask.class);
     ProjectActivity projectActivity = getDefaultActivity(dataMap, task.getProject(), task);
     if (projectActivity != null) {
-      projectActivity.setObjectUpdated(task.getClass().getSimpleName());
       projectActivity.setRecordTitle(task.getName());
       projectActivityRepo.save(projectActivity);
     }
@@ -74,10 +75,10 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
 
   @Transactional
   @Override
-  public void createProjectActivity(Map<String, Object> dataMap, Wiki wiki) {
+  public void createWikiProjectActivity(Map<String, Object> dataMap) {
+    Wiki wiki = getBean(dataMap, Wiki.class);
     ProjectActivity projectActivity = getDefaultActivity(dataMap, wiki.getProject(), wiki);
     if (projectActivity != null) {
-      projectActivity.setObjectUpdated(wiki.getClass().getSimpleName());
       projectActivity.setRecordTitle(wiki.getTitle());
       projectActivityRepo.save(projectActivity);
     }
@@ -85,10 +86,10 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
 
   @Transactional
   @Override
-  public void createProjectActivity(Map<String, Object> dataMap, Topic topic) {
+  public void createTopicProjectActivity(Map<String, Object> dataMap) {
+    Topic topic = getBean(dataMap, Topic.class);
     ProjectActivity projectActivity = getDefaultActivity(dataMap, topic.getProject(), topic);
     if (projectActivity != null) {
-      projectActivity.setObjectUpdated(topic.getClass().getSimpleName());
       projectActivity.setRecordTitle(topic.getTitle());
       projectActivityRepo.save(projectActivity);
     }
@@ -103,37 +104,38 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
     ProjectActivity projectActivity = new ProjectActivity();
     projectActivity.setActivity(activity);
     if (model.getId() == null && project != null) {
-      project = ProjectRepo.find(project.getId());
+      project = projectRepo.find(project.getId());
     }
     projectActivity.setProject(project);
     projectActivity.setUser(AuthUtils.getUser());
     projectActivity.setDoneOn(LocalDateTime.now());
+    projectActivity.setObjectUpdated(model.getClass().getSimpleName());
     return projectActivity;
   }
 
-  protected String getActivity(Map<String, Object> dataMap, Model model) {
+  protected String getActivity(Map<String, Object> newDataMap, Model model) {
     if (model.getId() == null) {
       return "Record Created";
     }
-    String activity = "";
+    StringBuilder activity = new StringBuilder();
     Mapper mapper = Mapper.of(model.getClass());
-    Map<String, Object> map = Mapper.toMap(model);
-    for (Map.Entry<String, Object> me : dataMap.entrySet()) {
+    Map<String, Object> oldDataMap = Mapper.toMap(model);
+    for (Map.Entry<String, Object> me : newDataMap.entrySet()) {
       String key = me.getKey();
       Property property = mapper.getProperty(key);
-      if (map.containsKey(key)
+      if (oldDataMap.containsKey(key)
           && !ignoreTypes.contains(property.getType())
           && !"id".equals(property.getName())) {
-        Object oldValue = map.get(key);
+        Object oldValue = oldDataMap.get(key);
         Object newValue = toProxy(property, me.getValue());
         if (!isEqual(oldValue, newValue)) {
-          activity += getTitle(property) + " : ";
-          activity += format(property, oldValue) + ">>";
-          activity += format(property, newValue) + "\n";
+          activity.append(getTitle(property) + " : ");
+          activity.append(format(property, oldValue) + ">>");
+          activity.append(format(property, newValue) + "\n");
         }
       }
     }
-    return activity;
+    return activity.toString();
   }
 
   protected String format(Property property, Object value) {
@@ -193,5 +195,12 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       title = Inflector.getInstance().humanize(property.getName());
     }
     return I18n.get(title);
+  }
+
+  protected <T extends Model> T getBean(Map<String, Object> dataMap, Class<T> klass) {
+    Object id = dataMap.get("id");
+    return id != null
+        ? JPA.find(klass, Long.parseLong(id.toString()))
+        : Mapper.toBean(klass, dataMap);
   }
 }
