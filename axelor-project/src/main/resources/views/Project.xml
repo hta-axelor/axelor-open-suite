@@ -358,8 +358,11 @@
 				<panel-dashlet name="supplierContractPanel" title="Supplier contracts" action="action-project-dashlet-supplier-contracts" colSpan="12" canSearch="true"/>
 				<panel-dashlet name="contractInvoicePanel" title="Invoices" action="action-project-dashlet-contract-invoices" colSpan="12"/>
 			</panel>
-		    <panel title="Custom fields" name="customFieldConfigPanel" colSpan="12">
+		    <panel title="Custom fields" name="customFieldConfigPanel">
 			    <panel-related field="taskCustomFieldsList" colSpan="12" showIf="id" form-view="project-task-meta-json-field-form" grid-view="project-meta-json-field-grid"/>
+			</panel>
+			<panel title="Activities" name="activityPanel">
+			    <panel-dashlet action="action-project-dashlet-activity" title="Activity" colSpan="12"/>
 			</panel>
 		</panel-tabs>
 		<panel name="attrsPanel">
@@ -750,7 +753,13 @@
 		<domain>self.contract.project.id = :_id</domain>
 	</action-view>
 	
-   <action-view name="action-project-open-task-editor" title="Task editor">
+	<action-view name="action-project-dashlet-activity" title="Activity" model="com.axelor.apps.project.db.ProjectActivity">
+	    <view type="grid" name="project-activity-grid"/>
+	    <view type="form" name="project-activity-form"/>
+	    <domain>self.project.id = :id</domain>
+	</action-view>
+	
+    <action-view name="action-project-open-task-editor" title="Task editor">
 		<view type="html" name="project/task-editor?id={{id}}"/>
 		<context name="id" expr="eval:id"/>
 	</action-view>

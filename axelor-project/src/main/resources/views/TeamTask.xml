@@ -37,7 +37,7 @@
 		</panel>
 
 		<panel name="mainPanel" colSpan="12">
-			<panel name="viewerTagsPanel" colSpan="4">
+			<panel name="viewerTagsPanel" colSpan="12">
 			 <panel name="statusPanel" showIf="project.isShowStatus" stacked="true" colSpan="12">
 				<field name="taskStatus" widget="NavSelect" showTitle="false" x-order="sequence"/>
 			 </panel>
