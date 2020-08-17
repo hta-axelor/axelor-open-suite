@@ -8,18 +8,18 @@
 		<field name="project"/>
 		<field name="isClosed"/>
 		<field name="createdBy" title="Topic created by"/>
-		<field name="updatedOn" title="Last Updated On"/>
+		<field name="updatedOn" title="Last updated on"/>
 	</grid>
 
 	<form name="topic-form" title="Topic" model="com.axelor.apps.project.db.Topic">
 		<panel name="mainPanel">
 		 <field name="title"/>
 		 <field name="message"/>
-		 <field name="project" />
-		 <field name="isClosed" readonly="true"/>
+		 <field name="project" form-view="project-form" grid-view="project-grid"/>
+		 <field name="isClosed"/>
 		 <field name="createdBy" title="Topic created by"/>
-		 <field name="updatedOn" title="Last Updated On"/>
-	   	 <button name="closeTopicBtn" title="Close topic" readonlyIf="createdBy.id != userId" onClick="action-topic-record-close-topic"/>
+		 <field name="updatedOn" title="Last updated on"/>
+	   	 <button name="closeTopicBtn" title="Close topic" hidden="true" readonlyIf="createdBy.id != userId" onClick="action-topic-record-close-topic,save" showIf="!isClosed"/>
 		</panel>
 		<panel-mail name="mailPanel">
 		  <mail-messages limit="4"/>
