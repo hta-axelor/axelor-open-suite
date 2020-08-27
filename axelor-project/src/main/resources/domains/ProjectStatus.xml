@@ -8,7 +8,7 @@
 	<entity name="ProjectStatus">
 	    <integer name="sequence" title="Sequence"/>
   		<string name="name"/>
-  		<boolean name="isDefaultCompleted" title="Default Completed"/>
+  		<boolean name="isDefaultCompleted" title="Default completed"/>
   		<boolean name="isCompleted" title="Completed"/>
   		<integer name="relatedToSelect" title="Related to" selection="project.status.related.to.select"/>
   		<finder-method name="getDefaultCompleted" using="" filter="self.isDefaultCompleted = true"/>

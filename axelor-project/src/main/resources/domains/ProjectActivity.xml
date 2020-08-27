@@ -7,7 +7,7 @@
 	
 	<entity name="ProjectActivity">
   		<many-to-one name="project" title="Project" ref="com.axelor.apps.project.db.Project" readonly="true"/>
-  		<string name="objectUpdated" title="Object Updated" readonly="true"/>
+  		<string name="objectUpdated" title="Object updated" readonly="true"/>
   		<string name="recordTitle" title="Record title" readonly="true"/>
   		<many-to-one name="user" column="user_id" title="User" ref="com.axelor.auth.db.User" readonly="true"/>
   		<datetime name="doneOn" title="Done on" readonly="true"/>

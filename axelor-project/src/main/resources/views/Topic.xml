@@ -4,7 +4,6 @@
 
 	<grid name="topic-grid" title="Topics" model="com.axelor.apps.project.db.Topic" orderBy="updatedOn">
 		<field name="title"/>
-		<field name="message"/>
 		<field name="project"/>
 		<field name="isClosed"/>
 		<field name="createdBy" title="Topic created by"/>

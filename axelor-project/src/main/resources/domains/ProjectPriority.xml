@@ -7,7 +7,7 @@
 	
 	<entity name="ProjectPriority">
   		<string name="name"/> 
-  		<integer name="technicalTypeSelect" title="Technical Type" selection="project.priority.technical.type.select" default="2"/>
+  		<integer name="technicalTypeSelect" title="Technical type" selection="project.priority.technical.type.select" default="2"/>
 	
 	<extra-code>
    		<![CDATA[

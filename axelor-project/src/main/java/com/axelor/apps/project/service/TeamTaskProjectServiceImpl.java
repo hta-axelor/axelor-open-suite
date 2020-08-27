@@ -100,9 +100,8 @@ public class TeamTaskProjectServiceImpl extends TeamTaskServiceImpl
     return project.getTeamTaskPrioritySet().stream()
         .filter(
             priority ->
-                priority
-                    .getTechnicalTypeSelect()
-                    .equals(ProjectPriorityRepository.PROJECT_PRIORITY_NORMAL))
+                priority.getTechnicalTypeSelect()
+                    == ProjectPriorityRepository.PROJECT_PRIORITY_NORMAL)
         .findAny()
         .orElse(null);
   }
