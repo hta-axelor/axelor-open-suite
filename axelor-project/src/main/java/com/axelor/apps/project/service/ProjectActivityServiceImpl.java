@@ -25,6 +25,7 @@ import com.axelor.apps.project.db.repo.ProjectActivityRepository;
 import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.auth.AuthUtils;
 import com.axelor.common.Inflector;
+import com.axelor.common.ObjectUtils;
 import com.axelor.common.StringUtils;
 import com.axelor.db.EntityHelper;
 import com.axelor.db.JPA;
@@ -44,6 +45,8 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.jsoup.Jsoup;
+import org.jsoup.select.Elements;
 
 public class ProjectActivityServiceImpl implements ProjectActivityService {
 
@@ -148,6 +151,9 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
     if (value == Boolean.FALSE) {
       return "False";
     }
+    if (property.getType() == PropertyType.TEXT) {
+      return getSpanContent(value.toString());
+    }
     if (allowedTypes.contains(property.getType())) {
       return Mapper.of(property.getTarget()).get(value, property.getTargetName()).toString();
     }
@@ -202,5 +208,13 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
     return id != null
         ? JPA.find(klass, Long.parseLong(id.toString()))
         : Mapper.toBean(klass, dataMap);
+  }
+
+  protected String getSpanContent(String value) {
+    Elements spanElements = Jsoup.parse(value).select("span");
+    if (ObjectUtils.isEmpty(spanElements)) {
+      return value;
+    }
+    return spanElements.get(0).text();
   }
 }
