@@ -42,6 +42,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -59,6 +60,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       ImmutableList.of(PropertyType.ONE_TO_ONE, PropertyType.MANY_TO_ONE);;
   protected final List<PropertyType> ignoreTypes =
       ImmutableList.of(PropertyType.ONE_TO_MANY, PropertyType.MANY_TO_MANY);
+  protected final List<String> ignoreFields = ImmutableList.of("id", "createdOn", "updatedOn");
 
   @Inject
   public ProjectActivityServiceImpl(
@@ -144,7 +146,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       Property property = mapper.getProperty(key);
       if (oldDataMap.containsKey(key)
           && !ignoreTypes.contains(property.getType())
-          && !"id".equals(property.getName())) {
+          && !ignoreFields.contains(property.getName())) {
         Object oldValue = oldDataMap.get(key);
         Object newValue = toProxy(property, me.getValue());
         if (!isEqual(oldValue, newValue)) {
@@ -207,6 +209,12 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
     }
     if (o1 instanceof BigDecimal) {
       return ((BigDecimal) o1).compareTo((BigDecimal) o2) == 0;
+    }
+    if (o1 instanceof Long) {
+      o2 = Long.valueOf(o2.toString());
+    }
+    if (o1 instanceof LocalDate) {
+      o1 = o1.toString();
     }
     return o1.equals(o2);
   }
