@@ -26,16 +26,22 @@ import com.axelor.events.RequestEvent;
 import com.axelor.events.qualifiers.EntityType;
 import com.axelor.inject.Beans;
 import com.axelor.team.db.TeamTask;
+import java.util.HashMap;
 import java.util.Map;
 import javax.inject.Named;
 
 public class ProjectActivityObserver {
 
+  @SuppressWarnings("unchecked")
   public void onSaveTask(
       @Observes @Named(RequestEvent.SAVE) @EntityType(TeamTask.class) PreRequest event) {
     Map<String, Object> dataMap = event.getRequest().getData();
     if (dataMap != null) {
       Beans.get(ProjectActivityService.class).createTaskProjectActivity(dataMap);
+    } else {
+      Beans.get(ProjectActivityService.class)
+          .createTaskProjectActivityByKanban(
+              (HashMap<String, Object>) event.getRequest().getRecords().get(0));
     }
   }
 

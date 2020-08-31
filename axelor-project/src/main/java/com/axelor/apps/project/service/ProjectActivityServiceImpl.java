@@ -23,6 +23,7 @@ import com.axelor.apps.project.db.Topic;
 import com.axelor.apps.project.db.Wiki;
 import com.axelor.apps.project.db.repo.ProjectActivityRepository;
 import com.axelor.apps.project.db.repo.ProjectRepository;
+import com.axelor.apps.project.db.repo.ProjectStatusRepository;
 import com.axelor.auth.AuthUtils;
 import com.axelor.common.Inflector;
 import com.axelor.common.ObjectUtils;
@@ -52,6 +53,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
 
   protected ProjectActivityRepository projectActivityRepo;
   protected ProjectRepository projectRepo;
+  protected ProjectStatusRepository projectStatusRepo;
 
   protected final List<PropertyType> allowedTypes =
       ImmutableList.of(PropertyType.ONE_TO_ONE, PropertyType.MANY_TO_ONE);;
@@ -60,9 +62,12 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
 
   @Inject
   public ProjectActivityServiceImpl(
-      ProjectActivityRepository projectActivityRepo, ProjectRepository projectRepo) {
+      ProjectActivityRepository projectActivityRepo,
+      ProjectRepository projectRepo,
+      ProjectStatusRepository projectStatusRepo) {
     this.projectActivityRepo = projectActivityRepo;
     this.projectRepo = projectRepo;
+    this.projectStatusRepo = projectStatusRepo;
   }
 
   @Transactional
@@ -74,6 +79,17 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       projectActivity.setRecordTitle(task.getName());
       projectActivityRepo.save(projectActivity);
     }
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public void createTaskProjectActivityByKanban(Map<String, Object> recordsMap) {
+    Map<String, Object> taskStatusMap = (HashMap<String, Object>) recordsMap.get("taskStatus");
+    String statusName =
+        projectStatusRepo.find(Long.valueOf(taskStatusMap.get("id").toString())).getName();
+    taskStatusMap.put("name", statusName);
+    recordsMap.replace("taskStatus", taskStatusMap);
+    createTaskProjectActivity(recordsMap);
   }
 
   @Transactional
