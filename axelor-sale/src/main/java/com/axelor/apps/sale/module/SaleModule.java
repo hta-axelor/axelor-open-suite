@@ -62,6 +62,8 @@ import com.axelor.apps.sale.service.saleorder.SaleOrderWorkflowService;
 import com.axelor.apps.sale.service.saleorder.SaleOrderWorkflowServiceImpl;
 import com.axelor.apps.sale.service.saleorder.print.SaleOrderPrintService;
 import com.axelor.apps.sale.service.saleorder.print.SaleOrderPrintServiceImpl;
+import com.axelor.apps.sale.service.saleorder.print.SaleOrderReportService;
+import com.axelor.apps.sale.service.saleorder.print.SaleOrderReportServiceImpl;
 
 public class SaleModule extends AxelorModule {
 
@@ -90,5 +92,6 @@ public class SaleModule extends AxelorModule {
     bind(SaleOrderPrintService.class).to(SaleOrderPrintServiceImpl.class);
     bind(OpportunityManagementRepository.class).to(OpportunitySaleRepository.class);
     bind(PartnerSaleService.class).to(PartnerSaleServiceImpl.class);
+    bind(SaleOrderReportService.class).to(SaleOrderReportServiceImpl.class);
   }
 }
