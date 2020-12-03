@@ -12,10 +12,7 @@
 				<item name="ganttWithProjectItem"  title="Gantt with project" action="action-project-open-popup-select-projects"/>
 			</menu>
 		</menubar>
-		<field name="name">
-		<hilite color="primary" if="isProject &amp;&amp; projectTypeSelect == 1"/>
-		<hilite color="info" if="isProject &amp;&amp; projectTypeSelect == 2"/>
-		</field>
+		<field name="name"/>
 		<field name="code"/>
 		<field name="parentProject"/>
 		<field name="clientPartner"/>
