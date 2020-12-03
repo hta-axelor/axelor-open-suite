@@ -2,7 +2,7 @@
 <object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
 
-	<grid name="project-grid" title="Projects" model="com.axelor.apps.project.db.Project" orderBy="statusSelect, name">
+	<grid name="project-grid" title="Projects" model="com.axelor.apps.project.db.Project" orderBy="projectStatus, name">
 		<toolbar>
 			<button name="projectPlanningBtn" title="Project planning" onClick="action-project-view-project-planning-wizard" if="__config__.app.isApp('employee')" if-module="axelor-human-resource"/>
 		</toolbar>
@@ -23,9 +23,9 @@
 		<field name="fromDate" />
 		<field name="toDate" />
 		<field name="imputable" width="90"/>
+		<field name="progress"/>
+		<field name="projectStatus"/>
 		<button name="openGanttBtn" title="Gantt" icon="fa-tasks" onClick="action-project-open-gantt"/>
-		<field name="progress"></field>
-		<field name="statusSelect"></field>
 	</grid>
 
 	<grid name="folder-project-grid" title="Projects" model="com.axelor.apps.project.db.Project">
