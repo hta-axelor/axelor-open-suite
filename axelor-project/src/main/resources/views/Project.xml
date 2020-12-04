@@ -20,7 +20,6 @@
 		<field name="fromDate" />
 		<field name="toDate" />
 		<field name="imputable" width="90"/>
-		<field name="progress"/>
 		<field name="projectStatus"/>
 		<button name="openGanttBtn" title="Gantt" icon="fa-tasks" onClick="action-project-open-gantt"/>
 	</grid>
@@ -427,7 +426,6 @@
 	 name="project-kanban" title="Projects" model="com.axelor.apps.project.db.Project">
 		<field name="fullName"/>
 		<field name="description"/>
-		<field name="progress"/>
 		<field name="projectStatus"/>
 		<field name="sequence"/>
 		<template>
@@ -444,7 +442,6 @@
 	 name="task-kanban" title="Tasks" model="com.axelor.apps.project.db.Project">
 		<field name="fullName"/>
 		<field name="description"/>
-		<field name="progress"/>
 		<field name="projectStatus"/>
 		<field name="sequence"/>
 		<template>
@@ -499,7 +496,6 @@
 		<node model="com.axelor.apps.project.db.Project" domain="self.parentProject.id = :id" onClick="action-project-view-phase">
 			<field name="name" as="name"/>
 			<field name="assignedTo" as="assignedTo"/>
-			<field name="progress" as="progress"/>
 			<button name="openTaskBtn" title="Open phase" onClick="action-project-view-phase"/>
 		</node>
 		
