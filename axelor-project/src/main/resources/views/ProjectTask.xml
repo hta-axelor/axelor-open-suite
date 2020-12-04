@@ -3,59 +3,59 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
 
-	<grid name="project-task-grid" title="Tasks" model="com.axelor.apps.project.db.ProjectTask" edit-icon="true" orderBy="-taskPriority.technicalTypeSelect">
-		<hilite if="$get('taskStatus.isCompleted') &amp;&amp; $get('taskStatus.isDefaultCompleted')" color="success"/>
-        <hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
-		<hilite if="$get('taskPriority.technicalTypeSelect') == 4" color="warning"/>
-		<field name="name"/>
-		<field name="project"/>
-		<field name="taskDate"/>
-		<field name="taskStatus"/>
-		<field name="taskPriority"/>
-		<field name="projectTaskCategory"/>
-		<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
-		<field name="taskEndDate" hidden="true"/>
-        <field name="taskPriority.technicalTypeSelect" hidden="true"/>
-        <field name="taskStatus.isCompleted" hidden="true"/>
-        <field name="taskStatus.isDefaultCompleted" hidden="true"/>
-	</grid>
-	
-	<form name="project-task-form" title="Task" model="com.axelor.apps.project.db.ProjectTask"
-				onNew="action-project-task-group-onnew"
-				onLoad="action-project-task-group-timer-process" width="large">
-		<toolbar>
-			<button name="grabEventBtn" icon="fa-suitcase" help="Take charge" onClick="action-project-task-record-assigned-yourself,save"/>
-			<button name="doneBtn" icon="fa-check" onClick="action-project-task-record-change-status,save" showIf="project.isShowStatus"/>
-		</toolbar>
-		<menubar>
-	        <menu name="projectTaskMenu" title="Tools">   
-	            <item name="bookResourceItem" title="Book resource" action="save,action-project-task-book-resource"/>
-	        </menu>
-	    </menubar>
+  <grid name="project-task-grid" title="Tasks" model="com.axelor.apps.project.db.ProjectTask" edit-icon="true" orderBy="-taskPriority.technicalTypeSelect">
+    <hilite if="$get('taskStatus.isCompleted') &amp;&amp; $get('taskStatus.isDefaultCompleted')" color="success"/>
+    <hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
+    <hilite if="$get('taskPriority.technicalTypeSelect') == 4" color="warning"/>
+    <field name="name"/>
+    <field name="project"/>
+    <field name="taskDate"/>
+    <field name="taskStatus"/>
+    <field name="taskPriority"/>
+    <field name="projectTaskCategory"/>
+    <field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
+    <field name="taskEndDate" hidden="true"/>
+    <field name="taskPriority.technicalTypeSelect" hidden="true"/>
+    <field name="taskStatus.isCompleted" hidden="true"/>
+    <field name="taskStatus.isDefaultCompleted" hidden="true"/>
+  </grid>
+  
+  <form name="project-task-form" title="Task" model="com.axelor.apps.project.db.ProjectTask"
+        onNew="action-project-task-group-onnew"
+        onLoad="action-project-task-group-timer-process" width="large">
+    <toolbar>
+      <button name="grabEventBtn" icon="fa-suitcase" help="Take charge" onClick="action-project-task-record-assigned-yourself,save"/>
+      <button name="doneBtn" icon="fa-check" onClick="action-project-task-record-change-status,save" showIf="project.isShowStatus"/>
+    </toolbar>
+    <menubar>
+          <menu name="projectTaskMenu" title="Tools">   
+              <item name="bookResourceItem" title="Book resource" action="save,action-project-task-book-resource"/>
+          </menu>
+    </menubar>
 
-		<panel showIf="nextProjectTask">
-			<field name="doApplyToAllNextTasks" widget="InlineCheckbox" colSpan="12"/>
-		</panel>
+    <panel showIf="nextProjectTask">
+      <field name="doApplyToAllNextTasks" widget="InlineCheckbox" colSpan="12"/>
+    </panel>
 
-		<panel name="mainPanel" colSpan="12">
-			<panel name="statusPanel" showIf="project.isShowStatus" stacked="true" colSpan="12">
-			  <field name="taskStatus" widget="NavSelect" showTitle="false" x-order="sequence"/>
-			</panel>
-			<panel name="viewerTagsPanel" colSpan="12">
-				<field name="$viewerTags" showTitle="false" readonly="true" showIf="typeSelect == 'ticket' &amp;&amp; $readonly()" colSpan="12" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" hidden="true">
-					<viewer>
-						<![CDATA[
-							<h4 class="text-right">
-								<span class="label label-important" ng-show="record.assignment == 1" x-translate>Task assigned to the client</span>
-								<span class="label label-success" ng-show="record.assignment == 2 && record.$provider == null" x-translate>Task assigned to the provider</span>
-								<span class="label label-success" style="background-color: #5cb85c; margin: 5px 0 !important; display: inline-table; line-height: initial; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.3em;" ng-show="record.assignment == 2 && record.$provider != null" x-translate>Task assigned to</span><span class="label label-success" style="background-color: #5cb85c; margin: 5px 0 !important; display: inline-table; line-height: initial; border-top-left-radius: 0; border-bottom-left-radius: 0; padding-left: 0.0em;" ng-show="record.assignment == 2 && record.$provider != null">{{record.$provider}}</span>
-								<span class="label label-important" ng-show="(!record.isOrderAccepted && record.invoicingType == 2 && record.exTaxTotal != 0) || (!record.isOrderAccepted && record.invoicingType == 1)" x-translate>Order Proposed</span>
-								<span class="label label-success" ng-show="record.isOrderAccepted" x-translate>Order Accepted</span>
-							</h4>
-						]]>
-					</viewer>
-				</field>
-			</panel>
+    <panel name="mainPanel" colSpan="12">
+      <panel name="statusPanel" showIf="project.isShowStatus" stacked="true" colSpan="12">
+         <field name="taskStatus" widget="NavSelect" showTitle="false" x-order="sequence"/>
+      </panel>
+      <panel name="viewerTagsPanel" colSpan="12">
+          <field name="$viewerTags" showTitle="false" readonly="true" showIf="typeSelect == 'ticket' &amp;&amp; $readonly()" colSpan="12" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" hidden="true">
+            <viewer>
+              <![CDATA[
+                   <h4 class="text-right">
+                     <span class="label label-important" ng-show="record.assignment == 1" x-translate>Task assigned to the client</span>
+                     <span class="label label-success" ng-show="record.assignment == 2 && record.$provider == null" x-translate>Task assigned to the provider</span>
+                     <span class="label label-success" style="background-color: #5cb85c; margin: 5px 0 !important; display: inline-table; line-height: initial; border-top-right-radius: 0; border-bottom-right-radius: 0; padding-right: 0.3em;" ng-show="record.assignment == 2 && record.$provider != null" x-translate>Task assigned to</span><span class="label label-success" style="background-color: #5cb85c; margin: 5px 0 !important; display: inline-table; line-height: initial; border-top-left-radius: 0; border-bottom-left-radius: 0; padding-left: 0.0em;" ng-show="record.assignment == 2 && record.$provider != null">{{record.$provider}}</span>
+                     <span class="label label-important" ng-show="(!record.isOrderAccepted && record.invoicingType == 2 && record.exTaxTotal != 0) || (!record.isOrderAccepted && record.invoicingType == 1)" x-translate>Order Proposed</span>
+                     <span class="label label-success" ng-show="record.isOrderAccepted" x-translate>Order Accepted</span>
+                   </h4>
+	        ]]>
+		   </viewer>
+	     </field>
+       </panel>
 			<field name="project.isShowTimeSpent" hidden="true"/>
 			<button name="timeSpentBtn" title="Enter Time spent" onClick="save,action-project-task-view-time-spent" colSpan="2" showIf="project.isShowTimeSpent"/>
 			<field name="$provider" hidden="true" type="string"/>
@@ -601,3 +601,4 @@
     </action-attrs>
         
 </object-views>
+
