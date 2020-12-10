@@ -3,19 +3,19 @@
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
               xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
 
-  <grid name="project-task-grid" title="Tasks" model="com.axelor.apps.project.db.ProjectTask" edit-icon="true" orderBy="-taskPriority.technicalTypeSelect">
+  <grid name="project-task-grid" title="Tasks" model="com.axelor.apps.project.db.ProjectTask" edit-icon="true" orderBy="-priority.technicalTypeSelect">
     <hilite if="$get('status.isCompleted') &amp;&amp; $get('status.isDefaultCompleted')" color="success"/>
     <hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
-    <hilite if="$get('taskPriority.technicalTypeSelect') == 4" color="warning"/>
+    <hilite if="$get('priority.technicalTypeSelect') == 4" color="warning"/>
     <field name="name"/>
     <field name="project"/>
     <field name="taskDate"/>
     <field name="status"/>
-    <field name="taskPriority"/>
+    <field name="priority"/>
     <field name="projectTaskCategory"/>
     <field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
     <field name="taskEndDate" hidden="true"/>
-    <field name="taskPriority.technicalTypeSelect" hidden="true"/>
+    <field name="priority.technicalTypeSelect" hidden="true"/>
     <field name="status.isCompleted" hidden="true"/>
     <field name="status.isDefaultCompleted" hidden="true"/>
   </grid>
@@ -95,7 +95,7 @@
 				  <field name="projectTaskSection" form-view="project-task-section-form" grid-view="project-task-section-grid"/>
 				</panel>
 				<panel name="priorityPanel" showIf="project.isShowPriority" colSpan="4">
-				  <field name="taskPriority" onSelect="action-project-task-atts-priority-on-select" requiredIf="project.isShowPriority" canView="false"/>
+				  <field name="priority" onSelect="action-project-task-atts-priority-on-select" requiredIf="project.isShowPriority" canView="false"/>
 				</panel>
 				<field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" domain="self.project = :project OR self.project.parentProject = :project" colSpan="4" form-view="project-version-form" grid-view="project-version-grid"/>
 				<field name="assignment" hidden="true" showIf="typeSelect == 'ticket'" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" colSpan="4"/>
@@ -281,8 +281,8 @@
 		<field name="assignedTo"/>
 		<field name="taskDate"/>
 		<field name="taskDeadline"/>
-		<field name="taskPriority.name"/>
-		<field name="taskPriority.technicalTypeSelect"/>
+		<field name="priority.name"/>
+		<field name="priority.technicalTypeSelect"/>
 		<field name="progressSelect"/>
 		<template>
 		<![CDATA[
@@ -299,7 +299,7 @@
 					<span ng-if="$moment(taskDeadline).isAfter($moment().add(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment().to($moment(taskDeadline), false) }}</span>
 					<span ng-if="$moment(taskDeadline).isBefore($moment().subtract(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment(taskDeadline).from($moment(), false)  }}</span>
 					
-					<span class="label pull-right" ng-class="{1:'label-success',2:'label-info',3:'label-warning',4:'label-important'}[taskPriority.technicalTypeSelect]">{{taskPriority.name}}</span>
+					<span class="label pull-right" ng-class="{1:'label-success',2:'label-info',3:'label-warning',4:'label-important'}[priority.technicalTypeSelect]">{{priority.name}}</span>
 					
 				</div>
 				<div class="progress kanban-progress">
@@ -320,8 +320,8 @@
 		<field name="assignedTo"/>
 		<field name="taskDate"/>
 		<field name="taskDeadline"/>
-		<field name="taskPriority.name"/>
-		<field name="taskPriority.technicalTypeSelect"/>
+		<field name="priority.name"/>
+		<field name="priority.technicalTypeSelect"/>
 		<field name="progressSelect"/>
 		<template>
 		<![CDATA[
@@ -338,7 +338,7 @@
 					<span ng-if="$moment(taskDeadline).isAfter($moment().add(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment().to($moment(taskDeadline), false) }}</span>
 					<span ng-if="$moment(taskDeadline).isBefore($moment().subtract(1, 'days'), 'days')"> <span x-translate>Deadline</span> {{ $moment(taskDeadline).from($moment(), false)  }}</span>
 					
-					<span class="label pull-right" ng-class="{1:'label-success',2:'label-info',3:'label-warning',4:'label-important'}[taskPriority.technicalTypeSelect]">{{taskPriority.name}}</span>
+					<span class="label pull-right" ng-class="{1:'label-success',2:'label-info',3:'label-warning',4:'label-important'}[priority.technicalTypeSelect]">{{priority.name}}</span>
 					
 				</div>
 				<div class="progress kanban-progress">
@@ -428,7 +428,7 @@
 		<field name="assignedTo" expr="eval:(project?.membersUserSet ? project?.membersUserSet?.collect{it.id}.contains(assignedTo.id) : __repo__(Project).find(project?.id).membersUserSet?.collect{it.id}.contains(assignedTo.id)) ? assignedTo : null" if="project != null &amp;&amp; assignedTo != null"/>
 		<field name="membersUserSet" expr="eval: null"/>
         <field name="invoicingType" expr="eval: 2" if="project?.invoicingSequenceSelect == 1"/>
-        <field name="taskPriority" expr="call: com.axelor.apps.project.service.ProjectTaskProjectService:getPriority(project)" if="project.isShowPriority"/>
+        <field name="priority" expr="call: com.axelor.apps.project.service.ProjectTaskProjectService:getPriority(project)" if="project.isShowPriority"/>
         <field name="status" expr="call: com.axelor.apps.project.service.ProjectTaskProjectService:getStatus(project)" if="project.isShowStatus"/> 
 	</action-record>
 	
@@ -450,7 +450,7 @@
 	</action-record>
     
     <action-attrs name="action-project-task-atts-priority-on-select">
-      <attribute name="domain" expr="eval: (project?.projectTaskPrioritySet !=  null &amp;&amp; project?.projectTaskPrioritySet?.size() &gt; 0) ? &quot;self.id IN (${project?.projectTaskPrioritySet?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" for="taskPriority"/>
+      <attribute name="domain" expr="eval: (project?.projectTaskPrioritySet !=  null &amp;&amp; project?.projectTaskPrioritySet?.size() &gt; 0) ? &quot;self.id IN (${project?.projectTaskPrioritySet?.collect{it.id}?.join(',')})&quot; : &quot;self.id IN (null)&quot;" for="priority"/>
     </action-attrs>
     
 	<action-attrs name="action-project-task-attrs-project-task-category-configurations" model="com.axelor.apps.project.db.ProjectTask">

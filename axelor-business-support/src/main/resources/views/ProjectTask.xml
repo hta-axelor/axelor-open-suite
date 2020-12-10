@@ -15,7 +15,7 @@
 	<grid name="project-task-client-grid" title="Tasks" model="com.axelor.apps.project.db.ProjectTask" edit-icon="true" orderBy="taskDate">
 		<hilite if="$get('status.isCompleted') == true" color="success"/>
 		<hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
-		<hilite if="$get('taskPriority.technicalTypeSelect') == 4" color="warning"/>
+		<hilite if="$get('priority.technicalTypeSelect') == 4" color="warning"/>
 		<field name="name"/>
 		<field name="taskDate"/>
 		<field name="status"/>
@@ -23,7 +23,7 @@
 		<field name="customerReferral"/>
 		<field name="targetVersion"/>
 		<field name="taskEndDate" hidden="true"/>
-		<field name="taskPriority.technicalTypeSelect" hidden="true"/>
+		<field name="priority.technicalTypeSelect" hidden="true"/>
         <field name="status.isCompleted" hidden="true"/>
 	</grid>
 
