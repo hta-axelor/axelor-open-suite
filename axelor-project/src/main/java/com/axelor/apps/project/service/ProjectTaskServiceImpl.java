@@ -154,8 +154,8 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
     task.setName(subject);
     task.setAssignedTo(assignedTo);
     task.setTaskDate(appBaseService.getTodayDate(null));
-    task.setStatus(ProjectTaskRepository.STATUS_NEW);
-    task.setPriority(ProjectTaskRepository.PRIORITY_NORMAL);
+    task.setStatus(getStatus(project));
+    task.setPriority(getPriority(project));
     project.addProjectTaskListItem(task);
     return task;
   }
