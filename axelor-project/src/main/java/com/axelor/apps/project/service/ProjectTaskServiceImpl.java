@@ -177,27 +177,33 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 
   @Override
   public ProjectStatus getDefaultCompletedStatus(Project project) {
-    return project.getProjectTaskStatusSet().stream()
-        .filter(ProjectStatus::getIsDefaultCompleted)
-        .findAny()
-        .orElse(null);
+    return project == null
+        ? null
+        : project.getProjectTaskStatusSet().stream()
+            .filter(ProjectStatus::getIsDefaultCompleted)
+            .findAny()
+            .orElse(null);
   }
 
   @Override
   public ProjectStatus getStatus(Project project) {
-    return project.getProjectTaskStatusSet().stream()
-        .min(Comparator.comparingInt(ProjectStatus::getSequence))
-        .orElse(null);
+    return project == null
+        ? null
+        : project.getProjectTaskStatusSet().stream()
+            .min(Comparator.comparingInt(ProjectStatus::getSequence))
+            .orElse(null);
   }
 
   @Override
   public ProjectPriority getPriority(Project project) {
-    return project.getProjectTaskPrioritySet().stream()
-        .filter(
-            priority ->
-                priority.getTechnicalTypeSelect()
-                    == ProjectPriorityRepository.PROJECT_PRIORITY_NORMAL)
-        .findAny()
-        .orElse(null);
+    return project == null
+        ? null
+        : project.getProjectTaskPrioritySet().stream()
+            .filter(
+                priority ->
+                    priority.getTechnicalTypeSelect()
+                        == ProjectPriorityRepository.PROJECT_PRIORITY_NORMAL)
+            .findAny()
+            .orElse(null);
   }
 }
