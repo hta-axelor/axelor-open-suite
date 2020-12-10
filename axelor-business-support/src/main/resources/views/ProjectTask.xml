@@ -6,32 +6,32 @@
     <grid model="com.axelor.apps.project.db.ProjectTask" title="Tasks" name="business-support-version-project-task-grid" orderBy="-taskDate">
 		<field name="name"/>
 		<field name="taskDate"/>
-		<field name="taskStatus"/>
+		<field name="status"/>
 		<field name="progressSelect" widget="SelectProgress"/>
 		<field name="projInvTypeSelect"/>
 		<button name="updateToInvoiceBtn" title="Update to invoice" readonlyIf="invoiced" icon="fa-check-circle" onClick="action-project-task-method-update-to-invoice"/>
 	</grid>
 
 	<grid name="project-task-client-grid" title="Tasks" model="com.axelor.apps.project.db.ProjectTask" edit-icon="true" orderBy="taskDate">
-		<hilite if="$get('taskStatus.isCompleted') == true" color="success"/>
+		<hilite if="$get('status.isCompleted') == true" color="success"/>
 		<hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
 		<hilite if="$get('taskPriority.technicalTypeSelect') == 4" color="warning"/>
 		<field name="name"/>
 		<field name="taskDate"/>
-		<field name="taskStatus"/>
+		<field name="status"/>
 		<field name="projectTaskCategory"/>
 		<field name="customerReferral"/>
 		<field name="targetVersion"/>
 		<field name="taskEndDate" hidden="true"/>
 		<field name="taskPriority.technicalTypeSelect" hidden="true"/>
-        <field name="taskStatus.isCompleted" hidden="true"/>
+        <field name="status.isCompleted" hidden="true"/>
 	</grid>
 
 	<form name="project-task-client-form" title="Ticket" model="com.axelor.apps.project.db.ProjectTask"
 		onNew="action-project-task-group-onnew" onLoad="action-project-task-group-timer-process" width="large">
 		<panel name="mainPanel">
 		    <panel name="statusPanel" showIf="project.isShowStatus" stacked="true" colSpan="12">
-			  <field name="taskStatus" widget="NavSelect" showTitle="false" x-order="sequence"/>
+			  <field name="status" widget="NavSelect" showTitle="false" x-order="sequence"/>
 			</panel>
 			<field name="$viewerTags" showTitle="false" readonly="true" showIf="typeSelect == 1 &amp;&amp; $readonly()" colSpan="4" hidden="true">
 				<viewer>

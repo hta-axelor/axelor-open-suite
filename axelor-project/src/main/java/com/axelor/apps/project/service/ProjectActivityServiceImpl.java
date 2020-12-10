@@ -86,11 +86,11 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   @SuppressWarnings("unchecked")
   @Override
   public void createTaskProjectActivityByKanban(Map<String, Object> recordsMap) {
-    Map<String, Object> taskStatusMap = (HashMap<String, Object>) recordsMap.get("taskStatus");
+    Map<String, Object> statusMap = (HashMap<String, Object>) recordsMap.get("status");
     String statusName =
-        projectStatusRepo.find(Long.valueOf(taskStatusMap.get("id").toString())).getName();
-    taskStatusMap.put("name", statusName);
-    recordsMap.replace("taskStatus", taskStatusMap);
+        projectStatusRepo.find(Long.valueOf(statusMap.get("id").toString())).getName();
+    statusMap.put("name", statusName);
+    recordsMap.replace("status", statusMap);
     createTaskProjectActivity(recordsMap);
   }
 

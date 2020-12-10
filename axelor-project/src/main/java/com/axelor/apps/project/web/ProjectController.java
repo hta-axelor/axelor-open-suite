@@ -46,7 +46,7 @@ public class ProjectController {
         Beans.get(ProjectService.class)
             .getTaskView(
                 "My open tasks",
-                "self.assignedTo = :__user__ AND self.taskStatus.isCompleted = false AND self.typeSelect = :typeSelect AND self.project = :_project",
+                "self.assignedTo = :__user__ AND self.status.isCompleted = false AND self.typeSelect = :typeSelect AND self.project = :_project",
                 context);
     response.setView(view);
   }
@@ -70,7 +70,7 @@ public class ProjectController {
         Beans.get(ProjectService.class)
             .getTaskView(
                 "All open tasks",
-                "self.taskStatus.isCompleted = false AND self.typeSelect = :typeSelect AND self.project = :_project",
+                "self.status.isCompleted = false AND self.typeSelect = :typeSelect AND self.project = :_project",
                 context);
     response.setView(view);
   }

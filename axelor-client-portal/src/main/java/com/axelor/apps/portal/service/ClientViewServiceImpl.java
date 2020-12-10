@@ -616,7 +616,7 @@ public class ClientViewServiceImpl implements ClientViewService {
 
     Filter filter =
         new JPQLFilter(
-            "self.taskStatus.isCompleted = false"
+            "self.status.isCompleted = false"
                 + " AND self.typeSelect = '"
                 + ProjectTaskRepository.TYPE_TASK
                 + "' AND self.project.clientPartner.id = "

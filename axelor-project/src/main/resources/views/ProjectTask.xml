@@ -4,20 +4,20 @@
               xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
 
   <grid name="project-task-grid" title="Tasks" model="com.axelor.apps.project.db.ProjectTask" edit-icon="true" orderBy="-taskPriority.technicalTypeSelect">
-    <hilite if="$get('taskStatus.isCompleted') &amp;&amp; $get('taskStatus.isDefaultCompleted')" color="success"/>
+    <hilite if="$get('status.isCompleted') &amp;&amp; $get('status.isDefaultCompleted')" color="success"/>
     <hilite if="$moment(taskEndDate).diff(todayDate,'days') &lt; 0" color="danger"/>
     <hilite if="$get('taskPriority.technicalTypeSelect') == 4" color="warning"/>
     <field name="name"/>
     <field name="project"/>
     <field name="taskDate"/>
-    <field name="taskStatus"/>
+    <field name="status"/>
     <field name="taskPriority"/>
     <field name="projectTaskCategory"/>
     <field name="targetVersion" if-module="axelor-business-support" if="__config__.app.isApp('business-support')"/>
     <field name="taskEndDate" hidden="true"/>
     <field name="taskPriority.technicalTypeSelect" hidden="true"/>
-    <field name="taskStatus.isCompleted" hidden="true"/>
-    <field name="taskStatus.isDefaultCompleted" hidden="true"/>
+    <field name="status.isCompleted" hidden="true"/>
+    <field name="status.isDefaultCompleted" hidden="true"/>
   </grid>
   
   <form name="project-task-form" title="Task" model="com.axelor.apps.project.db.ProjectTask"
@@ -39,7 +39,7 @@
 
     <panel name="mainPanel" colSpan="12">
       <panel name="statusPanel" showIf="project.isShowStatus" stacked="true" colSpan="12">
-         <field name="taskStatus" widget="NavSelect" showTitle="false" x-order="sequence"/>
+         <field name="status" widget="NavSelect" showTitle="false" x-order="sequence"/>
       </panel>
       <panel name="viewerTagsPanel" colSpan="12">
           <field name="$viewerTags" showTitle="false" readonly="true" showIf="typeSelect == 'ticket' &amp;&amp; $readonly()" colSpan="12" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" hidden="true">
@@ -275,7 +275,7 @@
 
 	</tree>
 	
-	<kanban name="project-task-kanban" columnBy="taskStatus" title="Tasks" limit="30" sequenceBy="sequence"  model="com.axelor.apps.project.db.ProjectTask">
+	<kanban name="project-task-kanban" columnBy="status" title="Tasks" limit="30" sequenceBy="sequence"  model="com.axelor.apps.project.db.ProjectTask">
 		<field name="name"/>
 		<field name="project"/>
 		<field name="assignedTo"/>
@@ -353,7 +353,7 @@
 		</template>
 	</kanban>
 	
-	<calendar name="project-task-per-status-calendar" title="Task Calendar" model="com.axelor.apps.project.db.ProjectTask" eventStart="taskDate" eventStop="taskEndDate" eventLength="1" mode="month" colorBy="taskStatus">
+	<calendar name="project-task-per-status-calendar" title="Task Calendar" model="com.axelor.apps.project.db.ProjectTask" eventStart="taskDate" eventStop="taskEndDate" eventLength="1" mode="month" colorBy="status">
  	  <field name="fullName"/>
 	</calendar>
 		
@@ -429,7 +429,7 @@
 		<field name="membersUserSet" expr="eval: null"/>
         <field name="invoicingType" expr="eval: 2" if="project?.invoicingSequenceSelect == 1"/>
         <field name="taskPriority" expr="call: com.axelor.apps.project.service.ProjectTaskProjectService:getPriority(project)" if="project.isShowPriority"/>
-        <field name="taskStatus" expr="call: com.axelor.apps.project.service.ProjectTaskProjectService:getStatus(project)" if="project.isShowStatus"/> 
+        <field name="status" expr="call: com.axelor.apps.project.service.ProjectTaskProjectService:getStatus(project)" if="project.isShowStatus"/> 
 	</action-record>
 	
 	<action-record name="action-project-task-defaults"  model="com.axelor.apps.project.db.ProjectTask">
@@ -573,8 +573,8 @@
 	</action-attrs>
 
 	<action-record name="action-project-task-record-change-status" model="com.axelor.apps.project.db.ProjectTask">
-	   <field name="statusBeforeComplete" expr="eval: taskStatus"/>
-	   <field name="taskStatus" expr="call:com.axelor.apps.project.service.ProjectTaskProjectService:getDefaultCompletedStatus(project)" if="project.isShowStatus"/>
+	   <field name="statusBeforeComplete" expr="eval: status"/>
+	   <field name="status" expr="call:com.axelor.apps.project.service.ProjectTaskProjectService:getDefaultCompletedStatus(project)" if="project.isShowStatus"/>
 	</action-record>
     
     <action-view name="action-project-view-per-section-kanban" title="Tasks" model="com.axelor.apps.project.db.ProjectTask">
@@ -596,7 +596,7 @@
     </action-view>
     
     <action-attrs name="action-project-task-attrs-project-filter-status">
-       <attribute name="selection-in" for="taskStatus" expr="eval: project?.projectTaskStatusSet?.collect{it.id}?.join(',')"/>    
+       <attribute name="selection-in" for="status" expr="eval: project?.projectTaskStatusSet?.collect{it.id}?.join(',')"/>    
     </action-attrs>
         
 </object-views>
