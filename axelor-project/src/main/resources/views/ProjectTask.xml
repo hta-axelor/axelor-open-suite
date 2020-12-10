@@ -428,8 +428,8 @@
 		<field name="assignedTo" expr="eval:(project?.membersUserSet ? project?.membersUserSet?.collect{it.id}.contains(assignedTo.id) : __repo__(Project).find(project?.id).membersUserSet?.collect{it.id}.contains(assignedTo.id)) ? assignedTo : null" if="project != null &amp;&amp; assignedTo != null"/>
 		<field name="membersUserSet" expr="eval: null"/>
         <field name="invoicingType" expr="eval: 2" if="project?.invoicingSequenceSelect == 1"/>
-        <field name="priority" expr="call: com.axelor.apps.project.service.ProjectTaskProjectService:getPriority(project)" if="project.isShowPriority"/>
-        <field name="status" expr="call: com.axelor.apps.project.service.ProjectTaskProjectService:getStatus(project)" if="project.isShowStatus"/> 
+        <field name="priority" expr="call: com.axelor.apps.project.service.ProjectTaskService:getPriority(project)" if="project.isShowPriority"/>
+        <field name="status" expr="call: com.axelor.apps.project.service.ProjectTaskService:getStatus(project)" if="project.isShowStatus"/> 
 	</action-record>
 	
 	<action-record name="action-project-task-defaults"  model="com.axelor.apps.project.db.ProjectTask">
@@ -574,7 +574,7 @@
 
 	<action-record name="action-project-task-record-change-status" model="com.axelor.apps.project.db.ProjectTask">
 	   <field name="statusBeforeComplete" expr="eval: status"/>
-	   <field name="status" expr="call:com.axelor.apps.project.service.ProjectTaskProjectService:getDefaultCompletedStatus(project)" if="project.isShowStatus"/>
+	   <field name="status" expr="call:com.axelor.apps.project.service.ProjectTaskService:getDefaultCompletedStatus(project)" if="project.isShowStatus"/>
 	</action-record>
     
     <action-view name="action-project-view-per-section-kanban" title="Tasks" model="com.axelor.apps.project.db.ProjectTask">
