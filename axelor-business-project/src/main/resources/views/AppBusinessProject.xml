@@ -21,8 +21,8 @@
 			<field name="enableToInvoiceTimesheet" widget="boolean-switch" />
 			<field name="enableToInvoiceExpense" widget="boolean-switch" />
 			<field name="enableTaskTemplatesByProduct" widget="boolean-switch"/>
-			<field name="preTaskStatusSet" canEdit="false"/>
-    		<field name="postTaskStatusSet" canEdit="false"/>
+			<field name="preTaskStatusSet" widget="TagSelect" domain="self.relatedToSelect = 1"/>
+    		<field name="postTaskStatusSet" widget="TagSelect" domain="self.relatedToSelect = 1"/>
     		<field name="exculdeTaskInvoicing"/>
     		<field name="generateProjectSequence" widget="boolean-switch"/>
 		</panel>
