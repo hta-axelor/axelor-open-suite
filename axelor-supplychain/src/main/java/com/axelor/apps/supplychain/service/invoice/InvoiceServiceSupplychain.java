@@ -15,17 +15,33 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.axelor.apps.sale.db.repo;
+package com.axelor.apps.supplychain.service.invoice;
 
-import com.axelor.apps.sale.db.ConfiguratorCreator;
-import com.axelor.apps.sale.service.configurator.ConfiguratorCreatorService;
-import com.axelor.inject.Beans;
-import javax.persistence.PostPersist;
+import com.axelor.apps.account.db.Invoice;
+import com.axelor.exception.AxelorException;
 
-public class ConfiguratorCreatorListener {
+public interface InvoiceServiceSupplychain {
 
-  @PostPersist
-  private void onPostPersist(ConfiguratorCreator creator) {
-    Beans.get(ConfiguratorCreatorService.class).init(creator);
-  }
+  /**
+   * Calculate pack total in invoice lines.
+   *
+   * @param invoice
+   */
+  public void computePackTotal(Invoice invoice);
+
+  /**
+   * Reset pack total in invoice lines.
+   *
+   * @param invoice
+   */
+  public void resetPackTotal(Invoice invoice);
+
+  /**
+   * To update product qty with pack header qty.
+   *
+   * @param invoice
+   * @return {@link Invoice}
+   * @throws AxelorException
+   */
+  public Invoice updateProductQtyWithPackHeaderQty(Invoice invoice) throws AxelorException;
 }

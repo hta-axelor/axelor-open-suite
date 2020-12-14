@@ -15,17 +15,29 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.axelor.apps.sale.db.repo;
+package com.axelor.apps.sale.service;
 
-import com.axelor.apps.sale.db.ConfiguratorCreator;
-import com.axelor.apps.sale.service.configurator.ConfiguratorCreatorService;
-import com.axelor.inject.Beans;
-import javax.persistence.PostPersist;
+import com.axelor.apps.sale.db.Pack;
+import com.axelor.apps.sale.db.PackLine;
+import com.axelor.exception.AxelorException;
 
-public class ConfiguratorCreatorListener {
+public interface PackLineService {
 
-  @PostPersist
-  private void onPostPersist(ConfiguratorCreator creator) {
-    Beans.get(ConfiguratorCreatorService.class).init(creator);
-  }
+  /**
+   * Reset product information when product is null.
+   *
+   * @param packLine
+   * @return {@link PackLine}
+   */
+  public PackLine resetProductInformation(PackLine packLine);
+
+  /**
+   * Compute product information when product is not null.
+   *
+   * @param pack
+   * @param packLine
+   * @return {@link PackLine}
+   * @throws AxelorException
+   */
+  public PackLine computeProductInformation(Pack pack, PackLine packLine) throws AxelorException;
 }
