@@ -53,7 +53,7 @@ public class ProjectServiceImpl implements ProjectService {
 
   public static final int MAX_LEVEL_OF_PROJECT = 10;
 
-  private ProjectRepository projectRepository;
+  protected ProjectRepository projectRepository;
   private ProjectStatusRepository projectStatusRepository;
 
   @Inject

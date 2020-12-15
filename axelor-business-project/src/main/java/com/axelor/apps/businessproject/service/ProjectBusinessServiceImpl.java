@@ -51,7 +51,6 @@ import java.util.Map;
 public class ProjectBusinessServiceImpl extends ProjectServiceImpl
     implements ProjectBusinessService {
 
-  protected ProjectRepository projectRepo;
   protected PartnerService partnerService;
   protected AddressService addressService;
   protected AppBusinessProjectService appBusinessProjectService;
@@ -60,12 +59,10 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
   public ProjectBusinessServiceImpl(
       ProjectRepository projectRepository,
       ProjectStatusRepository projectStatusRepository,
-      ProjectRepository projectRepo,
       PartnerService partnerService,
       AddressService addressService,
       AppBusinessProjectService appBusinessProjectService) {
     super(projectRepository, projectStatusRepository);
-    this.projectRepo = projectRepo;
     this.partnerService = partnerService;
     this.addressService = addressService;
     this.appBusinessProjectService = appBusinessProjectService;
@@ -84,7 +81,7 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
 
     Company company = project.getCompany();
 
-    order.setProject(projectRepo.find(project.getId()));
+    order.setProject(projectRepository.find(project.getId()));
     order.setClientPartner(clientPartner);
     order.setContactPartner(contactPartner);
     order.setCompany(company);
@@ -164,7 +161,7 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
    */
   @Override
   public Project generateProject(SaleOrder saleOrder) {
-    Project project = projectRepo.findByName(saleOrder.getFullName() + "_project");
+    Project project = projectRepository.findByName(saleOrder.getFullName() + "_project");
     project =
         project == null
             ? this.generateProject(

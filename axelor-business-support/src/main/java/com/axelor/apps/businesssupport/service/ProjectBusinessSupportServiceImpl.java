@@ -34,14 +34,12 @@ public class ProjectBusinessSupportServiceImpl extends ProjectBusinessServiceImp
   public ProjectBusinessSupportServiceImpl(
       ProjectRepository projectRepository,
       ProjectStatusRepository projectStatusRepository,
-      ProjectRepository projectRepo,
       PartnerService partnerService,
       AddressService addressService,
       AppBusinessProjectService appBusinessProjectService) {
     super(
         projectRepository,
         projectStatusRepository,
-        projectRepo,
         partnerService,
         addressService,
         appBusinessProjectService);
