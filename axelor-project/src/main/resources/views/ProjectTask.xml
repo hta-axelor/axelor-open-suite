@@ -367,6 +367,7 @@
 		<action name="action-project-task-attrs-scale-and-precision" if="__config__.app.isApp('business-project')"/>
 		<action name="action-project-task-record-project-configurations" if="project != null"/>
 		<action name="action-project-task-business-support-provider" if="__config__.app.isApp('business-support')"/>
+	    <action name="action-project-task-attrs-project-filter-status"/>
 	</action-group>
 	
 	<action-group name="action-project-task-group-project-onchange">
