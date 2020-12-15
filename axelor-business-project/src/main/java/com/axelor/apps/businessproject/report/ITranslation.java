@@ -189,6 +189,8 @@ public interface ITranslation {
   // InvoicingProject - Project
   public static final String INVOICING_PROJECT_ANNEX_NAME = /*$$(*/
       "InvoicingProjectAnnex.name"; /*)*/
+  public static final String INVOICING_PROJECT_ANNEX_PARENT_PROJECT = /*$$(*/
+      "InvoicingProjectAnnex.parentProject"; /*)*/
   // InvoicingProject - Tasks
   public static final String INVOICING_PROJECT_ANNEX_TASK_DATE = /*$$(*/
       "InvoicingProjectAnnex.taskDate"; /*)*/
