@@ -28,6 +28,7 @@ import com.axelor.apps.project.db.ProjectTask;
 import com.axelor.apps.project.db.repo.ProjectPriorityRepository;
 import com.axelor.apps.project.db.repo.ProjectTaskRepository;
 import com.axelor.auth.db.User;
+import com.axelor.common.ObjectUtils;
 import com.google.inject.Inject;
 import com.google.inject.persist.Transactional;
 import java.time.LocalDate;
@@ -177,7 +178,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 
   @Override
   public ProjectStatus getDefaultCompletedStatus(Project project) {
-    return project == null
+    return project == null || ObjectUtils.isEmpty(project.getProjectTaskStatusSet())
         ? null
         : project.getProjectTaskStatusSet().stream()
             .filter(ProjectStatus::getIsDefaultCompleted)
@@ -187,7 +188,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 
   @Override
   public ProjectStatus getStatus(Project project) {
-    return project == null
+    return project == null || ObjectUtils.isEmpty(project.getProjectTaskStatusSet())
         ? null
         : project.getProjectTaskStatusSet().stream()
             .min(Comparator.comparingInt(ProjectStatus::getSequence))
@@ -196,7 +197,7 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
 
   @Override
   public ProjectPriority getPriority(Project project) {
-    return project == null
+    return project == null || ObjectUtils.isEmpty(project.getProjectTaskPrioritySet())
         ? null
         : project.getProjectTaskPrioritySet().stream()
             .filter(
