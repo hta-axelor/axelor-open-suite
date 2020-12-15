@@ -370,7 +370,7 @@
 	</action-group>
 	
 	<action-group name="action-project-task-group-project-onchange">
-	    <action name="action-project-task-attrs-project-filter-status" if="project.isShowStatus"/>
+	    <action name="action-project-task-attrs-project-filter-status" if="project?.isShowStatus"/>
 		<action name="action-project-task-record-project-configurations"/>
 		<action name="action-project-task-method-update-discount" if="__config__.app.isApp('business-project')"/>
 		<action name="action-project-task-method-compute" if="__config__.app.isApp('business-project')"/>
@@ -428,8 +428,8 @@
 		<field name="assignedTo" expr="eval:(project?.membersUserSet ? project?.membersUserSet?.collect{it.id}.contains(assignedTo.id) : __repo__(Project).find(project?.id).membersUserSet?.collect{it.id}.contains(assignedTo.id)) ? assignedTo : null" if="project != null &amp;&amp; assignedTo != null"/>
 		<field name="membersUserSet" expr="eval: null"/>
         <field name="invoicingType" expr="eval: 2" if="project?.invoicingSequenceSelect == 1"/>
-        <field name="priority" expr="call: com.axelor.apps.project.service.ProjectTaskService:getPriority(project)" if="project.isShowPriority"/>
-        <field name="status" expr="call: com.axelor.apps.project.service.ProjectTaskService:getStatus(project)" if="project.isShowStatus"/> 
+        <field name="priority" expr="call: com.axelor.apps.project.service.ProjectTaskService:getPriority(project)" if="project?.isShowPriority"/>
+        <field name="status" expr="call: com.axelor.apps.project.service.ProjectTaskService:getStatus(project)" if="project?.isShowStatus"/> 
 	</action-record>
 	
 	<action-record name="action-project-task-defaults"  model="com.axelor.apps.project.db.ProjectTask">
@@ -512,7 +512,7 @@
 	</action-method>
 
 	<action-group name="action-project-task-group-timer-process">
-		<action name="action-project-task-attrs-project-filter-status" if="project.isShowStatus"/>
+		<action name="action-project-task-attrs-project-filter-status" if="project?.isShowStatus"/>
 		<action name="action-project-task-method-manage-timer-buttons" if="timerList != null &amp;&amp; !timerList.isEmpty()"/>
 		<action name="action-project-task-method-compute-total-timer-duration" if="timerList != null &amp;&amp; !timerList.isEmpty()"/>
 		<action name="action-project-task-attrs-scale-and-precision" if="__config__.app.isApp('business-project')"/>
