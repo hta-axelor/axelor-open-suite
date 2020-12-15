@@ -10,6 +10,12 @@
 		<field name="toDate" />
 	</grid>
 	
+	<grid name="folder-project-grid" title="Projects" model="com.axelor.apps.project.db.Project">
+		<field name="fullName"/>
+		<field name="company" if="__config__.app.getApp('base').getEnableMultiCompany()"/>
+		<field name="clientPartner"/>
+	</grid>
+	
     <action-method name="action-project-method-generate-quotation">
         <call class="com.axelor.apps.businessproject.web.ProjectController" method="generateQuotation"/>
     </action-method>
