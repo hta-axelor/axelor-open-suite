@@ -55,7 +55,7 @@
 		</menubar>
 		<panel name="mainPanel">
 			<panel name="detailsPanel" colSpan="12">
-			<panel name="statusPanel" stacked="true" colSpan="12">
+			<panel name="statusPanel" stacked="true" colSpan="8">
    			  <field name="projectStatus" showTitle="false" widget="NavSelect" x-order="sequence"/>
 			</panel>
 				<field name="$viewerProjectTags" showTitle="false" colSpan="4"
