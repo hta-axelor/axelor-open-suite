@@ -25,6 +25,7 @@ import com.axelor.apps.project.db.Wiki;
 import com.axelor.apps.project.db.repo.ProjectActivityRepository;
 import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.apps.project.db.repo.ProjectStatusRepository;
+import com.axelor.apps.project.db.repo.ProjectTaskSectionRepository;
 import com.axelor.auth.AuthUtils;
 import com.axelor.common.Inflector;
 import com.axelor.common.ObjectUtils;
@@ -55,6 +56,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   protected ProjectActivityRepository projectActivityRepo;
   protected ProjectRepository projectRepo;
   protected ProjectStatusRepository projectStatusRepo;
+  protected ProjectTaskSectionRepository projectTaskSectionRepo;
 
   protected final List<PropertyType> allowedTypes =
       ImmutableList.of(PropertyType.ONE_TO_ONE, PropertyType.MANY_TO_ONE);;
@@ -66,10 +68,12 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   public ProjectActivityServiceImpl(
       ProjectActivityRepository projectActivityRepo,
       ProjectRepository projectRepo,
-      ProjectStatusRepository projectStatusRepo) {
+      ProjectStatusRepository projectStatusRepo,
+      ProjectTaskSectionRepository projectTaskSectionRepo) {
     this.projectActivityRepo = projectActivityRepo;
     this.projectRepo = projectRepo;
     this.projectStatusRepo = projectStatusRepo;
+    this.projectTaskSectionRepo = projectTaskSectionRepo;
   }
 
   @Transactional
@@ -86,11 +90,15 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   @SuppressWarnings("unchecked")
   @Override
   public void createTaskProjectActivityByKanban(Map<String, Object> recordsMap) {
-    Map<String, Object> statusMap = (HashMap<String, Object>) recordsMap.get("status");
-    String statusName =
-        projectStatusRepo.find(Long.valueOf(statusMap.get("id").toString())).getName();
-    statusMap.put("name", statusName);
-    recordsMap.replace("status", statusMap);
+    String name = "";
+    Map<String, Object> map = (HashMap<String, Object>) recordsMap.get("status");
+    if (map != null) {
+      name = projectStatusRepo.find(Long.valueOf(map.get("id").toString())).getName();
+    } else {
+      map = (HashMap<String, Object>) recordsMap.get("projectTaskSection");
+      name = projectTaskSectionRepo.find(Long.valueOf(map.get("id").toString())).getName();
+    }
+    map.put("name", name);
     createTaskProjectActivity(recordsMap);
   }
 
