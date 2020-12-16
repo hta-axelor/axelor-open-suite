@@ -58,7 +58,7 @@ public class ProjectController {
         Beans.get(ProjectService.class)
             .getTaskView(
                 "My tasks",
-                "self.assignedTo = :__user__ AND self.typeSelect = :typeSelect AND self.project = :_project",
+                "self.createdBy = :__user__ AND self.typeSelect = :typeSelect AND self.project = :_project",
                 context);
     response.setView(view);
   }
