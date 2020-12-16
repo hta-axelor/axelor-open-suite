@@ -284,6 +284,7 @@
 		<field name="priority.name"/>
 		<field name="priority.technicalTypeSelect"/>
 		<field name="progressSelect"/>
+		<field name="project.isShowProgress"/>
 		<template>
 		<![CDATA[
 			<h4>{{name}}</h4>
@@ -302,7 +303,7 @@
 					<span class="label pull-right" ng-class="{1:'label-success',2:'label-info',3:'label-warning',4:'label-important'}[priority.technicalTypeSelect]">{{priority.name}}</span>
 					
 				</div>
-				<div class="progress kanban-progress">
+				<div ng-if="project.isShowProgress" class="progress kanban-progress">
 					<span ng-if="progressSelect == 0">{{ progressSelect }}%</span>
 				  <div class="bar" style="width: {{ progressSelect }}%;">{{ progressSelect }}%</div>
 				</div>
