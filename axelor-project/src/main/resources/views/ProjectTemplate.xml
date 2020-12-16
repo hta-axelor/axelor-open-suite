@@ -66,7 +66,7 @@
 		</panel>
 
 		<panel name="followUpPanel" colSpan="12" title="Follow-up" sidebar="true" canCollapse="true">
-			<field name="assignedTo" title="Person In Charge" canNew="false" canView="false" canEdit="false" onChange="action-attrs-project-add-member" form-view="user-form" grid-view="user-grid" />
+			<field name="assignedTo" title="Assigned to" canNew="false" canView="false" canEdit="false" onChange="action-attrs-project-add-member" form-view="user-form" grid-view="user-grid" />
 		</panel>
 	</form>
 
