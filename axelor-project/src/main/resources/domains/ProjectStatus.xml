@@ -7,7 +7,7 @@
 	
 	<entity name="ProjectStatus">
 	    <integer name="sequence" title="Sequence"/>
-  		<string name="name"/>
+  		<string name="name" translatable="true"/>
   		<boolean name="isDefaultCompleted" title="Default completed"/>
   		<boolean name="isCompleted" title="Completed"/>
   		<integer name="relatedToSelect" title="Related to" selection="project.status.related.to.select"/>
