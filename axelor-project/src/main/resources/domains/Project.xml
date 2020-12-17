@@ -66,7 +66,7 @@
 		<boolean name="isShowFrequency" title="Frequency?"/>
 		<boolean name="isShowTimeSpent" title="Time Spent?"/>
 		<boolean name="isShowSection" title="Section?" default="true"/>
-		<boolean name="isShowTopic" title="Topic?" default="true"/>
+		<boolean name="isShowTopic" title="Topic?"/>
 		<boolean name="isShowGantt" title="Enable Gantt view"/>
 		<boolean name="isShowKanbanPerStatus" title="Enable Kanban view per status"/>
 		<boolean name="isShowKanbanPerSection" title="Enable Kanban view per section"/>
