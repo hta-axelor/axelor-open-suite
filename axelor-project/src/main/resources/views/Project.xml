@@ -758,7 +758,7 @@
       <view type="grid" name="topic-grid"/>
  	  <view type="form" name="topic-form"/>
  	  <view-param name="search-filters" value="project-topic-filters"/>
- 	  <domain>self.project.id = :projectId</domain>
+ 	  <domain>self.project.id = :projectId AND self.isClosed = false</domain>
  	  <context name="projectId" expr="eval: id"/>
  	  <context name="userId" expr="eval: __user__.id"/>
     </action-view>
