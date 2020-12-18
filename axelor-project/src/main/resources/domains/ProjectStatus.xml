@@ -9,7 +9,7 @@
 	    <integer name="sequence" title="Sequence"/>
   		<string name="name" translatable="true"/>
   		<boolean name="isDefaultCompleted" title="Default completed"/>
-  		<boolean name="isCompleted" title="Completed"/>
+  		<boolean name="isCompleted" title="Completed ?"/>
   		<integer name="relatedToSelect" title="Related to" selection="project.status.related.to.select"/>
   		<finder-method name="getDefaultCompleted" using="" filter="self.isDefaultCompleted = true"/>
   		<finder-method name="getCompleted" using="" filter="self.isCompleted = true AND self.isDefaultCompleted = false"/>
