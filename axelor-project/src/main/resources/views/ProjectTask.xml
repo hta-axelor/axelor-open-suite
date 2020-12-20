@@ -424,6 +424,11 @@
       <context name="_task" expr="eval: __self__"/>
       <context name="_project" expr="eval: project"/>
     </action-view>
+    
+    <action-record name="action-project-task-record-set-default" model="com.axelor.apps.project.db.ProjectTask">
+      <field name="isFirst" expr="true"/>
+      <field name="typeSelect" expr="eval: _typeSelect"/>
+    </action-record>
 	
 	<action-record name="action-project-task-record-project-configurations" model="com.axelor.apps.project.db.ProjectTask">
 		<field name="projectTaskCategory" expr="eval: null"/>
@@ -571,7 +576,7 @@
 		<attribute name="hidden" for="$projectPlanningTimeSet" expr="eval:false"/>
 		<attribute name="value" for="$projectPlanningTimeSet" expr="eval:null"/>
 		<attribute name="title" for="$projectPlanningTimeSet" expr="eval:com.axelor.i18n.I18n.get('Select lines to remove')"/>
-		<attribute name="domain" for="$projectPlanningTimeSet" expr="eval:&quot;self.task.id = :id&quot;"/>
+		<attribute name="domain" for="$projectPlanningTimeSet" expr="eval:&quot;self.projectTask.id = :id&quot;"/>
 	</action-attrs>
 
 	<action-record name="action-project-task-record-change-status" model="com.axelor.apps.project.db.ProjectTask">
@@ -601,6 +606,40 @@
        <attribute name="selection-in" for="status" expr="eval: project?.projectTaskStatusSet?.collect{it.id}?.join(',')" if="project?.projectTaskStatusSet"/>
        <attribute name="selection-in" for="status" expr="eval: [-1]" if="!project?.projectTaskStatusSet"/>    
     </action-attrs>
+    
+    <search-filters name="project-task-filters" model="com.axelor.apps.project.db.ProjectTask" title="Project task filters">
+	   <field name="targetVersion" hidden="true" if="!__config__.app.isApp('business-support')"/>
+	   <field name="team" hidden="true" if="__config__.app.isApp('business-support')"/>
+	   <field name="customerReferral" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="isPrivate" hidden="true" if="!__config__.app.isApp('business-support')"/>
+	   <field name="isOrderAccepted" hidden="true" if="!__config__.app.isApp('business-support')"/>
+	   <field name="isOrderProposed" hidden="true" if="!__config__.app.isApp('business-support')"/>
+	   <field name="assignment" hidden="true" if="!__config__.app.isApp('business-support')"/>
+	   <field name="taskDeadline" hidden="true" if="__config__.app.isApp('business-support')"/>
+	   <field name="internalDescription" hidden="true" if="!__config__.app.isApp('business-support')"/>
+	   <field name="totalPlannedHrs" hidden="true" if="!__config__.app.isApp('employee')"/>
+	   <field name="budgetedTime" hidden="true" if="!__config__.app.isApp('employee')"/>
+	   <field name="plannedProgress" hidden="true" if="!__config__.app.isApp('employee')"/>
+	   <field name="invoicingType" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="toInvoice" hidden="true" if="!__config__.app.isApp('business-project')"/>        
+	   <field name="isPaid" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="isTaskRefused" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="invoiced" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="project.invoicingSequenceSelect" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="saleOrderLine" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="invoiceLine" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="product" hidden="true" if="!__config__.app.isApp('business-project')"/>                
+	   <field name="quantity" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="unit" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="unitPrice" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="currency" hidden="true" if="!__config__.app.isApp('business-project')"/> 
+	   <field name="discountTypeSelect" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="discountAmount" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="priceDiscounted" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="exTaxTotal" hidden="true" if="!__config__.app.isApp('business-project')"/>
+	   <field name="metaFile" hidden="true" if="!__config__.app.getApp('project').isEnableSignature"/> 
+	   <field name="totalRealHrs" hidden="true" if="!__config__.app.isApp('timesheet')"/>
+    </search-filters>
         
 </object-views>
 

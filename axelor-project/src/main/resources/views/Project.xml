@@ -742,9 +742,9 @@
 	    <domain>self.project.id = :id</domain>
 	</action-view>
 
-    <action-view name="dashlet.task" title="Tasks" model="com.axelor.apps.project.db.Project">
-        <view type="grid" name="task-grid" />
-        <view type="form" name="task-form" />
+    <action-view name="dashlet.task" title="Tasks" model="com.axelor.apps.project.db.ProjectTask">
+        <view type="grid" name="project-task-grid" />
+        <view type="form" name="project-task-form" />
     </action-view>
   
     <action-view name="project.wiki.all" title="Project Wiki" model="com.axelor.apps.project.db.Wiki">
