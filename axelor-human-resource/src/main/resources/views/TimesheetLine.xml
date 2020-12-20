@@ -91,7 +91,7 @@
 		<field name="project" onChange="action-timesheet-line-group-project-onchange" requiredIf="toInvoice" onSelect="action-timesheet-line-attrs-domain-project" form-view="project-form" grid-view="project-grid"/>
 		<field name="projectTask" width="200" form-view="project-task-form" grid-view="project-task-grid" onSelect="action-timesheet-line-attrs-domain-project-task" onChange="action-timesheet-line-method-set-default-to-invoice"/>
 		<field name="date" width="85%" onChange="action-timesheet-line-validate-date"/>
-		<field name="product" if="__config__.app.isApp('timesheet').enableActivity" onSelect="action-hr-timesheet-line-attrs-domain-product" widget="SuggestBox" form-view="product-activity-form" grid-view="product-activity-grid"/>
+		<field name="product" if="__config__.app.getApp('timesheet').enableActivity" onSelect="action-hr-timesheet-line-attrs-domain-product" widget="SuggestBox" form-view="product-activity-form" grid-view="product-activity-grid"/>
 		<field name="user.employee.product" if="!(__config__.app.getApp('timesheet').enableActivity)"/>
 		<field name="duration" width="62%" onChange="action-timesheet-line-method-set-stored-duration" aggregate="sum" min="0.01"/>
 		<field name="hoursDuration" hidden="true" />
