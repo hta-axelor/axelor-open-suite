@@ -569,6 +569,11 @@
 		<domain>self.projectTask.id = :id</domain>
 	</action-view>
 	
+	<action-view name="dashlet.task" title="Tasks" model="com.axelor.apps.project.db.ProjectTask">
+        <view type="grid" name="project-task-grid" />
+        <view type="form" name="project-task-form" />
+    </action-view>
+	
 	<action-attrs name="action-project-task-attrs-project-planning-time-remove">
 		<attribute name="readonly" for="removeProjectPlanningTimeLineBtn" expr="eval:true"/>
 		<attribute name="hidden" for="cancelRemovePlanningTimeBtn" expr="eval:false"/>
