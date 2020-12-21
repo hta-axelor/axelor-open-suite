@@ -50,6 +50,6 @@ public interface ProjectTaskService {
 
   @CallMethod
   public ProjectPriority getPriority(Project project);
-  
+
   void deleteProjectTask(ProjectTask projectTask);
 }
