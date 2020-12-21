@@ -207,4 +207,9 @@ public class ProjectTaskServiceImpl implements ProjectTaskService {
             .findAny()
             .orElse(null);
   }
+
+  @Transactional
+  public void deleteProjectTask(ProjectTask projectTask) {
+    projectTaskRepo.remove(projectTask);
+  }
 }

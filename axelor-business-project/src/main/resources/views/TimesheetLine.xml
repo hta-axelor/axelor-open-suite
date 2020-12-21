@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.4.xsd">
-
+    	
+	<grid name="timesheet-line-invoicing-project-grid" title="Log Times" model="com.axelor.apps.hr.db.TimesheetLine" orderBy="-date" groupBy="project">
+		<field name="user" form-view="user-form" grid-view="user-grid"/>
+		<field name="teamTask"/>
+		<field name="date" />
+		<field name="product" form-view="product-activity-form" grid-view="product-activity-grid"/>
+		<field name="hoursDuration" width="62%" min="0.01" aggregate="sum"/>
+		<field name="durationForCustomer" if-module="axelor-business-project" if="__config__.app.isApp('business-project')" aggregate="sum"/>
+		<field name="toInvoice" if-module="axelor-business-project"  if="__config__.app.isApp('business-project')" />
+		<field name="enableEditor" hidden="true" />
+		<field name="invoiced" />
+		<field name="project" hidden="true" />
+		<button name="updateToInvoiceBtn" title="Update to invoice" readonlyIf="invoiced" icon="fa-check-circle" onClick="action-timesheet-line-method-update-to-invoice" />
+	</grid>
+    
     <form name="timesheet-line-timesheet-project-task-form" title="Timesheet Line" model="com.axelor.apps.hr.db.TimesheetLine" onNew="action-project-task-attrs-default-timesheet-line,action-timesheet-line-method-set-timesheet" onSave="action-project-task-validate-check-timesheet-line-date">
 		<panel name="overviewPanel" title="Overview">
 			<field name="project" readonly="true" form-view="project-form" grid-view="project-grid"/>
