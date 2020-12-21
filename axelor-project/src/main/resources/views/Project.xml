@@ -645,12 +645,6 @@
 		 <context name="_userIds" expr="eval: userSet.collect{it.id}"/>
 	 	</action-view>
 	
-	<action-view name="action-project-phase-view-show-phase-task" title="Phase tasks" model="com.axelor.apps.project.db.ProjectTask">
-		<view type="grid" name="project-task-grid" />
-		<view type="form" name="project-task-form" />
-		<context name="_projectId" expr="eval:id" />
-	</action-view>
-	
 	<action-record name="action-project-record-bind-customer-project" model="com.axelor.apps.project.db.Project">
 		<field name="clientPartner" expr="eval: project?.clientPartner"/>
 	</action-record>
