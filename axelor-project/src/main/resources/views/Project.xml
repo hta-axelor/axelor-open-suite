@@ -363,12 +363,13 @@
 			<field name="attrs" colSpan="12"/>
 		</panel>
 		<panel name="actionsPanel"  colSpan="2" sidebar="true">
-			<button name="finishBtn" title="Finish"	colSpan="12" icon="fa-check" onClick="action-project-record-status-finish,save"/>
-			<button name="cancelBtn" title="Cancel" colSpan="12" css="btn-danger" icon="fa-times-circle" onClick="action-project-record-status-canceled,save"/>
-			<field name="projectStatus.isCompleted" hidden="true"/>
+			<button name="finishBtn" title="Finish"	colSpan="12" icon="fa-check" showIf="!projectStatus.isCompleted" onClick="action-project-record-status-finish,save" hidden="true"/>
+			<button name="cancelBtn" title="Cancel" colSpan="12" css="btn-danger" hideIf="projectStatus.isCompleted &amp;&amp; !projectStatus.isDefaultCompleted" icon="fa-times-circle" onClick="action-project-record-status-canceled,save"/>
 			<button name="resetBtn" title="Reset" hidden="true"
-				showIf="projectStatus.isCompleted" colSpan="12" css="btn-danger"
+				showIf="projectStatus.isCompleted &amp;&amp; !projectStatus.isDefaultCompleted" colSpan="12" css="btn-danger"
 				icon="fa-file" onClick="action-project-record-status-new,save" />	
+			<field name="projectStatus.isCompleted" hidden="true"/>
+			<field name="projectStatus.isDefaultCompleted" hidden="true"/>
 		</panel>
 		<panel name="characteristicsPanel" title="Characteristics" colSpan="12"
 			sidebar="true" canCollapse="true">
