@@ -50,6 +50,7 @@
 				<item name="perStatusKanban" title="Per status kanban" action="save,action-project-method-view-per-status-kanban" showIf="id &amp;&amp; isShowKanbanPerStatus"/>	
 				<item name="perStatusCalendar" title="Per status calendar" action="save,action-project-view-per-status-calendar" showIf="id &amp;&amp; isShowCalendarPerStatus"/>		
 				<item name="perSectionKanban" title="Per section kanban" action="save,action-project-view-per-section-kanban" showIf="id &amp;&amp; isShowKanbanPerSection"/>
+				<item name="perSectionCalendar" title="Per section calendar" action="save,action-project-view-per-section-calendar" showIf="id &amp;&amp; isShowCalendarPerSection"/>
 				<item name="perUserCalendar" title="Per user calendar" action="save,action-project-view-per-user-calendar" showIf="id &amp;&amp; isShowCalendarPerUser"/>		
 			</menu>
 		</menubar>
@@ -342,6 +343,7 @@
 					<field name="isShowKanbanPerStatus" colSpan="4" widget="inline-checkbox" showIf="isShowStatus"/>
 					<field name="isShowKanbanPerSection" colSpan="4" widget="inline-checkbox" showIf="isShowSection"/>
 					<field name="isShowCalendarPerStatus" colSpan="4" widget="inline-checkbox"/>
+					<field name="isShowCalendarPerSection" colSpan="4" widget="inline-checkbox"/>
 					<field name="isShowCalendarPerUser" colSpan="4" widget="inline-checkbox"/>
 				</panel>	
 			</panel>
@@ -786,7 +788,7 @@
 	</action-method>
 	
 	<action-record name="action-project-record-status-reset-values" model="com.axelor.apps.project.db.Project">
-	  <field name="isShowKanbanPerStatus,isShowCalendarPerStatus" expr="eval: false" if="!isShowStatus"/>
+	  <field name="isShowKanbanPerStatus,isShowCalendarPerStatus, isShowCalendarPerSection" expr="eval: false" if="!isShowStatus"/>
 	  <field name="projectTaskStatusSet" expr="eval: null" if="!isShowStatus"/>
 	</action-record>
 	

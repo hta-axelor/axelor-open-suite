@@ -153,15 +153,23 @@ public class ProjectServiceImpl implements ProjectService {
   }
 
   @Override
-  public Map<String, Object> getTaskView(String title, String domain, Map<String, Object> context) {
+  public Map<String, Object> getTaskView(
+      Project project, String title, String domain, Map<String, Object> context) {
     ActionViewBuilder builder =
         ActionView.define(I18n.get(title))
             .model(ProjectTask.class.getName())
             .add("grid", "project-task-grid")
-            .add("calendar", "project-task-calendar")
             .add("form", "project-task-form")
             .domain(domain)
             .param("details-view", "true");
+
+    if (project.getIsShowKanbanPerSection() && project.getIsShowCalendarPerSection()) {
+      builder.add("kanban", "task-per-section-kanban");
+      builder.add("calendar", "project-task-per-section-calendar");
+    } else {
+      builder.add("kanban", "project-task-kanban");
+      builder.add("calendar", "project-task-per-status-calendar");
+    }
 
     if (ObjectUtils.notEmpty(context)) {
       context.forEach(builder::context);

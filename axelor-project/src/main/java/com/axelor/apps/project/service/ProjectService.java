@@ -48,7 +48,8 @@ public interface ProjectService {
   public Map<String, Object> createProjectFromTemplateView(ProjectTemplate projectTemplate)
       throws AxelorException;
 
-  public Map<String, Object> getTaskView(String title, String domain, Map<String, Object> context);
+  public Map<String, Object> getTaskView(
+      Project project, String title, String domain, Map<String, Object> context);
 
   public Project generateProject(
       ProjectTemplate projectTemplate, String projectCode, Partner clientPartner);

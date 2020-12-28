@@ -45,6 +45,7 @@ public class ProjectController {
     Map<String, Object> view =
         Beans.get(ProjectService.class)
             .getTaskView(
+                project,
                 "My open tasks",
                 "self.assignedTo = :__user__ AND self.status.isCompleted = false AND self.typeSelect = :typeSelect AND self.project = :_project",
                 context);
@@ -57,6 +58,7 @@ public class ProjectController {
     Map<String, Object> view =
         Beans.get(ProjectService.class)
             .getTaskView(
+                project,
                 "My tasks",
                 "self.createdBy = :__user__ AND self.typeSelect = :typeSelect AND self.project = :_project",
                 context);
@@ -69,6 +71,7 @@ public class ProjectController {
     Map<String, Object> view =
         Beans.get(ProjectService.class)
             .getTaskView(
+                project,
                 "All open tasks",
                 "self.status.isCompleted = false AND self.typeSelect = :typeSelect AND self.project = :_project",
                 context);
@@ -81,7 +84,10 @@ public class ProjectController {
     Map<String, Object> view =
         Beans.get(ProjectService.class)
             .getTaskView(
-                "All tasks", "self.typeSelect = :typeSelect AND self.project = :_project", context);
+                project,
+                "All tasks",
+                "self.typeSelect = :typeSelect AND self.project = :_project",
+                context);
     response.setView(view);
   }
 
