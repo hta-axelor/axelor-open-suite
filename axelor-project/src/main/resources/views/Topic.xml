@@ -14,7 +14,7 @@
 		<panel name="mainPanel">
 		 <field name="title"/>
 		 <field name="message"/>
-		 <field name="project" form-view="project-form" grid-view="project-grid"/>
+		 <field name="project" form-view="project-form" grid-view="project-grid" domain="self.isShowTopic = true"/>
 		 <field name="isClosed"/>
 		 <field name="createdBy" title="Topic created by"/>
 		 <field name="updatedOn" title="Last updated on"/>
