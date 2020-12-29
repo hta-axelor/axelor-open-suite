@@ -96,8 +96,8 @@
 				<field if-module="axelor-business-production" if=" __config__.app.getApp('production')?.getManageBusinessProduction()" name="user.employee.timesheetImputationSelect" hidden="true"/>
 				<field name="fromDate" onChange="action-timesheet-validate-fromDate,action-timesheet-record-to-date" colSpan="5" />
 				<field name="toDate" onChange="action-timesheet-group-to-date-onchange" colSpan="5" />
-				<field name="isCompleted" if="!__config__.app.getApp('timesheet').needValidation" readonly="true"/>
 				<button name="createBtn" title="Create" colSpan="2" hideIf="id" if="__config__.app.getApp('timesheet').getTimesheetEditor()"  onClick="save,action-timesheet-set-show-editor,action-timesheet-attrs-refresh-editor,action-timesheet-attrs-panels,save" />
+				<field name="isCompleted" if="!__config__.app.getApp('timesheet').needValidation" readonly="true"/>
 			</panel>
 			
 			<panel name="actionsPanel" colSpan="3" itemSpan="12">
