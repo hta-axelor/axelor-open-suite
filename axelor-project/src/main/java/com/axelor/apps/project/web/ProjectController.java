@@ -40,7 +40,8 @@ public class ProjectController {
   }
 
   public void getMyOpenTasks(ActionRequest request, ActionResponse response) {
-    Project project = request.getContext().asType(Project.class);
+    Project project =
+        Beans.get(ProjectRepository.class).find(request.getContext().asType(Project.class).getId());
     Map<String, Object> context = getTaskContext(project);
     Map<String, Object> view =
         Beans.get(ProjectService.class)
@@ -53,7 +54,8 @@ public class ProjectController {
   }
 
   public void getMyTasks(ActionRequest request, ActionResponse response) {
-    Project project = request.getContext().asType(Project.class);
+    Project project =
+        Beans.get(ProjectRepository.class).find(request.getContext().asType(Project.class).getId());
     Map<String, Object> context = getTaskContext(project);
     Map<String, Object> view =
         Beans.get(ProjectService.class)
@@ -66,7 +68,8 @@ public class ProjectController {
   }
 
   public void getAllOpenTasks(ActionRequest request, ActionResponse response) {
-    Project project = request.getContext().asType(Project.class);
+    Project project =
+        Beans.get(ProjectRepository.class).find(request.getContext().asType(Project.class).getId());
     Map<String, Object> context = getTaskContext(project);
     Map<String, Object> view =
         Beans.get(ProjectService.class)
@@ -79,7 +82,8 @@ public class ProjectController {
   }
 
   public void getAllTasks(ActionRequest request, ActionResponse response) {
-    Project project = request.getContext().asType(Project.class);
+    Project project =
+        Beans.get(ProjectRepository.class).find(request.getContext().asType(Project.class).getId());
     Map<String, Object> context = getTaskContext(project);
     Map<String, Object> view =
         Beans.get(ProjectService.class)

@@ -169,6 +169,7 @@ public class ProjectServiceImpl implements ProjectService {
     } else {
       builder.add("kanban", "project-task-kanban");
       builder.add("calendar", "project-task-per-status-calendar");
+      builder.param("kanban-hide-columns", getStatusColumnsTobeExcluded(project));
     }
 
     if (ObjectUtils.notEmpty(context)) {
@@ -228,16 +229,6 @@ public class ProjectServiceImpl implements ProjectService {
 
   @Override
   public Map<String, Object> getPerStatusKanban(Project project, Map<String, Object> context) {
-    String statusColumnsTobeExcluded =
-        projectStatusRepository
-            .all()
-            .filter("self not in :allowedProjectTaskStatus")
-            .bind("allowedProjectTaskStatus", project.getProjectTaskStatusSet())
-            .fetchStream()
-            .map(ProjectStatus::getId)
-            .map(String::valueOf)
-            .collect(Collectors.joining(","));
-
     ActionViewBuilder builder =
         ActionView.define(I18n.get("All tasks"))
             .model(ProjectTask.class.getName())
@@ -245,12 +236,23 @@ public class ProjectServiceImpl implements ProjectService {
             .add("grid", "project-task-grid")
             .add("form", "project-task-form")
             .domain("self.typeSelect = :typeSelect AND self.project = :_project")
-            .param("kanban-hide-columns", statusColumnsTobeExcluded);
+            .param("kanban-hide-columns", getStatusColumnsTobeExcluded(project));
 
     if (ObjectUtils.notEmpty(context)) {
       context.forEach(builder::context);
     }
     return builder.map();
+  }
+
+  protected String getStatusColumnsTobeExcluded(Project project) {
+    return projectStatusRepository
+        .all()
+        .filter("self not in :allowedProjectTaskStatus")
+        .bind("allowedProjectTaskStatus", project.getProjectTaskStatusSet())
+        .fetchStream()
+        .map(ProjectStatus::getId)
+        .map(String::valueOf)
+        .collect(Collectors.joining(","));
   }
 
   @Override
