@@ -92,14 +92,18 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   @Override
   public void createTaskProjectActivityByKanban(Map<String, Object> recordsMap) {
     String name = "";
-    Map<String, Object> map = (HashMap<String, Object>) recordsMap.get("status");
-    if (map != null) {
+    Map<String, Object> map = new HashMap<>();
+    if (recordsMap.get("status") != null) {
+      map = (HashMap<String, Object>) recordsMap.get("status");
       name = projectStatusRepo.find(Long.valueOf(map.get("id").toString())).getName();
-    } else {
+    } else if (recordsMap.get("projectTaskSection") != null) {
       map = (HashMap<String, Object>) recordsMap.get("projectTaskSection");
       name = projectTaskSectionRepo.find(Long.valueOf(map.get("id").toString())).getName();
+    } else {
+      return;
     }
     map.put("name", name);
+    recordsMap.remove("sequence");
     createTaskProjectActivity(recordsMap);
   }
 
