@@ -62,7 +62,8 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       ImmutableList.of(PropertyType.ONE_TO_ONE, PropertyType.MANY_TO_ONE);;
   protected final List<PropertyType> ignoreTypes =
       ImmutableList.of(PropertyType.ONE_TO_MANY, PropertyType.MANY_TO_MANY);
-  protected final List<String> ignoreFields = ImmutableList.of("id", "createdOn", "updatedOn");
+  protected final List<String> ignoreFields =
+      ImmutableList.of("id", "createdOn", "updatedOn", "version");
 
   @Inject
   public ProjectActivityServiceImpl(
