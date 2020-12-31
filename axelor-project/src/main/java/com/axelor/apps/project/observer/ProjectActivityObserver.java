@@ -27,6 +27,7 @@ import com.axelor.events.RequestEvent;
 import com.axelor.events.qualifiers.EntityType;
 import com.axelor.inject.Beans;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.inject.Named;
 
@@ -39,9 +40,9 @@ public class ProjectActivityObserver {
     if (dataMap != null) {
       Beans.get(ProjectActivityService.class).createTaskProjectActivity(dataMap);
     } else {
+      List<Object> records = event.getRequest().getRecords();
       Beans.get(ProjectActivityService.class)
-          .createTaskProjectActivityByKanban(
-              (HashMap<String, Object>) event.getRequest().getRecords().get(0));
+          .createTaskProjectActivity((HashMap<String, Object>) records.get(0));
     }
   }
 

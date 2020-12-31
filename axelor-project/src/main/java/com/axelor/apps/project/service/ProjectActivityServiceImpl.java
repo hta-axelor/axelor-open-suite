@@ -32,6 +32,7 @@ import com.axelor.common.ObjectUtils;
 import com.axelor.common.StringUtils;
 import com.axelor.db.EntityHelper;
 import com.axelor.db.JPA;
+import com.axelor.db.JpaRepository;
 import com.axelor.db.Model;
 import com.axelor.db.mapper.Mapper;
 import com.axelor.db.mapper.Property;
@@ -63,7 +64,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
   protected final List<PropertyType> ignoreTypes =
       ImmutableList.of(PropertyType.ONE_TO_MANY, PropertyType.MANY_TO_MANY);
   protected final List<String> ignoreFields =
-      ImmutableList.of("id", "createdOn", "updatedOn", "version");
+      ImmutableList.of("id", "createdOn", "updatedOn", "version", "sequence");
 
   @Inject
   public ProjectActivityServiceImpl(
@@ -86,25 +87,6 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       projectActivity.setRecordTitle(task.getName());
       projectActivityRepo.save(projectActivity);
     }
-  }
-
-  @SuppressWarnings("unchecked")
-  @Override
-  public void createTaskProjectActivityByKanban(Map<String, Object> recordsMap) {
-    String name = "";
-    Map<String, Object> map = new HashMap<>();
-    if (recordsMap.get("status") != null) {
-      map = (HashMap<String, Object>) recordsMap.get("status");
-      name = projectStatusRepo.find(Long.valueOf(map.get("id").toString())).getName();
-    } else if (recordsMap.get("projectTaskSection") != null) {
-      map = (HashMap<String, Object>) recordsMap.get("projectTaskSection");
-      name = projectTaskSectionRepo.find(Long.valueOf(map.get("id").toString())).getName();
-    } else {
-      return;
-    }
-    map.put("name", name);
-    recordsMap.remove("sequence");
-    createTaskProjectActivity(recordsMap);
   }
 
   @Transactional
@@ -172,6 +154,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
     return activity.toString();
   }
 
+  @SuppressWarnings("unchecked")
   protected String format(Property property, Object value) {
     if (value == null) {
       return "";
@@ -186,7 +169,11 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       return getSpanContent(value.toString());
     }
     if (allowedTypes.contains(property.getType())) {
-      return Mapper.of(property.getTarget()).get(value, property.getTargetName()).toString();
+      Mapper mapper = Mapper.of(property.getTarget());
+      value =
+          JpaRepository.of((Class<? extends Model>) property.getTarget())
+              .find(Long.valueOf(mapper.get(value, "id").toString()));
+      return mapper.get(value, property.getTargetName()).toString();
     }
     if (value instanceof BigDecimal) {
       return ((BigDecimal) value).toPlainString();

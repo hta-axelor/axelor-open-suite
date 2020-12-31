@@ -22,8 +22,6 @@ import java.util.Map;
 public interface ProjectActivityService {
   public void createTaskProjectActivity(Map<String, Object> dataMap);
 
-  public void createTaskProjectActivityByKanban(Map<String, Object> recordsMap);
-
   public void createWikiProjectActivity(Map<String, Object> dataMap);
 
   public void createTopicProjectActivity(Map<String, Object> dataMap);
