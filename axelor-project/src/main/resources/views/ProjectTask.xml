@@ -200,6 +200,7 @@
 				</field>
 				<panel-dashlet name="validatedTimesheetLinesPanel" action="action-project-task-dashlet-validated-timesheet-lines" title="Validated Timesheet lines" colSpan="12" canSearch="true" if="__config__.app.getApp('timesheet').needValidation"/>
 				<panel-dashlet name="waitingTimesheetLinesPanel" action="action-project-task-dashlet-waiting-timesheet-lines" title="Waiting Timesheet lines" colSpan="12" canSearch="true" if="__config__.app.getApp('timesheet').needValidation" />
+				<panel-dashlet name="allTimesheetLinesPanel" action="action-project-task-dashlet-all-timesheet-lines" title="TimesheetLine.timeSpent" colSpan="12" canSearch="true" if="!__config__.app.getApp('timesheet').needValidation" />
 			</panel>
 
 			<panel name="timerPanel" title="Timer" showIf="id" hidden="true" if-module="axelor-helpdesk" if="__config__.app.isApp('helpdesk')">

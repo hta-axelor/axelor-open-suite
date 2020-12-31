@@ -315,6 +315,16 @@
   		<context if="id != null &amp;&amp; isShowPhasesElements" name="_projectIds" expr="eval:[id] + childProjectList.collect{it->it.id}"/>
 	</action-view>
 	
+	<action-view name="action-project-dashlet-project-all-timesheet-lines" model="com.axelor.apps.hr.db.TimesheetLine" title="TimesheetLine.timeSpent">
+		<view type="grid" name="timesheet-line-project-grid"/>
+		<view type="form" name="timesheet-line-timesheet-project-form"/>
+		<view-param name="popup" value="true"/>
+		<domain>self.project.id in (:_projectIds)</domain>
+		<context if="id == null" name="_projectIds" expr="eval:[0]" />
+  		<context if="id != null &amp;&amp; !isShowPhasesElements" name="_projectIds" expr="eval:[id]"/>
+  		<context if="id != null &amp;&amp; isShowPhasesElements" name="_projectIds" expr="eval:[id] + childProjectList.collect{it->it.id}"/>
+	</action-view>
+	
 	<action-view name="action-project-task-dashlet-validated-timesheet-lines" model="com.axelor.apps.hr.db.TimesheetLine" title="Validated Timesheet lines">
 		<view type="grid" name="timesheet-line-project-task-grid"/>
 		<view type="form" name="timesheet-line-timesheet-project-task-form"/>
@@ -327,6 +337,13 @@
 		<view type="form" name="timesheet-line-timesheet-project-task-form"/>
 		<view-param name="popup" value="true"/>
 		<domain>self.timesheet.statusSelect &lt; 3 and self.projectTask = :id</domain>
+	</action-view>
+	
+	<action-view name="action-project-task-dashlet-all-timesheet-lines" model="com.axelor.apps.hr.db.TimesheetLine" title="TimesheetLine.timeSpent">
+		<view type="grid" name="timesheet-line-project-task-grid"/>
+		<view type="form" name="timesheet-line-timesheet-project-task-form"/>
+		<view-param name="popup" value="true"/>
+		<domain>self.projectTask = :id</domain>
 	</action-view>
 
 </object-views>
