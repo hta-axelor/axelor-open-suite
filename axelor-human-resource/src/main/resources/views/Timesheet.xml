@@ -137,7 +137,7 @@
 			<field name="$periodTotalConvert" type="decimal" readonly="true" hidden="true"/>
 		</panel>
 		<panel-dashlet name="totalHoursPerDayPanel" title="Total Hours per Day" hidden="true" showIf="id &amp;&amp; user.employee.timesheetImputationSelect != 2" action="action-timesheet-view-total-hours-per-day"/>
-		<panel name="validationInfoPanel" showIf="sentDate != null">
+		<panel name="validationInfoPanel" showIf="sentDate != null" if="__config__.app.getApp('timesheet').needValidation">
 		 	<field name="sentDate"/>
 			<field name="validatedBy" canEdit="false" form-view="user-form" grid-view="user-grid" showIf="validatedBy != null"/>
 			<field name="refusedBy"  canEdit="false"  form-view="user-form" grid-view="user-grid" showIf="refusedBy != null"/>
