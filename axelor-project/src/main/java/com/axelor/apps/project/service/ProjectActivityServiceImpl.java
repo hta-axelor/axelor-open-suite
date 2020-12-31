@@ -63,8 +63,6 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       ImmutableList.of(PropertyType.ONE_TO_ONE, PropertyType.MANY_TO_ONE);;
   protected final List<PropertyType> ignoreTypes =
       ImmutableList.of(PropertyType.ONE_TO_MANY, PropertyType.MANY_TO_MANY);
-  protected final List<String> ignoreFields =
-      ImmutableList.of("id", "createdOn", "updatedOn", "version", "sequence");
 
   @Inject
   public ProjectActivityServiceImpl(
@@ -141,7 +139,7 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       Property property = mapper.getProperty(key);
       if (oldDataMap.containsKey(key)
           && !ignoreTypes.contains(property.getType())
-          && !ignoreFields.contains(property.getName())) {
+          && !getIgnoreFields().contains(property.getName())) {
         Object oldValue = oldDataMap.get(key);
         Object newValue = toProxy(property, me.getValue());
         if (!isEqual(oldValue, newValue)) {
@@ -240,5 +238,9 @@ public class ProjectActivityServiceImpl implements ProjectActivityService {
       return value;
     }
     return spanElements.get(0).text();
+  }
+
+  protected List<String> getIgnoreFields() {
+    return ImmutableList.of("id", "createdOn", "updatedOn", "version", "sequence");
   }
 }
