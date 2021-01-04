@@ -10,7 +10,7 @@
 		<field name="updatedOn" title="Last updated on"/>
 	</grid>
 
-	<form name="topic-form" title="Topic" model="com.axelor.apps.project.db.Topic">
+	<form name="topic-form" title="Topic" model="com.axelor.apps.project.db.Topic" onNew="action-topic-record-on-new">
 		<panel name="mainPanel">
 		 <field name="title"/>
 		 <field name="message"/>
@@ -27,6 +27,10 @@
 	
 	<action-record name="action-topic-record-close-topic" model="com.axelor.apps.project.db.Topic">
 	   <field name="isClosed" expr="eval: true"/>
+	</action-record>
+	
+	<action-record name="action-topic-record-on-new" model="com.axelor.apps.project.db.Topic">
+	   <field name="project" expr="eval: __repo__(Project).find(projectId)" if="projectId"/>
 	</action-record>
 
 </object-views>
