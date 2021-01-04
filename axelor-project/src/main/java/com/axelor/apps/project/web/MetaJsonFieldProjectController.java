@@ -102,8 +102,14 @@ public class MetaJsonFieldProjectController {
     }
 
     String typeSelect = (String) request.getContext().get("typeSelect");
+    String name = Inflector.getInstance().camelize(jsonField.getTitle(), true);
 
-    jsonField.setName(Inflector.getInstance().camelize(jsonField.getTitle(), true));
+    if (Project.class.equals(request.getContext().getParent().getContextClass())) {
+      String projectCode = request.getContext().getParent().asType(Project.class).getCode();
+      jsonField.setName(projectCode + "_" + name);
+    } else {
+      jsonField.setName(name);
+    }
 
     String widget = null;
     if ("multiselect".equals(typeSelect)) {
