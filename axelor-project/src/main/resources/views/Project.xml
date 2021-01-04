@@ -750,7 +750,7 @@
  	 <context name="projectId" expr="eval: id"/>
     </action-view>
         
-    <action-view name="project.topic.all" title="Topics" model="com.axelor.apps.project.db.Topic">
+    <action-view name="project.topic.all" title="Topics (${name})" model="com.axelor.apps.project.db.Topic">
       <view type="grid" name="topic-grid"/>
  	  <view type="form" name="topic-form"/>
  	  <view-param name="search-filters" value="project-topic-filters"/>
