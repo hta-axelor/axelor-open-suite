@@ -30,7 +30,7 @@
 	</action-record>
 	
 	<action-record name="action-topic-record-on-new" model="com.axelor.apps.project.db.Topic">
-	   <field name="project" expr="eval: __repo__(Project).find(projectId)" if="projectId"/>
+	   <field name="project" expr="eval: _project" if="_project"/>
 	</action-record>
 
 </object-views>

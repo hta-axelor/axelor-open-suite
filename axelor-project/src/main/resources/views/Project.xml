@@ -746,16 +746,16 @@
     <action-view name="project.wiki.all" title="Project Wiki" model="com.axelor.apps.project.db.Wiki">
      <view type="grid" name="wiki-grid"/>
  	 <view type="form" name="wiki-form"/>
- 	 <domain>self.project.id = :projectId</domain>
- 	 <context name="projectId" expr="eval: id"/>
+ 	 <domain>self.project = :_project</domain>
+ 	 <context name="_project" expr="eval: __this__"/>
     </action-view>
         
     <action-view name="project.topic.all" title="Topics (${name})" model="com.axelor.apps.project.db.Topic">
       <view type="grid" name="topic-grid"/>
  	  <view type="form" name="topic-form"/>
  	  <view-param name="search-filters" value="project-topic-filters"/>
- 	  <domain>self.project.id = :projectId AND self.isClosed = false</domain>
- 	  <context name="projectId" expr="eval: id"/>
+ 	  <domain>self.project = :_project AND self.isClosed = false</domain>
+ 	  <context name="_project" expr="eval: __this__"/>
  	  <context name="userId" expr="eval: __user__.id"/>
     </action-view>
     
