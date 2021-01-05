@@ -105,10 +105,8 @@ public class MetaJsonFieldProjectController {
     String name = Inflector.getInstance().camelize(jsonField.getTitle(), true);
 
     if (Project.class.equals(request.getContext().getParent().getContextClass())) {
-      String projectCode = request.getContext().getParent().asType(Project.class).getCode();
-      jsonField.setName(projectCode + "_" + name);
-    } else {
-      jsonField.setName(name);
+      Long projectId = request.getContext().getParent().asType(Project.class).getId();
+      name += projectId;
     }
 
     String widget = null;
@@ -131,7 +129,7 @@ public class MetaJsonFieldProjectController {
     }
 
     response.setValue("widget", widget);
-    response.setValue("name", jsonField.getName());
+    response.setValue("name", name);
     response.setValue("selection", selection);
     response.setValue("selectionRef", jsonField.getSelectionRef());
   }
