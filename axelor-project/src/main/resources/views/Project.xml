@@ -743,7 +743,7 @@
 	    <domain>self.project.id = :id</domain>
 	</action-view>
 
-    <action-view name="project.wiki.all" title="Project Wiki" model="com.axelor.apps.project.db.Wiki">
+    <action-view name="project.wiki.all" title="Wikis (${name})" model="com.axelor.apps.project.db.Wiki">
      <view type="grid" name="wiki-grid"/>
  	 <view type="form" name="wiki-form"/>
  	 <domain>self.project = :_project</domain>
