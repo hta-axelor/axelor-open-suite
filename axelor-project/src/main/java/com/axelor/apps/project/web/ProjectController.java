@@ -21,14 +21,11 @@ import com.axelor.apps.project.db.Project;
 import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.apps.project.db.repo.ProjectTaskRepository;
 import com.axelor.apps.project.service.ProjectService;
-import com.axelor.common.Inflector;
 import com.axelor.inject.Beans;
-import com.axelor.meta.db.MetaJsonField;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 import com.google.inject.Singleton;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Singleton
@@ -104,17 +101,6 @@ public class ProjectController {
     Map<String, Object> context = getTaskContext(project);
     Map<String, Object> view = Beans.get(ProjectService.class).getPerStatusKanban(project, context);
     response.setView(view);
-  }
-
-  public void computeTaskCustomFields(ActionRequest request, ActionResponse response) {
-    Project project = request.getContext().asType(Project.class);
-    List<MetaJsonField> taskCustomFieldsList = project.getTaskCustomFieldsList();
-    String projectCode = project.getCode();
-    for (MetaJsonField jsonField : taskCustomFieldsList) {
-      jsonField.setName(
-          projectCode + "_" + Inflector.getInstance().camelize(jsonField.getTitle(), true));
-    }
-    response.setValue("taskCustomFieldsList", taskCustomFieldsList);
   }
 
   protected Map<String, Object> getTaskContext(Project project) {

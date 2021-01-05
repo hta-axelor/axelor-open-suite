@@ -79,9 +79,9 @@
 					<editor x-show-titles="false">
 						<panel name="seq" colSpan="3">
 						<field name="code" showTitle="false" colSpan="12" readonly="true" if="__config__.app.isApp('business-project') &amp;&amp; __config__.app.getApp('business-project')?.generateProjectSequence"
-							css="label-bold bold large" x-bind="{{code|unaccent|uppercase}}" if-module="axelor-business-project" onChange="action-project-method-compute-task-custom-fields"/>
+							css="label-bold bold large" x-bind="{{code|unaccent|uppercase}}" if-module="axelor-business-project"/>
 						<field name="code" showTitle="false" colSpan="12" required="true" if="!(__config__.app.isApp('business-project') &amp;&amp; __config__.app.getApp('business-project')?.generateProjectSequence)"
-							css="label-bold bold large" x-bind="{{code|unaccent|uppercase}}" onChange="action-project-method-compute-task-custom-fields"/>
+							css="label-bold bold large" x-bind="{{code|unaccent|uppercase}}"/>
 						</panel>
 						<field name="name" showTitle="false" colSpan="6" required="true"
 							css="label-bold bold large" />
@@ -804,10 +804,6 @@
 	<action-record name="action-project-record-section-reset-values" model="com.axelor.apps.project.db.Project">
 	  <field name="isShowKanbanPerSection" expr="eval: false" if="!isShowSection"/>
 	</action-record>
-	
-	<action-method name="action-project-method-compute-task-custom-fields">
-	  <call class="com.axelor.apps.project.web.ProjectController" method="computeTaskCustomFields"/>
-	</action-method>
 
 	<search-filters name="project-filters" model="com.axelor.apps.project.db.Project" title="Project filters">
         <field name="company" hidden="true" if="!__config__.app.getApp('base').getEnableMultiCompany() || !__config__.app.isApp('business-project')"/>
