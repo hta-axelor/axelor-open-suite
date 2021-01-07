@@ -20,6 +20,7 @@ package com.axelor.apps.project.service;
 import com.axelor.apps.base.db.Company;
 import com.axelor.apps.base.db.Partner;
 import com.axelor.apps.project.db.Project;
+import com.axelor.apps.project.db.ProjectStatus;
 import com.axelor.apps.project.db.ProjectTemplate;
 import com.axelor.auth.db.User;
 import com.axelor.exception.AxelorException;
@@ -57,4 +58,6 @@ public interface ProjectService {
   public Map<String, Object> getPerStatusKanban(Project project, Map<String, Object> context);
 
   public String getTimeZone(Project project);
+
+  public ProjectStatus getDefaultProjectStatus();
 }

@@ -90,6 +90,7 @@ public class ProjectServiceImpl implements ProjectService {
     project.setFullName(project.getName());
     project.setClientPartner(clientPartner);
     project.setAssignedTo(assignedTo);
+    project.setProjectStatus(getDefaultProjectStatus());
     return project;
   }
 
@@ -258,5 +259,14 @@ public class ProjectServiceImpl implements ProjectService {
   @Override
   public String getTimeZone(Project project) {
     return null;
+  }
+
+  @Override
+  public ProjectStatus getDefaultProjectStatus() {
+    return projectStatusRepository
+        .all()
+        .filter("self.relatedToSelect = ?1", ProjectStatusRepository.PROJECT_STATUS_PROJECT)
+        .order("sequence")
+        .fetchOne();
   }
 }
