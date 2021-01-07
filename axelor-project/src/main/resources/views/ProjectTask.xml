@@ -426,8 +426,10 @@
       <view-param name="forceEdit" value="true"/>
       <view-param name="forceTitle" value="true"/>
       <context name="_timePlannedPopup" expr="eval: true"/>
-      <context name="_task" expr="eval: __self__"/>
-      <context name="_project" expr="eval: project"/>
+      <context name="_projectTask" expr="eval:__self__" if="_model == 'com.axelor.apps.project.db.ProjectTask'"/>
+      <context name="_user" expr="eval:assignedTo" if="_model == 'com.axelor.apps.project.db.ProjectTask'"/>
+	  <context name="_project" expr="eval:__self__.project" if="_model == 'com.axelor.apps.project.db.ProjectTask'"/>
+	  <context name="_project" expr="eval:__self__" if="_model == 'com.axelor.apps.project.db.Project'"/>
     </action-view>
     
     <action-record name="action-project-task-record-set-default" model="com.axelor.apps.project.db.ProjectTask">
