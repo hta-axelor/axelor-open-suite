@@ -38,10 +38,10 @@
     </panel>
 
     <panel name="mainPanel" colSpan="12">
-      <panel name="statusPanel" showIf="project.isShowStatus" stacked="true" colSpan="12">
-         <field name="status" widget="NavSelect" showTitle="false" x-order="sequence"/>
+      <panel name="statusPanel" stacked="true" colSpan="6">
+         <field name="status" widget="NavSelect" showTitle="false" showIf="project.isShowStatus" x-order="sequence"/>
       </panel>
-      <panel name="viewerTagsPanel" colSpan="12">
+      <panel name="viewerTagsPanel" colSpan="4">
           <field name="$viewerTags" showTitle="false" readonly="true" showIf="typeSelect == 1 &amp;&amp; $readonly()" colSpan="12" if-module="axelor-business-support" if="__config__.app.isApp('business-support')" hidden="true">
             <viewer>
               <![CDATA[
@@ -56,8 +56,8 @@
 		   </viewer>
 	     </field>
        </panel>
-			<field name="project.isShowTimeSpent" hidden="true"/>
 			<button name="timeSpentBtn" title="Enter Time spent" onClick="save,action-project-task-view-time-spent" colSpan="2" showIf="project.isShowTimeSpent"/>
+			<field name="project.isShowTimeSpent" hidden="true"/>
 			<field name="$provider" hidden="true" type="string"/>
 			<panel name="projectDetailsPanel" colSpan="12">
 				<panel name="detailsPanel" colSpan="8">
