@@ -685,6 +685,8 @@
 	
 	<action-record name="action-project-record-status-new" model="com.axelor.apps.project.db.Project">
 		<field name="projectStatus" expr="eval: __repo__(ProjectStatus).all().filter('self.relatedToSelect = ?1',__repo__(ProjectStatus).PROJECT_STATUS_PROJECT).order('sequence').fetchOne()"/>
+		<field name="projectTaskStatusSet" expr="eval: __config__.app.getApp('project').getDefaultTaskStatusSet()"/>
+		<field name="projectTaskPrioritySet" expr="eval: __config__.app.getApp('project').getDefaultPrioritySet()"/>
 	</action-record>
 	
 	<action-validate name="action-wizard-validate-user-select">

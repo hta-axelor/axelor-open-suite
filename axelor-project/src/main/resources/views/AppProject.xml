@@ -7,6 +7,8 @@
 		<panel name="mainPanel">
 			<field name="projectLabel"/>
 			<field name="resourceManagement" widget="boolean-switch" />
+			<field name="defaultTaskStatusSet" widget="TagSelect" domain="self.relatedToSelect = 2"/>
+			<field name="defaultPrioritySet" widget="TagSelect"/>
 			<field name="isEnableSignature" widget="boolean-switch" />
 			<panel title="Custom fields" name="customFieldConfigPanel" colSpan="12">
 				<panel-related field="taskCustomFieldsList" colSpan="6" form-view="project-task-meta-json-field-form" grid-view="project-meta-json-field-grid"/>

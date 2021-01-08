@@ -33,6 +33,7 @@ import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.apps.project.db.repo.ProjectStatusRepository;
 import com.axelor.apps.project.service.ProjectService;
 import com.axelor.apps.project.service.ProjectServiceImpl;
+import com.axelor.apps.project.service.app.AppProjectService;
 import com.axelor.apps.sale.db.SaleOrder;
 import com.axelor.apps.sale.db.SaleOrderLine;
 import com.axelor.apps.sale.db.repo.SaleOrderRepository;
@@ -59,10 +60,11 @@ public class ProjectBusinessServiceImpl extends ProjectServiceImpl
   public ProjectBusinessServiceImpl(
       ProjectRepository projectRepository,
       ProjectStatusRepository projectStatusRepository,
+      AppProjectService appProjectService,
       PartnerService partnerService,
       AddressService addressService,
       AppBusinessProjectService appBusinessProjectService) {
-    super(projectRepository, projectStatusRepository);
+    super(projectRepository, projectStatusRepository, appProjectService);
     this.partnerService = partnerService;
     this.addressService = addressService;
     this.appBusinessProjectService = appBusinessProjectService;

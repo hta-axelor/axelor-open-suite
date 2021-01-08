@@ -29,6 +29,7 @@ import com.axelor.apps.project.db.Wiki;
 import com.axelor.apps.project.db.repo.ProjectRepository;
 import com.axelor.apps.project.db.repo.ProjectStatusRepository;
 import com.axelor.apps.project.db.repo.WikiRepository;
+import com.axelor.apps.project.service.app.AppProjectService;
 import com.axelor.apps.project.translation.ITranslation;
 import com.axelor.auth.AuthUtils;
 import com.axelor.auth.db.User;
@@ -54,13 +55,17 @@ public class ProjectServiceImpl implements ProjectService {
   public static final int MAX_LEVEL_OF_PROJECT = 10;
 
   protected ProjectRepository projectRepository;
-  private ProjectStatusRepository projectStatusRepository;
+  protected ProjectStatusRepository projectStatusRepository;
+  protected AppProjectService appProjectService;
 
   @Inject
   public ProjectServiceImpl(
-      ProjectRepository projectRepository, ProjectStatusRepository projectStatusRepository) {
+      ProjectRepository projectRepository,
+      ProjectStatusRepository projectStatusRepository,
+      AppProjectService appProjectService) {
     this.projectRepository = projectRepository;
     this.projectStatusRepository = projectStatusRepository;
+    this.appProjectService = appProjectService;
   }
 
   @Inject WikiRepository wikiRepo;
@@ -91,6 +96,10 @@ public class ProjectServiceImpl implements ProjectService {
     project.setClientPartner(clientPartner);
     project.setAssignedTo(assignedTo);
     project.setProjectStatus(getDefaultProjectStatus());
+    project.setProjectTaskStatusSet(
+        new HashSet<>(appProjectService.getAppProject().getDefaultTaskStatusSet()));
+    project.setProjectTaskPrioritySet(
+        new HashSet<>(appProjectService.getAppProject().getDefaultPrioritySet()));
     return project;
   }
 
