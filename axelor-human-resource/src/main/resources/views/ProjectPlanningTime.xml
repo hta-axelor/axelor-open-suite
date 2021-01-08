@@ -67,6 +67,7 @@
 		<context name="_projectTask" expr="eval:__self__" if="_model == 'com.axelor.apps.project.db.ProjectTask'"/>
 		<context name="_project" expr="eval:__self__.project" if="_model == 'com.axelor.apps.project.db.ProjectTask'"/>
 		<context name="_project" expr="eval:__self__" if="_model == 'com.axelor.apps.project.db.Project'"/>
+		<context name="_user" expr="eval:assignedTo" if="_model == 'com.axelor.apps.project.db.ProjectTask'"/>
 	</action-view>
 	
 	<action-view name="action-project-dashlet-project-planning-time" title="Planned Time Planning" model="com.axelor.apps.project.db.ProjectPlanningTime">
