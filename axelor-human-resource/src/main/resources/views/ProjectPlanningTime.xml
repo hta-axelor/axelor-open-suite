@@ -96,7 +96,7 @@
 	<action-attrs name="action-project-planning-time-attrs-project-domain">
 	   <attribute name="domain" expr="eval:&quot;self.employee != null and self.id in (${([0]+__repo__(Project).find(project.id).membersUserSet.collect{it->it.id}).join(',')})&quot;" 
 	   for="userSet,user" if="project != null"/>
-	   <attribute name="domain" expr="eval:&quot;self.employee != null and self.id in (${([0]+__repo__(Project).all().filter('self.statusSelect in (1,2)').fetch().collect{it->it.membersUserSet.id}.flatten()).join(',')})&quot;" 
+	   <attribute name="domain" expr="eval:&quot;self.employee != null and self.id in (${([0]+__repo__(Project).all().filter('self.projectStatus.isCompleted = false').fetch().collect{it->it.membersUserSet.id}.flatten()).join(',')})&quot;" 
 	   for="userSet" if="project == null"/>
 	</action-attrs>
 	
