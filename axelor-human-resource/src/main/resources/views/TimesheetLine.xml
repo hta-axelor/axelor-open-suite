@@ -61,7 +61,7 @@
 		<field name="toInvoice"/>
 		<field name="enableEditor"/>
 		<field name="comments" />
-		<field name="timesheet.statusSelect"/>
+		<field name="timesheet.statusSelect" if="__config__.app.getApp('timesheet').needValidation"/>
 	</grid>
 
 	<grid name="timesheet-line-timesheet-project-grid" title="Timesheet Lines" model="com.axelor.apps.hr.db.TimesheetLine" editable="true" 
@@ -143,7 +143,7 @@
 			<field name="timesheet.company"/>
 			<field name="timesheet" grid-view="timesheet-grid" form-view="timesheet-form"/>
 			<field name="timesheet.user"/>
-			<field name="timesheet.statusSelect"/>
+			<field name="timesheet.statusSelect" if="__config__.app.getApp('timesheet').needValidation"/>
 		</panel>
 		<panel-include view="timesheet-line-timesheet-form"/>
 	</form>
