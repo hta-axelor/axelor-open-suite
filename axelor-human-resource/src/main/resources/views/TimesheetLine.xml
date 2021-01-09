@@ -207,7 +207,7 @@
 	</action-attrs>
 	
 	<action-attrs name="action-timesheet-line-attrs-domain-project-task">
-		<attribute name="domain" for="projectTask" expr="eval: &quot; self.project.id = ${project?.id} &quot;"/>
+		<attribute name="domain" for="projectTask" expr="eval: &quot; self.project.id = ${project?.id} AND self.project.isShowTimeSpent = true &quot;"/>
 	</action-attrs>
 	
 	<action-attrs name="action-timesheet-line-attrs-title-project">
