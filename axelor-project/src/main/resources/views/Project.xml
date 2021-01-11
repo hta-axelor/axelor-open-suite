@@ -161,9 +161,9 @@
 			</panel>
 			
 			<panel title="Log Times" name="logTimesPanel"
-				 if="__config__.app.isApp('timesheet')" if-module="axelor-human-resource">
+				 if="__config__.app.isApp('timesheet')" if-module="axelor-human-resource" showIf="isShowTimeSpent">
 				<field name="timeSpent" title="Time Spent" readonly="true"
-					colSpan="3" showIf="isShowTimeSpent"/>
+					colSpan="3"/>
 				<panel-dashlet name="validatedTimesheetsPanel" if="__config__.app.getApp('timesheet').needValidation" action="action-project-dashlet-validated-timesheet-lines" title="Validated Timesheet lines" colSpan="12" canSearch="true"/>
 				<panel-dashlet name="waitingTimesheetLinesPanel" if="__config__.app.getApp('timesheet').needValidation" action="action-project-dashlet-project-waiting-timesheet-lines" title="Waiting Timesheet lines" colSpan="12" canSearch="true"/>
 				<panel-dashlet name="allTimesheetsLinesPanel" if="!__config__.app.getApp('timesheet').needValidation" action="action-project-dashlet-project-all-timesheet-lines" title="TimesheetLine.timeSpent" colSpan="12" canSearch="true"/>
